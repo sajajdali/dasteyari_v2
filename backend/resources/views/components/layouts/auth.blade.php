@@ -9,6 +9,7 @@
     <style>
         *{box-sizing:border-box}
         body{margin:0;font-family:Vazirmatn,system-ui,sans-serif;background:#fff;color:#23262B;-webkit-font-smoothing:antialiased}
+        input,button,select,textarea{font-family:inherit}
         input:focus,button:focus{outline:none}
         a{color:#F4511E;text-decoration:none}
         @media (max-width:720px){

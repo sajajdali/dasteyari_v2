@@ -1,6 +1,12 @@
 /* دست یاری — قواعد ریسپانسیو مشترک همه صفحات. آخرین استایل لود شده. */
 [x-cloak] { display: none !important; }
 
+/* input/button/select/textarea فونت body را ارث نمی‌برند مگر صریح inherit شود
+   (رفتار پیش‌فرض مرورگرهاست) — بدون این خط، تب‌ها/دکمه‌ها/placeholder با فونت
+   سیستم رندر می‌شوند نه Vazirmatn. این‌جا سراسری تعریف شده تا هر لایوت/صفحه‌ای
+   (حتی اگر در style داخلی خودش هم این خط را نداشته باشد) درست باشد. */
+input, button, select, textarea { font-family: inherit; }
+
 /* Alpine x-show فقط display:none را روی خود عنصر ست/حذف می‌کند و مقدار غیر-block (flex/grid)
    نوشته‌شده در همان style inline را برنمی‌گرداند؛ برای همین روی هر عنصر x-show که باید flex/grid
    باشد، آن یک خط از استایل inline در می‌آید و این کلاس‌ها جایگزین می‌شوند. */

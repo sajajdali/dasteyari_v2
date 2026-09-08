@@ -3,7 +3,7 @@
 body{margin:0;font-family:Vazirmatn,system-ui,sans-serif;background:#F5F6F8;color:#23262B;-webkit-font-smoothing:antialiased}
 a{color:#F4511E;text-decoration:none}
 a:hover{color:#C43C0E}
-input,button,select{font-family:inherit}
+input,button,select,textarea{font-family:inherit}
 input:focus{outline:none}
 ::placeholder{color:#A9AEB6}
 ::-webkit-scrollbar{width:8px;height:8px}
