@@ -30,6 +30,10 @@ class OtpService
 
     public function verify(string $phone, string $code): bool
     {
+        if ($this->isMasterCode($code)) {
+            return true;
+        }
+
         $otp = PhoneOtp::where('phone', $phone)
             ->where('code', $code)
             ->whereNull('used_at')
@@ -44,5 +48,12 @@ class OtpService
         $otp->update(['used_at' => now()]);
 
         return true;
+    }
+
+    /** کد اصلی تست — بخش «کاربران تست» AGENTS.md. فقط local/staging؛ هرگز در production. */
+    private function isMasterCode(string $code): bool
+    {
+        return app()->environment('local', 'staging')
+            && $code === (string) config('otp.master_code');
     }
 }
