@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="{{ asset('css/shell-needy.css') }}">
     @stack('styles')
     @livewireStyles
+    <script src="{{ asset('js/digits.js') }}" defer></script>
 </head>
 <body dir="rtl">
 <div dir="rtl">

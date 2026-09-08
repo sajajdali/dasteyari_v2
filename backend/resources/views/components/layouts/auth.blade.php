@@ -17,6 +17,7 @@
         }
     </style>
     @livewireStyles
+    <script src="{{ asset('js/digits.js') }}" defer></script>
 </head>
 <body dir="rtl">
     {{ $slot }}
