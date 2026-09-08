@@ -158,12 +158,11 @@ new class extends Component
                 <p style="margin:0;font-size:14.5px;line-height:2;color:#787F88">کد چهار رقمی به شماره <b style="color:#23262B" dir="ltr" x-text="currentCountry().dial + ' ' + phone"></b> ارسال شد. <span @click="step = 'phone'; resetDigits()" style="color:#F4511E;font-weight:700;cursor:pointer">ویرایش شماره</span></p>
             </div>
 
-            <div style="display:flex;gap:12px;direction:ltr;align-self:center">
+            <div x-ref="digitsRow" style="display:flex;gap:12px;direction:ltr;align-self:center">
                 <template x-for="(d, i) in digits" :key="i">
                     <input
                         type="text" inputmode="numeric" maxlength="1"
                         x-model="digits[i]"
-                        :ref="'digit' + i"
                         @input="onDigit(i, $event)"
                         @keydown.backspace="onBackspace(i, $event)"
                         :style="'width:68px;height:76px;text-align:center;font-size:28px;font-weight:800;border-radius:16px;background:#FBFBFC;transition:all .12s;border:2px solid ' + (error ? '#E5484D' : ok ? '#1E9E6A' : digits[i] ? '#F4511E' : '#E3E6EA')"
@@ -379,6 +378,13 @@ Alpine.data('donorAuth', (cfg) => ({
         return fa(mm + ':' + ss);
     },
 
+    /** x-ref روی حلقه‌ای که با x-for ساخته می‌شود کار نمی‌کند؛ به‌جایش از سیبلینگ‌های واقعی DOM استفاده می‌شود. */
+    focusDigit(i) {
+        const row = this.$refs.digitsRow;
+        const el = row && row.querySelectorAll('input')[i];
+        if (el) el.focus();
+    },
+
     async sendCode() {
         this.error = null;
         this.sending = true;
@@ -388,26 +394,26 @@ Alpine.data('donorAuth', (cfg) => ({
         this.step = 'code';
         this.resetDigits();
         this.startTimer();
-        this.$nextTick(() => this.$refs.digit0 && this.$refs.digit0.focus());
+        this.$nextTick(() => this.focusDigit(0));
     },
 
     async resend() {
         this.resetDigits();
         await this.$wire.sendCode(this.country, this.phone);
         this.startTimer();
-        this.$nextTick(() => this.$refs.digit0 && this.$refs.digit0.focus());
+        this.$nextTick(() => this.focusDigit(0));
     },
 
     onDigit(i, e) {
         const ch = (e.target.value || '').slice(-1);
         this.digits[i] = ch;
         this.error = null;
-        if (ch && i < 3) this.$refs['digit' + (i + 1)].focus();
+        if (ch && i < 3) this.focusDigit(i + 1);
         if (i === 3 && this.digits.every(d => d !== '')) this.check();
     },
 
     onBackspace(i, e) {
-        if (!this.digits[i] && i > 0) this.$refs['digit' + (i - 1)].focus();
+        if (!this.digits[i] && i > 0) this.focusDigit(i - 1);
     },
 
     async check() {
@@ -416,7 +422,7 @@ Alpine.data('donorAuth', (cfg) => ({
         if (!res.ok) {
             this.error = res.error;
             this.digits = ['', '', '', ''];
-            this.$nextTick(() => this.$refs.digit0 && this.$refs.digit0.focus());
+            this.$nextTick(() => this.focusDigit(0));
             return;
         }
         clearInterval(this.timer);
