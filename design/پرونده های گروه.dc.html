@@ -1,0 +1,683 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/rastikerdar/vazirmatn@v33.003/Vazirmatn-font-face.css">
+<script src="./image-slot.js"></script>
+<script src="./settings-store.js"></script>
+<style>
+  *{box-sizing:border-box}
+  body{margin:0;font-family:Vazirmatn,system-ui,sans-serif;background:#fff;color:#191C21;-webkit-font-smoothing:antialiased}
+  a{color:#F4511E;text-decoration:none}
+  a:hover{color:#C43C0E}
+  button,select,input{font-family:inherit}
+  ::-webkit-scrollbar{width:9px;height:9px}
+  ::-webkit-scrollbar-thumb{background:#D8DBE0;border-radius:8px}
+  @media (max-width:900px){
+    div[style*="min-width: 1000px"],div[style*="min-width: 900px"],div[style*="min-width: 820px"],div[style*="min-width: 760px"],div[style*="min-width: 700px"],div[style*="min-width: 640px"]{min-width:0 !important}
+    div[style*="grid-template-columns: 1.6fr 1fr"],div[style*="grid-template-columns: 1.5fr 1fr"],div[style*="grid-template-columns: 1.4fr 1fr"],div[style*="grid-template-columns: 1.3fr 1fr"],div[style*="grid-template-columns: 1.2fr 1fr"],div[style*="grid-template-columns: 2fr 1fr"],div[style*="grid-template-columns: 1fr 380px"],div[style*="grid-template-columns: 1fr 340px"],div[style*="grid-template-columns: 1fr 320px"],div[style*="grid-template-columns: 1fr 300px"],div[style*="grid-template-columns: 300px"],div[style*="grid-template-columns: 280px"],div[style*="grid-template-columns: 260px"]{grid-template-columns:minmax(0,1fr) !important}
+    div[style*="repeat(4, 1fr)"],div[style*="repeat(3, 1fr)"]{grid-template-columns:repeat(auto-fit,minmax(min(100%,150px),1fr)) !important}
+    div[style*="minmax(190px"],div[style*="minmax(180px"],div[style*="minmax(150px"],div[style*="minmax(130px"]{grid-template-columns:repeat(auto-fit,minmax(min(100%,145px),1fr)) !important}
+  }
+  .om-gf-mob{display:none}
+  @media (max-width:900px){
+    .om-gf-desk{display:none !important}
+    .om-gf-mob{display:flex !important}
+  }
+  @media (max-width:560px){
+    div[style*="padding: 26px"],div[style*="padding: 24px"],div[style*="padding: 22px"]{padding:16px !important}
+    h1{font-size:clamp(24px,7vw,32px) !important}
+  }
+</style>
+<link rel="stylesheet" href="./responsive.css" />
+</helmet>
+<x-import component-from-global-scope="mobile-preview" from="./mobile-preview.js" hint-size="0,0"></x-import>
+
+<div dir="rtl">
+
+  <dc-import name="SiteHeader" active="groups" style="position:sticky;top:0;z-index:50" hint-size="100%,114px"></dc-import>
+  <div style="display:none">
+    <div style="background:#15181D;color:#fff">
+      <div style="max-width:1240px;margin-inline:auto;padding:8px clamp(14px,3vw,24px);min-height:42px;display:flex;align-items:center;flex-wrap:wrap;gap:16px">
+        <a href="tel:02191002233" style="display:flex;align-items:center;gap:8px;color:#fff;font-size:12.5px;font-weight:700"><span style="color:#FF7A45">✆</span>۰۲۱-۹۱۰۰۲۲۳۳</a>
+        <span style="font-size:12px;color:rgba(255,255,255,.45)">سامانه کمک به نیازمندان</span>
+        <div style="margin-inline-start:auto;display:flex;align-items:center;gap:8px;flex-wrap:wrap">
+          <a href="ورود خیرین دست یاری.dc.html" style="height:32px;padding:0 13px;border-radius:10px;border:1px solid rgba(255,255,255,.2);display:flex;align-items:center;gap:7px;color:#fff;font-size:12px;font-weight:700">ورود خیرین</a>
+          <a href="پروندهها.dc.html" style="height:32px;padding:0 13px;border-radius:10px;background:#F4511E;color:#fff;font-size:12px;font-weight:800;display:flex;align-items:center;gap:6px">ثبت کمک</a>
+        </div>
+      </div>
+    </div>
+    <div style="max-width:1240px;margin-inline:auto;padding:10px clamp(14px,3vw,24px);min-height:68px;display:flex;align-items:center;flex-wrap:wrap;gap:12px">
+      <a href="سایت دست یاری.dc.html" style="display:flex;align-items:center;gap:12px">
+        <img src="assets/logo-t.png" alt="دست یاری" style="height:clamp(52px,7vw,76px);width:auto;object-fit:contain;display:block" />
+      </a>
+      <nav style="display:flex;gap:2px;flex-wrap:wrap;margin-inline-start:12px">
+        <a href="پروندهها.dc.html" style="display:flex;align-items:center;padding:10px 13px;border-radius:11px;font-size:13.5px;font-weight:700;white-space:nowrap;color:#4E555E">همه پرونده‌ها</a>
+        <span style="display:flex;align-items:center;padding:10px 13px;border-radius:11px;font-size:13.5px;font-weight:800;white-space:nowrap;background:#FEF1EC;color:#D8420F">گروه‌های کمک</span>
+        <a href="درباره ما.dc.html" style="display:flex;align-items:center;padding:10px 13px;border-radius:11px;font-size:13.5px;font-weight:700;white-space:nowrap;color:#4E555E">درباره ما</a>
+        <a href="سایت دست یاری.dc.html#news" style="display:flex;align-items:center;padding:10px 13px;border-radius:11px;font-size:13.5px;font-weight:700;white-space:nowrap;color:#4E555E">اخبار</a>
+      </nav>
+      <div style="margin-inline-start:auto;display:flex;align-items:center;gap:10px;flex-wrap:wrap">
+        <a href="پنل خیرین دست یاری.dc.html" style="height:44px;padding:0 15px;border:1.5px solid #E3E6EA;border-radius:13px;display:flex;align-items:center;font-size:13.5px;font-weight:700;color:#23262B;white-space:nowrap">پنل خیرین</a>
+        <span onClick="{{ openGroupDonate }}" style="height:44px;padding:0 20px;border-radius:13px;display:flex;align-items:center;gap:8px;background:#F4511E;color:#fff;font-size:14px;font-weight:800;white-space:nowrap;cursor:pointer">کمک به این گروه</span>
+      </div>
+    </div>
+  </div>
+
+  <sc-if value="{{ showChooser }}" hint-placeholder-val="{{ true }}">
+    <section id="om-gchooser" style="background:#fff;border-bottom:1px solid #EFF0F2">
+      <div style="max-width:1240px;margin-inline:auto;padding:clamp(22px,3.2vw,34px) clamp(14px,3vw,24px);display:flex;flex-direction:column;gap:18px">
+        <div style="display:flex;gap:14px;flex-wrap:wrap;align-items:flex-end">
+          <div style="display:flex;flex-direction:column;gap:7px;flex:1 1 320px">
+            <span style="font-size:11.5px;font-weight:800;color:#D8420F;letter-spacing:.4px">قدم اول</span>
+            <span style="font-size:clamp(19px,2.6vw,26px);font-weight:800;letter-spacing:-.6px">می‌خواهید به کدام گروه کمک کنید؟</span>
+          </div>
+          <span style="font-size:12.5px;color:#8A9099;line-height:2;max-width:340px">یک گروه را انتخاب کنید تا پرونده‌های تأییدشده همان گروه نمایش داده شود.</span>
+        </div>
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,214px),1fr));gap:12px">
+          <sc-for list="{{ groupCards }}" as="g" hint-placeholder-count="7">
+            <div onClick="{{ g.onClick }}" style="{{ g.cardStyle }}" style-hover="transform:translateY(-3px);box-shadow:0 20px 36px -24px rgba(20,22,26,.4)">
+              <div style="display:flex;align-items:center;gap:11px">
+                <span style="{{ g.iconStyle }}">{{ g.icon }}</span>
+                <span style="{{ g.markStyle }}">{{ g.mark }}</span>
+              </div>
+              <span style="{{ g.titleStyle }}">{{ g.title }}</span>
+              <div style="display:flex;align-items:center;gap:8px;margin-top:auto">
+                <span style="{{ g.pillStyle }}">{{ g.count }} پرونده باز</span>
+                <span style="{{ g.arrowStyle }}">←</span>
+              </div>
+            </div>
+          </sc-for>
+        </div>
+      </div>
+    </section>
+  </sc-if>
+
+  <sc-if value="{{ showAsk }}" hint-placeholder-val="{{ false }}">
+    <section style="background:#15181D;color:#fff;min-height:calc(100vh - 120px)">
+      <div style="padding:clamp(24px,6vw,40px) 16px 40px;display:flex;flex-direction:column;gap:22px">
+        <div style="display:flex;flex-direction:column;gap:10px">
+          <span style="font-size:11.5px;font-weight:800;color:#FF7A45;letter-spacing:.4px">قدم ۱ از ۲</span>
+          <span style="font-size:clamp(23px,7.5vw,30px);font-weight:800;letter-spacing:-.8px;line-height:1.5">می‌خواهید به کدام گروه کمک کنید؟</span>
+          <span style="font-size:13.5px;color:rgba(255,255,255,.6);line-height:2.1;text-wrap:pretty">یکی را انتخاب کنید؛ بعد پرونده‌های تأییدشده همان گروه را با فیلتر شهر و فوریت می‌بینید.</span>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:10px">
+          <sc-for list="{{ askCards }}" as="g" hint-placeholder-count="7">
+            <div onClick="{{ g.onClick }}" style="display:flex;align-items:center;gap:13px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.13);border-radius:18px;padding:14px 15px;cursor:pointer">
+              <span style="flex:0 0 44px;width:44px;height:44px;border-radius:14px;background:rgba(244,81,30,.16);color:#FF8A55;display:flex;align-items:center;justify-content:center;font-size:19px">{{ g.icon }}</span>
+              <div style="display:flex;flex-direction:column;gap:4px;min-width:0;flex:1">
+                <span style="font-size:15px;font-weight:800;line-height:1.5">{{ g.title }}</span>
+                <span style="font-size:11.5px;color:rgba(255,255,255,.5)">{{ g.count }} پرونده باز — {{ g.hint }}</span>
+              </div>
+              <span style="color:rgba(255,255,255,.4);font-size:16px">←</span>
+            </div>
+          </sc-for>
+        </div>
+        <div onClick="{{ skipAsk }}" style="align-self:center;font-size:13px;font-weight:700;color:rgba(255,255,255,.55);border-bottom:1px dashed rgba(255,255,255,.3);padding-bottom:3px;cursor:pointer">فرقی نمی‌کند، فوری‌ترین‌ها را نشانم بده</div>
+      </div>
+    </section>
+  </sc-if>
+
+  <sc-if value="{{ showMiniBar }}" hint-placeholder-val="{{ false }}">
+    <div style="{{ miniBarStyle }}">
+      <div style="max-width:1240px;margin-inline:auto;padding:8px clamp(14px,3vw,24px);display:flex;align-items:center;gap:10px">
+        <span style="font-size:11.5px;font-weight:800;color:#9AA0A8;white-space:nowrap">گروه کمک</span>
+        <div style="display:flex;gap:6px;overflow-x:auto;flex:1;min-width:0">
+          <sc-for list="{{ miniChips }}" as="g" hint-placeholder-count="7">
+            <span onClick="{{ g.onClick }}" style="{{ g.style }}">{{ g.icon }} {{ g.title }}</span>
+          </sc-for>
+        </div>
+        <span onClick="{{ scrollTop }}" style="flex:0 0 34px;width:34px;height:34px;border:1px solid #EDEEF1;border-radius:11px;display:flex;align-items:center;justify-content:center;color:#8A9099;font-size:13px;cursor:pointer">↑</span>
+      </div>
+    </div>
+  </sc-if>
+
+  <sc-if value="{{ showContent }}" hint-placeholder-val="{{ true }}">
+
+  <sc-if value="{{ showChangeBar }}" hint-placeholder-val="{{ false }}">
+    <div style="background:#fff;border-bottom:1px solid #EFF0F2;padding:10px 14px;display:flex;align-items:center;gap:10px">
+      <span style="flex:0 0 36px;width:36px;height:36px;border-radius:12px;background:#FEF1EC;color:#D8420F;display:flex;align-items:center;justify-content:center;font-size:16px">{{ group.icon }}</span>
+      <div style="display:flex;flex-direction:column;gap:2px;min-width:0;flex:1">
+        <span style="font-size:11px;color:#9AA0A8">گروه انتخاب‌شده</span>
+        <span style="font-size:13.5px;font-weight:800;overflow-wrap:anywhere">{{ group.title }}</span>
+      </div>
+      <span onClick="{{ changeGroup }}" style="height:38px;padding:0 14px;border:1.5px solid #E3E6EA;border-radius:12px;display:flex;align-items:center;font-size:12.5px;font-weight:800;color:#23262B;cursor:pointer;white-space:nowrap">تغییر گروه</span>
+    </div>
+  </sc-if>
+
+  <section style="background:#15181D;color:#fff">
+    <div style="max-width:1240px;margin-inline:auto;padding:clamp(26px,4.5vw,44px) clamp(14px,3vw,24px);display:flex;flex-direction:column;gap:20px">
+      <div style="display:flex;gap:8px;align-items:center;font-size:12.5px;color:rgba(255,255,255,.5);flex-wrap:wrap">
+        <a href="سایت دست یاری.dc.html" style="color:rgba(255,255,255,.5)">خانه</a><span>/</span>
+        <a href="پروندهها.dc.html" style="color:rgba(255,255,255,.5)">پرونده‌ها</a><span>/</span>
+        <span style="color:#fff">{{ group.title }}</span>
+      </div>
+      <div style="display:flex;gap:26px;flex-wrap:wrap;align-items:flex-end">
+        <div style="display:flex;flex-direction:column;gap:12px;flex:1 1 380px">
+          <div style="display:flex;align-items:center;gap:12px">
+            <div style="flex:0 0 52px;width:52px;height:52px;border-radius:16px;background:rgba(255,255,255,.09);border:1px solid rgba(255,255,255,.14);display:flex;align-items:center;justify-content:center;font-size:22px">{{ group.icon }}</div>
+            <h1 style="margin:0;font-size:clamp(23px,3.6vw,38px);font-weight:800;letter-spacing:-.8px">{{ group.title }}</h1>
+          </div>
+          <p style="margin:0;font-size:14.5px;color:rgba(255,255,255,.65);line-height:2.1;max-width:620px;text-wrap:pretty">{{ group.desc }}</p>
+        </div>
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,124px),1fr));gap:10px;flex:1 1 320px">
+          <sc-for list="{{ group.stats }}" as="s" hint-placeholder-count="3">
+            <div style="background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12);border-radius:16px;padding:14px 16px;display:flex;flex-direction:column;gap:5px">
+              <span style="font-size:19px;font-weight:800">{{ s.num }}</span>
+              <span style="font-size:11.5px;color:rgba(255,255,255,.55)">{{ s.label }}</span>
+            </div>
+          </sc-for>
+        </div>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:9px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.11);border-radius:18px;padding:16px 18px">
+        <div style="display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;font-size:12.5px;color:rgba(255,255,255,.6)">
+          <span>پیشرفت جمع‌آوری این گروه در مرداد ۱۴۰۵</span>
+          <span style="white-space:nowrap"><b style="color:#fff;font-size:14px">{{ group.raised }}</b> از {{ group.goal }}</span>
+        </div>
+        <div style="height:10px;background:rgba(255,255,255,.12);border-radius:7px;overflow:hidden"><span style="{{ group.barStyle }}"></span></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="om-glist" style="background:#FAFAFB">
+    <div style="max-width:1240px;margin-inline:auto;padding:clamp(20px,3vw,32px) clamp(14px,3vw,24px);display:flex;flex-direction:column;gap:18px">
+
+      <div class="om-gf-mob" style="flex-direction:column;gap:10px">
+        <div onClick="{{ toggleF }}" style="display:flex;align-items:center;gap:9px;background:#fff;border:1px solid #EFF0F2;border-radius:15px;padding:0 14px;height:52px;cursor:pointer">
+          <span style="font-size:15px;color:#D8420F">⚙</span>
+          <span style="font-size:14px;font-weight:800">جست‌وجو و فیلترها</span>
+          <sc-if value="{{ hasF }}" hint-placeholder-val="{{ false }}">
+            <span style="font-size:11.5px;font-weight:800;background:#FEF1EC;color:#D8420F;padding:3px 9px;border-radius:20px">{{ activeFCount }}</span>
+          </sc-if>
+          <span style="margin-inline-start:auto;font-size:13px;color:#9AA0A8">{{ fCaret }}</span>
+        </div>
+        <sc-if value="{{ fOpen }}" hint-placeholder-val="{{ false }}">
+          <div style="background:#fff;border:1px solid #EFF0F2;border-radius:18px;padding:16px;display:flex;flex-direction:column;gap:16px">
+            <div style="position:relative;display:flex">
+              <input type="text" value="{{ q }}" onChange="{{ onSearch }}" placeholder="عنوان، کد پرونده یا شهر…" style="height:46px;flex:1;min-width:0;border:1.5px solid #E3E6EA;border-radius:12px;padding:0 40px 0 12px;font-size:13.5px" />
+              <span style="position:absolute;right:13px;top:0;height:46px;display:flex;align-items:center;color:#A9AEB6">⌕</span>
+            </div>
+            <div style="display:flex;flex-direction:column;gap:9px">
+              <span style="font-size:12.5px;font-weight:800;color:#5A6169">فوریت</span>
+              <div style="display:flex;gap:7px;flex-wrap:wrap">
+                <sc-for list="{{ urgencyChips }}" as="u" hint-placeholder-count="3">
+                  <button onClick="{{ u.onClick }}" style="{{ u.style }}">{{ u.label }}</button>
+                </sc-for>
+              </div>
+            </div>
+            <div style="display:flex;flex-direction:column;gap:9px">
+              <span style="font-size:12.5px;font-weight:800;color:#5A6169">شهر</span>
+              <select value="{{ city }}" onChange="{{ onCity }}" style="height:46px;width:100%;border:1.5px solid #E3E6EA;border-radius:12px;padding:0 12px;font-size:13.5px;background:#fff;font-weight:700;color:#23262B">
+                <sc-for list="{{ cityOptions }}" as="c" hint-placeholder-count="5">
+                  <option value="{{ c }}">{{ c }}</option>
+                </sc-for>
+              </select>
+            </div>
+            <div style="display:flex;flex-direction:column;gap:9px">
+              <span style="font-size:12.5px;font-weight:800;color:#5A6169">مرتب‌سازی</span>
+              <select value="{{ sort }}" onChange="{{ onSort }}" style="height:46px;width:100%;border:1.5px solid #E3E6EA;border-radius:12px;padding:0 12px;font-size:13.5px;background:#fff;font-weight:700;color:#23262B">
+                <sc-for list="{{ sortOptions }}" as="s" hint-placeholder-count="4">
+                  <option value="{{ s }}">{{ s }}</option>
+                </sc-for>
+              </select>
+            </div>
+            <div style="display:flex;gap:9px">
+              <button onClick="{{ closeF }}" style="flex:1;height:48px;border:0;border-radius:13px;background:#F4511E;color:#fff;font-size:14px;font-weight:800;cursor:pointer">نمایش {{ resultCount }} پرونده</button>
+              <button onClick="{{ resetFilters }}" style="height:48px;padding:0 16px;border:1.5px solid #E3E6EA;border-radius:13px;background:#fff;color:#23262B;font-size:13px;font-weight:700;cursor:pointer;white-space:nowrap">پاک کردن</button>
+            </div>
+          </div>
+        </sc-if>
+      </div>
+
+      <div class="om-gf-desk" style="background:#fff;border:1px solid #EFF0F2;border-radius:20px;padding:14px 16px;display:flex;gap:12px;flex-wrap:wrap;align-items:center">
+        <div style="position:relative;flex:1 1 240px;display:flex">
+          <input type="text" value="{{ q }}" onChange="{{ onSearch }}" placeholder="جست‌وجو در عنوان، کد پرونده یا شهر…" style="height:48px;flex:1;min-width:0;border:1.5px solid #E3E6EA;border-radius:13px;padding:0 42px 0 14px;font-size:13.5px" />
+          <span style="position:absolute;right:14px;top:0;height:48px;display:flex;align-items:center;color:#A9AEB6">⌕</span>
+        </div>
+        <select value="{{ city }}" onChange="{{ onCity }}" style="height:48px;border:1.5px solid #E3E6EA;border-radius:13px;padding:0 12px;font-size:13.5px;background:#fff;font-weight:700;color:#23262B">
+          <sc-for list="{{ cityOptions }}" as="c" hint-placeholder-count="5">
+            <option value="{{ c }}">{{ c }}</option>
+          </sc-for>
+        </select>
+        <select value="{{ sort }}" onChange="{{ onSort }}" style="height:48px;border:1.5px solid #E3E6EA;border-radius:13px;padding:0 12px;font-size:13.5px;background:#fff;font-weight:700;color:#23262B">
+          <sc-for list="{{ sortOptions }}" as="s" hint-placeholder-count="4">
+            <option value="{{ s }}">{{ s }}</option>
+          </sc-for>
+        </select>
+        <div style="display:flex;gap:7px;margin-inline-start:auto;flex-wrap:wrap">
+          <sc-for list="{{ urgencyChips }}" as="u" hint-placeholder-count="3">
+            <button onClick="{{ u.onClick }}" style="{{ u.style }}">{{ u.label }}</button>
+          </sc-for>
+        </div>
+      </div>
+
+      <div style="display:flex;gap:12px;flex-wrap:wrap;align-items:center">
+        <span style="font-size:13.5px;color:#5A6169"><b style="color:#191C21">{{ resultCount }}</b> پرونده در گروه {{ group.title }}</span>
+        <button onClick="{{ resetFilters }}" style="height:34px;padding:0 12px;border:1px solid #E3E6EA;border-radius:10px;background:#fff;color:#6B7280;font-size:12px;font-weight:700;cursor:pointer">پاک کردن فیلترها</button>
+      </div>
+
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr));gap:clamp(14px,2.2vw,18px)">
+        <sc-for list="{{ cases }}" as="c" hint-placeholder-count="6">
+          <div style="background:#fff;border:1px solid #EFF0F2;border-radius:22px;overflow:hidden;display:flex;flex-direction:column">
+            <div style="position:relative;height:172px;background:#F2F3F5;border-bottom:1px solid #EFF0F2">
+              <image-slot id="{{ c.slotId }}" shape="rect" fit="cover" placeholder="عکس پرونده"></image-slot>
+              <span style="{{ c.urgencyStyle }}">{{ c.urgencyLabel }}</span>
+              <span style="position:absolute;bottom:12px;right:12px;background:rgba(21,24,29,.78);color:#fff;font-size:11.5px;font-weight:700;padding:5px 10px;border-radius:9px;pointer-events:none">{{ c.code }}</span>
+            </div>
+            <div style="padding:18px;display:flex;flex-direction:column;gap:12px;flex:1">
+              <span style="font-size:15.5px;font-weight:800;line-height:1.8;letter-spacing:-.3px">{{ c.title }}</span>
+              <div style="display:flex;gap:8px;flex-wrap:wrap;font-size:11.5px;color:#8A9099">
+                <span>{{ c.city }}</span><span>•</span><span>{{ c.family }}</span><span>•</span><span>مهلت {{ c.deadline }}</span>
+              </div>
+              <p style="margin:0;font-size:13px;color:#5A6169;line-height:2.1;text-wrap:pretty">{{ c.story }}</p>
+              <div style="margin-top:auto;display:flex;flex-direction:column;gap:9px">
+                <div style="height:8px;background:#F2F3F5;border-radius:6px;overflow:hidden"><span style="{{ c.barStyle }}"></span></div>
+                <div style="display:flex;justify-content:space-between;gap:8px;flex-wrap:wrap;font-size:12px;color:#9AA0A8">
+                  <span style="white-space:nowrap"><b style="color:#191C21;font-size:13.5px">{{ c.raised }}</b> از {{ c.goal }}</span>
+                  <span style="white-space:nowrap">مانده {{ c.left }}</span>
+                </div>
+                <div style="display:flex;gap:9px;flex-wrap:wrap;padding-top:4px">
+                  <button onClick="{{ c.onDonate }}" style="flex:1 1 130px;height:46px;border:0;border-radius:13px;background:#F4511E;color:#fff;font-size:13.5px;font-weight:800;cursor:pointer">کمک به این پرونده</button>
+                  <button onClick="{{ c.onDetail }}" style="height:46px;padding:0 14px;border:1.5px solid #E3E6EA;border-radius:13px;background:#fff;color:#23262B;font-size:13px;font-weight:700;cursor:pointer;white-space:nowrap">جزئیات</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </sc-for>
+      </div>
+
+      <sc-if value="{{ empty }}" hint-placeholder-val="{{ false }}">
+        <div style="background:#fff;border:1.5px dashed #DDE0E4;border-radius:22px;padding:44px 24px;display:flex;flex-direction:column;gap:12px;align-items:center;text-align:center">
+          <span style="font-size:26px;color:#C9CDD3">⌕</span>
+          <span style="font-size:15px;font-weight:800">پرونده‌ای با این فیلترها پیدا نشد</span>
+          <span style="font-size:13px;color:#8A9099;line-height:2">فیلتر شهر یا فوریت را تغییر دهید، یا همه پرونده‌های این گروه را ببینید.</span>
+          <button onClick="{{ resetFilters }}" style="height:46px;padding:0 20px;border:0;border-radius:13px;background:#F4511E;color:#fff;font-size:13.5px;font-weight:800;cursor:pointer">نمایش همه پرونده‌های گروه</button>
+        </div>
+      </sc-if>
+
+      <sc-if value="{{ hasPages }}" hint-placeholder-val="{{ false }}">
+        <div style="display:flex;align-items:center;justify-content:center;gap:10px;flex-wrap:wrap;padding-top:6px">
+          <button onClick="{{ prevPage }}" style="{{ prevStyle }}">→ قبلی</button>
+          <div style="display:flex;gap:6px;flex-wrap:wrap;justify-content:center">
+            <sc-for list="{{ pageBtns }}" as="p" hint-placeholder-count="3">
+              <span onClick="{{ p.onClick }}" style="{{ p.style }}">{{ p.label }}</span>
+            </sc-for>
+          </div>
+          <button onClick="{{ nextPage }}" style="{{ nextStyle }}">بعدی ←</button>
+          <span style="width:100%;text-align:center;font-size:12.5px;color:#9AA0A8">صفحه {{ pageLabel }} — نمایش {{ shownRange }} از {{ resultCount }} پرونده</span>
+        </div>
+      </sc-if>
+    </div>
+  </section>
+
+  <section style="background:#fff;border-top:1px solid #EFF0F2">
+    <div style="max-width:1240px;margin-inline:auto;padding:clamp(34px,5vw,60px) clamp(14px,3vw,24px);display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr));gap:clamp(22px,3.5vw,40px);align-items:start">
+      <div style="display:flex;flex-direction:column;gap:16px">
+        <span style="font-size:12.5px;font-weight:800;color:#D8420F">درباره این گروه</span>
+        <h2 style="margin:0;font-size:clamp(20px,2.8vw,28px);font-weight:800;letter-spacing:-.6px;line-height:1.6">{{ group.aboutTitle }}</h2>
+        <p style="margin:0;font-size:14.5px;color:#5A6169;line-height:2.2;text-wrap:pretty">{{ group.about }}</p>
+        <div style="display:flex;flex-direction:column;gap:10px">
+          <sc-for list="{{ group.checks }}" as="k" hint-placeholder-count="3">
+            <div style="display:flex;gap:11px;align-items:flex-start;background:#FAFAFB;border:1px solid #EFF0F2;border-radius:15px;padding:13px 15px">
+              <span style="color:#12805A;font-weight:800">✓</span>
+              <span style="font-size:13px;color:#4B5158;line-height:2">{{ k }}</span>
+            </div>
+          </sc-for>
+        </div>
+      </div>
+      <div style="background:#FFF6F2;border:1px solid #F7CDBB;border-radius:24px;padding:clamp(20px,3vw,28px);display:flex;flex-direction:column;gap:16px">
+        <span style="font-size:17px;font-weight:800;letter-spacing:-.4px">کمک گروهی به {{ group.title }}</span>
+        <p style="margin:0;font-size:13px;color:#8A3A1C;line-height:2.1">اگر ترجیح می‌دهید پرونده انتخاب نکنید، کمک شما به فوری‌ترین پرونده‌های همین گروه تخصیص می‌یابد و گزارش تحویل برایتان ثبت می‌شود.</p>
+        <div style="display:flex;gap:8px;flex-wrap:wrap">
+          <sc-for list="{{ amountChips }}" as="a" hint-placeholder-count="4">
+            <button onClick="{{ a.onClick }}" style="{{ a.style }}">{{ a.label }}</button>
+          </sc-for>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:7px">
+          <label style="font-size:12.5px;font-weight:700;color:#4B5158">مبلغ کمک (تومان)</label>
+          <input type="text" value="{{ amountValue }}" onChange="{{ onAmount }}" style="height:52px;border:1.5px solid #F0D5C8;border-radius:13px;padding:0 14px;font-size:16px;font-weight:800;background:#fff" />
+        </div>
+        <span style="font-size:12.5px;color:#8A3A1C;line-height:2">{{ impactNote }}</span>
+        <button style="height:54px;border:0;border-radius:14px;background:#F4511E;color:#fff;font-size:15px;font-weight:800;cursor:pointer">پرداخت کمک به گروه</button>
+      </div>
+
+    </div>
+  </section>
+
+  </sc-if>
+
+  <sc-if value="{{ detail }}" hint-placeholder-val="{{ false }}">
+    <div style="position:fixed;inset:0;z-index:90;display:flex;align-items:center;justify-content:center;padding:clamp(10px,3vw,24px)">
+      <div onClick="{{ closeDetail }}" style="position:absolute;inset:0;background:rgba(15,17,20,.62)"></div>
+      <div style="position:relative;width:min(560px,100%);max-height:100%;overflow-y:auto;background:#fff;border-radius:24px;box-shadow:0 40px 80px -30px rgba(0,0,0,.6)">
+        <div style="padding:18px 22px;border-bottom:1px solid #EFF0F2;display:flex;align-items:center;gap:12px;position:sticky;top:0;background:#fff;z-index:2">
+          <div style="display:flex;flex-direction:column;gap:4px;min-width:0">
+            <span style="font-size:11.5px;font-weight:800;color:#D8420F">{{ detailCase.code }} — {{ detailCase.city }}</span>
+            <span style="font-size:17px;font-weight:800;letter-spacing:-.4px;line-height:1.7">{{ detailCase.title }}</span>
+          </div>
+          <div onClick="{{ closeDetail }}" style="margin-inline-start:auto;flex:0 0 36px;width:36px;height:36px;border:1px solid #EDEEF1;border-radius:11px;display:flex;align-items:center;justify-content:center;color:#6B7280;cursor:pointer">✕</div>
+        </div>
+        <div style="padding:20px 22px 26px;display:flex;flex-direction:column;gap:16px">
+          <div style="position:relative;height:190px;border-radius:16px;overflow:hidden;background:#F2F3F5">
+            <image-slot id="{{ detailCase.slotId }}" shape="rect" fit="cover" placeholder="عکس پرونده"></image-slot>
+          </div>
+          <p style="margin:0;font-size:14px;color:#4B5158;line-height:2.2;text-wrap:pretty">{{ detailCase.story }}</p>
+          <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,140px),1fr));gap:10px">
+            <sc-for list="{{ detailCase.facts }}" as="f" hint-placeholder-count="4">
+              <div style="background:#FAFAFB;border:1px solid #EFF0F2;border-radius:14px;padding:13px 14px;display:flex;flex-direction:column;gap:4px">
+                <span style="font-size:11.5px;color:#9AA0A8">{{ f.label }}</span>
+                <span style="font-size:13.5px;font-weight:800">{{ f.value }}</span>
+              </div>
+            </sc-for>
+          </div>
+          <div style="display:flex;flex-direction:column;gap:8px">
+            <div style="height:9px;background:#F2F3F5;border-radius:6px;overflow:hidden"><span style="{{ detailCase.barStyle }}"></span></div>
+            <div style="display:flex;justify-content:space-between;font-size:12.5px;color:#9AA0A8;flex-wrap:wrap;gap:8px">
+              <span style="white-space:nowrap"><b style="color:#191C21;font-size:14px">{{ detailCase.raised }}</b> از {{ detailCase.goal }}</span>
+              <span style="white-space:nowrap">مانده {{ detailCase.left }}</span>
+            </div>
+          </div>
+          <div style="display:flex;align-items:center;gap:10px;background:#F7FBF9;border:1px solid #DFF0E7;border-radius:13px;padding:12px 14px">
+            <span style="color:#12805A">✓</span>
+            <span style="font-size:12px;color:#3F6B57;line-height:1.9">این پرونده بازدید میدانی شده و مدارک آن توسط واحد راستی‌آزمایی تأیید شده است.</span>
+          </div>
+          <button onClick="{{ detailCase.onDonate }}" style="height:54px;border:0;border-radius:14px;background:#F4511E;color:#fff;font-size:15px;font-weight:800;cursor:pointer">کمک به این پرونده</button>
+        </div>
+      </div>
+    </div>
+  </sc-if>
+
+  <dc-import name="SiteFooter" hint-size="100%,300px"></dc-import>
+  <div style="display:none">
+    <div style="max-width:1240px;margin-inline:auto;padding:clamp(28px,4vw,44px) clamp(14px,3vw,24px);display:flex;gap:14px;flex-wrap:wrap;align-items:center;font-size:12px;color:rgba(255,255,255,.55)">
+      <span>© ۱۴۰۵ موسسه خیریه دست یاری — همه حقوق محفوظ است.</span>
+      <div style="margin-inline-start:auto;display:flex;gap:16px;flex-wrap:wrap">
+        <a href="درباره ما.dc.html" style="color:rgba(255,255,255,.55)">درباره ما</a>
+        <a href="قوانین و حریم خصوصی.dc.html" style="color:rgba(255,255,255,.55)">قوانین و حریم خصوصی</a>
+        <a href="شفافیت مالی.dc.html" style="color:rgba(255,255,255,.55)">شفافیت مالی</a>
+      </div>
+    </div>
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;accent&quot;:{&quot;editor&quot;:&quot;color&quot;,&quot;default&quot;:&quot;#F4511E&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;options&quot;:[&quot;#F4511E&quot;,&quot;#C43C0E&quot;,&quot;#12805A&quot;],&quot;section&quot;:&quot;ظاهر&quot;}}">
+class Component extends DCLogic {
+  state = { group: 'درمان', q: '', city: 'همه شهرها', sort: 'فوری‌ترین', urgency: 'همه', detail: null, amount: 1000000, chosen: false, isMobile: false };
+
+  componentDidMount() {
+    this.mq = window.matchMedia('(max-width:900px)');
+    this.onMq = () => this.setState({ isMobile: this.mq.matches });
+    this.onMq();
+    this.mq.addEventListener('change', this.onMq);
+
+    this.onScroll = () => {
+      const el = document.getElementById('om-gchooser');
+      const hdr = document.querySelector('div[style*="position: sticky"]');
+      const h = hdr ? hdr.offsetHeight : 114;
+      const pinned = !!el && el.getBoundingClientRect().bottom < h + 4;
+      if (pinned !== this.state.pinned || h !== this.state.headerH) this.setState({ pinned: pinned, headerH: h });
+    };
+    window.addEventListener('scroll', this.onScroll, { passive: true });
+    this.onScroll();
+    if (window.DY) this.offDY = window.DY.onChange(() => this.setState({ dyRev: (this.state.dyRev || 0) + 1 }));
+  }
+
+  toList() {
+    requestAnimationFrame(() => {
+      const el = document.getElementById('om-glist');
+      if (!el) return;
+      const hdr = document.querySelector('div[style*="position: sticky"]');
+      const off = (hdr ? hdr.offsetHeight : 114) + 52;
+      window.scrollTo({ top: el.getBoundingClientRect().top + window.scrollY - off, behavior: 'smooth' });
+    });
+  }
+
+  componentWillUnmount() {
+    if (this.mq) this.mq.removeEventListener('change', this.onMq);
+    window.removeEventListener('scroll', this.onScroll);
+  }
+
+  groups() {
+    const base = this.groupsBase();
+    if (!window.DY) return base;
+    const byId = {};
+    base.forEach(g => { byId[g.key] = g; });
+    return window.DY.activeGroups().map(s => {
+      const b = byId[s.id] || {};
+      return Object.assign({
+        key: s.id, raised: '۰', goal: '۰', pct: 0,
+        aboutTitle: 'درباره گروه ' + s.title,
+        about: s.desc || 'پرونده‌های این گروه پس از بازدید میدانی و تأیید مدارک منتشر می‌شوند.',
+        checks: ['بازدید میدانی و تأیید مدارک', 'پرداخت هدفمند و ثبت رسید', 'گزارش نتیجه در پنل خیر'],
+        stats: [{ num: '۰', label: 'پرونده باز' }, { num: '—', label: 'تکمیل‌شده' }, { num: '—', label: 'میانگین مهلت' }]
+      }, b, { key: s.id, icon: s.icon || b.icon, title: s.title || b.title, desc: s.desc || b.desc });
+    });
+  }
+
+  groupsBase() {
+    return [
+      { key: 'درمان', icon: '⚕', title: 'درمان و دارو', desc: 'پرونده‌های جراحی، شیمی‌درمانی، دیالیز و داروهای خارج از پوشش بیمه که تأخیر در آن‌ها به‌طور مستقیم سلامت بیمار را تهدید می‌کند.', raised: '۸۴۰ م', goal: '۱٬۳۵۰ م', pct: 62,
+        aboutTitle: 'چرا پرونده‌های درمانی جدا بررسی می‌شوند؟', about: 'هر پرونده درمانی پیش از انتشار توسط پزشک همکار مجمع بازبینی می‌شود؛ مبلغ درخواستی با فاکتور بیمارستان و نسخه دارو تطبیق داده می‌شود و پرداخت به‌جای واریز نقدی، مستقیماً به حساب مرکز درمانی یا داروخانه انجام می‌گیرد.',
+        checks: ['تأیید مدارک پزشکی توسط پزشک همکار مجمع', 'پرداخت مستقیم به بیمارستان یا داروخانه، بدون واریز نقدی', 'ارسال تصویر فاکتور و رسید تحویل به پنل خیر'],
+        stats: [{ num: '۲۴', label: 'پرونده باز' }, { num: '۹۴۰', label: 'پرونده تکمیل‌شده' }, { num: '۱۱ روز', label: 'میانگین مهلت' }] },
+      { key: 'زندانی', icon: '⛓', title: 'آزادی زندانیان', desc: 'زندانیان جرائم غیرعمد، دیه، مهریه و وثیقه؛ پرونده‌هایی که با تأمین مبلغ، یک خانواده سرپرست خود را باز می‌یابد.', raised: '۵۱۰ م', goal: '۹۸۰ م', pct: 52,
+        aboutTitle: 'مسیر آزادی یک زندانی غیرعمد', about: 'پرونده‌ها با هماهنگی ستاد دیه استان و بررسی حکم قضایی ثبت می‌شوند. مبلغ صرفاً به حساب اجرای احکام واریز می‌شود و پس از آزادی، وضعیت شغلی فرد تا شش ماه پیگیری می‌گردد.',
+        checks: ['استعلام حکم از اجرای احکام و ستاد دیه', 'واریز صرفاً به حساب رسمی اجرای احکام', 'پیگیری اشتغال فرد تا شش ماه پس از آزادی'],
+        stats: [{ num: '۱۸', label: 'پرونده باز' }, { num: '۵۱۲', label: 'زندانی آزادشده' }, { num: '۸ روز', label: 'میانگین مهلت' }] },
+      { key: 'جهیزیه', icon: '❋', title: 'جهیزیه و ازدواج', desc: 'تأمین جهیزیه دختران بی‌سرپرست و کمک به هزینه‌های ازدواج زوج‌های کم‌درآمد، به‌صورت خرید کالا نه پرداخت نقدی.', raised: '۳۲۰ م', goal: '۶۴۰ م', pct: 50,
+        aboutTitle: 'جهیزیه، کالا به کالا', about: 'برای هر پرونده فهرست اقلام مورد نیاز تنظیم و با قیمت روز برآورد می‌شود. خرید توسط تیم مجمع انجام و اقلام با صورت‌جلسه تحویل داده می‌شود تا کمک صرف موارد دیگر نشود.',
+        checks: ['برآورد اقلام با قیمت روز و فاکتور رسمی', 'خرید و تحویل کالا با صورت‌جلسه امضاشده', 'امکان حمایت از یک قلم مشخص (مثلاً یخچال)'],
+        stats: [{ num: '۱۵', label: 'پرونده باز' }, { num: '۴۳۷', label: 'جهیزیه تحویل‌شده' }, { num: '۲۶ روز', label: 'میانگین مهلت' }] },
+      { key: 'مسکن', icon: '⌂', title: 'مسکن و ودیعه', desc: 'اجاره‌بهای عقب‌افتاده، ودیعه مسکن و جلوگیری از تخلیه خانواده‌هایی که در آستانه بی‌خانمانی هستند.', raised: '۴۷۰ م', goal: '۱٬۱۰۰ م', pct: 43,
+        aboutTitle: 'وقتی حکم تخلیه صادر شده است', about: 'پرونده‌های مسکن با بررسی قرارداد اجاره و حکم تخلیه ثبت می‌شوند. کمک به‌صورت واریز به حساب مالک با تنظیم الحاقیه قرارداد انجام می‌شود تا خانواده حداقل یک سال آرامش داشته باشد.',
+        checks: ['بررسی قرارداد اجاره و حکم تخلیه', 'واریز به حساب مالک همراه با الحاقیه یک‌ساله', 'اولویت خانوارهای دارای کودک و زن سرپرست'],
+        stats: [{ num: '۲۱', label: 'پرونده باز' }, { num: '۶۸۰', label: 'پرونده تکمیل‌شده' }, { num: '۱۹ روز', label: 'میانگین مهلت' }] },
+      { key: 'معیشت', icon: '◍', title: 'معیشت خانواده', desc: 'سبد غذایی ماهانه و حمایت مستمر خانوارهایی که درآمد ثابت ندارند؛ مناسب‌ترین گروه برای حمایت ماهانه.', raised: '۲۹۰ م', goal: '۵۲۰ م', pct: 56,
+        aboutTitle: 'حمایت ماهانه، نه کمک یک‌باره', about: 'در این گروه کمک شما به‌صورت ماهانه و در قالب سبد کالا یا کارت خرید به خانواده می‌رسد. هر سه ماه وضعیت خانواده بازبینی می‌شود تا مسیر توانمندسازی و خروج از حمایت طراحی شود.',
+        checks: ['تحویل ماهانه سبد کالا یا کارت خرید', 'بازبینی وضعیت خانواده هر سه ماه', 'برنامه توانمندسازی و کاریابی در کنار کمک'],
+        stats: [{ num: '۲۷', label: 'پرونده باز' }, { num: '۱٬۱۲۰', label: 'خانوار حمایت‌شده' }, { num: 'ماهانه', label: 'الگوی پرداخت' }] },
+      { key: 'تحصیل', icon: '✎', title: 'تحصیل کودکان', desc: 'شهریه، لوازم‌التحریر و تجهیزات آموزشی برای کودکانی که در خطر ترک تحصیل هستند.', raised: '۱۳۰ م', goal: '۳۱۰ م', pct: 42,
+        aboutTitle: 'جلوگیری از ترک تحصیل', about: 'پرونده‌ها با معرفی مدرسه و تأیید مدیر ثبت می‌شوند. کمک به‌صورت پرداخت شهریه به حساب مدرسه یا تحویل بسته لوازم‌التحریر انجام می‌شود و کارنامه پایان سال برای خیر ارسال می‌گردد.',
+        checks: ['معرفی و تأیید از سوی مدرسه', 'پرداخت شهریه به حساب مدرسه', 'ارسال کارنامه پایان سال به خیر پشتیبان'],
+        stats: [{ num: '۱۲', label: 'پرونده باز' }, { num: '۳۶۵', label: 'دانش‌آموز حمایت‌شده' }, { num: 'مهر', label: 'اوج نیاز' }] },
+      { key: 'معلولیت', icon: '⚘', title: 'معلولیت و سالمندی', desc: 'ویلچر، تجهیزات پزشکی خانگی و هزینه نگهداری سالمندان تنها و افراد دارای معلولیت شدید.', raised: '۱۶۰ م', goal: '۳۸۰ م', pct: 42,
+        aboutTitle: 'تجهیزاتی که زندگی را تغییر می‌دهد', about: 'برای هر پرونده، نوع تجهیزات با نظر کارشناس توان‌بخشی مشخص می‌شود. تجهیزات نو و دارای گارانتی خریداری و در محل نصب می‌شود؛ آموزش استفاده هم به خانواده داده می‌شود.',
+        checks: ['تعیین تجهیزات با نظر کارشناس توان‌بخشی', 'خرید تجهیزات نو با گارانتی و نصب در محل', 'آموزش نگهداری و استفاده به خانواده'],
+        stats: [{ num: '۹', label: 'پرونده باز' }, { num: '۲۲۶', label: 'پرونده تکمیل‌شده' }, { num: 'ماهانه', label: 'الگوی رایج' }] }
+    ];
+  }
+
+  data() {
+    return [
+      { g: 'درمان', img: 'assets/case-2529.png', title: 'هزینه شیمی‌درمانی مادر دو کودک', code: 'DY-۲۵۲۹', city: 'تهران', family: 'خانوار ۳ نفره', deadline: '۱۴ روز', days: 14, pct: 21, raised: '۲۹ م', goal: '۱۴۰ م', left: '۱۱۱ م', story: 'مادر دو کودک زیر ده سال، پس از تشخیص سرطان پستان نیازمند شش دوره شیمی‌درمانی است. بیمه تنها بخشی از هزینه دارو را پوشش می‌دهد.' },
+      { g: 'درمان', img: 'assets/case-2529.png', title: 'جراحی قلب کودک هفت ساله', code: 'DY-۲۵۴۴', city: 'مشهد', family: 'خانوار ۴ نفره', deadline: '۱۱ روز', days: 11, pct: 52, raised: '۷۸ م', goal: '۱۵۰ م', left: '۷۲ م', story: 'کودک هفت‌ساله با نقص مادرزادی دریچه قلب، در نوبت جراحی است. پدر کارگر فصلی است و توان تأمین سهم بیمار را ندارد.' },
+      { g: 'درمان', img: 'assets/case-2529.png', title: 'داروی ماهانه بیمار ام‌اس', code: 'DY-۲۵۵۸', city: 'تهران', family: 'خانوار ۲ نفره', deadline: 'ماهانه', days: 60, pct: 83, raised: '۲۵ م', goal: '۳۰ م', left: '۵ م', story: 'زن ۳۴ ساله مبتلا به ام‌اس، هر ماه به داروی تزریقی خارج از پوشش بیمه نیاز دارد. قطع دارو به‌معنای بازگشت حملات است.' },
+      { g: 'درمان', img: 'assets/case-2529.png', title: 'عمل چشم و لنز مصنوعی سالمند', code: 'DY-۲۵۶۶', city: 'اصفهان', family: 'خانوار ۱ نفره', deadline: '۲۲ روز', days: 22, pct: 34, raised: '۱۷ م', goal: '۵۰ م', left: '۳۳ م', story: 'مرد ۷۱ ساله تنها، به‌دلیل آب‌مروارید بینایی خود را از دست داده و برای انجام کارهای روزمره کاملاً وابسته شده است.' },
+      { g: 'درمان', img: 'assets/case-2529.png', title: 'دیالیز و رفت‌وآمد بیمار کلیوی', code: 'DY-۲۵۷۰', city: 'اهواز', family: 'خانوار ۵ نفره', deadline: 'ماهانه', days: 60, pct: 46, raised: '۱۱ م', goal: '۲۴ م', left: '۱۳ م', story: 'سه نوبت دیالیز در هفته و هزینه رفت‌وآمد از حاشیه شهر، بار سنگینی بر خانواده‌ای با یک نان‌آور روزمزد گذاشته است.' },
+      { g: 'درمان', img: 'assets/case-2529.png', title: 'پروتز پا برای جوان حادثه‌دیده', code: 'DY-۲۵۷۴', city: 'کرمانشاه', family: 'خانوار ۴ نفره', deadline: '۸ روز', days: 8, pct: 15, raised: '۱۳ م', goal: '۸۵ م', left: '۷۲ م', story: 'جوان ۲۶ ساله پس از حادثه کار، پای راست خود را از دست داده. با پروتز می‌تواند به شغل قبلی خود بازگردد.' },
+      { g: 'درمان', img: 'assets/case-2529.png', title: 'سمعک دیجیتال کودک کم‌شنوا', code: 'DY-۲۵۷۸', city: 'تبریز', family: 'خانوار ۴ نفره', deadline: '۱۷ روز', days: 17, pct: 28, raised: '۹ م', goal: '۳۲ م', left: '۲۳ م', story: 'کودک شش‌ساله با کم‌شنوایی شدید، برای شروع مدرسه به سمعک دیجیتال دو گوش نیاز دارد.' },
+      { g: 'درمان', img: 'assets/case-2529.png', title: 'جراحی ستون فقرات کارگر ساختمانی', code: 'DY-۲۵۸۱', city: 'کرج', family: 'خانوار ۵ نفره', deadline: '۱۳ روز', days: 13, pct: 41, raised: '۳۳ م', goal: '۸۰ م', left: '۴۷ م', story: 'کارگر ۴۴ ساله پس از سقوط از داربست، بدون جراحی توان بازگشت به کار را ندارد.' },
+      { g: 'درمان', img: 'assets/case-2529.png', title: 'داروی پیوند کلیه بیمار جوان', code: 'DY-۲۵۸۵', city: 'شیراز', family: 'خانوار ۳ نفره', deadline: 'ماهانه', days: 60, pct: 61, raised: '۱۴ م', goal: '۲۳ م', left: '۹ م', story: 'داروی ضدرد پیوند باید بدون وقفه مصرف شود؛ قطع آن خطر پس‌زدن کلیه را دارد.' },
+      { g: 'زندانی', img: 'assets/case-2522.png', title: 'دیه تصادف راننده وانت', code: 'DY-۲۵۷۹', city: 'اهواز', family: 'خانوار ۴ نفره', deadline: '۱۲ روز', days: 12, pct: 33, raised: '۳۰ م', goal: '۹۰ م', left: '۶۰ م', story: 'راننده وانت بار در تصادف غیرعمد محکوم به دیه شده و توان پرداخت اقساط را ندارد.' },
+      { g: 'زندانی', img: 'assets/case-2522.png', title: 'آزادی مادر زندانی بدهی وام', code: 'DY-۲۵۸۳', city: 'مشهد', family: 'خانوار ۳ نفره', deadline: '۶ روز', days: 6, pct: 47, raised: '۲۸ م', goal: '۶۰ م', left: '۳۲ م', story: 'زن سرپرست خانوار بابت ضمانت وام فامیل زندانی شده؛ دو فرزند او نزد همسایه‌اند.' },
+      { g: 'زندانی', img: 'assets/case-2522.png', title: 'آزادی زندانی بدهی مهریه', code: 'DY-۲۵۲۲', city: 'کرمان', family: 'خانوار ۳ نفره', deadline: '۵ روز', days: 5, pct: 64, raised: '۶۴ م', goal: '۱۰۰ م', left: '۳۶ م', story: 'مرد ۳۸ ساله به‌دلیل بدهی مهریه در زندان است؛ با تأمین باقی مبلغ، آزاد و به شغل قبلی خود بازمی‌گردد.' },
+      { g: 'زندانی', img: 'assets/case-2522.png', title: 'تامین وثیقه آزادی جوان ۲۴ ساله', code: 'DY-۲۵۴۱', city: 'تبریز', family: 'خانوار ۲ نفره', deadline: '۷ روز', days: 7, pct: 18, raised: '۱۸ م', goal: '۱۰۰ م', left: '۸۲ م', story: 'جوان ۲۴ ساله در پرونده تصادف غیرعمد بازداشت است. تأمین وثیقه، امکان رسیدگی بیرون از زندان را فراهم می‌کند.' },
+      { g: 'زندانی', img: 'assets/case-2522.png', title: 'آزادی سه زندانی دیه غیرعمد', code: 'DY-۲۵۶۰', city: 'اراک', family: '۳ خانوار', deadline: '۹ روز', days: 9, pct: 39, raised: '۵۹ م', goal: '۱۵۰ م', left: '۹۱ م', story: 'سه پرونده دیه غیرعمد با هماهنگی ستاد دیه استان، به‌صورت یک بسته مشترک برای آزادی هم‌زمان ثبت شده است.' },
+      { g: 'زندانی', img: 'assets/case-2522.png', title: 'بدهی چک کاسب ورشکسته', code: 'DY-۲۵۷۲', city: 'قم', family: 'خانوار ۵ نفره', deadline: '۱۶ روز', days: 16, pct: 27, raised: '۲۲ م', goal: '۸۰ م', left: '۵۸ م', story: 'کاسب محله پس از ورشکستگی مغازه، بابت چک برگشتی زندانی شده؛ همسر و چهار فرزند بدون سرپرست مانده‌اند.' },
+      { g: 'جهیزیه', img: 'assets/case-2510.png', title: 'جهیزیه عروس بی‌سرپرست', code: 'DY-۲۵۱۰', city: 'اهواز', family: 'خانوار ۱ نفره', deadline: '۲۱ روز', days: 21, pct: 45, raised: '۳۶ م', goal: '۸۰ م', left: '۴۴ م', story: 'دختر ۲۳ ساله بی‌سرپرست، ماه آینده ازدواج می‌کند. فهرست اقلام ضروری جهیزیه او با قیمت روز برآورد شده است.' },
+      { g: 'جهیزیه', img: 'assets/case-2510.png', title: 'جهیزیه دختر خانواده تحت پوشش', code: 'DY-۲۵۳۶', city: 'کرج', family: 'خانوار ۴ نفره', deadline: '۲۵ روز', days: 25, pct: 26, raised: '۲۱ م', goal: '۸۰ م', left: '۵۹ م', story: 'خانواده چهارنفره تحت پوشش، توان تأمین اقلام اصلی جهیزیه دختر خود را ندارد؛ یخچال و ماشین لباسشویی در اولویت است.' },
+      { g: 'جهیزیه', img: 'assets/case-2510.png', title: 'کمک هزینه ازدواج زوج جوان', code: 'DY-۲۵۵۴', city: 'یزد', family: 'خانوار ۲ نفره', deadline: '۴۰ روز', days: 40, pct: 12, raised: '۷ م', goal: '۶۰ م', left: '۵۳ م', story: 'زوج جوان با درآمد کارگری، برای اجاره خانه و اقلام اولیه زندگی مشترک به کمک نیاز دارند.' },
+      { g: 'مسکن', img: 'assets/case-2530.png', title: 'ودیعه مسکن مادر سرپرست خانوار', code: 'DY-۲۵۴۷', city: 'رشت', family: 'خانوار ۳ نفره', deadline: '۱۹ روز', days: 19, pct: 38, raised: '۴۵ م', goal: '۱۲۰ م', left: '۷۵ م', story: 'زن سرپرست خانوار با دو فرزند مدرسه‌ای، حکم تخلیه گرفته و برای ودیعه خانه جدید فرصت محدودی دارد.' },
+      { g: 'مسکن', img: 'assets/case-2530.png', title: 'اجاره‌بهای خانواده در آستانه تخلیه', code: 'DY-۲۵۳۰', city: 'اهواز', family: 'خانوار ۶ نفره', deadline: '۹ روز', days: 9, pct: 31, raised: '۲۵ م', goal: '۸۰ م', left: '۵۵ م', story: 'شش‌ماه اجاره عقب‌افتاده خانواده‌ای شش‌نفره؛ مالک حکم تخلیه گرفته و فرزندان در وسط سال تحصیلی هستند.' },
+      { g: 'مسکن', img: 'assets/case-2530.png', title: 'تعمیر سقف خانه روستایی', code: 'DY-۲۵۶۳', city: 'گرگان', family: 'خانوار ۴ نفره', deadline: '۳۵ روز', days: 35, pct: 29, raised: '۱۴ م', goal: '۴۸ م', left: '۳۴ م', story: 'سقف خانه روستایی در بارش‌های پارسال آسیب دیده و پیش از فصل بارندگی بعدی باید بازسازی شود.' },
+      { g: 'معیشت', img: 'assets/case-1903.png', title: 'سبد غذایی ماهانه ده خانوار', code: 'DY-۲۵۵۱', city: 'زاهدان', family: '۱۰ خانوار', deadline: 'ماهانه', days: 60, pct: 58, raised: '۲۹ م', goal: '۵۰ م', left: '۲۱ م', story: 'ده خانوار بدون درآمد ثابت در حاشیه شهر، هر ماه سبد غذایی دریافت می‌کنند؛ این پرونده برای تأمین سه ماه آینده است.' },
+      { g: 'معیشت', img: 'assets/case-1903.png', title: 'معیشت ماهانه خانواده پنج‌نفره', code: 'DY-۱۹۰۳', city: 'شیراز', family: 'خانوار ۵ نفره', deadline: 'ماهانه', days: 60, pct: 67, raised: '۱۶ م', goal: '۲۴ م', left: '۸ م', story: 'پدر خانواده پس از سانحه توان کار ندارد؛ حمایت ماهانه، هزینه خورد و خوراک پنج نفر را پوشش می‌دهد.' },
+      { g: 'تحصیل', img: 'assets/case-1903.png', title: 'شهریه و لوازم‌التحریر ۲۰ دانش‌آموز', code: 'DY-۲۵۶۸', city: 'زاهدان', family: '۲۰ دانش‌آموز', deadline: '۳۰ روز', days: 30, pct: 36, raised: '۱۸ م', goal: '۵۰ م', left: '۳۲ م', story: 'بیست دانش‌آموز در آستانه ترک تحصیل، با تأمین شهریه و بسته لوازم‌التحریر سال تحصیلی را آغاز می‌کنند.' },
+      { g: 'تحصیل', img: 'assets/case-1903.png', title: 'تبلت آموزشی برای سه خواهر', code: 'DY-۲۵۷۱', city: 'بندرعباس', family: 'خانوار ۵ نفره', deadline: '۱۸ روز', days: 18, pct: 22, raised: '۶ م', goal: '۲۷ م', left: '۲۱ م', story: 'سه خواهر با یک گوشی مشترک درس می‌خوانند؛ دو تبلت آموزشی مشکل کلاس‌های آنلاین را حل می‌کند.' },
+      { g: 'معلولیت', img: 'assets/case-2201.png', title: 'هزینه نگهداری سالمند تنها', code: 'DY-۲۵۴۹', city: 'اصفهان', family: 'خانوار ۱ نفره', deadline: 'ماهانه', days: 60, pct: 44, raised: '۱۱ م', goal: '۲۵ م', left: '۱۴ م', story: 'سالمند ۷۹ ساله بدون فرزند، به مراقب پاره‌وقت و داروی ماهانه نیاز دارد.' },
+      { g: 'معلولیت', img: 'assets/case-2201.png', title: 'ویلچر برقی و داروی جوان معلول', code: 'DY-۲۲۰۱', city: 'زاهدان', family: 'خانوار ۴ نفره', deadline: 'ماهانه', days: 60, pct: 37, raised: '۱۵ م', goal: '۴۰ م', left: '۲۵ م', story: 'جوان ۲۹ ساله با معلولیت حرکتی شدید، با ویلچر برقی می‌تواند مستقل از خانه بیرون بیاید و کار کند.' }
+    ];
+  }
+
+  renderVals() {
+    const S = this.state;
+    const groups = this.groups();
+    const group = groups.find(g => g.key === S.group) || groups[0];
+    const all = this.data();
+    const inGroup = all.filter(c => c.g === group.key);
+
+    const chip = (on) => 'height:34px;padding:0 13px;border-radius:11px;font-size:12px;font-weight:800;cursor:pointer;white-space:nowrap;border:1.5px solid ' +
+      (on ? '#F4511E;background:#FEF1EC;color:#D8420F' : '#E3E6EA;background:#fff;color:#5A6169');
+
+    let list = inGroup.filter(c => {
+      const q = S.q.trim();
+      const okQ = !q || (c.title + c.code + c.city).indexOf(q) !== -1;
+      const okCity = S.city === 'همه شهرها' || c.city === S.city;
+      const okU = S.urgency === 'همه' || (S.urgency === 'فوری (زیر ۱۰ روز)' ? c.days <= 10 : c.deadline === 'ماهانه');
+      return okQ && okCity && okU;
+    });
+    if (S.sort === 'فوری‌ترین') list = list.slice().sort((a, b) => a.days - b.days);
+    if (S.sort === 'نزدیک به تکمیل') list = list.slice().sort((a, b) => b.pct - a.pct);
+    if (S.sort === 'کمترین جمع‌آوری') list = list.slice().sort((a, b) => a.pct - b.pct);
+
+    const decorate = (c) => Object.assign({}, c, {
+      slotId: 'case-' + c.code,
+      urgencyStyle: 'position:absolute;top:12px;left:12px;pointer-events:none;font-size:11px;font-weight:800;padding:5px 10px;border-radius:9px;' +
+        (c.days <= 10 ? 'background:#FDECEC;color:#C43034' : c.deadline === 'ماهانه' ? 'background:#EAF3FF;color:#2660B8' : 'background:#FFF4E5;color:#A2600C'),
+      urgencyLabel: c.days <= 10 ? 'فوری — ' + c.deadline : c.deadline === 'ماهانه' ? 'حمایت ماهانه' : 'مهلت ' + c.deadline,
+      barStyle: 'display:block;height:100%;width:' + c.pct + '%;background:#F4511E;border-radius:6px',
+      facts: [
+        { label: 'کد پرونده', value: c.code }, { label: 'شهر', value: c.city },
+        { label: 'ترکیب خانوار', value: c.family }, { label: 'مهلت', value: c.deadline }
+      ],
+      onDetail: () => { window.location.href = 'جزئیات پرونده.dc.html'; },
+      onDonate: () => this.setState({ detail: null })
+    });
+
+    const per = S.isMobile ? 4 : 6;
+    const pages = Math.max(1, Math.ceil(list.length / per));
+    const page = Math.min(S.page || 0, pages - 1);
+    const pageList = list.slice(page * per, page * per + per);
+
+    const detailRaw = S.detail ? all.find(c => c.code === S.detail) : null;
+    const amount = S.amount || 0;
+    const fmt = (n) => n.toLocaleString('fa-IR');
+    const impact = amount >= 20000000 ? 'با این مبلغ یک پرونده کامل این گروه بسته می‌شود.'
+      : amount >= 5000000 ? 'این مبلغ سهم قابل‌توجهی از فوری‌ترین پرونده گروه را پوشش می‌دهد.'
+      : amount >= 1000000 ? 'این مبلغ میان دو پرونده فوری این گروه تقسیم می‌شود.'
+      : 'هر مبلغی به فوری‌ترین پرونده گروه تخصیص می‌یابد.';
+
+    return {
+      group: Object.assign({}, group, { barStyle: 'display:block;height:100%;width:' + group.pct + '%;background:#F4511E;border-radius:7px' }),
+      showMiniBar: !S.isMobile && !!S.pinned,
+      miniBarStyle: 'position:fixed;top:' + (S.headerH || 114) + 'px;left:0;right:0;z-index:45;background:rgba(255,255,255,.94);backdrop-filter:blur(8px);border-bottom:1px solid #EFF0F2;box-shadow:0 10px 24px -20px rgba(20,22,26,.5)',
+      miniChips: groups.map(g => {
+        const on = g.key === group.key;
+        return {
+          icon: g.icon, title: g.title,
+          onClick: () => { this.setState({ group: g.key, q: '', city: 'همه شهرها', urgency: 'همه', page: 0 }); this.toList(); },
+          style: 'display:flex;align-items:center;gap:6px;height:34px;padding:0 12px;border-radius:11px;font-size:12.5px;font-weight:800;cursor:pointer;white-space:nowrap;'
+            + (on ? 'background:#15181D;color:#fff' : 'background:#F5F6F8;color:#5A6169')
+        };
+      }),
+      scrollTop: () => window.scrollTo({ top: 0, behavior: 'smooth' }),
+      showChooser: !S.isMobile,
+      showAsk: S.isMobile && !S.chosen,
+      showContent: !S.isMobile || S.chosen,
+      showChangeBar: S.isMobile && S.chosen,
+      changeGroup: () => this.setState({ chosen: false, fOpen: false }),
+      skipAsk: () => this.setState({ chosen: true, group: 'درمان', sort: 'فوری‌ترین' }),
+      askCards: groups.map(g => ({
+        icon: g.icon, title: g.title,
+        count: all.filter(c => c.g === g.key).length.toLocaleString('fa-IR'),
+        hint: (g.stats[2] && g.stats[2].label === 'میانگین مهلت') ? 'میانگین مهلت ' + g.stats[2].num : g.stats[2] ? g.stats[2].num : '',
+        onClick: () => this.setState({ group: g.key, chosen: true, q: '', city: 'همه شهرها', urgency: 'همه', fOpen: false, page: 0 })
+      })),
+      groupCards: groups.map(g => {
+        const on = g.key === group.key;
+        return {
+          icon: g.icon, title: g.title, mark: on ? '✓' : '',
+          count: all.filter(c => c.g === g.key).length.toLocaleString('fa-IR'),
+          onClick: () => { this.setState({ group: g.key, chosen: true, q: '', city: 'همه شهرها', urgency: 'همه', fOpen: false, page: 0 }); this.toList(); },
+          cardStyle: 'display:flex;flex-direction:column;gap:12px;padding:16px;border-radius:20px;cursor:pointer;min-width:0;min-height:132px;transition:transform .18s,box-shadow .18s,border-color .18s;border:1.5px solid '
+            + (on ? '#15181D;background:#15181D;box-shadow:0 22px 44px -26px rgba(20,22,26,.6)' : '#EFF0F2;background:#fff'),
+          iconStyle: 'flex:0 0 42px;width:42px;height:42px;border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:19px;'
+            + (on ? 'background:rgba(244,81,30,.2);color:#FF8A55' : 'background:#F5F6F8;color:#8A9099'),
+          titleStyle: 'font-size:15px;font-weight:800;line-height:1.6;letter-spacing:-.3px;overflow-wrap:anywhere;' + (on ? 'color:#fff' : 'color:#23262B'),
+          pillStyle: 'font-size:11.5px;font-weight:700;padding:4px 10px;border-radius:20px;'
+            + (on ? 'background:rgba(255,255,255,.1);color:rgba(255,255,255,.72)' : 'background:#F5F6F8;color:#8A9099'),
+          arrowStyle: 'margin-inline-start:auto;font-size:15px;' + (on ? 'color:#FF8A55' : 'color:#C9CDD3'),
+          markStyle: 'margin-inline-start:auto;flex:0 0 24px;width:24px;height:24px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:800;'
+            + (on ? 'background:#F4511E;color:#fff' : 'border:1.5px solid #EDEEF1;color:transparent')
+        };
+      }),
+      fOpen: !!S.fOpen,
+      fCaret: S.fOpen ? '▲' : '▼',
+      toggleF: () => this.setState({ fOpen: !S.fOpen }),
+      closeF: () => this.setState({ fOpen: false }),
+      hasF: !!S.q.trim() || S.city !== 'همه شهرها' || S.urgency !== 'همه',
+      activeFCount: [!!S.q.trim(), S.city !== 'همه شهرها', S.urgency !== 'همه'].filter(Boolean).length.toLocaleString('fa-IR'),
+      groupTabs: groups.map(g => {
+        const on = g.key === group.key;
+        return {
+          icon: g.icon, title: g.title, count: all.filter(c => c.g === g.key).length.toLocaleString('fa-IR'),
+          onClick: () => this.setState({ group: g.key, q: '', city: 'همه شهرها', urgency: 'همه' }),
+          style: 'display:flex;align-items:center;gap:8px;height:46px;padding:0 15px;border-radius:14px;font-size:13.5px;font-weight:800;cursor:pointer;white-space:nowrap;border:1.5px solid ' +
+            (on ? '#F4511E;background:#FEF1EC;color:#D8420F' : '#EFF0F2;background:#fff;color:#4E555E'),
+          countStyle: 'font-size:11px;font-weight:800;padding:3px 8px;border-radius:8px;' + (on ? 'background:#F4511E;color:#fff' : 'background:#F2F3F5;color:#8A9099')
+        };
+      }),
+      q: S.q, onSearch: (e) => this.setState({ q: e.target.value, page: 0 }),
+      city: S.city, onCity: (e) => this.setState({ city: e.target.value, page: 0 }),
+      cityOptions: ['همه شهرها'].concat(inGroup.map(c => c.city).filter((v, i, a) => a.indexOf(v) === i).sort()),
+      sort: S.sort, onSort: (e) => this.setState({ sort: e.target.value, page: 0 }),
+      sortOptions: ['فوری‌ترین', 'نزدیک به تکمیل', 'کمترین جمع‌آوری'],
+      urgencyChips: ['همه', 'فوری (زیر ۱۰ روز)', 'ماهانه'].map(u => ({
+        label: u, onClick: () => this.setState({ urgency: u, page: 0 }), style: chip(S.urgency === u)
+      })),
+      resultCount: list.length.toLocaleString('fa-IR'),
+      empty: list.length === 0,
+      cases: pageList.map(decorate),
+      hasPages: pages > 1,
+      pageLabel: (page + 1).toLocaleString('fa-IR') + ' از ' + pages.toLocaleString('fa-IR'),
+      shownRange: (list.length ? (page * per + 1).toLocaleString('fa-IR') + '–' + Math.min(list.length, page * per + per).toLocaleString('fa-IR') : '۰'),
+      pageBtns: Array.from({ length: pages }, (_, i) => ({
+        label: (i + 1).toLocaleString('fa-IR'),
+        onClick: () => { this.setState({ page: i }); this.toList(); },
+        style: 'min-width:40px;height:40px;padding:0 12px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:13.5px;font-weight:800;cursor:pointer;border:1.5px solid '
+          + (i === page ? '#15181D;background:#15181D;color:#fff' : '#E3E6EA;background:#fff;color:#5A6169')
+      })),
+      prevPage: () => { this.setState({ page: Math.max(0, page - 1) }); this.toList(); },
+      nextPage: () => { this.setState({ page: Math.min(pages - 1, page + 1) }); this.toList(); },
+      prevStyle: 'height:40px;padding:0 14px;border-radius:12px;font-size:13px;font-weight:700;cursor:pointer;border:1.5px solid #E3E6EA;background:#fff;'
+        + (page === 0 ? 'color:#C9CDD3' : 'color:#23262B'),
+      nextStyle: 'height:40px;padding:0 14px;border-radius:12px;font-size:13px;font-weight:700;cursor:pointer;border:1.5px solid #E3E6EA;background:#fff;'
+        + (page === pages - 1 ? 'color:#C9CDD3' : 'color:#23262B'),
+      resetFilters: () => this.setState({ q: '', city: 'همه شهرها', urgency: 'همه', sort: 'فوری‌ترین', page: 0 }),
+      detail: !!detailRaw,
+      detailCase: detailRaw ? decorate(detailRaw) : { facts: [] },
+      closeDetail: () => this.setState({ detail: null }),
+      openGroupDonate: () => this.setState({ detail: null }),
+      amountChips: [500000, 1000000, 5000000, 20000000].map(v => ({
+        label: fmt(v) + ' تومان', onClick: () => this.setState({ amount: v }),
+        style: chip(S.amount === v)
+      })),
+      amountValue: fmt(amount),
+      onAmount: (e) => {
+        const n = parseInt(String(e.target.value).replace(/[^0-9۰-۹]/g, '').replace(/[۰-۹]/g, d => '۰۱۲۳۴۵۶۷۸۹'.indexOf(d)), 10);
+        this.setState({ amount: isNaN(n) ? 0 : n });
+      },
+      impactNote: impact
+    };
+  }
+}
+</script>
+</body>
+</html>

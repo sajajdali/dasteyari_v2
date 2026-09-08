@@ -1,0 +1,288 @@
+/* دست یاری — قواعد ریسپانسیو مشترک همه صفحات. آخرین استایل لود شده. */
+
+@media (max-width: 900px) {
+  .om-set-2col { grid-template-columns: minmax(0, 1fr) !important; }
+  /* گریدهای دو/چندستونی با حداقل عرض ثابت → یک‌ستونه */
+  [style*="minmax(190px"], [style*="minmax(200px"], [style*="minmax(205px"],
+  [style*="minmax(210px"], [style*="minmax(215px"], [style*="minmax(220px"],
+  [style*="minmax(230px"], [style*="minmax(240px"], [style*="minmax(250px"],
+  [style*="minmax(260px"], [style*="minmax(270px"], [style*="minmax(280px"],
+  [style*="minmax(290px"], [style*="minmax(300px"], [style*="minmax(320px"],
+  [style*="minmax(340px"], [style*="minmax(360px"], [style*="minmax(380px"],
+  [style*="minmax(400px"], [style*="minmax(420px"] {
+    grid-template-columns: minmax(0, 1fr) !important;
+  }
+
+  /* ستون کنار (sidebar) در گریدهای دوستونی */
+  [style*="grid-template-columns: 1fr 1fr"],
+  [style*="grid-template-columns: repeat(2, 1fr)"],
+  [style*="grid-template-columns: 1.05fr 1fr"],
+  [style*="grid-template-columns: 1.2fr 1fr"],
+  [style*="grid-template-columns: 1.3fr 1fr"],
+  [style*="grid-template-columns: 1.4fr 1fr"],
+  [style*="grid-template-columns: 1.5fr 1fr"],
+  [style*="grid-template-columns: 2fr 1fr"],
+  [style*="grid-template-columns: 1fr 1.2fr"],
+  [style*="grid-template-columns: 1fr 2fr"],
+  [style*="grid-template-columns: 1fr 240px"],
+  [style*="grid-template-columns: 1fr 260px"],
+  [style*="grid-template-columns: 1fr 280px"],
+  [style*="grid-template-columns: 1fr 300px"],
+  [style*="grid-template-columns: 1fr 320px"],
+  [style*="grid-template-columns: 1fr 340px"],
+  [style*="grid-template-columns: 1fr 360px"],
+  [style*="grid-template-columns: 240px 1fr"],
+  [style*="grid-template-columns: 260px 1fr"],
+  [style*="grid-template-columns: 280px 1fr"],
+  [style*="grid-template-columns: 300px 1fr"],
+  [style*="grid-template-columns: 320px 1fr"],
+  [style*="grid-template-columns: 340px 1fr"],
+  [style*="grid-template-columns: 262px 1fr"],
+  [style*="grid-template-columns: 262px minmax(0, 1fr)"] {
+    grid-template-columns: minmax(0, 1fr) !important;
+  }
+
+  /* سلول‌هایی که چند ستون را می‌گیرند */
+  [style*="grid-column: span 2"], [style*="grid-column: span 3"],
+  [style*="grid-column: span 4"], [style*="grid-column: 1 / -1"] {
+    grid-column: span 1 !important;
+  }
+
+  /* ردیف‌های ۴ تا ۸ ستونه → کارت‌های کوچک قابل جاشدن */
+  [style*="repeat(4, 1fr)"], [style*="repeat(5, 1fr)"], [style*="repeat(6, 1fr)"],
+  [style*="repeat(7, 1fr)"], [style*="repeat(8, 1fr)"], [style*="repeat(3, 1fr)"] {
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 128px), 1fr)) !important;
+  }
+
+  /* ردیف‌های دکمه و کنترل: بشکن، له نشو */
+  div:has(> button) { flex-wrap: wrap !important; }
+  div:has(> button) > button { flex: 0 0 auto !important; }
+  button, select, input, textarea { max-width: 100% !important; }
+  label { min-width: 0 !important; }
+
+  /* حداقل‌عرض‌های ثابت جدول‌ها */
+  [style*="min-width: 600px"], [style*="min-width: 640px"], [style*="min-width: 660px"],
+  [style*="min-width: 680px"], [style*="min-width: 700px"], [style*="min-width: 720px"],
+  [style*="min-width: 740px"], [style*="min-width: 760px"], [style*="min-width: 780px"],
+  [style*="min-width: 800px"], [style*="min-width: 820px"], [style*="min-width: 840px"],
+  [style*="min-width: 860px"], [style*="min-width: 880px"], [style*="min-width: 900px"],
+  [style*="min-width: 940px"], [style*="min-width: 960px"], [style*="min-width: 980px"],
+  [style*="min-width: 1000px"], [style*="min-width: 1040px"], [style*="min-width: 1080px"],
+  [style*="min-width: 1100px"], [style*="min-width: 1200px"], [style*="min-width: 1290px"],
+  [style*="min-width: 1300px"], [style*="min-width: 1400px"] {
+    min-width: 0 !important;
+  }
+
+  img, svg, canvas { max-width: 100%; }
+  main { min-width: 0 !important; overflow-x: clip; }
+  /* ردیف‌های گرید کشیده نشوند (فاصله‌های عجیب بین فیلدها) */
+  [style*="display: grid"] { align-content: start; }
+
+  /* توکن‌های نشکن (ایمیل، لینک، کد) صفحه را پهن نکنند */
+  div, span, p, a, td, th, li, label { overflow-wrap: anywhere; }
+  main div, main section, main label, main form { max-width: 100%; }
+
+  /* ردیف‌های شبه‌جدول با ستون‌های عرض‌ثابت: بشکن، بریده نشو */
+  div:has(> span[style*="flex: 0 0"]):not([style*="flex-direction: column"]) { flex-wrap: wrap !important; }
+  [style*="flex: 0 0 1"], [style*="flex: 0 0 9"], [style*="flex: 0 0 8"] {
+    flex-shrink: 1 !important; min-width: 0 !important;
+  }
+}
+
+/* ---- صفحه کمپین‌ها ---- */
+@media (max-width: 900px) {
+  /* ترتیب موبایل: توضیحات و آمار ← پرونده‌های تحت پوشش ← کارت کمک ← باقی صفحه */
+  [data-cmp-grid] { display: flex !important; flex-direction: column !important; gap: 18px !important;
+    align-items: stretch !important; }
+  [data-cmp-main] { display: contents !important; }
+  [data-cmp-main] > * { order: 4; width: 100% !important; min-width: 0 !important; }
+  [data-cmp-main] > div:first-child, [data-cmp-main] > h1, [data-cmp-main] > p { order: 1; }
+  [data-cmp-main] > div:nth-child(2) { order: 1; }
+  [data-cmp-stats] { order: 2 !important; display: grid !important;
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important; gap: 10px !important; }
+  [data-cmp-cases] { order: 3 !important; }
+  [data-cmp-side] { order: 4 !important; position: static !important; width: 100% !important; }
+  [data-cmp-main] > div:nth-last-child(-n+7):not([data-cmp-cases]):not([data-cmp-stats]) { order: 5; }
+  [data-cmp-grid] { grid-template-columns: minmax(0, 1fr) !important; }
+  [data-cmp-picks] > button { padding: 12px !important; }
+  /* باکس‌های پشتیبانان، آخرین مشارکت‌ها و روند جذب: تمام‌عرض */
+  [data-cmp-main] > div[style*="minmax(min(100%, 260px)"] {
+    display: grid !important; grid-template-columns: minmax(0, 1fr) !important; gap: 14px !important;
+  }
+  [data-cmp-main] > div[style*="minmax(min(100%, 260px)"] > div { width: 100% !important; }
+}
+@media (max-width: 620px) {
+  [data-cmp-donate] { border-radius: 20px !important; padding: 16px !important; gap: 13px !important; }
+  /* دکمه‌های انتخاب پرونده هرگز کنار هم نروند */
+  [data-cmp-picks] { display: flex !important; flex-direction: column !important; }
+  [data-cmp-picks] > button { flex: 0 0 auto !important; width: 100% !important; max-width: 100% !important; }
+  /* دکمه پرداخت تمام‌عرض و با ارتفاع لمسی بماند (محور اصلی ستونی است) */
+  [data-cmp-donate] > div > button[style*="height: 54px"] {
+    flex: 0 0 auto !important; width: 100% !important; max-width: 100% !important;
+    height: auto !important; min-height: 54px !important; padding: 12px 16px !important;
+    line-height: 1.6 !important;
+  }
+}
+
+@media (max-width: 620px) {
+  /* پدینگ‌های سنگین دسکتاپ */
+  [style*="padding: 22px 26px"], [style*="padding: 24px 26px"], [style*="padding: 20px 26px"],
+  [style*="padding: 26px 26px"], [style*="padding: 28px 32px"], [style*="padding: 32px 36px"],
+  [style*="padding: 34px 40px"], [style*="padding: 40px 48px"], [style*="padding: 48px 56px"],
+  [style*="padding: 64px 88px"] {
+    padding-inline: 14px !important;
+  }
+  [style*="width: min(580px"], [style*="width: min(620px"], [style*="width: min(640px"],
+  [style*="width: min(680px"], [style*="width: min(560px"] { width: 100% !important; }
+
+  /* کارت‌های آماری کوچک روی موبایل: دو ستونه */
+  [style*="minmax(150px"], [style*="minmax(160px"], [style*="minmax(170px"],
+  [style*="minmax(180px"], [style*="minmax(190px"], [style*="minmax(200px"],
+  [style*="minmax(210px"], [style*="minmax(220px"], [style*="minmax(230px"],
+  [style*="minmax(min(100%, 150px)"], [style*="minmax(min(100%, 160px)"],
+  [style*="minmax(min(100%, 170px)"], [style*="minmax(min(100%, 180px)"],
+  [style*="minmax(min(100%, 190px)"], [style*="minmax(min(100%, 200px)"],
+  [style*="minmax(min(100%, 210px)"], [style*="minmax(min(100%, 220px)"],
+  [style*="minmax(min(100%, 230px)"] {
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 145px), 1fr)) !important;
+    gap: 10px !important;
+  }
+  /* کارت آماری دوستونه: پدینگ کمتر تا اعداد جا شوند */
+  [style*="minmax(min(100%, 145px)"] > div[style*="padding: 20px"],
+  [style*="minmax(230px"] > div[style*="padding: 20px"] { padding: 14px !important; }
+  /* کارت‌هایی که در موبایل باید تمام‌عرض بمانند */
+  [data-mobile-full] { grid-column: 1 / -1 !important; }
+  /* گریدهایی که در موبایل باید کاملاً یک‌ستونه بمانند */
+  [data-mobile-stack] { grid-template-columns: minmax(0, 1fr) !important; gap: 12px !important; }
+  [data-mobile-stack] > div[style*="padding: 20px"] { padding: 18px !important; }
+  /* ردیف‌های اخبار: تصویر تمام‌عرض بالا، اقدام‌ها تمام‌عرض پایین */
+  [data-news-thumb] {
+    flex: 1 1 100% !important; width: 100% !important; height: 168px !important;
+  }
+  [data-news-actions] {
+    flex: 1 1 100% !important; width: 100% !important;
+    align-items: stretch !important; flex-direction: column !important;
+    border-top: 1px solid #F4F5F7; padding-top: 11px;
+  }
+  [data-news-actions] > div { justify-content: stretch !important; }
+  /* جدول دسترسی نقش‌ها: برچسب بخش در یک خط، چهار کلید زیرش */
+  [data-perm-head], [data-perm-row] {
+    grid-template-columns: repeat(4, minmax(0, 1fr)) !important;
+    gap: 7px !important; row-gap: 9px !important;
+  }
+  [data-perm-head] > span:first-child, [data-perm-row] > span:first-child {
+    grid-column: 1 / -1 !important;
+  }
+
+  /* گروه دکمه‌ها: یک ردیف تمام‌عرض، دکمه‌ها کنار هم — نه پله‌ای */
+  div:has(> div > button):not([style*="flex-direction: column"]) { flex-wrap: wrap !important; }
+  div:has(> button + button):not(:has(> button + button + button + button)):not([style*="flex-direction: column"]):not(header > div) {
+    display: flex !important; flex-wrap: wrap !important; gap: 8px !important;
+    flex: 1 1 auto !important; width: 100% !important;
+    margin-inline-start: 0 !important; margin-inline-end: 0 !important;
+  }
+  /* ردیف پرش سریع داشبورد: در موبایل چسبان نباشد (هدر بلندتر است) */
+  [style*="position: sticky"][style*="top: 76px"] {
+    position: static !important; margin: 0 !important; padding: 0 !important; background: none !important;
+  }
+  div:has(> button + button):not(:has(> button + button + button + button)):not([style*="flex-direction: column"]):not(header > div) > button:not([data-om-mh]) {
+    flex: 1 1 auto !important; min-width: 92px !important;
+    padding-inline: 10px !important; font-size: 12.5px !important;
+  }
+  /* صفحه‌بندی و ردیف‌های پرتعداد: کوچک و جاشو بمانند */
+  div:has(> button + button + button + button):not([style*="flex-direction: column"]) { flex-wrap: wrap !important; }
+  div:has(> button + button + button + button) > button { flex: 0 0 auto !important; }
+
+  /* هدر موبایل: تیتر یک خط، دکمه‌ها ردیف بعد، یادداشت‌های فرعی حذف */
+  header { row-gap: 8px !important; }
+  header > div:has(> button) > span { display: none !important; }
+
+  /* هدر پنل مدیریت در موبایل: یک خط — همبرگر راست، ابزارها چپ */
+  main > header {
+    flex-wrap: nowrap !important; min-height: 64px !important;
+    padding: 10px 14px !important; padding-inline-start: 68px !important; gap: 7px !important;
+  }
+  /* عنوان صفحه یک‌خطی و کوچک بماند (حذف نشود) */
+  main > header > div:first-child { min-width: 0 !important; flex: 0 1 auto !important; }
+  main > header > div:first-child > div:first-child,
+  main > header > div:first-child > span:first-child {
+    white-space: nowrap !important; font-size: 15px !important;
+    overflow: hidden !important; text-overflow: ellipsis !important;
+  }
+  main > header > div:first-child > div:nth-child(2),
+  main > header > div:first-child > span:nth-child(2) { display: none !important; }
+  /* جعبه جست‌وجو → آیکون ذره‌بین */
+  main > header div:has(> input[type="text"]) {
+    position: relative !important; flex: 0 0 42px !important;
+    width: 42px !important; min-width: 42px !important; max-width: 42px !important;
+    margin: 0 !important; overflow: hidden !important;
+    justify-content: center !important; cursor: pointer !important;
+  }
+  main > header div:has(> input[type="text"])::after {
+    content: '⌕'; font-size: 20px; color: #5A6169; line-height: 1;
+  }
+  main > header div:has(> input[type="text"]) > span { display: none !important; }
+  main > header div:has(> input[type="text"]) > input { display: none !important; }
+  /* همبرگر شناور هم‌راستای ابزارهای هدر */
+  [style*="position: fixed"][style*="top: 14px"][style*="right: 12px"] { top: 11px !important; }
+  /* ردیف ابزارهای انتهای هدر (دکمه + زنگ + منوی کاربر) */
+  main > header > div:last-child:has(> div:last-child > div > div[style*="border-radius: 50%"]) {
+    flex: 0 0 auto !important; width: auto !important;
+    margin-inline-start: auto !important; gap: 7px !important; flex-wrap: nowrap !important;
+  }
+  main > header > div:has(> button) {
+    flex: 0 0 auto !important; width: auto !important;
+    margin-inline-start: auto !important; gap: 7px !important; flex-wrap: nowrap !important;
+  }
+  main > header button[data-om-mh="hidden"] { display: none !important; }
+  /* دکمه‌های اقدام داخل کارت‌ها: دوتا‌دوتا کنار هم (فقط ردیف‌های افقی) */
+  main div[style*="flex-wrap: wrap"]:not([style*="flex-direction: column"]):not([data-om-fc-open]) > button:not([data-om-mh]):not([data-om-mf]),
+  main div[style*="flex-wrap:wrap"]:not([style*="flex-direction:column"]):not([data-om-fc-open]) > button:not([data-om-mh]):not([data-om-mf]) {
+    flex: 1 1 calc(50% - 5px) !important;
+    min-width: calc(50% - 5px) !important;
+    max-width: 100% !important;
+  }
+  main > header > div > button[data-om-mh="proxy"],
+  main > header button[data-om-mh="proxy"] {
+    flex: 0 0 42px !important; width: 42px !important; min-width: 42px !important;
+    max-width: 42px !important; padding: 0 !important; font-size: 20px !important;
+  }
+  /* منوی کاربر در هدر: فقط آواتار */
+  main > header div:has(> div[style*="border-radius: 50%"][style*="width: 38px"]) > div:not([style*="border-radius: 50%"]),
+  main > header div:has(> div[style*="border-radius: 50%"][style*="width: 38px"]) > span { display: none !important; }
+  main > header div:has(> div[style*="border-radius: 50%"][style*="width: 38px"]) { padding: 3px !important; gap: 0 !important; }
+  main > header > div:last-child > div:last-child:has(> div > div[style*="border-radius: 50%"]) {
+    padding-inline-start: 8px !important; border-inline-start: 0 !important;
+  }
+  main > header > div:last-child > div:last-child:has(> div > div[style*="border-radius: 50%"]) > div > div:nth-child(2),
+  main > header > div:last-child > div:last-child:has(> div > div[style*="border-radius: 50%"]) > div > span:last-child { display: none !important; }
+  main > header > div:last-child > div:last-child:has(> div > div[style*="border-radius: 50%"]) > div { padding: 3px 4px !important; gap: 7px !important; }
+
+  /* ماتریس دسترسی‌ها: برچسب بخش تمام‌عرض، چهار کلید زیرش */
+  [style*="minmax(120px, 1.6fr) repeat(4"] {
+    grid-template-columns: repeat(4, minmax(0, 1fr)) !important;
+    gap: 7px !important; row-gap: 9px !important; padding-inline: 12px !important;
+  }
+
+  /* منوهای بازشوی هدر (اعلان‌ها، منوی کاربر) از صفحه بیرون نزنند */
+  [style*="position: absolute"][style*="width: min(400px"],
+  [style*="position: absolute"][style*="width: min(380px"],
+  [style*="position: absolute"][style*="width: min(360px"],
+  [style*="position: absolute"][style*="width: 260px"],
+  [style*="position: absolute"][style*="width: 280px"],
+  [style*="position: absolute"][style*="width: 300px"],
+  [style*="position: absolute"][style*="width: 320px"],
+  [style*="position: absolute"][style*="width: 340px"],
+  [style*="position: absolute"][style*="width: 360px"] {
+    position: fixed !important; top: 68px !important;
+    left: 10px !important; right: 10px !important; inset-inline: 10px !important;
+    width: auto !important; max-width: none !important; max-height: 74vh; overflow-y: auto;
+  }
+
+  /* سرستون‌های جدول در موبایل معنا ندارند */
+  [style*="flex: 0 0 1"], [style*="flex: 0 0 9"], [style*="flex: 0 0 8"] { flex-basis: auto !important; }
+  div[style*="color: rgb(154, 160, 168)"]:has(> span[style*="flex: 0 0"]),
+  div[style*="color: rgb(169, 174, 182)"]:has(> span[style*="flex: 0 0"]) {
+    display: none !important;
+  }
+}

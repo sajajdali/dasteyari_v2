@@ -1,0 +1,1075 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/rastikerdar/vazirmatn@v33.003/Vazirmatn-font-face.css">
+<script src="./image-slot.js"></script>
+<style>
+  *{box-sizing:border-box}
+  body{margin:0;font-family:Vazirmatn,system-ui,sans-serif;background:#fff;color:#191C21;-webkit-font-smoothing:antialiased}
+  a{color:#F4511E;text-decoration:none}
+  a:hover{color:#C43C0E}
+  input,button,select{font-family:inherit}
+  input:focus{outline:none}
+  ::placeholder{color:#A9AEB6}
+  ::-webkit-scrollbar{width:9px}
+  ::-webkit-scrollbar-thumb{background:#D8DBE0;border-radius:8px}
+  .om-arrows{display:none}
+  @media (max-width:900px){
+    #om-slider-ctl{display:none !important}
+    .om-dots{display:none !important}
+    .om-arrows{display:flex !important}
+    div[style*="min-width: 1100px"],div[style*="min-width: 1000px"],div[style*="min-width: 900px"],div[style*="min-width: 820px"],div[style*="min-width: 760px"],div[style*="min-width: 700px"],div[style*="min-width: 640px"]{min-width:0 !important}
+    div[style*="grid-template-columns: 1.6fr 1fr"],div[style*="grid-template-columns: 1.5fr 1fr"],div[style*="grid-template-columns: 1.4fr 1fr"],div[style*="grid-template-columns: 1.3fr 1fr"],div[style*="grid-template-columns: 1.2fr 1fr"],div[style*="grid-template-columns: 1.05fr 1fr"],div[style*="grid-template-columns: 2fr 1fr"],div[style*="grid-template-columns: 1fr 1.2fr"],div[style*="grid-template-columns: 1fr 380px"],div[style*="grid-template-columns: 1fr 360px"],div[style*="grid-template-columns: 1fr 340px"],div[style*="grid-template-columns: 1fr 320px"],div[style*="grid-template-columns: 1fr 300px"],div[style*="grid-template-columns: 320px"],div[style*="grid-template-columns: 300px"],div[style*="grid-template-columns: 280px"]{grid-template-columns:minmax(0,1fr) !important}
+    div[style*="repeat(4, 1fr)"],div[style*="repeat(3, 1fr)"]{grid-template-columns:repeat(auto-fit,minmax(min(100%,150px),1fr)) !important}
+    div[style*="minmax(190px"],div[style*="minmax(180px"],div[style*="minmax(150px"],div[style*="minmax(130px"],div[style*="minmax(120px"]{grid-template-columns:repeat(auto-fit,minmax(min(100%,145px),1fr)) !important}
+  }
+  @media (max-width:560px){
+    div[style*="padding: 26px"],div[style*="padding: 24px"],div[style*="padding: 22px"]{padding:16px !important}
+    h1{font-size:clamp(24px,7vw,32px) !important}
+  }
+</style>
+<link rel="stylesheet" href="./responsive.css" />
+<script src="./settings-store.js"></script>
+</helmet>
+<x-import component-from-global-scope="mobile-preview" from="./mobile-preview.js" hint-size="0,0"></x-import>
+
+<div dir="rtl">
+
+  <dc-import name="SiteHeader" active="home" style="position:sticky;top:0;z-index:50" hint-size="100%,114px"></dc-import>
+
+  <div style="position:fixed;bottom:18px;left:18px;right:auto;z-index:140;display:flex;flex-direction:column;gap:7px;align-items:flex-start">
+    <div onClick="{{ ntDemoToggle }}" style="{{ ntDemoBtnStyle }}">
+      <span style="font-size:14px">⚠</span>
+      <span>{{ ntDemoLabel }}</span>
+    </div>
+    <sc-if value="{{ ntDemoOn }}" hint-placeholder-val="{{ false }}">
+      <div style="display:flex;gap:6px;background:#fff;border:1px solid #EAECEF;border-radius:12px;padding:6px;box-shadow:0 14px 34px -14px rgba(0,0,0,.28)">
+        <sc-for list="{{ ntDemoModes }}" as="m" hint-placeholder-count="2">
+          <span onClick="{{ m.onClick }}" style="{{ m.style }}">{{ m.label }}</span>
+        </sc-for>
+      </div>
+    </sc-if>
+  </div>
+
+  <sc-if value="{{ ntFull }}" hint-placeholder-val="{{ false }}">
+    <div style="position:fixed;inset:0;z-index:120;display:flex;align-items:center;justify-content:center;padding:clamp(14px,4vw,28px);background:rgba(11,13,16,.86);backdrop-filter:blur(6px)">
+      <div style="width:min(560px,100%);background:#fff;border-radius:26px;padding:clamp(24px,4vw,38px);display:flex;flex-direction:column;gap:18px;align-items:center;text-align:center;box-shadow:0 40px 90px -30px rgba(0,0,0,.6);max-height:calc(100vh - 48px);overflow-y:auto">
+        <span style="{{ ntBadgeStyle }}">{{ ntIcon }}</span>
+        <span style="font-size:clamp(20px,3.4vw,27px);font-weight:800;letter-spacing:-.6px;line-height:1.5">{{ ntTitle }}</span>
+        <p style="margin:0;font-size:14.5px;color:#5A6169;line-height:2.2;text-wrap:pretty">{{ ntText }}</p>
+        <sc-if value="{{ ntHasWindow }}" hint-placeholder-val="{{ false }}">
+          <div style="width:100%;background:#FBFBFC;border:1.5px dashed #DDE0E4;border-radius:18px;padding:16px;display:flex;flex-direction:column;gap:8px">
+            <span style="font-size:11.5px;color:#9AA0A8">بازه عدم دسترسی</span>
+            <div style="display:flex;align-items:center;justify-content:center;gap:12px;flex-wrap:wrap">
+              <span style="font-size:24px;font-weight:800;color:#D8420F">{{ ntFrom }}</span>
+              <span style="font-size:14px;color:#9AA0A8">تا</span>
+              <span style="font-size:24px;font-weight:800;color:#D8420F">{{ ntTo }}</span>
+            </div>
+            <span style="font-size:12.5px;font-weight:700;color:#5A6169">{{ ntDateNote }}</span>
+          </div>
+        </sc-if>
+        <div style="display:flex;gap:10px;flex-wrap:wrap;width:100%">
+          <sc-if value="{{ ntHasCta }}" hint-placeholder-val="{{ false }}">
+            <a href="{{ ntCtaLink }}" style="flex:1 1 180px;height:52px;border-radius:14px;background:#F4511E;color:#fff;font-size:14.5px;font-weight:800;display:flex;align-items:center;justify-content:center;text-decoration:none">{{ ntCta }}</a>
+          </sc-if>
+          <sc-if value="{{ ntDismissible }}" hint-placeholder-val="{{ false }}">
+            <span onClick="{{ ntClose }}" style="flex:1 1 160px;height:52px;border:1.5px solid #E3E6EA;border-radius:14px;font-size:14px;font-weight:800;color:#23262B;display:flex;align-items:center;justify-content:center;cursor:pointer">متوجه شدم</span>
+          </sc-if>
+        </div>
+      </div>
+    </div>
+  </sc-if>
+  <div style="display:none">
+    <div style="background:#15181D;color:#fff">
+      <div style="max-width:1240px;margin-inline:auto;padding:8px clamp(14px,3vw,24px);min-height:42px;display:flex;align-items:center;flex-wrap:wrap;gap:16px">
+        <a href="tel:02191002233" style="display:flex;align-items:center;gap:8px;color:#fff;font-size:12.5px;font-weight:700">
+          <span style="color:#FF7A45">✆</span>{{ topPhone }}
+        </a>
+        <span style="font-size:12px;color:rgba(255,255,255,.45)">سامانه کمک به نیازمندان</span>
+        <div style="display:none"></div>
+        <div style="margin-inline-start:auto;display:flex;align-items:center;gap:8px;flex-wrap:wrap">
+          <div style="display:flex;align-items:center;gap:7px;height:32px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.12);border-radius:10px;padding:0 11px;max-width:210px">
+            <span style="color:rgba(255,255,255,.5);font-size:12px">⌕</span>
+            <input type="text" placeholder="جست‌وجوی پرونده یا کد…" style="border:0;background:transparent;flex:1;min-width:0;font-size:12px;color:#fff" />
+          </div>
+          <a href="#login" style="height:32px;padding:0 13px;border-radius:10px;border:1px solid rgba(255,255,255,.2);display:flex;align-items:center;gap:7px;color:#fff;font-size:12px;font-weight:700;white-space:nowrap">☷ ورود / عضویت</a>
+          <span onClick="{{ openModal }}" style="height:32px;padding:0 13px;border-radius:10px;background:#F4511E;color:#fff;font-size:12px;font-weight:800;display:flex;align-items:center;gap:6px;cursor:pointer;white-space:nowrap">⚑ کمک فوری</span>
+        </div>
+      </div>
+    </div>
+    <div style="max-width:1240px;margin-inline:auto;padding:10px clamp(14px,3vw,24px);min-height:68px;display:flex;align-items:center;flex-wrap:wrap;gap:12px">
+      <div style="display:flex;align-items:center;gap:12px">
+        <img src="assets/logo-t.png" alt="دست یاری" style="height:clamp(52px,7vw,76px);width:auto;object-fit:contain;display:block" />
+
+      </div>
+      <nav style="display:flex;gap:2px;flex-wrap:wrap;margin-inline-start:12px">
+        <sc-for list="{{ navLinks }}" as="n" hint-placeholder-count="6">
+          <div data-nav="1" style="position:relative">
+            <a href="{{ n.href }}" onClick="{{ n.onClick }}" style="{{ n.style }}">{{ n.label }}<span style="font-size:10px;opacity:.6">{{ n.caret }}</span></a>
+            <sc-if value="{{ n.open }}" hint-placeholder-val="{{ false }}">
+              <div style="position:absolute;top:40px;right:0;z-index:60;width:238px;background:#fff;border:1px solid #E3E6EA;border-radius:15px;box-shadow:0 22px 45px -22px rgba(20,22,26,.32);padding:6px">
+                <sc-for list="{{ n.items }}" as="it" hint-placeholder-count="4">
+                  <a href="#cases" style="display:flex;flex-direction:column;gap:2px;padding:8px 11px;border-radius:10px;color:#23262B" style-hover="background:#FEF1EC">
+                    <span style="font-size:12.5px;font-weight:700">{{ it.label }}</span>
+                    <span style="font-size:10.5px;color:#9AA0A8">{{ it.note }}</span>
+                  </a>
+                </sc-for>
+              </div>
+            </sc-if>
+          </div>
+        </sc-for>
+      </nav>
+      <div style="margin-inline-start:auto;display:flex;align-items:center;gap:10px;flex-wrap:wrap">
+        <a href="#request" style="height:44px;padding:0 15px;border:1.5px solid #E3E6EA;border-radius:13px;display:flex;align-items:center;font-size:13.5px;font-weight:700;color:#23262B;white-space:nowrap" style-hover="background:#F5F6F8">ثبت درخواست کمک</a>
+        <span onClick="{{ openModal }}" style="height:44px;padding:0 20px;border-radius:13px;display:flex;align-items:center;gap:8px;background:#F4511E;color:#fff;font-size:14px;font-weight:800;white-space:nowrap;cursor:pointer;box-shadow:0 10px 22px -12px rgba(244,81,30,.9)">♥ کمک می‌کنم</span>
+      </div>
+    </div>
+  </div>
+
+  <section style="position:relative;background:#15181D;color:#fff;overflow:hidden">
+    <div style="position:absolute;inset:0">
+      <image-slot id="site-hero" src="{{ heroImage }}" shape="rect" fit="cover" placeholder="عکس اصلی سایت"></image-slot>
+    </div>
+    <div style="position:absolute;inset:0;background:linear-gradient(90deg,rgba(21,24,29,.94) 0%,rgba(21,24,29,.86) 45%,rgba(21,24,29,.35) 100%);pointer-events:none"></div>
+    <div style="position:absolute;top:-140px;left:-120px;width:460px;height:460px;border-radius:50%;background:radial-gradient(circle at 40% 40%,rgba(244,81,30,.45),rgba(244,81,30,0) 65%);pointer-events:none"></div>
+
+    <div style="position:relative;max-width:1240px;margin-inline:auto;padding:clamp(40px,6vw,78px) clamp(14px,3vw,24px) clamp(46px,7vw,86px);display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,340px),1fr));gap:clamp(26px,4vw,44px);align-items:center;pointer-events:none">
+      <div style="display:flex;flex-direction:column;gap:24px;pointer-events:auto">
+        <div style="display:flex;align-items:center;gap:10px;align-self:flex-start;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.14);padding:8px 15px;border-radius:30px">
+          <span style="width:8px;height:8px;border-radius:50%;background:#4ED08A"></span>
+          <span style="font-size:12.5px;color:rgba(255,255,255,.8);font-weight:700">{{ c.heroBadge }}</span>
+        </div>
+        <h1 style="margin:0;font-size:clamp(28px,5vw,48px);font-weight:800;line-height:1.35;letter-spacing:-1.2px;text-wrap:pretty">{{ heroTitleNode }}</h1>
+        <p style="margin:0;font-size:16.5px;color:rgba(255,255,255,.68);line-height:2.2;max-width:520px;text-wrap:pretty">{{ c.heroText }}</p>
+        <div style="display:flex;gap:12px;flex-wrap:wrap">
+          <a href="{{ c.heroCta1Link }}" style="height:56px;padding:0 26px;border-radius:15px;display:flex;align-items:center;justify-content:center;flex:1 1 220px;background:#F4511E;color:#fff;font-size:16px;font-weight:700;white-space:nowrap;box-shadow:0 14px 30px -14px rgba(244,81,30,.95)">{{ c.heroCta1 }}</a>
+          <a href="{{ c.heroCta2Link }}" style="height:56px;padding:0 22px;border-radius:15px;display:flex;align-items:center;justify-content:center;flex:1 1 200px;gap:9px;border:1.5px solid rgba(255,255,255,.22);color:#fff;font-size:15px;font-weight:700;white-space:nowrap">{{ c.heroCta2 }}</a>
+        </div>
+        <div style="display:flex;gap:14px;flex-wrap:wrap;padding-top:8px">
+          <sc-for list="{{ hero.stats }}" as="s" hint-placeholder-count="4">
+            <div style="flex:1 1 120px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);border-radius:16px;padding:15px 16px;display:flex;flex-direction:column;gap:5px">
+              <span style="{{ s.numStyle }}">{{ s.num }}</span>
+              <span style="font-size:11.5px;color:rgba(255,255,255,.55)">{{ s.label }}</span>
+            </div>
+          </sc-for>
+        </div>
+      </div>
+
+      <div style="pointer-events:auto;display:flex;flex-direction:column;gap:16px;max-width:460px;width:100%;margin-inline-start:auto">
+        <div style="background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.13);border-radius:24px;padding:22px;display:flex;flex-direction:column;gap:16px">
+          <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap">
+            <span style="font-size:11.5px;font-weight:800;background:#FDECEC;color:#C43034;padding:5px 11px;border-radius:20px">{{ c.heroSlideTitle }}</span>
+            <span style="font-size:11.5px;color:rgba(255,255,255,.5)">{{ heroSlide.counter }}</span>
+            <div style="margin-inline-start:auto;display:flex;gap:7px">
+              <span onClick="{{ heroSlide.prev }}" style="width:34px;height:34px;border-radius:11px;border:1px solid rgba(255,255,255,.2);color:#fff;display:flex;align-items:center;justify-content:center;font-size:13px;cursor:pointer">→</span>
+              <span onClick="{{ heroSlide.next }}" style="width:34px;height:34px;border-radius:11px;border:1px solid rgba(255,255,255,.2);color:#fff;display:flex;align-items:center;justify-content:center;font-size:13px;cursor:pointer">←</span>
+            </div>
+          </div>
+          <div style="display:flex;gap:14px;align-items:center">
+            <div style="{{ heroSlide.thumbStyle }}"></div>
+            <div style="display:flex;flex-direction:column;gap:6px;min-width:0">
+              <span style="font-size:16px;font-weight:800;color:#fff;line-height:1.6">{{ heroSlide.title }}</span>
+              <span style="font-size:11.5px;color:rgba(255,255,255,.55)">{{ heroSlide.code }} — {{ heroSlide.city }} — مهلت {{ heroSlide.deadline }}</span>
+            </div>
+          </div>
+          <div style="display:flex;flex-direction:column;gap:8px">
+            <div style="height:8px;background:rgba(255,255,255,.14);border-radius:6px;overflow:hidden"><span style="{{ heroSlide.barStyle }}"></span></div>
+            <div style="display:flex;justify-content:space-between;font-size:11.5px;color:rgba(255,255,255,.55);flex-wrap:wrap;gap:8px">
+              <span><b style="color:#fff;font-size:13px">{{ heroSlide.raised }}</b> از {{ heroSlide.goal }}</span>
+              <span>{{ heroSlide.pctLabel }} — {{ heroSlide.donors }} خیر</span>
+            </div>
+          </div>
+          <div class="om-dots" style="display:flex;gap:7px;align-items:center;justify-content:center">
+            <sc-for list="{{ heroSlide.dots }}" as="d" hint-placeholder-count="4">
+              <span onClick="{{ d.onClick }}" style="{{ d.style }}"></span>
+            </sc-for>
+          </div>
+          <div class="om-arrows" style="gap:10px;align-items:center;justify-content:center">
+            <button onClick="{{ heroSlide.prev }}" aria-label="قبلی" style="width:46px;height:46px;border:1.5px solid rgba(255,255,255,.3);border-radius:14px;background:rgba(255,255,255,.12);color:#fff;font-size:17px;cursor:pointer">→</button>
+            <button onClick="{{ heroSlide.next }}" aria-label="بعدی" style="width:46px;height:46px;border:1.5px solid rgba(255,255,255,.3);border-radius:14px;background:rgba(255,255,255,.12);color:#fff;font-size:17px;cursor:pointer">←</button>
+          </div>
+          <span onClick="{{ heroSlide.pick }}" style="height:52px;border-radius:14px;background:#fff;color:#C43C0E;font-size:15px;font-weight:800;display:flex;align-items:center;justify-content:center;cursor:pointer;white-space:nowrap">{{ c.heroSlideCta }}</span>
+        </div>
+        <a href="#cases" style="display:flex;align-items:center;gap:12px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12);border-radius:18px;padding:16px 18px;color:#fff">
+          <span style="flex:0 0 40px;width:40px;height:40px;border-radius:13px;background:rgba(244,81,30,.2);color:#FF7A45;display:flex;align-items:center;justify-content:center;font-size:16px">♡</span>
+          <div style="display:flex;flex-direction:column;gap:3px;min-width:0">
+            <span style="font-size:14px;font-weight:800">{{ c.heroCountCard }}</span>
+            <span style="font-size:11.5px;color:rgba(255,255,255,.55)">{{ c.heroCountNote }}</span>
+          </div>
+          <span style="margin-inline-start:auto;font-size:13px;font-weight:800;color:#FF7A45;white-space:nowrap">فهرست ←</span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <sc-if value="{{ modalOpen }}" hint-placeholder-val="{{ false }}">
+    <div style="position:fixed;inset:0;z-index:90;display:flex;align-items:center;justify-content:center;padding:clamp(10px,3vw,24px)">
+      <div onClick="{{ closeModal }}" style="position:absolute;inset:0;background:rgba(15,17,20,.62)"></div>
+      <div id="donate" style="position:relative;width:min(520px,100%);max-height:100%;overflow-y:auto;background:#fff;color:#191C21;border-radius:24px;box-shadow:0 40px 80px -30px rgba(0,0,0,.6);display:flex;flex-direction:column">
+        <div style="padding:20px 24px;border-bottom:1px solid #EFF0F2;display:flex;align-items:center;gap:14px;position:sticky;top:0;background:#fff;z-index:2">
+          <div style="display:flex;flex-direction:column;gap:4px;min-width:0">
+            <span style="font-size:11.5px;font-weight:800;color:#D8420F">کمک به نیازمندان</span>
+            <span style="font-size:19px;font-weight:800;letter-spacing:-.4px">ثبت کمک</span>
+          </div>
+          <div onClick="{{ closeModal }}" style="margin-inline-start:auto;width:36px;height:36px;border:1px solid #EDEEF1;border-radius:11px;display:flex;align-items:center;justify-content:center;color:#8A9099;cursor:pointer" style-hover="background:#F5F6F8">✕</div>
+        </div>
+        <div style="padding:22px 24px 26px;display:flex;flex-direction:column;gap:18px">
+        <div style="display:flex;gap:7px;background:#F5F6F8;padding:5px;border-radius:13px">
+          <sc-for list="{{ donateTabs }}" as="t" hint-placeholder-count="2">
+            <button onClick="{{ t.onClick }}" style="{{ t.style }}">{{ t.label }}</button>
+          </sc-for>
+        </div>
+
+        <sc-if value="{{ picked }}" hint-placeholder-val="{{ false }}">
+          <div style="display:flex;gap:12px;align-items:center;background:#FFF6F2;border:1.5px solid #F7CDBB;border-radius:16px;padding:12px">
+            <div style="{{ pickedCase.thumbStyle }}"></div>
+            <div style="display:flex;flex-direction:column;gap:4px;min-width:0">
+              <span style="font-size:11px;font-weight:800;color:#D8420F">پرونده انتخابی شما</span>
+              <span style="font-size:13.5px;font-weight:800;line-height:1.6">{{ pickedCase.title }}</span>
+              <span style="font-size:11px;color:#9AA0A8">{{ pickedCase.code }} — {{ pickedCase.city }} — مانده {{ pickedCase.left }}</span>
+            </div>
+            <span onClick="{{ clearPick }}" style="margin-inline-start:auto;flex:0 0 30px;width:30px;height:30px;border-radius:10px;background:#fff;border:1px solid #F0D5C8;color:#C43034;display:flex;align-items:center;justify-content:center;font-size:12px;cursor:pointer">✕</span>
+          </div>
+        </sc-if>
+
+        <sc-if value="{{ notPicked }}" hint-placeholder-val="{{ true }}">
+          <a href="#cases" style="display:flex;gap:12px;align-items:center;background:#FBFBFC;border:1.5px dashed #DDE0E4;border-radius:16px;padding:16px;color:#23262B">
+            <div style="flex:0 0 42px;width:42px;height:42px;border-radius:13px;background:#FEF1EC;color:#D8420F;display:flex;align-items:center;justify-content:center;font-size:17px">♡</div>
+            <div style="display:flex;flex-direction:column;gap:4px;min-width:0">
+              <span style="font-size:13.5px;font-weight:800">انتخاب پرونده</span>
+              <span style="font-size:11.5px;color:#9AA0A8;line-height:1.8">برای اینکه بدانید کمک‌تان به کجا می‌رود، اول یک پرونده را انتخاب کنید</span>
+            </div>
+            <span style="margin-inline-start:auto;font-size:13px;color:#F4511E;font-weight:800;white-space:nowrap">فهرست ←</span>
+          </a>
+        </sc-if>
+        <div style="display:flex;flex-direction:column;gap:10px">
+          <span style="font-size:12.5px;font-weight:700;color:#4E555E">{{ amountLabel }}</span>
+          <div style="display:flex;gap:8px;flex-wrap:wrap">
+            <sc-for list="{{ amounts }}" as="a" hint-placeholder-count="4">
+              <button onClick="{{ a.onClick }}" style="{{ a.style }}">{{ a.label }}</button>
+            </sc-for>
+          </div>
+          <div style="position:relative;display:flex">
+            <input type="text" value="{{ amountValue }}" onChange="{{ onAmount }}" style="height:52px;flex:1;min-width:0;border:1.5px solid #E3E6EA;border-radius:13px;padding:0 14px;font-size:16px;font-weight:800;background:#FBFBFC" style-focus="border-color:#F4511E;background:#fff" />
+            <span style="position:absolute;left:14px;top:0;height:52px;display:flex;align-items:center;font-size:12.5px;color:#A9AEB6">تومان</span>
+          </div>
+        </div>
+        <button style="{{ donateBtnStyle }}">{{ donateCta }}</button>
+        <div style="display:flex;align-items:center;gap:10px;background:#F7FBF9;border:1px solid #DFF0E7;border-radius:13px;padding:12px 14px">
+          <span style="color:#12805A">✓</span>
+          <span style="font-size:12px;color:#3F6B57;line-height:1.9">{{ donateNote }}</span>
+        </div>
+        </div>
+      </div>
+    </div>
+  </sc-if>
+
+  <section style="background:#fff;border-bottom:1px solid #F0F1F3">
+    <div style="max-width:1240px;margin-inline:auto;padding:26px 24px;display:flex;gap:26px;flex-wrap:wrap;align-items:center;justify-content:space-between">
+      <sc-for list="{{ trustBar }}" as="t" hint-placeholder-count="4">
+        <div style="display:flex;align-items:center;gap:11px;flex:1 1 220px">
+          <div style="flex:0 0 40px;width:40px;height:40px;border-radius:13px;background:#FEF1EC;color:#D8420F;display:flex;align-items:center;justify-content:center;font-size:16px">{{ t.icon }}</div>
+          <div style="display:flex;flex-direction:column;gap:3px;min-width:0">
+            <span style="font-size:13.5px;font-weight:800">{{ t.title }}</span>
+            <span style="font-size:11.5px;color:#9AA0A8">{{ t.sub }}</span>
+          </div>
+        </div>
+      </sc-for>
+    </div>
+  </section>
+
+  <section id="cases" style="background:#FAFAFB">
+    <div style="max-width:1240px;margin-inline:auto;padding:70px 24px">
+      <div style="display:flex;gap:20px;flex-wrap:wrap;align-items:flex-end;margin-bottom:26px">
+        <div style="display:flex;flex-direction:column;gap:10px;min-width:0;flex:1 1 340px">
+          <span style="font-size:12px;font-weight:800;color:#D8420F;letter-spacing:.4px">{{ c.casesEyebrow }}</span>
+          <h2 style="margin:0;font-size:clamp(23px,3.4vw,34px);font-weight:800;letter-spacing:-.8px;line-height:1.4">{{ c.casesTitle }}</h2>
+          <p style="margin:0;font-size:15px;color:#6B7280;line-height:2.1;max-width:560px;text-wrap:pretty">{{ c.casesText }}</p>
+        </div>
+        <div id="om-slider-ctl" style="display:flex;gap:9px;align-items:center">
+          <button onClick="{{ slidePrev }}" style="width:48px;height:48px;border:1.5px solid #E3E6EA;border-radius:13px;background:#fff;color:#23262B;font-size:15px;cursor:pointer" style-hover="background:#F5F6F8;border-color:#F4511E">→</button>
+          <button onClick="{{ slideNext }}" style="width:48px;height:48px;border:1.5px solid #E3E6EA;border-radius:13px;background:#fff;color:#23262B;font-size:15px;cursor:pointer" style-hover="background:#F5F6F8;border-color:#F4511E">←</button>
+          <a href="{{ c.casesCtaLink }}" style="height:48px;padding:0 18px;border:1.5px solid #E3E6EA;border-radius:13px;display:flex;align-items:center;font-size:13.5px;font-weight:700;color:#23262B;white-space:nowrap;background:#fff">{{ c.casesCta }}</a>
+        </div>
+      </div>
+
+      <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:24px">
+        <sc-for list="{{ caseFilters }}" as="f" hint-placeholder-count="6">
+          <button onClick="{{ f.onClick }}" style="{{ f.style }}">{{ f.label }}</button>
+        </sc-for>
+      </div>
+
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,290px),1fr));gap:clamp(14px,2.4vw,22px)">
+        <sc-for list="{{ cases }}" as="c" hint-placeholder-count="3">
+          <div style="{{ c.cardStyle }}" style-hover="box-shadow:0 24px 46px -26px rgba(20,22,26,.32);transform:translateY(-3px)">
+            <div style="{{ c.photoStyle }}">
+              <div style="position:absolute;top:14px;right:14px;display:flex;gap:7px;flex-wrap:wrap;pointer-events:none">
+                <span style="font-size:11.5px;font-weight:800;background:rgba(255,255,255,.94);color:#23262B;padding:5px 11px;border-radius:20px">{{ c.type }}</span>
+                <span style="{{ c.urgencyStyle }}">{{ c.urgency }}</span>
+              </div>
+            </div>
+            <div style="padding:20px;display:flex;flex-direction:column;gap:14px;flex:1">
+              <div style="display:flex;flex-direction:column;gap:7px">
+                <span style="font-size:17px;font-weight:800;line-height:1.6;letter-spacing:-.3px">{{ c.title }}</span>
+                <span style="font-size:12px;color:#9AA0A8">{{ c.code }} — {{ c.city }} — مهلت {{ c.deadline }}</span>
+              </div>
+              <p style="margin:0;font-size:13.5px;color:#5A6169;line-height:2.1;text-wrap:pretty">{{ c.story }}</p>
+              <div style="margin-top:auto;display:flex;flex-direction:column;gap:9px">
+                <div style="height:8px;background:#F2F3F5;border-radius:6px;overflow:hidden"><span style="{{ c.barStyle }}"></span></div>
+                <div style="display:flex;justify-content:space-between;font-size:12px;color:#9AA0A8;flex-wrap:wrap;gap:8px">
+                  <span><b style="color:#191C21;font-size:13.5px">{{ c.raised }}</b> از {{ c.goal }}</span>
+                  <span>{{ c.pctLabel }} — {{ c.donors }} خیر</span>
+                </div>
+                <div style="display:flex;gap:9px;flex-wrap:wrap;padding-top:4px">
+                  <button onClick="{{ c.onPick }}" style="{{ c.pickStyle }}">{{ c.pickLabel }}</button>
+                  <button style="height:46px;padding:0 14px;border:1.5px solid #E3E6EA;border-radius:13px;background:#fff;color:#23262B;font-size:13px;font-weight:700;cursor:pointer;white-space:nowrap" style-hover="background:#F5F6F8">جزئیات</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </sc-for>
+      </div>
+      <div style="display:flex;align-items:center;gap:14px;flex-wrap:wrap;justify-content:center;margin-top:26px">
+        <div class="om-dots" style="display:flex;gap:7px;align-items:center">
+          <sc-for list="{{ slideDots }}" as="d" hint-placeholder-count="4">
+            <span onClick="{{ d.onClick }}" style="{{ d.style }}"></span>
+          </sc-for>
+        </div>
+        <div class="om-arrows" style="gap:10px;align-items:center">
+          <button onClick="{{ slidePrev }}" aria-label="قبلی" style="width:46px;height:46px;border:1.5px solid #E3E6EA;border-radius:14px;background:#fff;color:#23262B;font-size:17px;cursor:pointer">→</button>
+          <button onClick="{{ slideNext }}" aria-label="بعدی" style="width:46px;height:46px;border:1.5px solid #E3E6EA;border-radius:14px;background:#fff;color:#23262B;font-size:17px;cursor:pointer">←</button>
+        </div>
+        <span style="font-size:12.5px;color:#9AA0A8">صفحه {{ slideLabel }} — {{ caseCount }} پرونده در این دسته</span>
+      </div>
+    </div>
+  </section>
+
+  <section id="how" style="background:#fff">
+    <div style="max-width:1240px;margin-inline:auto;padding:clamp(40px,6vw,74px) clamp(14px,3vw,24px);display:flex;flex-direction:column;gap:34px">
+      <div style="display:flex;flex-direction:column;gap:10px;align-items:center;text-align:center">
+        <span style="font-size:12px;font-weight:800;color:#D8420F;letter-spacing:.4px">{{ c.howEyebrow }}</span>
+        <h2 style="margin:0;font-size:clamp(23px,3.4vw,34px);font-weight:800;letter-spacing:-.8px">{{ c.howTitle }}</h2>
+        <p style="margin:0;font-size:15px;color:#6B7280;line-height:2.1;max-width:640px;text-wrap:pretty">{{ c.howText }}</p>
+      </div>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,215px),1fr));gap:clamp(14px,2.4vw,20px)">
+        <sc-for list="{{ steps }}" as="s" hint-placeholder-count="4">
+          <div style="background:#FAFAFB;border:1px solid #EFF0F2;border-radius:20px;padding:24px;display:flex;flex-direction:column;gap:12px">
+            <div style="display:flex;align-items:center;gap:11px">
+              <div style="flex:0 0 42px;width:42px;height:42px;border-radius:14px;background:#FEF1EC;color:#D8420F;display:flex;align-items:center;justify-content:center;font-size:15px;font-weight:800">{{ s.num }}</div>
+              <span style="font-size:16px;font-weight:800;letter-spacing:-.3px">{{ s.title }}</span>
+            </div>
+            <p style="margin:0;font-size:13.5px;color:#5A6169;line-height:2.1;text-wrap:pretty">{{ s.text }}</p>
+          </div>
+        </sc-for>
+      </div>
+    </div>
+  </section>
+
+  <section style="background:#15181D;color:#fff">
+    <div style="max-width:1240px;margin-inline:auto;padding:clamp(40px,6vw,74px) clamp(14px,3vw,24px);display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,320px),1fr));gap:clamp(24px,4vw,40px);align-items:center">
+      <div style="display:flex;flex-direction:column;gap:20px">
+        <span style="font-size:12px;font-weight:800;color:#FF7A45;letter-spacing:.4px">{{ c.monthlyEyebrow }}</span>
+        <h2 style="margin:0;font-size:33px;font-weight:800;letter-spacing:-.8px;line-height:1.45">{{ c.monthlyTitle }}</h2>
+        <p style="margin:0;font-size:15.5px;color:rgba(255,255,255,.65);line-height:2.2;text-wrap:pretty">{{ c.monthlyText }}</p>
+        <div style="display:flex;flex-direction:column;gap:11px">
+          <sc-for list="{{ monthlyPerks }}" as="p" hint-placeholder-count="4">
+            <div style="display:flex;gap:11px;align-items:flex-start">
+              <span style="flex:0 0 22px;width:22px;height:22px;border-radius:7px;background:rgba(78,208,138,.16);color:#4ED08A;display:flex;align-items:center;justify-content:center;font-size:11px;margin-top:3px">✓</span>
+              <span style="font-size:14px;color:rgba(255,255,255,.8);line-height:2.1">{{ p }}</span>
+            </div>
+          </sc-for>
+        </div>
+        <a href="#donate" style="align-self:flex-start;height:54px;padding:0 24px;border-radius:15px;display:flex;align-items:center;background:#F4511E;color:#fff;font-size:15.5px;font-weight:800;white-space:nowrap">حامی ماهانه می‌شوم</a>
+      </div>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:16px">
+        <div style="grid-column:1/-1;height:230px;border-radius:22px;overflow:hidden;position:relative">
+          <image-slot id="site-monthly" src="assets/site-monthly.png" shape="rect" fit="cover" placeholder="عکس خانواده"></image-slot>
+        </div>
+        <sc-for list="{{ monthlyStats }}" as="s" hint-placeholder-count="3">
+          <div style="background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);border-radius:18px;padding:18px;display:flex;flex-direction:column;gap:6px">
+            <span style="font-size:22px;font-weight:800;color:#FFA51F">{{ s.num }}</span>
+            <span style="font-size:12px;color:rgba(255,255,255,.55);line-height:1.8">{{ s.label }}</span>
+          </div>
+        </sc-for>
+      </div>
+    </div>
+  </section>
+
+  <section style="background:#FAFAFB">
+    <div style="max-width:1240px;margin-inline:auto;padding:clamp(40px,6vw,74px) clamp(14px,3vw,24px);display:flex;flex-direction:column;gap:30px">
+      <div style="display:flex;gap:20px;flex-wrap:wrap;align-items:flex-end">
+        <div style="display:flex;flex-direction:column;gap:10px;flex:1 1 320px">
+          <span style="font-size:12px;font-weight:800;color:#D8420F;letter-spacing:.4px">{{ c.catsEyebrow }}</span>
+          <h2 style="margin:0;font-size:clamp(23px,3.4vw,34px);font-weight:800;letter-spacing:-.8px">{{ c.catsTitle }}</h2>
+        </div>
+        <div style="display:flex;gap:9px;align-items:center">
+          <button onClick="{{ catPrev }}" style="width:48px;height:48px;border:1.5px solid #E3E6EA;border-radius:13px;background:#fff;color:#23262B;font-size:15px;cursor:pointer" style-hover="border-color:#F4511E">→</button>
+          <button onClick="{{ catNext }}" style="width:48px;height:48px;border:1.5px solid #E3E6EA;border-radius:13px;background:#fff;color:#23262B;font-size:15px;cursor:pointer" style-hover="border-color:#F4511E">←</button>
+        </div>
+      </div>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,250px),1fr));gap:clamp(14px,2.2vw,18px)">
+        <sc-for list="{{ categories }}" as="c" hint-placeholder-count="3">
+          <div style="background:#fff;border:1px solid #EAECEF;border-radius:20px;padding:22px;display:flex;flex-direction:column;gap:13px;cursor:pointer;transition:border-color .15s" style-hover="border-color:#F4511E">
+            <div style="display:flex;align-items:center;gap:12px">
+              <div style="{{ c.iconStyle }}">{{ c.icon }}</div>
+              <span style="font-size:16px;font-weight:800;letter-spacing:-.3px">{{ c.title }}</span>
+            </div>
+            <p style="margin:0;font-size:13px;color:#5A6169;line-height:2.05;text-wrap:pretty">{{ c.text }}</p>
+            <div style="display:flex;justify-content:space-between;align-items:center;padding-top:10px;border-top:1px solid #F2F3F5;flex-wrap:wrap;gap:8px">
+              <span style="font-size:12px;color:#9AA0A8">{{ c.count }} پرونده فعال</span>
+              <span style="font-size:12.5px;color:#F4511E;font-weight:800">مشاهده ←</span>
+            </div>
+          </div>
+        </sc-for>
+      </div>
+      <div class="om-dots" style="display:flex;gap:7px;align-items:center;justify-content:center">
+        <sc-for list="{{ catDots }}" as="d" hint-placeholder-count="6">
+          <span onClick="{{ d.onClick }}" style="{{ d.style }}"></span>
+        </sc-for>
+      </div>
+      <div class="om-arrows" style="gap:10px;align-items:center;justify-content:center">
+        <button onClick="{{ catPrev }}" aria-label="قبلی" style="width:46px;height:46px;border:1.5px solid #E3E6EA;border-radius:14px;background:#fff;color:#23262B;font-size:17px;cursor:pointer">→</button>
+        <button onClick="{{ catNext }}" aria-label="بعدی" style="width:46px;height:46px;border:1.5px solid #E3E6EA;border-radius:14px;background:#fff;color:#23262B;font-size:17px;cursor:pointer">←</button>
+      </div>
+    </div>
+  </section>
+
+  <section style="background:#fff">
+    <div style="max-width:1240px;margin-inline:auto;padding:clamp(40px,6vw,74px) clamp(14px,3vw,24px);display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,340px),1fr));gap:clamp(24px,4vw,40px);align-items:start">
+      <div style="display:flex;flex-direction:column;gap:20px">
+        <span style="font-size:12px;font-weight:800;color:#D8420F;letter-spacing:.4px">{{ c.transEyebrow }}</span>
+        <h2 style="margin:0;font-size:clamp(23px,3.4vw,34px);font-weight:800;letter-spacing:-.8px;line-height:1.45">{{ c.transTitle }}</h2>
+        <p style="margin:0;font-size:15px;color:#6B7280;line-height:2.2;text-wrap:pretty">{{ c.transText }}</p>
+        <div style="display:flex;flex-direction:column;gap:14px">
+          <sc-for list="{{ finance }}" as="f" hint-placeholder-count="4">
+            <div style="display:flex;flex-direction:column;gap:8px">
+              <div style="display:flex;justify-content:space-between;font-size:13px;flex-wrap:wrap;gap:8px">
+                <span style="font-weight:700;color:#3A4048">{{ f.label }}</span>
+                <span style="font-weight:800">{{ f.value }}</span>
+              </div>
+              <div style="height:8px;background:#F2F3F5;border-radius:6px;overflow:hidden"><span style="{{ f.barStyle }}"></span></div>
+            </div>
+          </sc-for>
+        </div>
+        <div style="display:flex;gap:11px;flex-wrap:wrap;padding-top:6px">
+          <a href="#reports" style="height:50px;padding:0 18px;border-radius:14px;display:flex;align-items:center;background:#191C21;color:#fff;font-size:13.5px;font-weight:700;white-space:nowrap">گزارش مالی مرداد</a>
+          <a href="#audit" style="height:50px;padding:0 18px;border:1.5px solid #E3E6EA;border-radius:14px;display:flex;align-items:center;color:#23262B;font-size:13.5px;font-weight:700;white-space:nowrap">نتیجه حسابرسی ۱۴۰۴</a>
+        </div>
+      </div>
+      <div style="background:#FAFAFB;border:1px solid #EFF0F2;border-radius:22px;padding:26px;display:flex;flex-direction:column;gap:18px">
+        <div style="font-size:17px;font-weight:800">آخرین کمک‌های ثبت‌شده</div>
+        <sc-for list="{{ liveDonations }}" as="d" hint-placeholder-count="5">
+          <div style="display:flex;align-items:center;gap:13px;padding-bottom:14px;border-bottom:1px solid #EFF0F2">
+            <div style="flex:0 0 38px;width:38px;height:38px;border-radius:50%;background:#FEF1EC;color:#D8420F;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:800">◍</div>
+            <div style="display:flex;flex-direction:column;gap:4px;min-width:0">
+              <span style="font-size:13.5px;font-weight:700">{{ d.who }}</span>
+              <span style="font-size:11.5px;color:#9AA0A8">{{ d.target }} — {{ d.when }}</span>
+            </div>
+            <span style="margin-inline-start:auto;font-size:14px;font-weight:800;color:#12805A;white-space:nowrap">{{ d.amount }}</span>
+          </div>
+        </sc-for>
+        <div style="font-size:12.5px;color:#9AA0A8;line-height:2">نام خیرینی که ناشناس بودن را انتخاب کرده‌اند نمایش داده نمی‌شود.</div>
+      </div>
+    </div>
+  </section>
+
+  <section style="background:#FAFAFB">
+    <div style="max-width:1240px;margin-inline:auto;padding:70px 24px;display:flex;flex-direction:column;gap:28px">
+      <div style="display:flex;flex-direction:column;gap:10px;align-items:center;text-align:center">
+        <span style="font-size:12px;font-weight:800;color:#D8420F;letter-spacing:.4px">{{ c.campEyebrow }}</span>
+        <h2 style="margin:0;font-size:clamp(23px,3.4vw,34px);font-weight:800;letter-spacing:-.8px">{{ c.campTitle }}</h2>
+        <p style="margin:0;font-size:15px;color:#6B7280;line-height:2.1;max-width:600px;text-wrap:pretty">{{ c.campText }}</p>
+      </div>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,255px),1fr));gap:clamp(14px,2.4vw,20px)">
+        <sc-for list="{{ campaigns }}" as="c" hint-placeholder-count="3">
+          <div style="background:#fff;border:1px solid #EAECEF;border-radius:20px;padding:22px;display:flex;flex-direction:column;gap:15px">
+            <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap">
+              <span style="{{ c.tagStyle }}">{{ c.state }}</span>
+              <span style="font-size:11.5px;color:#9AA0A8">{{ c.left }} روز باقی‌مانده</span>
+            </div>
+            <div style="display:flex;flex-direction:column;gap:6px">
+              <span style="font-size:17px;font-weight:800;line-height:1.6;letter-spacing:-.3px">{{ c.title }}</span>
+              <span style="font-size:12px;color:#9AA0A8">{{ c.cases }} پرونده — {{ c.donors }} خیر مشارکت‌کننده</span>
+            </div>
+            <div style="display:flex;flex-direction:column;gap:8px">
+              <div style="height:8px;background:#F2F3F5;border-radius:6px;overflow:hidden"><span style="{{ c.barStyle }}"></span></div>
+              <div style="display:flex;justify-content:space-between;font-size:12px;color:#9AA0A8;flex-wrap:wrap;gap:8px">
+                <span><b style="color:#191C21;font-size:13.5px">{{ c.raised }}</b> از {{ c.goal }}</span>
+                <span>{{ c.pctLabel }}</span>
+              </div>
+            </div>
+            <div style="display:flex;gap:9px;flex-wrap:wrap;padding-top:4px">
+              <span onClick="{{ openModal }}" style="flex:1;min-width:130px;height:46px;border-radius:13px;background:#F4511E;color:#fff;font-size:14px;font-weight:800;display:flex;align-items:center;justify-content:center;cursor:pointer;white-space:nowrap">مشارکت در کمپین</span>
+              <button style="height:46px;padding:0 14px;border:1.5px solid #E3E6EA;border-radius:13px;background:#fff;color:#23262B;font-size:13px;font-weight:700;cursor:pointer;white-space:nowrap" style-hover="background:#F5F6F8">پرونده‌ها</button>
+            </div>
+          </div>
+        </sc-for>
+      </div>
+    </div>
+  </section>
+
+  <section style="background:#fff">
+    <div style="max-width:1240px;margin-inline:auto;padding:clamp(40px,6vw,74px) clamp(14px,3vw,24px);display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,340px),1fr));gap:clamp(24px,4vw,40px);align-items:start">
+      <div style="display:flex;flex-direction:column;gap:22px">
+        <div style="display:flex;flex-direction:column;gap:10px">
+          <span style="font-size:12px;font-weight:800;color:#D8420F;letter-spacing:.4px">{{ c.storiesEyebrow }}</span>
+          <h2 style="margin:0;font-size:clamp(23px,3.4vw,34px);font-weight:800;letter-spacing:-.8px;line-height:1.45">{{ c.storiesTitle }}</h2>
+        </div>
+        <sc-for list="{{ stories }}" as="t" hint-placeholder-count="3">
+          <div style="background:#FAFAFB;border:1px solid #EFF0F2;border-radius:20px;padding:22px;display:flex;flex-direction:column;gap:13px">
+            <div style="display:flex;gap:4px">
+              <sc-for list="{{ t.stars }}" as="st" hint-placeholder-count="5">
+                <span style="color:#FFA51F;font-size:14px">★</span>
+              </sc-for>
+            </div>
+            <p style="margin:0;font-size:14.5px;color:#3A4048;line-height:2.3;text-wrap:pretty">{{ t.text }}</p>
+            <div style="display:flex;align-items:center;gap:12px;padding-top:12px;border-top:1px solid #EFF0F2">
+              <div style="{{ t.avatarStyle }}"></div>
+              <div style="display:flex;flex-direction:column;gap:3px">
+                <span style="font-size:13.5px;font-weight:800">{{ t.who }}</span>
+                <span style="font-size:11.5px;color:#9AA0A8">{{ t.role }}</span>
+              </div>
+            </div>
+          </div>
+        </sc-for>
+      </div>
+
+      <div style="display:flex;flex-direction:column;gap:22px">
+        <div style="display:flex;flex-direction:column;gap:10px">
+          <span style="font-size:12px;font-weight:800;color:#D8420F;letter-spacing:.4px">{{ c.faqEyebrow }}</span>
+          <h2 style="margin:0;font-size:clamp(23px,3.4vw,34px);font-weight:800;letter-spacing:-.8px;line-height:1.45">{{ c.faqTitle }}</h2>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:12px">
+          <sc-for list="{{ faqs }}" as="f" hint-placeholder-count="5">
+            <div style="{{ f.boxStyle }}">
+              <div onClick="{{ f.onClick }}" style="display:flex;align-items:center;gap:12px;cursor:pointer">
+                <span style="font-size:15px;font-weight:800;line-height:1.7;min-width:0">{{ f.q }}</span>
+                <span style="{{ f.signStyle }}">{{ f.sign }}</span>
+              </div>
+              <sc-if value="{{ f.open }}" hint-placeholder-val="{{ false }}">
+                <p style="margin:0;font-size:13.5px;color:#5A6169;line-height:2.2;text-wrap:pretty">{{ f.a }}</p>
+              </sc-if>
+            </div>
+          </sc-for>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="famous" style="background:#15181D;color:#fff">
+    <div style="max-width:1240px;margin-inline:auto;padding:clamp(40px,6vw,74px) clamp(14px,3vw,24px);display:flex;flex-direction:column;gap:30px">
+      <div style="display:flex;gap:20px;flex-wrap:wrap;align-items:flex-end">
+        <div style="display:flex;flex-direction:column;gap:10px;flex:1 1 320px">
+          <span style="font-size:12px;font-weight:800;color:#FF7A45;letter-spacing:.4px">{{ c.famousEyebrow }}</span>
+          <h2 style="margin:0;font-size:clamp(23px,3.4vw,34px);font-weight:800;letter-spacing:-.8px;line-height:1.45">{{ c.famousTitle }}</h2>
+          <p style="margin:0;font-size:15px;color:rgba(255,255,255,.6);line-height:2.1;max-width:600px;text-wrap:pretty">{{ c.famousText }}</p>
+        </div>
+      </div>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,240px),1fr));gap:clamp(14px,2.2vw,18px)">
+        <sc-for list="{{ famousList }}" as="f" hint-placeholder-count="4">
+          <div style="background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);border-radius:20px;padding:20px;display:flex;flex-direction:column;gap:14px">
+            <div style="display:flex;align-items:center;gap:13px">
+              <div style="{{ f.avatarStyle }}"></div>
+              <div style="display:flex;flex-direction:column;gap:4px;min-width:0">
+                <span style="font-size:15px;font-weight:800">{{ f.name }}</span>
+                <span style="font-size:11.5px;color:rgba(255,255,255,.5)">{{ f.role }} — {{ f.reach }}</span>
+              </div>
+            </div>
+            <p style="margin:0;font-size:13.5px;color:rgba(255,255,255,.72);line-height:2.2;text-wrap:pretty">«{{ f.quote }}»</p>
+          </div>
+        </sc-for>
+      </div>
+      <button onClick="{{ toggleFamous }}" style="align-self:center;height:52px;padding:0 24px;border:1.5px solid rgba(255,255,255,.22);border-radius:14px;background:transparent;color:#fff;font-size:14.5px;font-weight:800;cursor:pointer;white-space:nowrap" style-hover="background:rgba(255,255,255,.08)">{{ famousBtnLabel }}</button>
+    </div>
+  </section>
+
+  <section id="news" style="background:#FAFAFB">
+    <div style="max-width:1240px;margin-inline:auto;padding:clamp(40px,6vw,74px) clamp(14px,3vw,24px);display:flex;flex-direction:column;gap:28px">
+      <div style="display:flex;gap:20px;flex-wrap:wrap;align-items:flex-end">
+        <div style="display:flex;flex-direction:column;gap:10px;flex:1 1 320px">
+          <span style="font-size:12px;font-weight:800;color:#D8420F;letter-spacing:.4px">{{ c.newsEyebrow }}</span>
+          <h2 style="margin:0;font-size:clamp(23px,3.4vw,34px);font-weight:800;letter-spacing:-.8px">{{ c.newsTitle }}</h2>
+        </div>
+        <a href="{{ c.newsCtaLink }}" style="height:48px;padding:0 18px;border:1.5px solid #E3E6EA;border-radius:13px;display:flex;align-items:center;font-size:13.5px;font-weight:700;color:#23262B;white-space:nowrap;background:#fff">{{ c.newsCta }}</a>
+      </div>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,250px),1fr));gap:clamp(14px,2.4vw,20px)">
+        <sc-for list="{{ news }}" as="n" hint-placeholder-count="4">
+          <div style="background:#fff;border:1px solid #EAECEF;border-radius:20px;overflow:hidden;display:flex;flex-direction:column;cursor:pointer;transition:box-shadow .15s,transform .15s" style-hover="box-shadow:0 22px 42px -26px rgba(20,22,26,.3);transform:translateY(-3px)">
+            <div style="{{ n.photoStyle }}"></div>
+            <div style="padding:18px;display:flex;flex-direction:column;gap:11px;flex:1">
+              <div style="display:flex;gap:9px;align-items:center;flex-wrap:wrap">
+                <span style="font-size:11px;font-weight:800;background:#FEF1EC;color:#D8420F;padding:4px 10px;border-radius:20px">{{ n.tag }}</span>
+                <span style="font-size:11.5px;color:#9AA0A8">{{ n.date }}</span>
+              </div>
+              <span style="font-size:15.5px;font-weight:800;line-height:1.7;letter-spacing:-.3px">{{ n.title }}</span>
+              <p style="margin:0;font-size:13px;color:#5A6169;line-height:2.05;text-wrap:pretty">{{ n.text }}</p>
+              <div style="margin-top:auto;display:flex;justify-content:space-between;align-items:center;padding-top:12px;border-top:1px solid #F2F3F5;flex-wrap:wrap;gap:8px">
+                <span style="font-size:11.5px;color:#9AA0A8">{{ n.read }} خواندن</span>
+                <span style="font-size:12.5px;color:#F4511E;font-weight:800">ادامه ←</span>
+              </div>
+            </div>
+          </div>
+        </sc-for>
+      </div>
+    </div>
+  </section>
+
+  <section id="login" style="background:#F4511E;color:#fff">
+    <div style="max-width:1240px;margin-inline:auto;padding:60px 24px;display:flex;gap:28px;flex-wrap:wrap;align-items:center">
+      <div style="display:flex;flex-direction:column;gap:12px;flex:1 1 320px">
+        <h2 style="margin:0;font-size:30px;font-weight:800;letter-spacing:-.7px;line-height:1.5">{{ c.ctaTitle }}</h2>
+        <p style="margin:0;font-size:15px;color:rgba(255,255,255,.85);line-height:2.1;text-wrap:pretty">{{ c.ctaText }}</p>
+      </div>
+      <div style="display:flex;gap:12px;flex-wrap:wrap;margin-inline-start:auto">
+        <span onClick="{{ openModal }}" style="height:56px;padding:0 24px;border-radius:15px;display:flex;align-items:center;justify-content:center;flex:1 1 200px;background:#fff;color:#C43C0E;font-size:15.5px;font-weight:800;white-space:nowrap;cursor:pointer">{{ c.ctaButton }}</span>
+        <a href="{{ c.ctaSecondaryLink }}" style="height:56px;padding:0 22px;border:1.5px solid rgba(255,255,255,.45);border-radius:15px;display:flex;align-items:center;justify-content:center;flex:1 1 200px;color:#fff;font-size:15px;font-weight:700;white-space:nowrap">{{ c.ctaSecondary }}</a>
+      </div>
+    </div>
+  </section>
+
+  <section style="background:#15181D;position:relative;overflow:hidden">
+    <div style="position:absolute;inset:0;background:radial-gradient(120% 90% at 50% 0%,rgba(244,81,30,.16),transparent 62%)"></div>
+    <div style="position:relative;max-width:900px;margin-inline:auto;padding:clamp(24px,4vw,42px) clamp(18px,4vw,32px);display:flex;flex-direction:column;gap:clamp(8px,1.4vw,12px);align-items:center;text-align:center">
+      <span style="width:44px;height:1.5px;background:linear-gradient(90deg,transparent,#F4511E,transparent)"></span>
+      <span style="font-size:clamp(18px,3vw,27px);font-weight:700;color:#fff;line-height:1.75;letter-spacing:-.3px;text-wrap:balance">ای خدا، ای زندگانی، ای پناهنده پناهی</span>
+      <span style="font-size:clamp(18px,3vw,27px);font-weight:700;color:#F4511E;line-height:1.75;letter-spacing:-.3px;text-wrap:balance">دست یاری را به من ده، دست مهری، مهربانم!</span>
+      <span style="width:44px;height:1.5px;background:linear-gradient(90deg,transparent,rgba(255,255,255,.22),transparent)"></span>
+    </div>
+  </section>
+
+  <dc-import name="SiteFooter" hint-size="100%,300px"></dc-import>
+  <div style="display:none">
+    <div style="max-width:1240px;margin-inline:auto;padding:clamp(36px,5vw,56px) clamp(14px,3vw,24px) 30px;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,180px),1fr));gap:clamp(22px,3vw,34px)">
+      <div style="display:flex;flex-direction:column;gap:14px">
+        <div style="display:flex;align-items:center;gap:12px">
+          <img src="assets/logo-t.png" alt="دست یاری" style="height:clamp(56px,7vw,78px);width:auto;object-fit:contain;display:block;filter:brightness(1.9) saturate(1.1)" />
+          <div style="display:flex;flex-direction:column;gap:2px">
+            <span style="font-size:11.5px;color:rgba(255,255,255,.5)">شماره ثبت ۴۸۲۱۹</span>
+          </div>
+        </div>
+        <p style="margin:0;font-size:13px;color:rgba(255,255,255,.55);line-height:2.1;text-wrap:pretty">موسسه خیریه دست یاری زیر نظر سازمان بهزیستی فعالیت می‌کند و گزارش مالی خود را ماهانه منتشر می‌نماید.</p>
+        <div style="display:flex;gap:9px;flex-wrap:wrap">
+          <sc-for list="{{ socials }}" as="s" hint-placeholder-count="4">
+            <span style="width:40px;height:40px;border-radius:13px;border:1px solid rgba(255,255,255,.14);display:flex;align-items:center;justify-content:center;font-size:14px;color:rgba(255,255,255,.75);cursor:pointer">{{ s }}</span>
+          </sc-for>
+        </div>
+      </div>
+      <sc-for list="{{ footerCols }}" as="col" hint-placeholder-count="3">
+        <div style="display:flex;flex-direction:column;gap:12px">
+          <span style="font-size:14px;font-weight:800">{{ col.title }}</span>
+          <sc-for list="{{ col.links }}" as="l" hint-placeholder-count="5">
+            <a href="#" style="font-size:13px;color:rgba(255,255,255,.6);line-height:1.9">{{ l }}</a>
+          </sc-for>
+        </div>
+      </sc-for>
+      <div style="display:flex;flex-direction:column;gap:13px">
+        <span style="font-size:14px;font-weight:800">خبرنامه پرونده‌های فوری</span>
+        <p style="margin:0;font-size:12.5px;color:rgba(255,255,255,.55);line-height:2">هفته‌ای یک ایمیل، فقط پرونده‌هایی که مهلت کوتاه دارند.</p>
+        <div style="display:flex;gap:9px;flex-wrap:wrap">
+          <input type="text" placeholder="ایمیل شما" style="flex:1 1 150px;min-width:0;height:48px;border:1px solid rgba(255,255,255,.16);border-radius:13px;padding:0 14px;font-size:13px;background:rgba(255,255,255,.06);color:#fff" style-focus="border-color:#F4511E" />
+          <button style="height:48px;padding:0 18px;border:0;border-radius:13px;background:#F4511E;color:#fff;font-size:13.5px;font-weight:700;white-space:nowrap;cursor:pointer" style-hover="background:#DE4514">عضویت</button>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:5px;padding-top:10px;border-top:1px solid rgba(255,255,255,.1)">
+          <span style="font-size:12px;color:rgba(255,255,255,.5)">پشتیبانی ۲۴ ساعته</span>
+          <span style="font-size:16px;font-weight:800;color:#FFA51F">۰۲۱-۹۱۰۰۲۲۳۳</span>
+        </div>
+      </div>
+    </div>
+    <div style="border-top:1px solid rgba(255,255,255,.1)">
+      <div style="max-width:1240px;margin-inline:auto;padding:20px clamp(14px,3vw,24px);display:flex;gap:16px;flex-wrap:wrap;align-items:center;font-size:12px;color:rgba(255,255,255,.45)">
+        <span>© ۱۴۰۵ موسسه خیریه دست یاری — همه حقوق محفوظ است.</span>
+        <div style="margin-inline-start:auto;display:flex;gap:16px;flex-wrap:wrap">
+          <a href="#" style="color:rgba(255,255,255,.55)">قوانین و حریم خصوصی</a>
+          <a href="#" style="color:rgba(255,255,255,.55)">گزارش مالی</a>
+          <a href="#" style="color:rgba(255,255,255,.55)">تماس با ما</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:1360,&quot;height&quot;:900}}">
+class Component extends DCLogic {
+  state = { donateMode: 'once', amount: '۵۰۰٫۰۰۰', caseFilter: 'همه', faqOpen: 0, picked: null, menu: null, modal: false, famousAll: false, slide: 0, heroIdx: 0, catIdx: 0 };
+
+  componentDidMount() {
+    const bind = () => {
+      if (!window.DY) return false;
+      this.offDY = window.DY.onChange(() => this.setState({ dyRev: (this.state.dyRev || 0) + 1 }));
+      this.setState({ dyRev: (this.state.dyRev || 0) + 1 });
+      return true;
+    };
+    if (!bind()) {
+      let n = 0;
+      this.dyPoll = setInterval(() => { n += 1; if (bind() || n > 40) clearInterval(this.dyPoll); }, 50);
+    }
+    this.onDocDown = (e) => {
+      if (this.state.menu === null) return;
+      if (e.target && e.target.closest && e.target.closest('[data-nav]')) return;
+      this.setState({ menu: null });
+    };
+    this.onKey = (e) => { if (e.key === 'Escape') this.setState({ menu: null, modal: false }); };
+    document.addEventListener('mousedown', this.onDocDown, true);
+    document.addEventListener('keydown', this.onKey);
+    this.heroTimer = setInterval(() => {
+      if (!this.state.modal) this.setState(s => ({ heroIdx: s.heroIdx + 1 }));
+    }, 5000);
+  }
+
+  componentWillUnmount() {
+    clearInterval(this.heroTimer);
+    document.removeEventListener('mousedown', this.onDocDown, true);
+    document.removeEventListener('keydown', this.onKey);
+  }
+
+  fa(v) { return String(v).replace(/\d/g, d => '۰۱۲۳۴۵۶۷۸۹'[d]); }
+
+  allCases() {
+    return [
+      { img: 'assets/case-2522.png', title: 'آزادی مرد پدرِ سه فرزند از زندان', type: 'زندانی', code: 'DY-۲۵۲۲', city: 'کرمانشاه', deadline: '۱۰ روز', pct: 34, raised: '۱۵۳ م', goal: '۴۵۰ م', left: '۲۹۷ م', donors: '۲۸', urgency: 'مهلت قانونی', kind: 'late', story: 'بابت بدهی مالی محکوم شده؛ با آزادی او سه کودک به سرپرست خود بازمی‌گردند.' },
+      { img: 'assets/case-2510.png', title: 'جهیزیه عروس بی‌سرپرست', type: 'جهیزیه', code: 'DY-۲۵۱۰', city: 'قم', deadline: '۳۸ روز', pct: 62, raised: '۹۳ م', goal: '۱۵۰ م', left: '۵۷ م', donors: '۷', urgency: 'در جریان', kind: 'soon', story: 'تاریخ عقد شهریور تعیین شده و اقلام اصلی جهیزیه در حال تهیه است.' },
+      { img: 'assets/case-2529.png', title: 'هزینه شیمی‌درمانی مادر دو کودک', type: 'درمان', code: 'DY-۲۵۲۹', city: 'تهران', deadline: '۱۴ روز', pct: 21, raised: '۲۰ م', goal: '۹۵ م', left: '۷۵ م', donors: '۱۲', urgency: 'فوری', kind: 'late', story: 'شروع دوره درمان به تامین هزینه داروها و بستری وابسته است.' },
+      { img: 'assets/case-2530.png', title: 'اجاره‌بهای خانواده در آستانه تخلیه', type: 'مسکن', code: 'DY-۲۵۳۰', city: 'اهواز', deadline: '۹ روز', pct: 45, raised: '۲۷ م', goal: '۶۰ م', left: '۳۳ م', donors: '۹', urgency: 'فوری', kind: 'late', story: 'حکم تخلیه صادر شده؛ با تامین ودیعه، خانواده یک سال آرامش دارد.' },
+      { img: 'assets/case-2201.png', title: 'ویلچر برقی و داروی ماهانه جوان معلول', type: 'معلولیت', code: 'DY-۲۲۰۱', city: 'زاهدان', deadline: 'ماهانه', pct: 25, raised: '۹ م', goal: '۳۶ م', left: '۲۷ م', donors: '۲', urgency: 'ماهانه', kind: 'ok', story: 'کمک بهزیستی قطع شده و هزینه توانبخشی روی دوش مادر مانده است.' },
+      { img: 'assets/case-1903.png', title: 'معیشت ماهانه خانواده پنج‌نفره', type: 'معیشت', code: 'DY-۱۹۰۳', city: 'شیراز', deadline: 'ماهانه', pct: 67, raised: '۲۰ م', goal: '۳۰ م', left: '۱۰ م', donors: '۳', urgency: 'ماهانه', kind: 'ok', story: 'سرپرست خانوار بیمار است و درآمد ثابتی برای هزینه‌های روزانه ندارد.' },
+      { img: 'assets/case-2522.png', title: 'تامین وثیقه آزادی جوان ۲۴ ساله', type: 'زندانی', code: 'DY-۲۵۴۱', city: 'تبریز', deadline: '۷ روز', pct: 18, raised: '۳۶ م', goal: '۲۰۰ م', left: '۱۶۴ م', donors: '۱۴', urgency: 'فوری', kind: 'late', story: 'تنها نان‌آور خانواده است و مادر بیمار او بدون درآمد مانده است.' },
+      { img: 'assets/case-2510.png', title: 'جهیزیه دختر خانواده تحت پوشش', type: 'جهیزیه', code: 'DY-۲۵۳۶', city: 'کرج', deadline: '۲۵ روز', pct: 26, raised: '۳۶ م', goal: '۱۴۰ م', left: '۱۰۴ م', donors: '۵', urgency: 'در جریان', kind: 'soon', story: 'خانواده تحت پوشش بهزیستی است و توان تهیه اقلام اولیه را ندارد.' },
+      { img: 'assets/case-2529.png', title: 'جراحی قلب کودک هفت ساله', type: 'درمان', code: 'DY-۲۵۴۴', city: 'مشهد', deadline: '۱۱ روز', pct: 52, raised: '۷۸ م', goal: '۱۵۰ م', left: '۷۲ م', donors: '۳۱', urgency: 'فوری', kind: 'late', story: 'تاریخ عمل تعیین شده و باقی هزینه بیمارستان تامین نشده است.' },
+      { img: 'assets/case-2530.png', title: 'ودیعه مسکن مادر سرپرست خانوار', type: 'مسکن', code: 'DY-۲۵۴۷', city: 'رشت', deadline: '۱۹ روز', pct: 38, raised: '۳۰ م', goal: '۸۰ م', left: '۵۰ م', donors: '۸', urgency: 'در جریان', kind: 'soon', story: 'با سه فرزند در اتاقی اجاره‌ای زندگی می‌کند و موعد تخلیه نزدیک است.' },
+      { img: 'assets/case-2201.png', title: 'هزینه نگهداری سالمند تنها', type: 'معلولیت', code: 'DY-۲۵۴۹', city: 'اصفهان', deadline: 'ماهانه', pct: 44, raised: '۱۶ م', goal: '۳۶ م', left: '۲۰ م', donors: '۴', urgency: 'ماهانه', kind: 'ok', story: 'بدون فرزند و بستگان است و هزینه مرکز نگهداری بر عهده خیرین است.' }
+    ];
+  }
+
+  noticeVals() {
+    const D = window.DY;
+    const stored = D ? D.notice() : {};
+    const demo = !!this.state.ntDemo;
+    const nt = demo
+      ? Object.assign({}, D ? D.DEFAULT_NOTICE : {}, stored, { active: true, mode: this.state.ntDemoMode || 'full' })
+      : stored;
+    const chip = (on) => 'padding:8px 12px;border-radius:9px;font-size:12px;font-weight:800;cursor:pointer;white-space:nowrap;'
+      + (on ? 'background:#15181D;color:#fff' : 'color:#5A6169');
+    const demoVals = {
+      ntDemoOn: demo,
+      ntDemoLabel: demo ? 'بستن پیش‌نمایش اطلاعیه' : 'نمایش اطلاعیه (پیش‌نمایش)',
+      ntDemoBtnStyle: 'display:flex;align-items:center;gap:8px;height:44px;padding:0 15px;border-radius:14px;cursor:pointer;font-size:12.5px;font-weight:800;box-shadow:0 14px 34px -14px rgba(0,0,0,.4);'
+        + (demo ? 'background:#15181D;color:#fff' : 'background:#FEF3E7;color:#8A4B08;border:1.5px solid #F6D9B4'),
+      ntDemoToggle: () => this.setState({ ntDemo: !demo, ntClosed: false, ntDemoMode: this.state.ntDemoMode || 'full' }),
+      ntDemoModes: [['full', 'تمام‌صفحه'], ['bar', 'نوار بالا']].map(m => ({
+        label: m[1],
+        onClick: () => { this.setState({ ntDemoMode: m[0], ntClosed: false }); if (D) D.previewNotice({ active: true, mode: m[0] }); },
+        style: chip((this.state.ntDemoMode || 'full') === m[0])
+      }))
+    };
+    if (D) { if (demo) D.previewNotice({ active: true, mode: this.state.ntDemoMode || 'full' }); else D.previewNotice(null); }
+    const tones = { warn: ['#FEF3E7', '#8A4B08', '⚠'], info: ['#EAF2FE', '#144A9C', '◈'], danger: ['#FDECEC', '#C43034', '⛔'] };
+    const tn = tones[nt.tone] || tones.warn;
+    return Object.assign(demoVals, {
+      ntFull: !!nt.active && nt.mode === 'full' && !this.state.ntClosed,
+      ntIcon: tn[2],
+      ntBadgeStyle: 'width:64px;height:64px;border-radius:22px;background:' + tn[0] + ';color:' + tn[1] + ';display:flex;align-items:center;justify-content:center;font-size:28px',
+      ntTitle: nt.title || '', ntText: nt.text || '',
+      ntHasWindow: !!(nt.from && nt.to),
+      ntFrom: nt.from || '', ntTo: nt.to || '', ntDateNote: nt.dateNote || '',
+      ntHasCta: !!(nt.cta && nt.ctaLink), ntCta: nt.cta, ntCtaLink: nt.ctaLink || '#',
+      ntDismissible: nt.dismissible !== false,
+      ntClose: () => this.setState({ ntClosed: true })
+    });
+  }
+
+  cms() {
+    const D = window.DY;
+    const c = D ? Object.assign({}, D.DEFAULT_CONTENT.home, D.content('home')) : {};
+    const lines = String(c.heroTitle || '').split('\n');
+    const hi = c.heroHighlight || '';
+    return {
+      c: c,
+      heroImage: (D ? D.branding().heroImage : '') || 'assets/site-hero.png',
+      heroTitleNode: React.createElement(React.Fragment, null, lines.map((ln, i) => {
+        const parts = hi && ln.indexOf(hi) !== -1 ? ln.split(hi) : null;
+        const body = parts
+          ? [parts[0], React.createElement('span', { key: 'h', style: { color: '#FF7A45' } }, hi), parts.slice(1).join(hi)]
+          : [ln];
+        return React.createElement(React.Fragment, { key: i },
+          body, i < lines.length - 1 ? React.createElement('br', { key: 'b' }) : null);
+      }))
+    };
+  }
+
+  renderVals() {
+    const S = this.state;
+    const urgencyStyle = (kind) => {
+      const map = { late: ['#FDECEC', '#C43034'], soon: ['#FFF4E5', '#B26A00'], ok: ['#EAF7F1', '#12805A'] };
+      const c = map[kind];
+      return 'font-size:11.5px;font-weight:800;padding:5px 11px;border-radius:20px;background:' + c[0] + ';color:' + c[1];
+    };
+    const chip = (on) => 'height:42px;padding:0 17px;border-radius:13px;font-size:13.5px;font-weight:700;cursor:pointer;white-space:nowrap;transition:all .12s;border:1.5px solid '
+      + (on ? '#F4511E' : '#E3E6EA') + ';background:' + (on ? '#F4511E' : '#fff') + ';color:' + (on ? '#fff' : '#5A6169');
+
+    const filters = ['همه', 'زندانی', 'جهیزیه', 'درمان', 'مسکن', 'معلولیت', 'معیشت'];
+    const cases = this.allCases().filter(c => S.caseFilter === 'همه' || c.type === S.caseFilter);
+    const per = 3;
+    const pages = Math.max(1, Math.ceil(cases.length / per));
+    const slide = Math.min(S.slide, pages - 1);
+    const shown = cases.slice(slide * per, slide * per + per);
+
+    const faqDefs = [
+      { q: 'از کجا مطمئن شوم کمک من به دست نیازمند می‌رسد؟', a: 'هر پرداخت در پنل شما با کد پیگیری، پرونده مقصد و رسید ثبت می‌شود. تخصیص حداکثر ۴۸ ساعت کاری انجام می‌شود و گزارش مالی ماهانه هم منتشر می‌گردد.' },
+      { q: 'پرونده‌ها چطور تایید می‌شوند؟', a: 'مدارک هویتی، پزشکی یا قضایی بررسی می‌شود و برای مبالغ بالا بازدید میدانی مددکار الزامی است. پرونده بدون این مراحل منتشر نمی‌شود.' },
+      { q: 'می‌توانم ناشناس کمک کنم؟', a: 'بله. نمایش نام شما روی ناشناس، حرف اول نام یا نام کامل قابل تنظیم است و به‌صورت پیش‌فرض ناشناس است.' },
+      { q: 'اگر یک ماه نتوانم تعهد ماهانه را بپردازم چه می‌شود؟', a: 'پیش از موعد می‌توانید درخواست جابه‌جایی یا لغو بدهید تا پرونده به خیر دیگری واگذار شود؛ هیچ الزام قانونی برای وصول تعهد وجود ندارد.' },
+      { q: 'اگر پرونده‌ای پیش از تکمیل بسته شود پول چه می‌شود؟', a: 'مبلغ باقی‌مانده با اطلاع شما به پرونده مشابه یا صندوق عمومی منتقل می‌شود و در پنل شما ثبت می‌گردد.' }
+    ];
+
+    return {
+      ...this.cms(),
+      ...this.noticeVals(),
+      navLinks: [
+        { href: 'پرونده‌ها.dc.html', label: 'پرونده‌ها', sub: [['آزادی زندانی', '۲۱۴ پرونده'], ['جهیزیه و ازدواج', '۱۸۶ پرونده'], ['درمان و بیماری', '۱۴۲ پرونده'], ['مسکن و اجاره', '۲۴۳ پرونده'], ['معلولیت و سالمندی', '۲۹۷ پرونده'], ['معیشت روزانه', '۱۵۸ پرونده']] },
+        { href: '#donate', label: 'کمک کردن', sub: [['کمک یک‌باره', 'انتخاب پرونده و پرداخت'], ['حامی ماهانه', 'تعهد ماهانه با موعد دلخواه'], ['کمک سازمانی', 'شرکت‌ها و مسئولیت اجتماعی'], ['وقف و نیکوکاری پایدار', 'حمایت بلندمدت']] },
+        { href: '#reports', label: 'شفافیت', sub: [['گزارش مالی ماهانه', 'مرداد ۱۴۰۵'], ['حسابرسی مستقل', 'نتیجه ۱۴۰۴'], ['هزینه‌های اداری', 'سقف ۵ درصد'], ['چطور کار می‌کند', 'مسیر تایید تا پرداخت']] },
+        { href: '#news', label: 'درباره ما', sub: [['اخبار و مقالات', 'تازه‌ترین گزارش‌ها'], ['معرفی‌کنندگان', '۱۴ پشتیبان فعال'], ['کمپین‌های جاری', '۳ کمپین'], ['ثبت درخواست کمک', 'برای نیازمندان'], ['تماس با ما', '۰۲۱-۹۱۰۰۲۲۳۳']] }
+      ].map((n, i) => ({
+        href: n.href, label: n.label,
+        hasSub: !!n.sub,
+        open: this.state.menu === i,
+        onClick: (e) => {
+          if (!n.sub) return;
+          e.preventDefault();
+          this.setState(s => ({ menu: s.menu === i ? null : i }));
+        },
+        caret: n.sub ? '⌄' : '',
+        style: 'display:flex;align-items:center;gap:6px;padding:10px 13px;border-radius:11px;font-size:13.5px;font-weight:700;white-space:nowrap;'
+          + (this.state.menu === i ? 'background:#FEF1EC;color:#D8420F' : 'color:#4E555E'),
+        items: (n.sub || []).map(s => ({ label: s[0], note: s[1] }))
+      })),
+      hero: {
+        badge: 'امروز ۹ پرونده سرِ موعد است',
+        stats: [
+          { num: '۱٫۲۴۰', label: 'پرونده فعال', numStyle: 'font-size:21px;font-weight:800;color:#fff' },
+          { num: '۸٫۷۶۰', label: 'خیر همراه', numStyle: 'font-size:21px;font-weight:800;color:#fff' },
+          { num: '۹۴٪', label: 'پرداخت به‌موقع', numStyle: 'font-size:21px;font-weight:800;color:#FFA51F' },
+          { num: '۴٫۶٪', label: 'هزینه اداری', numStyle: 'font-size:21px;font-weight:800;color:#4ED08A' }
+        ]
+      },
+      donateTabs: [['once', 'کمک یک‌باره'], ['monthly', 'حامی ماهانه']].map(t => ({
+        label: t[1], onClick: () => this.setState({ donateMode: t[0] }),
+        style: 'flex:1;height:44px;border:0;border-radius:11px;font-size:13.5px;font-weight:800;cursor:pointer;transition:all .12s;'
+          + (S.donateMode === t[0] ? 'background:#fff;color:#191C21;box-shadow:0 1px 3px rgba(0,0,0,.1)' : 'background:transparent;color:#8A9099')
+      })),
+      needTypes: ['هرجا لازم است (صندوق عمومی)', 'آزادی زندانی', 'جهیزیه و ازدواج', 'درمان و بیماری', 'مسکن و اجاره', 'معلولیت', 'معیشت روزانه'],
+      amountLabel: S.donateMode === 'monthly' ? 'مبلغ ماهانه' : 'مبلغ کمک',
+      amounts: ['۲۰۰٫۰۰۰', '۵۰۰٫۰۰۰', '۱٫۰۰۰٫۰۰۰', '۵٫۰۰۰٫۰۰۰'].map(a => ({
+        label: a, onClick: () => this.setState({ amount: a }),
+        style: 'flex:1 1 90px;height:44px;border-radius:12px;font-size:13px;font-weight:800;cursor:pointer;white-space:nowrap;border:1.5px solid '
+          + (S.amount === a ? '#F4511E' : '#E3E6EA') + ';background:' + (S.amount === a ? '#FFF6F2' : '#fff') + ';color:' + (S.amount === a ? '#C43C0E' : '#5A6169')
+      })),
+      amountValue: S.amount,
+      onAmount: (e) => this.setState({ amount: e.target.value }),
+      donateCta: !S.picked ? 'ابتدا پرونده را انتخاب کنید' : (S.donateMode === 'monthly' ? 'ثبت حمایت ماهانه برای این پرونده' : 'پرداخت امن به این پرونده'),
+      donateNote: S.donateMode === 'monthly'
+        ? 'موعد پرداخت را خودت انتخاب می‌کنی و ۲۴ ساعت قبل یادآور پیامکی می‌گیری.'
+        : 'پرداخت از درگاه بانکی رسمی؛ رسید بلافاصله در پنل شما ثبت می‌شود.',
+      trustBar: [
+        { icon: '✓', title: 'مدارک همه پرونده‌ها تایید شده', sub: 'بازدید میدانی مددکار' },
+        { icon: '▤', title: 'گزارش مالی ماهانه منتشر می‌شود', sub: 'حسابرسی مستقل سالانه' },
+        { icon: '⇄', title: 'رسید هر پرداخت در پنل شما', sub: 'تخصیص حداکثر ۴۸ ساعت' },
+        { icon: '☗', title: 'زیر نظر سازمان بهزیستی', sub: 'شماره ثبت ۴۸۲۱۹' }
+      ],
+      caseFilters: filters.map(f => ({
+        label: f, onClick: () => this.setState({ caseFilter: f, slide: 0 }), style: chip(S.caseFilter === f)
+      })),
+      slidePrev: () => this.setState({ slide: (slide - 1 + pages) % pages }),
+      slideNext: () => this.setState({ slide: (slide + 1) % pages }),
+      slideLabel: this.fa(slide + 1) + ' از ' + this.fa(pages),
+      slideDots: Array.from({ length: pages }, (_, i) => ({
+        onClick: () => this.setState({ slide: i }),
+        style: 'width:' + (i === slide ? '26px' : '9px') + ';height:9px;border-radius:20px;cursor:pointer;transition:all .18s;background:'
+          + (i === slide ? '#F4511E' : '#DDE0E4')
+      })),
+      caseCount: this.fa(cases.length),
+      cases: shown.map((c) => ({
+        title: c.title, type: c.type, code: c.code, city: c.city, deadline: c.deadline, story: c.story,
+        raised: c.raised, goal: c.goal, donors: c.donors, urgency: c.urgency, img: c.img,
+        pctLabel: this.fa(c.pct) + '٪ تامین',
+        urgencyStyle: urgencyStyle(c.kind),
+        barStyle: 'display:block;height:100%;width:' + c.pct + '%;background:' + (c.kind === 'late' ? '#F4511E' : '#FFA51F'),
+        photoStyle: 'position:relative;height:196px;background:#F2F3F5 url(' + c.img + ') center/cover no-repeat',
+        picked: S.picked === c.code,
+        pickLabel: S.picked === c.code ? '✓ انتخاب شد' : 'انتخاب برای کمک',
+        pickStyle: 'flex:1;min-width:130px;height:46px;border:0;border-radius:13px;font-size:14px;font-weight:800;cursor:pointer;white-space:nowrap;'
+          + (S.picked === c.code ? 'background:#12805A;color:#fff' : 'background:#F4511E;color:#fff'),
+        cardStyle: 'background:#fff;border-radius:22px;overflow:hidden;display:flex;flex-direction:column;transition:box-shadow .15s,transform .15s;border:'
+          + (S.picked === c.code ? '2px solid #F4511E;box-shadow:0 24px 46px -26px rgba(244,81,30,.4)' : '1px solid #EAECEF'),
+        onPick: () => this.setState({ picked: c.code, modal: true })
+      })),
+      heroSlide: (() => {
+        const list = this.allCases().filter(c => c.kind === 'late');
+        const i = S.heroIdx % list.length;
+        const c = list[i];
+        return {
+          title: c.title, code: c.code, city: c.city, deadline: c.deadline,
+          raised: c.raised, goal: c.goal, donors: c.donors, urgency: c.urgency,
+          pctLabel: this.fa(c.pct) + '٪',
+          thumbStyle: 'flex:0 0 92px;width:92px;height:92px;border-radius:18px;background:#2A2E36 url(' + c.img + ') center/cover no-repeat',
+          barStyle: 'display:block;height:100%;width:' + c.pct + '%;background:#F4511E',
+          counter: this.fa(i + 1) + ' از ' + this.fa(list.length),
+          prev: () => this.setState({ heroIdx: (S.heroIdx - 1 + list.length) % list.length }),
+          next: () => this.setState({ heroIdx: (S.heroIdx + 1) % list.length }),
+          pick: () => this.setState({ picked: c.code, modal: true }),
+          dots: list.map((_, k) => ({
+            onClick: () => this.setState({ heroIdx: k }),
+            style: 'width:' + (k === i ? '22px' : '8px') + ';height:8px;border-radius:20px;cursor:pointer;transition:all .18s;background:'
+              + (k === i ? '#F4511E' : 'rgba(255,255,255,.28)')
+          }))
+        };
+      })(),
+      modalOpen: !!S.modal,
+      openModal: () => this.setState({ modal: true }),
+      closeModal: () => this.setState({ modal: false }),
+      news: [
+        { photoStyle: 'height:164px;background:#F2F3F5 url(assets/news-1.png) center/cover no-repeat', img: 'assets/news-1.png', tag: 'گزارش', date: '۲۰ مرداد ۱۴۰۵', title: 'گزارش مالی مرداد منتشر شد', text: 'جمع کمک‌های ماه، تفکیک هزینه‌ها و فهرست پرونده‌های تکمیل‌شده در گزارش این ماه آمده است.', read: '۴ دقیقه' },
+        { photoStyle: 'height:164px;background:#F2F3F5 url(assets/news-2.png) center/cover no-repeat', img: 'assets/news-2.png', tag: 'کمپین', date: '۱۶ مرداد ۱۴۰۵', title: 'کمپین جهیزیه مرداد به ۷۷ درصد رسید', text: 'با همراهی ۴۱ خیر و دو پشتیبان، شش عروس نیازمند در آستانه تکمیل جهیزیه هستند.', read: '۳ دقیقه' },
+        { photoStyle: 'height:164px;background:#F2F3F5 url(assets/news-3.png) center/cover no-repeat', img: 'assets/news-3.png', tag: 'خبر', date: '۹ مرداد ۱۴۰۵', title: 'دوازده زندانی بدهی خرد آزاد شدند', text: 'با تامین مبلغ حکم، دوازده سرپرست خانوار به خانه بازگشتند؛ گزارش تصویری منتشر شد.', read: '۵ دقیقه' },
+        { photoStyle: 'height:164px;background:#F2F3F5 url(assets/news-4.png) center/cover no-repeat', img: 'assets/news-4.png', tag: 'مقاله', date: '۲ مرداد ۱۴۰۵', title: 'چرا کمک ماهانه از کمک یک‌باره اثرگذارتر است؟', text: 'تحلیل داده‌های دو سال گذشته نشان می‌دهد پرونده‌های با حامی ماهانه ۲٫۴ برابر سریع‌تر بسته می‌شوند.', read: '۷ دقیقه' }
+      ],
+      famous: [
+        { img: 'assets/fam-1.png', name: 'سارا رستمی', role: 'بلاگر سبک زندگی', reach: '۸۴۰ هزار', quote: 'دست یاری اولین جایی بود که رسید هر ریال کمک را نشانم داد.' },
+        { img: 'assets/fam-2.png', name: 'امیر تهرانی', role: 'مجری تلویزیون', reach: '۵۱۰ هزار', quote: 'پرونده‌ها واقعی‌اند و مدارکشان بررسی شده؛ با خیال راحت معرفی می‌کنم.' },
+        { img: 'assets/fam-3.png', name: 'دکتر رامین پاک', role: 'پزشک و مدرس', reach: '۲۱۰ هزار', quote: 'بیمارانی که بیمه پوشش نمی‌داد را به دست یاری ارجاع می‌دهم.' },
+        { img: 'assets/fam-4.png', name: 'نگار کیانی', role: 'بلاگر خانواده', reach: '۳۲۰ هزار', quote: 'حمایت ماهانه چیزی است که واقعاً زندگی یک خانواده را عوض می‌کند.' },
+        { img: 'assets/fam-5.png', name: 'حسام رادفر', role: 'ورزشکار ملی', reach: '۱٫۲ میلیون', quote: 'هر برد را به یک پرونده تقدیم می‌کنم؛ مخاطبانم هم همراه شدند.' },
+        { img: 'assets/fam-6.png', name: 'مینا شفق', role: 'بازیگر تئاتر', reach: '۴۶۰ هزار', quote: 'شفافیت گزارش‌ها باعث شد بدون تردید نامم را کنار این موسسه بگذارم.' },
+        { img: 'assets/fam-7.png', name: 'مجله سلام همسایه', role: 'رسانه محلی', reach: '۱۵۰ هزار', quote: 'پرونده‌های مسکن محله‌های جنوب شهر را با هم پوشش می‌دهیم.' },
+        { img: 'assets/fam-8.png', name: 'گروه پویش نیکی', role: 'مجموعه داوطلبی', reach: '۹۰ هزار', quote: 'کمپین‌های مشترک ما با دست یاری تا امروز ۴۲۰ میلیون جذب کرده است.' }
+      ].map(f => Object.assign({}, f, { show: true })),
+      famousList: [
+        { img: 'assets/fam-1.png', name: 'سارا رستمی', role: 'بلاگر سبک زندگی', reach: '۸۴۰ هزار', quote: 'دست یاری اولین جایی بود که رسید هر ریال کمک را نشانم داد.' },
+        { img: 'assets/fam-2.png', name: 'امیر تهرانی', role: 'مجری تلویزیون', reach: '۵۱۰ هزار', quote: 'پرونده‌ها واقعی‌اند و مدارکشان بررسی شده؛ با خیال راحت معرفی می‌کنم.' },
+        { img: 'assets/fam-3.png', name: 'دکتر رامین پاک', role: 'پزشک و مدرس', reach: '۲۱۰ هزار', quote: 'بیمارانی که بیمه پوشش نمی‌داد را به دست یاری ارجاع می‌دهم.' },
+        { img: 'assets/fam-4.png', name: 'نگار کیانی', role: 'بلاگر خانواده', reach: '۳۲۰ هزار', quote: 'حمایت ماهانه چیزی است که واقعاً زندگی یک خانواده را عوض می‌کند.' },
+        { img: 'assets/fam-5.png', name: 'حسام رادفر', role: 'ورزشکار ملی', reach: '۱٫۲ میلیون', quote: 'هر برد را به یک پرونده تقدیم می‌کنم؛ مخاطبانم هم همراه شدند.' },
+        { img: 'assets/fam-6.png', name: 'مینا شفق', role: 'بازیگر تئاتر', reach: '۴۶۰ هزار', quote: 'شفافیت گزارش‌ها باعث شد بدون تردید نامم را کنار این موسسه بگذارم.' },
+        { img: 'assets/fam-7.png', name: 'مجله سلام همسایه', role: 'رسانه محلی', reach: '۱۵۰ هزار', quote: 'پرونده‌های مسکن محله‌های جنوب شهر را با هم پوشش می‌دهیم.' },
+        { img: 'assets/fam-8.png', name: 'گروه پویش نیکی', role: 'مجموعه داوطلبی', reach: '۹۰ هزار', quote: 'کمپین‌های مشترک ما با دست یاری تا امروز ۴۲۰ میلیون جذب کرده است.' }
+      ].slice(0, S.famousAll ? 8 : 4).map(f => Object.assign({}, f, {
+        avatarStyle: 'flex:0 0 56px;width:56px;height:56px;border-radius:50%;background:#2A2E36 url(' + f.img + ') center/cover no-repeat'
+      })),
+      toggleFamous: () => this.setState(s => ({ famousAll: !s.famousAll })),
+      famousBtnLabel: S.famousAll ? 'نمایش کمتر ↑' : 'دیدن همه معرفی‌کنندگان ↓',
+      topPhone: '۰۲۱-۹۱۰۰۲۲۳۳',
+      picked: !!S.picked,
+      notPicked: !S.picked,
+      donateBtnStyle: 'height:56px;border:0;border-radius:15px;font-size:16px;font-weight:800;'
+        + (S.picked ? 'background:#F4511E;color:#fff;cursor:pointer;box-shadow:0 12px 26px -14px rgba(244,81,30,.9)' : 'background:#EDEEF1;color:#A9AEB6;cursor:not-allowed'),
+      pickedCase: S.picked ? (() => {
+        const c = this.allCases().find(x => x.code === S.picked);
+        return { title: c.title, type: c.type, code: c.code, city: c.city, left: c.left, goal: c.goal, deadline: c.deadline,
+          thumbStyle: 'flex:0 0 62px;width:62px;height:62px;border-radius:14px;background:#F2F3F5 url(' + c.img + ') center/cover no-repeat' };
+      })() : null,
+      clearPick: () => this.setState({ picked: null }),
+      pickHint: S.picked ? 'کمک شما به این پرونده تخصیص می‌یابد' : 'ابتدا یک پرونده را از فهرست زیر انتخاب کنید',
+      steps: [
+        { num: '۱', title: 'معرفی و ثبت', text: 'پرونده از مسیر مددکار، مسجد محله یا خودِ خانواده ثبت و مدارک آن بارگذاری می‌شود.' },
+        { num: '۲', title: 'بررسی و تایید', text: 'کارشناس مدارک را بررسی و در صورت لزوم بازدید میدانی انجام می‌دهد؛ اولویت پرونده تعیین می‌شود.' },
+        { num: '۳', title: 'انتشار و تعهد خیر', text: 'پرونده با مبلغ و مهلت مشخص منتشر می‌شود و خیرین کل یا بخشی از آن را تعهد می‌کنند.' },
+        { num: '۴', title: 'پرداخت و رسید', text: 'کمک به مقصد اعلام‌شده تخصیص می‌یابد، رسید صادر می‌شود و گزارش پیشرفت پرونده به‌روز می‌شود.' }
+      ],
+      monthlyPerks: [
+        'موعد پرداخت دلخواه و یادآور پیامکی ۲۴ ساعت قبل',
+        'گزارش ماه‌به‌ماه از وضعیت خانواده‌ای که حمایت می‌کنید',
+        'امکان جابه‌جایی یا لغو تعهد بدون هیچ الزامی',
+        'صورت‌حساب سالانه برای امور مالیاتی'
+      ],
+      monthlyStats: [
+        { num: '۱٫۲۳۰', label: 'حامی ماهانه فعال' },
+        { num: '۳٫۱ م', label: 'میانگین کمک ماهانه' },
+        { num: '۸۱٪', label: 'نرخ ماندگاری حامیان' }
+      ],
+      categories: [
+        { icon: '⛓', title: 'آزادی زندانی', text: 'زندانیان بدهی‌های مالی خرد که با تامین مبلغ حکم، به خانواده برمی‌گردند.', count: '۲۱۴' },
+        { icon: '⚭', title: 'جهیزیه و ازدواج', text: 'تهیه اقلام ضروری جهیزیه برای عروس‌های بی‌سرپرست یا کم‌درآمد.', count: '۱۸۶' },
+        { icon: '✚', title: 'درمان و بیماری', text: 'هزینه دارو، جراحی و بستری بیمارانی که بیمه پوشش نمی‌دهد.', count: '۱۴۲' },
+        { icon: '⌂', title: 'مسکن و اجاره', text: 'ودیعه و اجاره‌بهای خانواده‌هایی که در آستانه تخلیه هستند.', count: '۲۴۳' },
+        { icon: '♿', title: 'معلولیت و سالمندی', text: 'تجهیزات توانبخشی و هزینه ماهانه نگهداری معلولان و سالمندان تنها.', count: '۲۹۷' },
+        { icon: '☗', title: 'معیشت روزانه', text: 'سبد غذایی و هزینه‌های جاری خانوارهای بدون درآمد ثابت.', count: '۱۵۸' }
+      ].map(c => Object.assign({}, c, {
+        iconStyle: 'flex:0 0 44px;width:44px;height:44px;border-radius:15px;background:#FEF1EC;color:#D8420F;display:flex;align-items:center;justify-content:center;font-size:17px'
+      })).concat([]).reduce((acc, c, i, arr) => {
+        if (acc.length) return acc;
+        const b = S.catIdx % arr.length;
+        return [0, 1, 2].map(k => arr[(b + k) % arr.length]);
+      }, []),
+      catPrev: () => this.setState(s => ({ catIdx: (s.catIdx + 5) % 6 })),
+      catNext: () => this.setState(s => ({ catIdx: (s.catIdx + 1) % 6 })),
+      catDots: [0, 1, 2, 3, 4, 5].map(i => ({
+        onClick: () => this.setState({ catIdx: i }),
+        style: 'width:' + (i === S.catIdx % 6 ? '24px' : '9px') + ';height:9px;border-radius:20px;cursor:pointer;transition:all .18s;background:' + (i === S.catIdx % 6 ? '#F4511E' : '#DDE0E4')
+      })),
+      finance: [
+        { label: 'پرداخت مستقیم به نیازمندان', value: '۹۱٫۴٪', w: 91 },
+        { label: 'بررسی پرونده و مددکاری', value: '۴٪', w: 12 },
+        { label: 'هزینه اداری و عملیاتی', value: '۴٫۶٪', w: 14 }
+      ].map(f => Object.assign({}, f, {
+        barStyle: 'display:block;height:100%;width:' + f.w + '%;background:#F4511E'
+      })),
+      liveDonations: [
+        { who: 'شرکت کاوش', target: 'آزادی زندانی — DY-۲۵۲۲', when: '۱۲ دقیقه پیش', amount: '۵۰ م' },
+        { who: 'خیر ناشناس', target: 'صندوق عمومی', when: '۴۰ دقیقه پیش', amount: '۸٫۵ م' },
+        { who: 'ف. طلوعی', target: 'جهیزیه — DY-۲۵۱۰', when: '۱ ساعت پیش', amount: '۱۵ م' },
+        { who: 'گروه پویش نیکی', target: 'کمپین جهیزیه مرداد', when: 'دیروز', amount: '۳۰ م' },
+        { who: 'ب. اسدی', target: 'مسکن — DY-۱۸۲۰', when: 'دیروز', amount: '۴ م' }
+      ],
+      campaigns: [
+        { title: 'جهیزیه مرداد — ۶ عروس نیازمند', state: 'در حال اجرا', kind: 'ok', left: '۹', cases: '۶', donors: '۴۱', raised: '۳۰۸ م', goal: '۴۰۰ م', pct: 77 },
+        { title: 'درمان کودکان — تابستان', state: 'در حال اجرا', kind: 'ok', left: '۲۴', cases: '۷', donors: '۲۹', raised: '۱۳۲ م', goal: '۳۲۰ م', pct: 41 },
+        { title: 'آزادی زندانیان بدهی خرد', state: 'فوری', kind: 'late', left: '۶', cases: '۴', donors: '۵۲', raised: '۴۸۰ م', goal: '۶۰۰ م', pct: 80 }
+      ].map(c => Object.assign({}, c, {
+        pctLabel: this.fa(c.pct) + '٪ تامین',
+        tagStyle: 'font-size:11.5px;font-weight:800;padding:5px 11px;border-radius:20px;'
+          + (c.kind === 'late' ? 'background:#FDECEC;color:#C43034' : 'background:#EAF7F1;color:#12805A'),
+        barStyle: 'display:block;height:100%;width:' + c.pct + '%;background:' + (c.kind === 'late' ? '#F4511E' : '#FFA51F')
+      })),
+      unusedSupporters: [
+        { name: 'سارا رستمی', handle: '@sara.life', reach: '۸۴۰ هزار فالوور', raised: '۱۲۴ م', cases: '۹', slotId: 'sup-1', img: 'assets/sup-1.png' },
+        { name: 'امیر تهرانی', handle: '@amirt', reach: '۵۱۰ هزار فالوور', raised: '۸۶ م', cases: '۶', slotId: 'sup-2', img: 'assets/sup-2.png' },
+        { name: 'دکتر رامین پاک', handle: '@dr.pak', reach: '۲۱۰ هزار فالوور', raised: '۳۸ م', cases: '۴', slotId: 'sup-3', img: 'assets/sup-3.png' },
+        { name: 'نگار کیانی', handle: '@negar.k', reach: '۳۲۰ هزار فالوور', raised: '۴۹ م', cases: '۱۲', slotId: 'sup-4', img: 'assets/sup-4.png' }
+      ],
+      stories: [
+        { who: 'خانواده م.', role: 'پرونده مسکن — بسته‌شده تیر ۱۴۰۵', text: 'یازده ماه اجاره‌بهای ما را یک خیر پرداخت کرد. امسال برای اولین بار بدون ترس از تخلیه، بچه‌ها را ثبت‌نام کردیم.', stars: [1, 2, 3, 4, 5], avatarStyle: 'flex:0 0 40px;width:40px;height:40px;border-radius:50%;background:#F2F3F5 url(assets/story-1.png) center/cover no-repeat' },
+        { who: 'بهنام اسدی', role: 'حامی ماهانه از ۱۴۰۳', text: 'هر ماه دقیقاً می‌دانم پولم کجا رفته. گزارش ماه‌به‌ماه و رسیدها باعث شد پرونده دوم و سوم را هم بردارم.', stars: [1, 2, 3, 4, 5], avatarStyle: 'flex:0 0 40px;width:40px;height:40px;border-radius:50%;background:#F2F3F5 url(assets/story-2.png) center/cover no-repeat' },
+        { who: 'ن. طاهری', role: 'پرونده معیشت — تکمیل‌شده', text: 'دوازده ماه کمک ماهانه فرصت داد شغل کوچکی راه بیندازم؛ حالا خودم روی پای خودم ایستادم.', stars: [1, 2, 3, 4, 5], avatarStyle: 'flex:0 0 40px;width:40px;height:40px;border-radius:50%;background:#F2F3F5 url(assets/story-3.png) center/cover no-repeat' }
+      ],
+      faqs: faqDefs.map((f, i) => {
+        const open = S.faqOpen === i;
+        return {
+          q: f.q, a: f.a, open,
+          onClick: () => this.setState({ faqOpen: open ? -1 : i }),
+          sign: open ? '−' : '+',
+          boxStyle: 'border-radius:18px;padding:20px 22px;display:flex;flex-direction:column;gap:12px;transition:all .12s;border:1.5px solid '
+            + (open ? '#F4511E' : '#EAECEF') + ';background:' + (open ? '#FFFCFA' : '#fff'),
+          signStyle: 'margin-inline-start:auto;flex:0 0 32px;width:32px;height:32px;border-radius:11px;display:flex;align-items:center;justify-content:center;font-size:17px;font-weight:800;'
+            + (open ? 'background:#F4511E;color:#fff' : 'background:#F5F6F8;color:#5A6169')
+        };
+      }),
+      socials: ['◉', '✆', '✉', '▶'],
+      footerCols: [
+        { title: 'دست یاری', links: ['درباره ما', 'اعضای هیئت امنا', 'گزارش مالی', 'فرصت‌های همکاری', 'اخبار و رویدادها'] },
+        { title: 'کمک کردن', links: ['پرونده‌های فوری', 'حمایت ماهانه', 'کمپین‌های جاری', 'کمک سازمانی', 'وقف و نیکوکاری پایدار'] },
+        { title: 'راهنما', links: ['ثبت درخواست کمک', 'پیگیری پرونده', 'پرسش‌های پرتکرار', 'قوانین و حریم خصوصی', 'تماس با پشتیبانی'] }
+      ]
+    };
+  }
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,37 @@
+/* دست یاری — سایت عمومی. عیناً از سایت دست یاری.dc.html */
+*{box-sizing:border-box}
+body{margin:0;font-family:Vazirmatn,system-ui,sans-serif;background:#fff;color:#191C21;-webkit-font-smoothing:antialiased}
+a{color:#F4511E;text-decoration:none}
+a:hover{color:#C43C0E}
+input,button,select{font-family:inherit}
+input:focus{outline:none}
+::placeholder{color:#A9AEB6}
+::-webkit-scrollbar{width:9px}
+::-webkit-scrollbar-thumb{background:#D8DBE0;border-radius:8px}
+.om-arrows{display:none}
+@media (max-width:900px){
+  #om-slider-ctl{display:none !important}
+  .om-dots{display:none !important}
+  .om-arrows{display:flex !important}
+  div[style*="min-width: 1100px"],div[style*="min-width: 1000px"],div[style*="min-width: 900px"],div[style*="min-width: 820px"],div[style*="min-width: 760px"],div[style*="min-width: 700px"],div[style*="min-width: 640px"]{min-width:0 !important}
+  div[style*="grid-template-columns: 1.6fr 1fr"],div[style*="grid-template-columns: 1.5fr 1fr"],div[style*="grid-template-columns: 1.4fr 1fr"],div[style*="grid-template-columns: 1.3fr 1fr"],div[style*="grid-template-columns: 1.2fr 1fr"],div[style*="grid-template-columns: 1.05fr 1fr"],div[style*="grid-template-columns: 2fr 1fr"],div[style*="grid-template-columns: 1fr 1.2fr"],div[style*="grid-template-columns: 1fr 380px"],div[style*="grid-template-columns: 1fr 360px"],div[style*="grid-template-columns: 1fr 340px"],div[style*="grid-template-columns: 1fr 320px"],div[style*="grid-template-columns: 1fr 300px"],div[style*="grid-template-columns: 320px"],div[style*="grid-template-columns: 300px"],div[style*="grid-template-columns: 280px"]{grid-template-columns:minmax(0,1fr) !important}
+  div[style*="repeat(4, 1fr)"],div[style*="repeat(3, 1fr)"]{grid-template-columns:repeat(auto-fit,minmax(min(100%,150px),1fr)) !important}
+  div[style*="minmax(190px"],div[style*="minmax(180px"],div[style*="minmax(150px"],div[style*="minmax(130px"],div[style*="minmax(120px"]{grid-template-columns:repeat(auto-fit,minmax(min(100%,145px),1fr)) !important}
+}
+@media (max-width:560px){
+  div[style*="padding: 26px"],div[style*="padding: 24px"],div[style*="padding: 22px"]{padding:16px !important}
+  h1{font-size:clamp(24px,7vw,32px) !important}
+}
+
+/* از SiteHeader.dc.html */
+.om-sh-burger{display:none}
+@media (max-width:900px){
+  .om-sh-nav{display:none !important}
+  .om-sh-burger{display:flex !important}
+  .om-sh-top > span{display:none}
+  .om-sh-cta{gap:8px !important}
+  .om-sh-cta > a:first-child{display:none}
+}
+@media (max-width:560px){
+  .om-sh-cta > a{padding:0 14px !important;font-size:13px !important}
+}

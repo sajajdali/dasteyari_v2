@@ -1,0 +1,553 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/rastikerdar/vazirmatn@v33.003/Vazirmatn-font-face.css">
+<style>
+  *{box-sizing:border-box}
+  body{margin:0;font-family:Vazirmatn,system-ui,sans-serif;background:#F5F6F8;color:#23262B;-webkit-font-smoothing:antialiased}
+  a{color:#F4511E;text-decoration:none}
+  a:hover{color:#C43C0E}
+  input,button,select{font-family:inherit}
+  input:focus{outline:none}
+  @media (max-width:900px){
+    div[style*="grid-template-columns: 1.05fr 1fr"],div[style*="grid-template-columns: 1.1fr 1fr"],div[style*="grid-template-columns: 1fr 1fr"],div[style*="grid-template-columns: 1.2fr 1fr"]{grid-template-columns:minmax(0,1fr) !important}
+    div[style*="padding: 64px 88px"],div[style*="padding: 56px"],div[style*="padding: 48px"]{padding:30px 18px !important}
+    div[style*="minmax(190px"],div[style*="minmax(180px"],div[style*="minmax(150px"],div[style*="minmax(130px"]{grid-template-columns:repeat(auto-fit,minmax(min(100%,145px),1fr)) !important}
+  }
+  @media (max-width:720px){
+    div[style*="grid-template-columns: minmax(0, 1fr)"] > div:last-child[style*="rgb(27, 30, 35)"]{display:none !important}
+    h1{font-size:clamp(23px,7vw,30px) !important}
+  }
+  ::placeholder{color:#A9AEB6}
+</style>
+<link rel="stylesheet" href="./responsive.css" />
+<script src="./settings-store.js"></script>
+</helmet>
+<x-import component-from-global-scope="mobile-preview" from="./mobile-preview.js" hint-size="0,0"></x-import>
+
+<div dir="rtl" style="min-height:100vh;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,440px),1fr));background:#fff">
+
+  <div style="display:flex;flex-direction:column;justify-content:center;padding:56px 64px;gap:30px;max-width:620px;width:100%;margin-inline:auto">
+    <div style="display:flex;align-items:center;gap:14px">
+      <img src="assets/logo.png" alt="دست یاری" style="width:60px;height:60px;object-fit:contain;mix-blend-mode:multiply" />
+      <div style="display:flex;flex-direction:column;gap:3px">
+        <div style="font-size:21px;font-weight:800;letter-spacing:-.4px">دست یاری</div>
+        <div style="font-size:13px;color:#8A9099">ورود و عضویت خیرین</div>
+      </div>
+    </div>
+
+    <div style="display:flex;gap:6px;background:#F5F6F8;padding:5px;border-radius:14px;align-self:flex-start">
+      <sc-for list="{{ modeTabs }}" as="t" hint-placeholder-count="2">
+        <button onClick="{{ t.onClick }}" style="{{ t.style }}">{{ t.label }}</button>
+      </sc-for>
+    </div>
+
+    <sc-if value="{{ stepPhone }}" hint-placeholder-val="{{ true }}">
+      <div style="display:flex;flex-direction:column;gap:22px">
+        <div style="display:flex;flex-direction:column;gap:8px">
+          <h1 style="margin:0;font-size:27px;font-weight:800;letter-spacing:-.6px">{{ phoneTitle }}</h1>
+          <p style="margin:0;font-size:14.5px;line-height:2;color:#787F88;text-wrap:pretty">{{ phoneSub }}</p>
+        </div>
+        <label style="display:flex;flex-direction:column;gap:9px">
+          <span style="font-size:13px;font-weight:700;color:#4E555E">{{ phoneLabel }}</span>
+          <div dir="ltr" style="display:flex;align-items:stretch;height:56px;border:1.5px solid #E3E6EA;border-radius:14px;background:#FBFBFC;overflow:hidden">
+            <div onClick="{{ togglePicker }}" style="flex:0 0 auto;display:flex;align-items:center;gap:7px;padding:0 12px;border-right:1.5px solid #E3E6EA;background:#F5F6F8;cursor:pointer">
+              <span style="font-size:19px;line-height:1">{{ countryFlag }}</span>
+              <span style="font-size:14.5px;font-weight:800;color:#23262B" dir="ltr">{{ dialCode }}</span>
+              <span style="font-size:9px;color:#9AA0A8">▾</span>
+            </div>
+            <input type="text" dir="ltr" value="{{ phone }}" onChange="{{ onPhone }}" placeholder="{{ phonePlaceholder }}" style="flex:1;min-width:0;height:100%;border:0;background:transparent;padding:0 16px;font-size:16px;font-weight:700;font-family:inherit;text-align:left;letter-spacing:.5px" />
+          </div>
+          <span style="font-size:11.5px;color:#9AA0A8;line-height:1.9">{{ phoneHint }}</span>
+        </label>
+
+        <sc-if value="{{ pickerOpen }}" hint-placeholder-val="{{ false }}">
+          <div style="position:fixed;inset:0;z-index:80;display:flex;align-items:center;justify-content:center;padding:20px">
+            <div onClick="{{ closePicker }}" style="position:absolute;inset:0;background:rgba(15,17,20,.5)"></div>
+            <div style="position:relative;width:min(420px,100%);max-height:min(560px,90vh);display:flex;flex-direction:column;background:#fff;border-radius:20px;overflow:hidden;box-shadow:0 40px 80px -30px rgba(0,0,0,.55)">
+              <div style="padding:16px 18px;border-bottom:1px solid #EFF0F2;display:flex;flex-direction:column;gap:12px">
+                <div style="display:flex;align-items:center;gap:12px">
+                  <span style="font-size:16px;font-weight:800">انتخاب کشور</span>
+                  <div onClick="{{ closePicker }}" style="margin-inline-start:auto;flex:0 0 32px;width:32px;height:32px;border:1px solid #EDEEF1;border-radius:10px;display:flex;align-items:center;justify-content:center;color:#6B7280;cursor:pointer">✕</div>
+                </div>
+                <div style="position:relative;display:flex">
+                  <input type="text" value="{{ countrySearch }}" onChange="{{ onCountrySearch }}" placeholder="جست‌وجوی کشور یا کد تماس…" style="height:48px;flex:1;min-width:0;border:1.5px solid #E3E6EA;border-radius:12px;padding:0 40px 0 13px;font-size:13.5px;font-family:inherit" />
+                  <span style="position:absolute;right:13px;top:0;height:48px;display:flex;align-items:center;color:#A9AEB6">⌕</span>
+                </div>
+              </div>
+              <div style="flex:1;overflow-y:auto">
+                <sc-for list="{{ countryList }}" as="c" hint-placeholder-count="10">
+                  <div onClick="{{ c.onClick }}" style="{{ c.rowStyle }}">
+                    <span style="font-size:20px;line-height:1">{{ c.flag }}</span>
+                    <span style="font-size:13.5px;font-weight:700;min-width:0">{{ c.fa }}</span>
+                    <span style="margin-inline-start:auto;font-size:13px;font-weight:800;color:#8A9099" dir="ltr">{{ c.dial }}</span>
+                  </div>
+                </sc-for>
+                <sc-if value="{{ countryEmpty }}" hint-placeholder-val="{{ false }}">
+                  <div style="padding:34px 20px;display:flex;flex-direction:column;gap:8px;align-items:center;text-align:center">
+                    <span style="font-size:22px;color:#C9CDD3">⌕</span>
+                    <span style="font-size:13px;font-weight:700">کشوری با این نام پیدا نشد</span>
+                    <span style="font-size:12px;color:#9AA0A8">نام فارسی، نام انگلیسی یا کد تماس را امتحان کنید.</span>
+                  </div>
+                </sc-if>
+              </div>
+            </div>
+          </div>
+        </sc-if>
+        <button onClick="{{ sendCode }}" style="height:56px;border:0;border-radius:14px;background:#F4511E;color:#fff;font-size:16px;font-weight:700;cursor:pointer;box-shadow:0 10px 22px -12px rgba(244,81,30,.85)" style-hover="background:#DE4514">ارسال کد تایید</button>
+        <div style="font-size:12.5px;color:#9AA0A8;line-height:2">با ادامه، <a href="#">قوانین و حریم خصوصی</a> دست یاری را می‌پذیرید.</div>
+      </div>
+    </sc-if>
+
+    <sc-if value="{{ stepCode }}" hint-placeholder-val="{{ false }}">
+      <div style="display:flex;flex-direction:column;gap:22px">
+        <div style="display:flex;flex-direction:column;gap:8px">
+          <h1 style="margin:0;font-size:27px;font-weight:800;letter-spacing:-.6px">کد تایید را وارد کنید</h1>
+          <p style="margin:0;font-size:14.5px;line-height:2;color:#787F88">کد چهار رقمی به شماره <b style="color:#23262B" dir="ltr">{{ dialCode }} {{ phone }}</b> ارسال شد. <span onClick="{{ backToPhone }}" style="color:#F4511E;font-weight:700;cursor:pointer">ویرایش شماره</span></p>
+        </div>
+
+        <div style="display:flex;gap:12px;direction:ltr;align-self:center">
+          <sc-for list="{{ boxes }}" as="b" hint-placeholder-count="4">
+            <input type="text" value="{{ b.value }}" onChange="{{ b.onChange }}" onKeyDown="{{ b.onKeyDown }}" ref="{{ b.ref }}" maxLength="1" style="{{ b.style }}" />
+          </sc-for>
+        </div>
+
+        <sc-if value="{{ codeError }}" hint-placeholder-val="{{ false }}">
+          <div style="align-self:center;font-size:13px;font-weight:700;color:#C43034;background:#FDECEC;padding:10px 16px;border-radius:12px">کد واردشده صحیح نیست — دوباره تلاش کنید</div>
+        </sc-if>
+        <sc-if value="{{ codeOk }}" hint-placeholder-val="{{ false }}">
+          <div style="align-self:center;font-size:13px;font-weight:700;color:#12805A;background:#EAF7F1;padding:10px 16px;border-radius:12px">کد تایید شد ✓</div>
+        </sc-if>
+
+        <div style="display:flex;align-items:center;justify-content:center;gap:10px">
+          <sc-if value="{{ timerRunning }}" hint-placeholder-val="{{ true }}">
+            <div style="display:flex;align-items:center;gap:10px">
+              <span style="{{ ringStyle }}"><span style="width:34px;height:34px;border-radius:50%;background:#fff;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:800;color:#23262B">{{ timerLabel }}</span></span>
+              <span style="font-size:13px;color:#787F88">تا ارسال مجدد کد</span>
+            </div>
+          </sc-if>
+          <sc-if value="{{ canResend }}" hint-placeholder-val="{{ false }}">
+            <button onClick="{{ resend }}" style="height:44px;padding:0 18px;border:1.5px solid #E3E6EA;border-radius:12px;background:#fff;color:#23262B;font-size:13.5px;font-weight:700;cursor:pointer" style-hover="background:#F5F6F8">ارسال مجدد کد</button>
+          </sc-if>
+        </div>
+
+        <div style="font-size:12.5px;color:#9AA0A8;line-height:2;text-align:center">کد را دریافت نکردید؟ پس از پایان شمارش، ارسال مجدد یا <a href="#">تماس با پشتیبانی</a>.</div>
+      </div>
+    </sc-if>
+
+    <sc-if value="{{ stepSignup }}" hint-placeholder-val="{{ false }}">
+      <div style="display:flex;flex-direction:column;gap:20px">
+        <div style="display:flex;flex-direction:column;gap:8px">
+          <h1 style="margin:0;font-size:27px;font-weight:800;letter-spacing:-.6px">تکمیل عضویت</h1>
+          <p style="margin:0;font-size:14.5px;line-height:2;color:#787F88">شماره {{ phone }} تایید شد. برای ساخت حساب اطلاعات زیر را کامل کنید.</p>
+        </div>
+
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:14px">
+          <label style="display:flex;flex-direction:column;gap:8px">
+            <span style="font-size:12.5px;font-weight:700;color:#4E555E">نام *</span>
+            <input type="text" placeholder="مثلاً بهنام" style="height:50px;border:1.5px solid #E3E6EA;border-radius:13px;padding:0 14px;font-size:14px;background:#FBFBFC" style-focus="border-color:#F4511E;background:#fff" />
+          </label>
+          <label style="display:flex;flex-direction:column;gap:8px">
+            <span style="font-size:12.5px;font-weight:700;color:#4E555E">نام خانوادگی *</span>
+            <input type="text" placeholder="مثلاً اسدی" style="height:50px;border:1.5px solid #E3E6EA;border-radius:13px;padding:0 14px;font-size:14px;background:#FBFBFC" style-focus="border-color:#F4511E;background:#fff" />
+          </label>
+          <label style="display:flex;flex-direction:column;gap:8px">
+            <span style="font-size:12.5px;font-weight:700;color:#4E555E">تحصیلات *</span>
+            <select style="height:50px;border:1.5px solid #E3E6EA;border-radius:13px;padding:0 12px;font-size:14px;background:#FBFBFC;color:#4E555E">
+              <sc-for list="{{ degrees }}" as="d" hint-placeholder-count="6">
+                <option>{{ d }}</option>
+              </sc-for>
+            </select>
+          </label>
+          <label style="display:flex;flex-direction:column;gap:8px">
+            <span style="font-size:12.5px;font-weight:700;color:#4E555E">استان محل سکونت *</span>
+            <select value="{{ province }}" onChange="{{ onProvince }}" style="height:50px;border:1.5px solid #E3E6EA;border-radius:13px;padding:0 12px;font-size:14px;background:#FBFBFC;color:#4E555E">
+              <sc-for list="{{ provinces }}" as="p" hint-placeholder-count="8">
+                <option>{{ p }}</option>
+              </sc-for>
+            </select>
+          </label>
+          <label style="display:flex;flex-direction:column;gap:8px">
+            <span style="font-size:12.5px;font-weight:700;color:#4E555E">شهر محل سکونت *</span>
+            <select value="{{ city }}" onChange="{{ onCity }}" style="height:50px;border:1.5px solid #E3E6EA;border-radius:13px;padding:0 12px;font-size:14px;background:#FBFBFC;color:#4E555E">
+              <sc-for list="{{ cities }}" as="c" hint-placeholder-count="5">
+                <option>{{ c }}</option>
+              </sc-for>
+            </select>
+          </label>
+          <label style="display:flex;flex-direction:column;gap:8px">
+            <span style="font-size:12.5px;font-weight:700;color:#4E555E">ایمیل (اختیاری)</span>
+            <input type="text" placeholder="name@mail.com" style="height:50px;border:1.5px solid #E3E6EA;border-radius:13px;padding:0 14px;font-size:14px;background:#FBFBFC" style-focus="border-color:#F4511E;background:#fff" />
+          </label>
+        </div>
+
+        <div style="font-size:12px;color:#9AA0A8;line-height:1.9">شهرها بر اساس استان انتخابی نمایش داده می‌شوند.</div>
+
+        <sc-if value="{{ showCurrency }}" hint-placeholder-val="{{ false }}">
+          <div style="display:flex;flex-direction:column;gap:11px;background:#FFF6F2;border:1px solid #F7CDBB;border-radius:16px;padding:16px">
+            <div style="display:flex;flex-direction:column;gap:4px">
+              <span style="font-size:13.5px;font-weight:800;color:#8A3A1C">مبنای پولی شما چیست؟ *</span>
+              <span style="font-size:12px;color:#8A3A1C;line-height:1.9">مبالغ پرونده‌ها و کمک‌های شما با این واحد نمایش داده می‌شود؛ بعداً از تنظیمات حساب قابل تغییر است.</span>
+            </div>
+            <div style="display:flex;gap:8px;flex-wrap:wrap">
+              <sc-for list="{{ currencies }}" as="c" hint-placeholder-count="3">
+                <button onClick="{{ c.onClick }}" style="{{ c.style }}">{{ c.label }}</button>
+              </sc-for>
+            </div>
+          </div>
+        </sc-if>
+
+        <label style="display:flex;align-items:center;gap:10px;font-size:13px;color:#5A6169;cursor:pointer">
+          <span style="width:18px;height:18px;border-radius:6px;border:1.5px solid #F4511E;background:#F4511E;color:#fff;display:flex;align-items:center;justify-content:center;font-size:11px">✓</span>
+          <span><a href="#">قوانین و حریم خصوصی</a> دست یاری را می‌پذیرم</span>
+        </label>
+
+        <div style="display:flex;gap:10px;flex-wrap:wrap">
+          <button onClick="{{ backToPhone }}" style="height:54px;padding:0 18px;border:1.5px solid #E3E6EA;border-radius:14px;background:#fff;color:#5A6169;font-size:14px;font-weight:700;cursor:pointer" style-hover="background:#F5F6F8">بازگشت</button>
+          <button onClick="{{ finish }}" style="flex:1;min-width:190px;height:54px;border:0;border-radius:14px;background:#F4511E;color:#fff;font-size:16px;font-weight:700;cursor:pointer;box-shadow:0 10px 22px -12px rgba(244,81,30,.85)" style-hover="background:#DE4514">تکمیل عضویت و ورود</button>
+        </div>
+      </div>
+    </sc-if>
+
+    <sc-if value="{{ stepDone }}" hint-placeholder-val="{{ false }}">
+      <div style="display:flex;flex-direction:column;gap:20px;align-items:flex-start">
+        <div style="width:64px;height:64px;border-radius:22px;background:#EAF7F1;color:#12805A;display:flex;align-items:center;justify-content:center;font-size:26px">✓</div>
+        <h1 style="margin:0;font-size:27px;font-weight:800;letter-spacing:-.6px">{{ doneTitle }}</h1>
+        <p style="margin:0;font-size:14.5px;line-height:2;color:#787F88;text-wrap:pretty">{{ doneSub }}</p>
+        <button onClick="{{ reset }}" style="height:54px;padding:0 22px;border:0;border-radius:14px;background:#F4511E;color:#fff;font-size:15px;font-weight:700;cursor:pointer" style-hover="background:#DE4514">ورود به پنل خیرین</button>
+      </div>
+    </sc-if>
+  </div>
+
+  <div style="position:relative;background:#1B1E23;display:flex;flex-direction:column;justify-content:space-between;padding:52px;overflow:hidden;min-height:520px">
+    <div style="position:absolute;inset:auto -140px -180px auto;width:520px;height:520px;border-radius:50%;background:radial-gradient(circle at 30% 30%,rgba(244,81,30,.55),rgba(244,81,30,0) 65%)"></div>
+    <div style="position:absolute;top:-120px;left:-100px;width:380px;height:380px;border-radius:50%;border:1px solid rgba(255,255,255,.08)"></div>
+    <div style="position:relative;display:flex;align-items:center;gap:10px;color:#fff;font-size:13px;opacity:.75">
+      <span style="width:8px;height:8px;border-radius:50%;background:#4ED08A"></span>ورود امن با کد یک‌بارمصرف
+    </div>
+    <div style="position:relative;display:flex;flex-direction:column;gap:24px">
+      <div style="font-size:32px;font-weight:800;color:#fff;line-height:1.6;letter-spacing:-.6px;text-wrap:pretty">هر کمک شما،<br />یک زندگی را تغییر می‌دهد</div>
+      <div style="font-size:15px;color:rgba(255,255,255,.62);line-height:2.1;max-width:400px;text-wrap:pretty">با عضویت در دست یاری می‌توانید پرونده نیازمندان را ببینید، تعهد ماهانه بگذارید و گزارش دقیق هر پرداخت را دنبال کنید.</div>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(110px,1fr));gap:14px;max-width:440px">
+        <div style="background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.09);border-radius:16px;padding:16px">
+          <div style="font-size:22px;font-weight:800;color:#fff">۸٫۷۶۰</div>
+          <div style="font-size:12px;color:rgba(255,255,255,.55);margin-top:5px">خیر همراه</div>
+        </div>
+        <div style="background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.09);border-radius:16px;padding:16px">
+          <div style="font-size:22px;font-weight:800;color:#fff">۱٫۲۴۰</div>
+          <div style="font-size:12px;color:rgba(255,255,255,.55);margin-top:5px">پرونده فعال</div>
+        </div>
+        <div style="background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.09);border-radius:16px;padding:16px">
+          <div style="font-size:22px;font-weight:800;color:#FFA51F">۹۴٪</div>
+          <div style="font-size:12px;color:rgba(255,255,255,.55);margin-top:5px">پرداخت به‌موقع</div>
+        </div>
+      </div>
+    </div>
+    <div style="position:relative;font-size:12.5px;color:rgba(255,255,255,.4)">پشتیبانی: ۰۲۱-۹۱۰۰۲۲۳۳ — واحد فناوری دست یاری</div>
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:1280,&quot;height&quot;:820}}">
+class Component extends DCLogic {
+  CODE = '۱۲۳۴';
+
+  fa(s) { return String(s).replace(/[0-9]/g, d => '۰۱۲۳۴۵۶۷۸۹'[+d]); }
+
+  COUNTRIES = [
+    { code: 'IR', fa: 'ایران', en: 'Iran', flag: '🇮🇷', dial: '+98', ph: '912 000 0000' },
+    { code: 'AF', fa: 'افغانستان', en: 'Afghanistan', flag: '🇦🇫', dial: '+93', ph: '70 000 0000' },
+    { code: 'AL', fa: 'آلبانی', en: 'Albania', flag: '🇦🇱', dial: '+355', ph: '66 000 0000' },
+    { code: 'DE', fa: 'آلمان', en: 'Germany', flag: '🇩🇪', dial: '+49', ph: '151 000 0000' },
+    { code: 'AE', fa: 'امارات متحده عربی', en: 'United Arab Emirates', flag: '🇦🇪', dial: '+971', ph: '50 000 0000' },
+    { code: 'US', fa: 'آمریکا', en: 'United States', flag: '🇺🇸', dial: '+1', ph: '212 000 0000' },
+    { code: 'AM', fa: 'ارمنستان', en: 'Armenia', flag: '🇦🇲', dial: '+374', ph: '77 000 000' },
+    { code: 'AR', fa: 'آرژانتین', en: 'Argentina', flag: '🇦🇷', dial: '+54', ph: '11 0000 0000' },
+    { code: 'AT', fa: 'اتریش', en: 'Austria', flag: '🇦🇹', dial: '+43', ph: '664 000 000' },
+    { code: 'AU', fa: 'استرالیا', en: 'Australia', flag: '🇦🇺', dial: '+61', ph: '400 000 000' },
+    { code: 'AZ', fa: 'آذربایجان', en: 'Azerbaijan', flag: '🇦🇿', dial: '+994', ph: '50 000 0000' },
+    { code: 'BH', fa: 'بحرین', en: 'Bahrain', flag: '🇧🇭', dial: '+973', ph: '3600 0000' },
+    { code: 'BD', fa: 'بنگلادش', en: 'Bangladesh', flag: '🇧🇩', dial: '+880', ph: '1700 000000' },
+    { code: 'BY', fa: 'بلاروس', en: 'Belarus', flag: '🇧🇾', dial: '+375', ph: '29 000 0000' },
+    { code: 'BE', fa: 'بلژیک', en: 'Belgium', flag: '🇧🇪', dial: '+32', ph: '470 00 00 00' },
+    { code: 'BA', fa: 'بوسنی و هرزگوین', en: 'Bosnia', flag: '🇧🇦', dial: '+387', ph: '61 000 000' },
+    { code: 'BR', fa: 'برزیل', en: 'Brazil', flag: '🇧🇷', dial: '+55', ph: '11 90000 0000' },
+    { code: 'BG', fa: 'بلغارستان', en: 'Bulgaria', flag: '🇧🇬', dial: '+359', ph: '87 000 0000' },
+    { code: 'CA', fa: 'کانادا', en: 'Canada', flag: '🇨🇦', dial: '+1', ph: '416 000 0000' },
+    { code: 'CN', fa: 'چین', en: 'China', flag: '🇨🇳', dial: '+86', ph: '131 0000 0000' },
+    { code: 'HR', fa: 'کرواسی', en: 'Croatia', flag: '🇭🇷', dial: '+385', ph: '92 000 0000' },
+    { code: 'CY', fa: 'قبرس', en: 'Cyprus', flag: '🇨🇾', dial: '+357', ph: '96 000000' },
+    { code: 'CZ', fa: 'چک', en: 'Czechia', flag: '🇨🇿', dial: '+420', ph: '601 000 000' },
+    { code: 'DK', fa: 'دانمارک', en: 'Denmark', flag: '🇩🇰', dial: '+45', ph: '20 00 00 00' },
+    { code: 'EG', fa: 'مصر', en: 'Egypt', flag: '🇪🇬', dial: '+20', ph: '100 000 0000' },
+    { code: 'EE', fa: 'استونی', en: 'Estonia', flag: '🇪🇪', dial: '+372', ph: '5000 0000' },
+    { code: 'FI', fa: 'فینلاند', en: 'Finland', flag: '🇫🇮', dial: '+358', ph: '40 000 0000' },
+    { code: 'FR', fa: 'فرانسه', en: 'France', flag: '🇫🇷', dial: '+33', ph: '6 00 00 00 00' },
+    { code: 'GE', fa: 'گرجستان', en: 'Georgia', flag: '🇬🇪', dial: '+995', ph: '555 00 00 00' },
+    { code: 'GR', fa: 'یونان', en: 'Greece', flag: '🇬🇷', dial: '+30', ph: '691 000 0000' },
+    { code: 'HK', fa: 'هنگ‌کنگ', en: 'Hong Kong', flag: '🇭🇰', dial: '+852', ph: '5000 0000' },
+    { code: 'HU', fa: 'مجارستان', en: 'Hungary', flag: '🇭🇺', dial: '+36', ph: '20 000 0000' },
+    { code: 'IN', fa: 'هند', en: 'India', flag: '🇮🇳', dial: '+91', ph: '81234 00000' },
+    { code: 'ID', fa: 'اندونزی', en: 'Indonesia', flag: '🇮🇩', dial: '+62', ph: '812 000 000' },
+    { code: 'IQ', fa: 'عراق', en: 'Iraq', flag: '🇮🇶', dial: '+964', ph: '790 000 0000' },
+    { code: 'IE', fa: 'ایرلند', en: 'Ireland', flag: '🇮🇪', dial: '+353', ph: '85 000 0000' },
+    { code: 'IT', fa: 'ایتالیا', en: 'Italy', flag: '🇮🇹', dial: '+39', ph: '312 000 0000' },
+    { code: 'JP', fa: 'ژاپن', en: 'Japan', flag: '🇯🇵', dial: '+81', ph: '90 0000 0000' },
+    { code: 'JO', fa: 'اردن', en: 'Jordan', flag: '🇯🇴', dial: '+962', ph: '79 000 0000' },
+    { code: 'KZ', fa: 'قزاقستان', en: 'Kazakhstan', flag: '🇰🇿', dial: '+7', ph: '700 000 0000' },
+    { code: 'KE', fa: 'کنیا', en: 'Kenya', flag: '🇰🇪', dial: '+254', ph: '712 000000' },
+    { code: 'KW', fa: 'کویت', en: 'Kuwait', flag: '🇰🇼', dial: '+965', ph: '500 00000' },
+    { code: 'KG', fa: 'قرقیزستان', en: 'Kyrgyzstan', flag: '🇰🇬', dial: '+996', ph: '700 000 000' },
+    { code: 'LV', fa: 'لتونی', en: 'Latvia', flag: '🇱🇻', dial: '+371', ph: '2000 0000' },
+    { code: 'LB', fa: 'لبنان', en: 'Lebanon', flag: '🇱🇧', dial: '+961', ph: '71 000 000' },
+    { code: 'LT', fa: 'لیتوانی', en: 'Lithuania', flag: '🇱🇹', dial: '+370', ph: '600 00000' },
+    { code: 'LU', fa: 'لوکزامبورگ', en: 'Luxembourg', flag: '🇱🇺', dial: '+352', ph: '621 000 000' },
+    { code: 'MY', fa: 'مالزی', en: 'Malaysia', flag: '🇲🇾', dial: '+60', ph: '12 000 0000' },
+    { code: 'MX', fa: 'مکزیک', en: 'Mexico', flag: '🇲🇽', dial: '+52', ph: '55 0000 0000' },
+    { code: 'MA', fa: 'مراکش', en: 'Morocco', flag: '🇲🇦', dial: '+212', ph: '650 000000' },
+    { code: 'NL', fa: 'هلند', en: 'Netherlands', flag: '🇳🇱', dial: '+31', ph: '6 0000 0000' },
+    { code: 'NZ', fa: 'نیوزیلند', en: 'New Zealand', flag: '🇳🇿', dial: '+64', ph: '21 000 000' },
+    { code: 'NG', fa: 'نیجریه', en: 'Nigeria', flag: '🇳🇬', dial: '+234', ph: '802 000 0000' },
+    { code: 'NO', fa: 'نروژ', en: 'Norway', flag: '🇳🇴', dial: '+47', ph: '400 00 000' },
+    { code: 'OM', fa: 'عمان', en: 'Oman', flag: '🇴🇲', dial: '+968', ph: '9200 0000' },
+    { code: 'PK', fa: 'پاکستان', en: 'Pakistan', flag: '🇵🇰', dial: '+92', ph: '301 0000000' },
+    { code: 'PS', fa: 'فلسطین', en: 'Palestine', flag: '🇵🇸', dial: '+970', ph: '59 000 0000' },
+    { code: 'PH', fa: 'فیلیپین', en: 'Philippines', flag: '🇵🇭', dial: '+63', ph: '905 000 0000' },
+    { code: 'PL', fa: 'لهستان', en: 'Poland', flag: '🇵🇱', dial: '+48', ph: '512 000 000' },
+    { code: 'PT', fa: 'پرتغال', en: 'Portugal', flag: '🇵🇹', dial: '+351', ph: '912 000 000' },
+    { code: 'QA', fa: 'قطر', en: 'Qatar', flag: '🇶🇦', dial: '+974', ph: '3300 0000' },
+    { code: 'RO', fa: 'رومانی', en: 'Romania', flag: '🇷🇴', dial: '+40', ph: '712 000 000' },
+    { code: 'RU', fa: 'روسیه', en: 'Russia', flag: '🇷🇺', dial: '+7', ph: '912 000 0000' },
+    { code: 'SA', fa: 'عربستان سعودی', en: 'Saudi Arabia', flag: '🇸🇦', dial: '+966', ph: '50 000 0000' },
+    { code: 'RS', fa: 'صربستان', en: 'Serbia', flag: '🇷🇸', dial: '+381', ph: '60 000 0000' },
+    { code: 'SG', fa: 'سنگاپور', en: 'Singapore', flag: '🇸🇬', dial: '+65', ph: '8000 0000' },
+    { code: 'SK', fa: 'اسلواکی', en: 'Slovakia', flag: '🇸🇰', dial: '+421', ph: '900 000 000' },
+    { code: 'SI', fa: 'اسلوونی', en: 'Slovenia', flag: '🇸🇮', dial: '+386', ph: '31 000 000' },
+    { code: 'ZA', fa: 'آفریقای جنوبی', en: 'South Africa', flag: '🇿🇦', dial: '+27', ph: '71 000 0000' },
+    { code: 'KR', fa: 'کره جنوبی', en: 'South Korea', flag: '🇰🇷', dial: '+82', ph: '10 0000 0000' },
+    { code: 'ES', fa: 'اسپانیا', en: 'Spain', flag: '🇪🇸', dial: '+34', ph: '612 00 00 00' },
+    { code: 'LK', fa: 'سری‌لانکا', en: 'Sri Lanka', flag: '🇱🇰', dial: '+94', ph: '71 000 0000' },
+    { code: 'SE', fa: 'سوئد', en: 'Sweden', flag: '🇸🇪', dial: '+46', ph: '70 000 0000' },
+    { code: 'CH', fa: 'سوئیس', en: 'Switzerland', flag: '🇨🇭', dial: '+41', ph: '78 000 00 00' },
+    { code: 'SY', fa: 'سوریه', en: 'Syria', flag: '🇸🇾', dial: '+963', ph: '944 000 000' },
+    { code: 'TW', fa: 'تایوان', en: 'Taiwan', flag: '🇹🇼', dial: '+886', ph: '912 000 000' },
+    { code: 'TJ', fa: 'تاجیکستان', en: 'Tajikistan', flag: '🇹🇯', dial: '+992', ph: '91 000 0000' },
+    { code: 'TZ', fa: 'تانزانیا', en: 'Tanzania', flag: '🇹🇿', dial: '+255', ph: '621 000 000' },
+    { code: 'TH', fa: 'تایلند', en: 'Thailand', flag: '🇹🇭', dial: '+66', ph: '81 000 0000' },
+    { code: 'TN', fa: 'تونس', en: 'Tunisia', flag: '🇹🇳', dial: '+216', ph: '20 000 000' },
+    { code: 'TR', fa: 'ترکیه', en: 'Türkiye', flag: '🇹🇷', dial: '+90', ph: '532 000 0000' },
+    { code: 'TM', fa: 'ترکمنستان', en: 'Turkmenistan', flag: '🇹🇲', dial: '+993', ph: '66 000000' },
+    { code: 'UA', fa: 'اوکراین', en: 'Ukraine', flag: '🇺🇦', dial: '+380', ph: '50 000 0000' },
+    { code: 'GB', fa: 'بریتانیا', en: 'United Kingdom', flag: '🇬🇧', dial: '+44', ph: '7400 000000' },
+    { code: 'UZ', fa: 'ازبکستان', en: 'Uzbekistan', flag: '🇺🇿', dial: '+998', ph: '90 000 0000' },
+    { code: 'VN', fa: 'ویتنام', en: 'Vietnam', flag: '🇻🇳', dial: '+84', ph: '91 000 0000' },
+    { code: 'YE', fa: 'یمن', en: 'Yemen', flag: '🇾🇪', dial: '+967', ph: '71 000 0000' }
+  ];
+
+  state = {
+    mode: 'login', step: 'phone', phone: '۹۱۲۳۳۴۵۵۶۷', country: 'IR', currency: null,
+    digits: ['', '', '', ''], seconds: 90, error: false, ok: false,
+    province: 'تهران', city: 'تهران'
+  };
+
+  refs = [];
+
+  fa(v) { return String(v).replace(/\d/g, d => '۰۱۲۳۴۵۶۷۸۹'[d]); }
+  toFa(ch) { return '۰۱۲۳۴۵۶۷۸۹'['0123456789'.indexOf(ch)] || ch; }
+
+  componentWillUnmount() { clearInterval(this.timer); }
+
+  startTimer() {
+    clearInterval(this.timer);
+    this.setState({ seconds: 90 });
+    this.timer = setInterval(() => {
+      this.setState(s => {
+        if (s.seconds <= 1) { clearInterval(this.timer); return { seconds: 0 }; }
+        return { seconds: s.seconds - 1 };
+      });
+    }, 1000);
+  }
+
+  setDigit(i, raw) {
+    const ch = (raw || '').slice(-1);
+    if (!ch) {
+      const d = this.state.digits.slice(); d[i] = '';
+      this.setState({ digits: d, error: false });
+      return;
+    }
+    if (!/[0-9۰-۹]/.test(ch)) return;
+    const d = this.state.digits.slice();
+    d[i] = this.toFa(ch);
+    this.setState({ digits: d, error: false }, () => {
+      if (i < 3 && this.refs[i + 1]) this.refs[i + 1].focus();
+      if (i === 3) this.check(d);
+    });
+  }
+
+  onKey(i, e) {
+    if (e.key === 'Backspace' && !this.state.digits[i] && i > 0 && this.refs[i - 1]) {
+      this.refs[i - 1].focus();
+    }
+  }
+
+  saveSession(extra) {
+    if (!window.DY || !window.DY.setUser) return;
+    const S = this.state;
+    const c = (this.COUNTRIES.find(x => x.code === S.country) || this.COUNTRIES[0]);
+    const prev = window.DY.user() || {};
+    window.DY.setUser(Object.assign({
+      name: prev.name || (S.mode === 'signup' ? '' : 'بهنام اسدی'),
+      phone: S.phone || prev.phone || '',
+      country: S.country || 'IR',
+      dial: c.dial
+    }, extra || {}));
+  }
+
+  check(d) {
+    const entered = d.join('');
+    if (entered.length < 4) return;
+    if (entered === this.CODE) {
+      clearInterval(this.timer);
+      this.setState({ ok: true, error: false });
+      this.saveSession();
+      setTimeout(() => {
+        this.setState({ step: this.state.mode === 'signup' ? 'signup' : 'done', ok: false });
+      }, 700);
+    } else {
+      this.setState({ error: true, digits: ['', '', '', ''] }, () => {
+        if (this.refs[0]) this.refs[0].focus();
+      });
+    }
+  }
+
+  cityMap() {
+    return {
+      'تهران': ['تهران', 'شهریار', 'اسلامشهر', 'ورامین', 'پاکدشت'],
+      'خراسان رضوی': ['مشهد', 'نیشابور', 'سبزوار', 'تربت حیدریه', 'کاشمر'],
+      'فارس': ['شیراز', 'مرودشت', 'کازرون', 'جهرم', 'لار'],
+      'اصفهان': ['اصفهان', 'کاشان', 'نجف‌آباد', 'خمینی‌شهر', 'شاهین‌شهر'],
+      'خوزستان': ['اهواز', 'دزفول', 'آبادان', 'خرمشهر', 'بهبهان'],
+      'آذربایجان شرقی': ['تبریز', 'مراغه', 'مرند', 'اهر', 'میانه'],
+      'قم': ['قم', 'جعفریه', 'کهک'],
+      'گیلان': ['رشت', 'انزلی', 'لاهیجان', 'آستارا', 'رودسر'],
+      'سیستان و بلوچستان': ['زاهدان', 'چابهار', 'ایرانشهر', 'زابل']
+    };
+  }
+
+  renderVals() {
+    const S = this.state;
+    const mm = String(Math.floor(S.seconds / 60)).padStart(2, '0');
+    const ss = String(S.seconds % 60).padStart(2, '0');
+    const pct = Math.round(S.seconds / 90 * 360);
+    const provinces = Object.keys(this.cityMap());
+
+    return {
+      modeTabs: [['login', 'ورود'], ['signup', 'عضویت']].map(m => ({
+        label: m[1],
+        onClick: () => { clearInterval(this.timer); this.setState({ mode: m[0], step: 'phone', digits: ['', '', '', ''], error: false, ok: false }); },
+        style: 'height:42px;padding:0 26px;border:0;border-radius:11px;font-size:14px;font-weight:700;cursor:pointer;transition:all .12s;'
+          + (S.mode === m[0] ? 'background:#fff;color:#23262B;box-shadow:0 1px 3px rgba(0,0,0,.1)' : 'background:transparent;color:#8A9099')
+      })),
+      stepPhone: S.step === 'phone',
+      stepCode: S.step === 'code',
+      stepSignup: S.step === 'signup',
+      stepDone: S.step === 'done',
+      phone: S.phone,
+      onPhone: (e) => this.setState({ phone: e.target.value }),
+      pickerOpen: !!S.cOpen,
+      togglePicker: () => this.setState({ cOpen: !S.cOpen, cSearch: '' }),
+      closePicker: () => this.setState({ cOpen: false }),
+      countrySearch: S.cSearch || '',
+      onCountrySearch: (e) => this.setState({ cSearch: e.target.value }),
+      countryList: (() => {
+        const q = (S.cSearch || '').trim().toLowerCase();
+        const list = this.COUNTRIES.filter(c => !q || c.fa.indexOf(q) >= 0 || c.en.toLowerCase().indexOf(q) >= 0 || c.dial.indexOf(q) >= 0 || c.code.toLowerCase() === q);
+        return list.map(c => ({
+          flag: c.flag, fa: c.fa, dial: this.fa(c.dial),
+          onClick: () => this.setState({ country: c.code, cOpen: false, cSearch: '', currency: c.code === 'IR' ? null : (S.currency || 'USD') }),
+          rowStyle: 'display:flex;align-items:center;gap:11px;padding:11px 14px;cursor:pointer;border-bottom:1px solid #F4F5F7;'
+            + (S.country === c.code ? 'background:#FFF6F2' : 'background:#fff')
+        }));
+      })(),
+      countryEmpty: (() => {
+        const q = (S.cSearch || '').trim().toLowerCase();
+        return !!q && !this.COUNTRIES.some(c => c.fa.indexOf(q) >= 0 || c.en.toLowerCase().indexOf(q) >= 0 || c.dial.indexOf(q) >= 0);
+      })(),
+      countryFlag: (this.COUNTRIES.find(c => c.code === S.country) || this.COUNTRIES[0]).flag,
+      country: S.country,
+      onCountry: (e) => {
+        const c = e.target.value;
+        this.setState({ country: c, currency: c === 'IR' ? null : (S.currency || 'USD') });
+      },
+      dialCode: this.fa((this.COUNTRIES.find(c => c.code === S.country) || this.COUNTRIES[0]).dial),
+      phonePlaceholder: this.fa((this.COUNTRIES.find(c => c.code === S.country) || this.COUNTRIES[0]).ph),
+      phoneLabel: S.country === 'IR' ? 'شماره موبایل' : 'شماره موبایل (بدون صفر ابتدایی)',
+      phoneHint: S.country === 'IR'
+        ? 'کد تایید با پیامک به همین شماره ارسال می‌شود.'
+        : 'کد تایید با پیامک بین‌الملل ارسال می‌شود؛ اگر دریافت نشد از طریق واتس‌اپ برایتان می‌فرستیم.',
+      showCurrency: S.country !== 'IR',
+      currencies: [
+        { k: 'USD', label: 'دلار — USD' },
+        { k: 'EUR', label: 'یورو — EUR' },
+        { k: 'IRT', label: 'تومان — IRT' }
+      ].map(c => ({
+        label: c.label,
+        onClick: () => this.setState({ currency: c.k }),
+        style: 'height:44px;padding:0 16px;border-radius:12px;font-size:13px;font-weight:800;cursor:pointer;white-space:nowrap;font-family:inherit;border:1.5px solid '
+          + ((S.currency || 'USD') === c.k ? '#F4511E;background:#F4511E;color:#fff' : '#F0D5C8;background:#fff;color:#8A3A1C')
+      })),
+      phoneTitle: S.mode === 'signup' ? 'عضویت در دست یاری' : 'ورود به حساب',
+      phoneSub: S.mode === 'signup'
+        ? 'شماره موبایل خود را وارد کنید؛ کد تایید چهار رقمی برایتان ارسال می‌شود.'
+        : 'شماره موبایل ثبت‌شده را وارد کنید؛ ورود با کد یک‌بارمصرف انجام می‌شود.',
+      sendCode: () => { this.setState({ step: 'code', digits: ['', '', '', ''], error: false, ok: false }, () => { this.startTimer(); setTimeout(() => this.refs[0] && this.refs[0].focus(), 60); }); },
+      backToPhone: () => { clearInterval(this.timer); this.setState({ step: 'phone', digits: ['', '', '', ''], error: false, ok: false }); },
+      boxes: S.digits.map((v, i) => ({
+        value: v,
+        ref: (el) => { this.refs[i] = el; },
+        onChange: (e) => this.setDigit(i, e.target.value),
+        onKeyDown: (e) => this.onKey(i, e),
+        style: 'width:68px;height:76px;text-align:center;font-size:28px;font-weight:800;border-radius:16px;background:#FBFBFC;transition:all .12s;border:2px solid '
+          + (S.error ? '#E5484D' : S.ok ? '#1E9E6A' : v ? '#F4511E' : '#E3E6EA')
+      })),
+      codeError: S.error,
+      codeOk: S.ok,
+      timerRunning: S.seconds > 0,
+      canResend: S.seconds === 0,
+      timerLabel: this.fa(mm + ':' + ss),
+      ringStyle: 'width:44px;height:44px;border-radius:50%;display:flex;align-items:center;justify-content:center;background:conic-gradient(#F4511E ' + pct + 'deg,#EDEEF1 0)',
+      resend: () => { this.setState({ digits: ['', '', '', ''], error: false }, () => { this.startTimer(); this.refs[0] && this.refs[0].focus(); }); },
+      degrees: ['زیر دیپلم', 'دیپلم', 'کاردانی', 'کارشناسی', 'کارشناسی ارشد', 'دکتری'],
+      provinces,
+      province: S.province,
+      cities: this.cityMap()[S.province] || [],
+      city: S.city,
+      onProvince: (e) => {
+        const p = e.target.value;
+        this.setState({ province: p, city: (this.cityMap()[p] || [''])[0] });
+      },
+      onCity: (e) => this.setState({ city: e.target.value }),
+      finish: () => {
+        const el = document.querySelectorAll('input[placeholder="مثلاً بهنام"],input[placeholder="مثلاً اسدی"]');
+        const nm = [el[0] && el[0].value, el[1] && el[1].value].filter(Boolean).join(' ').trim();
+        this.saveSession(nm ? { name: nm } : null);
+        this.setState({ step: 'done' });
+      },
+      doneTitle: S.mode === 'signup' ? 'عضویت شما کامل شد' : 'خوش آمدید',
+      doneSub: S.mode === 'signup'
+        ? 'حساب شما ساخته شد. اکنون می‌توانید پرونده‌های نیازمند را ببینید و اولین تعهد خود را ثبت کنید.'
+        : 'ورود با موفقیت انجام شد؛ در حال انتقال به پنل خیرین هستید.',
+      reset: () => { clearInterval(this.timer); this.setState({ step: 'phone', digits: ['', '', '', ''], error: false, ok: false }); }
+    };
+  }
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,583 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/rastikerdar/vazirmatn@v33.003/Vazirmatn-font-face.css">
+<style>
+  *{box-sizing:border-box}
+  body{margin:0;font-family:Vazirmatn,system-ui,sans-serif;background:#FAFAFB;color:#191C21;-webkit-font-smoothing:antialiased}
+  a{color:#F4511E;text-decoration:none}
+  a:hover{color:#C43C0E}
+  button,input,select,textarea{font-family:inherit}
+  ::-webkit-scrollbar{width:9px}
+  ::-webkit-scrollbar-thumb{background:#D8DBE0;border-radius:8px}
+  @media (max-width:900px){
+    div[style*="min-width: 1000px"],div[style*="min-width: 900px"],div[style*="min-width: 820px"],div[style*="min-width: 760px"],div[style*="min-width: 700px"],div[style*="min-width: 640px"]{min-width:0 !important}
+    div[style*="grid-template-columns: 1.6fr 1fr"],div[style*="grid-template-columns: 1.5fr 1fr"],div[style*="grid-template-columns: 1.4fr 1fr"],div[style*="grid-template-columns: 1.3fr 1fr"],div[style*="grid-template-columns: 1.2fr 1fr"],div[style*="grid-template-columns: 2fr 1fr"],div[style*="grid-template-columns: 1fr 380px"],div[style*="grid-template-columns: 1fr 340px"],div[style*="grid-template-columns: 1fr 320px"],div[style*="grid-template-columns: 1fr 300px"],div[style*="grid-template-columns: 300px"],div[style*="grid-template-columns: 280px"]{grid-template-columns:minmax(0,1fr) !important}
+    div[style*="repeat(4, 1fr)"],div[style*="repeat(3, 1fr)"]{grid-template-columns:repeat(auto-fit,minmax(min(100%,150px),1fr)) !important}
+    div[style*="minmax(190px"],div[style*="minmax(180px"],div[style*="minmax(150px"],div[style*="minmax(130px"]{grid-template-columns:repeat(auto-fit,minmax(min(100%,145px),1fr)) !important}
+  }
+  @media (max-width:560px){
+    div[style*="padding: 26px"],div[style*="padding: 24px"],div[style*="padding: 22px"]{padding:16px !important}
+    h1{font-size:clamp(24px,7vw,32px) !important}
+  }
+</style>
+<link rel="stylesheet" href="./responsive.css" />
+<script src="./settings-store.js"></script>
+</helmet>
+<x-import component-from-global-scope="mobile-preview" from="./mobile-preview.js" hint-size="0,0"></x-import>
+
+<div dir="rtl">
+
+  <dc-import name="SiteHeader" style="position:sticky;top:0;z-index:50" hint-size="100%,114px"></dc-import>
+  <div style="display:none">
+    <div style="max-width:1240px;margin-inline:auto;padding:12px clamp(14px,3vw,24px);min-height:70px;display:flex;align-items:center;gap:14px;flex-wrap:wrap">
+      <a href="سایت دست یاری.dc.html" style="display:flex;align-items:center">
+        <img src="assets/logo-t.png" alt="دست یاری" style="height:clamp(48px,6vw,64px);width:auto;object-fit:contain;display:block;filter:brightness(1.9) saturate(1.1)" />
+      </a>
+      <span style="font-size:13px;color:rgba(255,255,255,.55)">ثبت درخواست کمک</span>
+      <a href="tel:02191002233" style="margin-inline-start:auto;height:42px;padding:0 16px;border:1px solid rgba(255,255,255,.2);border-radius:12px;color:#fff;display:flex;align-items:center;font-size:13px;font-weight:700">۰۲۱-۹۱۰۰۲۲۳۳</a>
+    </div>
+  </div>
+
+  <section style="background:#fff;border-bottom:1px solid #EFF0F2">
+    <div style="max-width:900px;margin-inline:auto;padding:18px clamp(14px,3vw,24px);display:flex;gap:10px;flex-wrap:wrap">
+      <sc-for list="{{ steps }}" as="s" hint-placeholder-count="4">
+        <div style="{{ s.boxStyle }}">
+          <span style="{{ s.numStyle }}">{{ s.n }}</span>
+          <span style="{{ s.labelStyle }}">{{ s.label }}</span>
+        </div>
+      </sc-for>
+    </div>
+  </section>
+
+  <main style="max-width:900px;margin-inline:auto;padding:clamp(20px,3.5vw,36px) clamp(14px,3vw,24px) clamp(40px,6vw,70px);display:flex;flex-direction:column;gap:16px">
+
+    <sc-if value="{{ isIntro }}" hint-placeholder-val="{{ true }}">
+      <div style="display:flex;flex-direction:column;gap:16px">
+        <div style="background:#15181D;color:#fff;border-radius:26px;padding:clamp(24px,4vw,40px);display:flex;flex-direction:column;gap:16px">
+          <span style="font-size:12.5px;font-weight:800;color:#FF8A5C">{{ c.eyebrow }}</span>
+          <h1 style="margin:0;font-size:clamp(22px,3.4vw,34px);font-weight:800;letter-spacing:-.8px;line-height:1.5;text-wrap:balance">{{ c.heroTitle }}</h1>
+          <p style="margin:0;font-size:14.5px;color:rgba(255,255,255,.7);line-height:2.2;max-width:600px;text-wrap:pretty">{{ c.heroText }}</p>
+          <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,160px),1fr));gap:10px">
+            <sc-for list="{{ introFacts }}" as="f" hint-placeholder-count="3">
+              <div style="background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.13);border-radius:16px;padding:14px 16px;display:flex;flex-direction:column;gap:5px">
+                <span style="font-size:16px;font-weight:800">{{ f.num }}</span>
+                <span style="font-size:11.5px;color:rgba(255,255,255,.6)">{{ f.label }}</span>
+              </div>
+            </sc-for>
+          </div>
+        </div>
+        <div style="background:#fff;border:1px solid #EFF0F2;border-radius:22px;padding:22px;display:flex;flex-direction:column;gap:14px">
+          <span style="font-size:15px;font-weight:800">پیش از شروع، این‌ها را آماده داشته باشید</span>
+          <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,240px),1fr));gap:12px">
+            <sc-for list="{{ checklist }}" as="c" hint-placeholder-count="4">
+              <div style="display:flex;gap:11px;align-items:flex-start;background:#FAFAFB;border:1px solid #EFF0F2;border-radius:16px;padding:14px 15px">
+                <span style="color:#D8420F;font-weight:800;font-size:12px">◆</span>
+                <span style="font-size:13px;color:#4B5158;line-height:2">{{ c }}</span>
+              </div>
+            </sc-for>
+          </div>
+          <button onClick="{{ next }}" style="height:56px;border:0;border-radius:14px;background:#F4511E;color:#fff;font-size:15.5px;font-weight:800;cursor:pointer">شروع — عضویت با کد یک‌بارمصرف</button>
+          <span style="font-size:12px;color:#9AA0A8;line-height:2">اگر امکان تکمیل فرم را ندارید، با شماره ۰۲۱-۹۱۰۰۲۲۳۳ تماس بگیرید؛ همکاران ما درخواست شما را تلفنی ثبت می‌کنند.</span>
+        </div>
+      </div>
+    </sc-if>
+
+    <sc-if value="{{ isAuth }}" hint-placeholder-val="{{ false }}">
+      <div style="background:#fff;border:1px solid #EFF0F2;border-radius:24px;padding:clamp(20px,3vw,30px);display:flex;flex-direction:column;gap:18px">
+        <div style="display:flex;flex-direction:column;gap:6px">
+          <span style="font-size:12.5px;font-weight:800;color:#D8420F">گام ۱ از ۳ — عضویت</span>
+          <span style="font-size:19px;font-weight:800;letter-spacing:-.4px">{{ authTitle }}</span>
+          <span style="font-size:13.5px;color:#6B7280;line-height:2.1">{{ authNote }}</span>
+        </div>
+
+        <sc-if value="{{ askPhone }}" hint-placeholder-val="{{ true }}">
+          <div style="display:flex;flex-direction:column;gap:14px">
+            <div style="display:flex;flex-direction:column;gap:8px">
+              <label style="font-size:12.5px;font-weight:700;color:#4B5158">شماره موبایل</label>
+              <input type="tel" value="{{ phone }}" onChange="{{ onPhone }}" placeholder="۰۹۱۲۳۴۵۶۷۸۹" style="height:56px;border:1.5px solid #E3E6EA;border-radius:13px;padding:0 14px;font-size:16px;font-weight:700;letter-spacing:1px" />
+            </div>
+            <button onClick="{{ sendCode }}" style="height:56px;border:0;border-radius:14px;background:#F4511E;color:#fff;font-size:15px;font-weight:800;cursor:pointer">ارسال کد یک‌بارمصرف</button>
+          </div>
+        </sc-if>
+
+        <sc-if value="{{ askCode }}" hint-placeholder-val="{{ false }}">
+          <div style="display:flex;flex-direction:column;gap:16px">
+            <div dir="ltr" style="display:flex;gap:10px;justify-content:center">
+              <sc-for list="{{ codeBoxes }}" as="c" hint-placeholder-count="4">
+                <input type="text" maxlength="1" value="{{ c.value }}" onChange="{{ c.onChange }}" style="width:56px;height:62px;text-align:center;border:1.5px solid #E3E6EA;border-radius:14px;font-size:22px;font-weight:800" />
+              </sc-for>
+            </div>
+            <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap">
+              <span style="font-size:12.5px;color:#9AA0A8">{{ timerLabel }}</span>
+              <button onClick="{{ sendCode }}" style="margin-inline-start:auto;height:38px;padding:0 13px;border:1px solid #E3E6EA;border-radius:11px;background:#fff;color:#4B5158;font-size:12.5px;font-weight:700;cursor:pointer">ارسال دوباره کد</button>
+            </div>
+            <button onClick="{{ verify }}" style="height:56px;border:0;border-radius:14px;background:#F4511E;color:#fff;font-size:15px;font-weight:800;cursor:pointer">تأیید کد</button>
+          </div>
+        </sc-if>
+
+        <sc-if value="{{ askProfile }}" hint-placeholder-val="{{ false }}">
+          <div style="display:flex;flex-direction:column;gap:14px">
+            <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,160px),1fr));gap:12px">
+              <div style="display:flex;flex-direction:column;gap:7px">
+                <label style="font-size:12.5px;font-weight:700;color:#4B5158">نام</label>
+                <input type="text" placeholder="مثلاً فاطمه" style="height:52px;border:1.5px solid #E3E6EA;border-radius:13px;padding:0 14px;font-size:14px" />
+              </div>
+              <div style="display:flex;flex-direction:column;gap:7px">
+                <label style="font-size:12.5px;font-weight:700;color:#4B5158">نام خانوادگی</label>
+                <input type="text" placeholder="مثلاً کریمی" style="height:52px;border:1.5px solid #E3E6EA;border-radius:13px;padding:0 14px;font-size:14px" />
+              </div>
+              <div style="display:flex;flex-direction:column;gap:7px">
+                <label style="font-size:12.5px;font-weight:700;color:#4B5158">کد ملی</label>
+                <input type="text" placeholder="۰۰۱۲۳۴۵۶۷۸" style="height:52px;border:1.5px solid #E3E6EA;border-radius:13px;padding:0 14px;font-size:14px" />
+              </div>
+              <div style="display:flex;flex-direction:column;gap:7px">
+                <label style="font-size:12.5px;font-weight:700;color:#4B5158">استان</label>
+                <select value="{{ province }}" onChange="{{ onProvince }}" style="height:52px;border:1.5px solid #E3E6EA;border-radius:13px;padding:0 12px;font-size:14px;background:#fff">
+                  <sc-for list="{{ provinces }}" as="p" hint-placeholder-count="5">
+                    <option value="{{ p }}">{{ p }}</option>
+                  </sc-for>
+                </select>
+              </div>
+              <div style="display:flex;flex-direction:column;gap:7px">
+                <label style="font-size:12.5px;font-weight:700;color:#4B5158">شهر</label>
+                <select style="height:52px;border:1.5px solid #E3E6EA;border-radius:13px;padding:0 12px;font-size:14px;background:#fff">
+                  <sc-for list="{{ cities }}" as="c" hint-placeholder-count="4">
+                    <option value="{{ c }}">{{ c }}</option>
+                  </sc-for>
+                </select>
+              </div>
+              <div style="display:flex;flex-direction:column;gap:7px">
+                <label style="font-size:12.5px;font-weight:700;color:#4B5158">تحصیلات</label>
+                <select style="height:52px;border:1.5px solid #E3E6EA;border-radius:13px;padding:0 12px;font-size:14px;background:#fff">
+                  <sc-for list="{{ educations }}" as="e" hint-placeholder-count="5">
+                    <option value="{{ e }}">{{ e }}</option>
+                  </sc-for>
+                </select>
+              </div>
+            </div>
+            <button onClick="{{ next }}" style="height:56px;border:0;border-radius:14px;background:#F4511E;color:#fff;font-size:15px;font-weight:800;cursor:pointer">ثبت عضویت و ادامه به شرایط</button>
+          </div>
+        </sc-if>
+      </div>
+    </sc-if>
+
+    <sc-if value="{{ isTerms }}" hint-placeholder-val="{{ false }}">
+      <div style="background:#fff;border:1px solid #EFF0F2;border-radius:24px;padding:clamp(20px,3vw,30px);display:flex;flex-direction:column;gap:18px">
+        <div style="display:flex;flex-direction:column;gap:6px">
+          <span style="font-size:12.5px;font-weight:800;color:#D8420F">گام ۲ از ۳ — شرایط و قوانین</span>
+          <span style="font-size:19px;font-weight:800;letter-spacing:-.4px">شرایط ثبت و بررسی درخواست</span>
+          <span style="font-size:13.5px;color:#6B7280;line-height:2.1">لطفاً متن زیر را تا پایان بخوانید. ثبت درخواست به‌معنای پذیرش این شرایط است.</span>
+        </div>
+        <div onScroll="{{ onScrollTerms }}" style="max-height:320px;overflow-y:auto;border:1px solid #EFF0F2;border-radius:18px;padding:18px;background:#FAFAFB;display:flex;flex-direction:column;gap:14px">
+          <sc-for list="{{ terms }}" as="t" hint-placeholder-count="7">
+            <div style="display:flex;flex-direction:column;gap:6px">
+              <span style="font-size:13.5px;font-weight:800">{{ t.title }}</span>
+              <span style="font-size:13px;color:#5A6169;line-height:2.2">{{ t.body }}</span>
+            </div>
+          </sc-for>
+        </div>
+        <label style="display:flex;gap:11px;align-items:flex-start;background:#FFF6F2;border:1px solid #F7CDBB;border-radius:16px;padding:14px 16px;cursor:pointer">
+          <input type="checkbox" checked="{{ accepted }}" onChange="{{ toggleAccept }}" style="margin-top:5px" />
+          <span style="font-size:13px;color:#8A3A1C;line-height:2.1">شرایط بالا را خوانده‌ام و می‌پذیرم. تأیید می‌کنم اطلاعاتی که ثبت می‌کنم درست است و در صورت خلاف واقع بودن، پرونده‌ام بسته می‌شود.</span>
+        </label>
+        <a href="قوانین و حریم خصوصی.dc.html" style="font-size:12.5px;font-weight:700">مشاهده متن کامل قوانین و حریم خصوصی</a>
+        <button onClick="{{ next }}" style="{{ acceptBtnStyle }}">{{ acceptBtnLabel }}</button>
+      </div>
+    </sc-if>
+
+    <sc-if value="{{ isForm }}" hint-placeholder-val="{{ false }}">
+      <div style="display:flex;flex-direction:column;gap:16px">
+        <div style="background:#fff;border:1px solid #EFF0F2;border-radius:24px;padding:clamp(20px,3vw,30px);display:flex;flex-direction:column;gap:18px">
+          <div style="display:flex;flex-direction:column;gap:6px">
+            <span style="font-size:12.5px;font-weight:800;color:#D8420F">گام ۳ از ۳ — فرم درخواست</span>
+            <span style="font-size:19px;font-weight:800;letter-spacing:-.4px">اطلاعات درخواست</span>
+          </div>
+          <div style="display:flex;flex-direction:column;gap:9px">
+            <label style="font-size:12.5px;font-weight:700;color:#4B5158">نوع کمک مورد نیاز</label>
+            <div style="display:flex;gap:8px;flex-wrap:wrap">
+              <sc-for list="{{ typeChips }}" as="t" hint-placeholder-count="7">
+                <button onClick="{{ t.onClick }}" style="{{ t.style }}">{{ t.label }}</button>
+              </sc-for>
+            </div>
+          </div>
+          <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,170px),1fr));gap:12px">
+            <div style="display:flex;flex-direction:column;gap:7px">
+              <label style="font-size:12.5px;font-weight:700;color:#4B5158">مبلغ مورد نیاز (تومان)</label>
+              <input type="text" value="{{ amountValue }}" onChange="{{ onAmount }}" style="height:52px;border:1.5px solid #E3E6EA;border-radius:13px;padding:0 14px;font-size:15px;font-weight:800" />
+            </div>
+            <div style="display:flex;flex-direction:column;gap:7px">
+              <label style="font-size:12.5px;font-weight:700;color:#4B5158">فوریت</label>
+              <select style="height:52px;border:1.5px solid #E3E6EA;border-radius:13px;padding:0 12px;font-size:14px;background:#fff">
+                <option>فوری (کمتر از ۱۰ روز)</option>
+                <option>معمولی (یک تا دو ماه)</option>
+                <option>نیاز ماهانه و مستمر</option>
+              </select>
+            </div>
+          </div>
+          <div style="display:flex;flex-direction:column;gap:7px">
+            <label style="font-size:12.5px;font-weight:700;color:#4B5158">نشانی محل زندگی</label>
+            <input type="text" placeholder="استان، شهر، محله، خیابان و پلاک" style="height:52px;border:1.5px solid #E3E6EA;border-radius:13px;padding:0 14px;font-size:14px" />
+          </div>
+          <div style="display:flex;flex-direction:column;gap:12px;border-top:1px solid #F0F1F3;padding-top:18px">
+            <div style="display:flex;flex-direction:column;gap:5px">
+              <span style="font-size:15px;font-weight:800">پرسش‌های {{ schemaTitle }}</span>
+              <span style="font-size:12px;color:#9AA0A8;line-height:2">{{ schemaNote }}</span>
+            </div>
+            <sc-for list="{{ schemaQuestions }}" as="q" hint-placeholder-count="6">
+              <div style="display:flex;flex-direction:column;gap:7px">
+                <label style="font-size:12.5px;font-weight:700;color:#4B5158">{{ q.label }} <span style="{{ q.reqStyle }}">{{ q.reqMark }}</span></label>
+                <sc-if value="{{ q.isText }}" hint-placeholder-val="{{ true }}">
+                  <input type="{{ q.inputType }}" placeholder="{{ q.placeholder }}" style="height:52px;border:1.5px solid #E3E6EA;border-radius:13px;padding:0 14px;font-size:14px;font-family:inherit" />
+                </sc-if>
+                <sc-if value="{{ q.isArea }}" hint-placeholder-val="{{ false }}">
+                  <textarea rows="4" placeholder="{{ q.placeholder }}" style="border:1.5px solid #E3E6EA;border-radius:13px;padding:12px 14px;font-size:14px;line-height:2.1;resize:vertical;font-family:inherit"></textarea>
+                </sc-if>
+                <sc-if value="{{ q.isSelect }}" hint-placeholder-val="{{ false }}">
+                  <select style="height:52px;border:1.5px solid #E3E6EA;border-radius:13px;padding:0 12px;font-size:14px;background:#fff;font-family:inherit">
+                    <sc-for list="{{ q.options }}" as="o" hint-placeholder-count="3">
+                      <option value="{{ o.value }}">{{ o.value }}</option>
+                    </sc-for>
+                  </select>
+                </sc-if>
+                <sc-if value="{{ q.isChoice }}" hint-placeholder-val="{{ false }}">
+                  <div style="display:flex;gap:8px;flex-wrap:wrap">
+                    <sc-for list="{{ q.choiceOptions }}" as="o" hint-placeholder-count="3">
+                      <div onClick="{{ o.onClick }}" style="{{ o.style }}">{{ o.mark }} {{ o.value }}</div>
+                    </sc-for>
+                  </div>
+                </sc-if>
+                <sc-if value="{{ q.hasHint }}" hint-placeholder-val="{{ false }}">
+                  <span style="font-size:11.5px;color:#9AA0A8;line-height:1.9">{{ q.hint }}</span>
+                </sc-if>
+              </div>
+            </sc-for>
+          </div>
+
+          <div style="display:flex;flex-direction:column;gap:12px;border-top:1px solid #F0F1F3;padding-top:18px">
+            <div style="display:flex;flex-direction:column;gap:5px">
+              <span style="font-size:15px;font-weight:800">مدارک لازم برای {{ schemaTitle }}</span>
+              <span style="font-size:12px;color:#9AA0A8;line-height:2">حجم هر فایل تا ۵ مگابایت. مدارک اجباری تا زمان بارگذاری، مانع بررسی پرونده می‌شوند.</span>
+            </div>
+            <sc-for list="{{ schemaDocs }}" as="d" hint-placeholder-count="4">
+              <div style="border:1.5px dashed #DDE0E4;border-radius:16px;padding:15px;display:flex;flex-direction:column;gap:9px;background:#FBFBFC">
+                <div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap">
+                  <span style="flex:0 0 34px;width:34px;height:34px;border-radius:11px;background:#fff;border:1px solid #EAECEF;display:flex;align-items:center;justify-content:center;font-size:15px;color:#8A9099">{{ d.icon }}</span>
+                  <span style="font-size:13.5px;font-weight:800;min-width:0">{{ d.label }}</span>
+                  <span style="{{ d.reqStyle }}">{{ d.reqLabel }}</span>
+                  <span style="margin-inline-start:auto;font-size:11.5px;color:#9AA0A8;white-space:nowrap">{{ d.limit }}</span>
+                </div>
+                <sc-if value="{{ d.hasHint }}" hint-placeholder-val="{{ false }}">
+                  <span style="font-size:11.5px;color:#9AA0A8;line-height:1.9">{{ d.hint }}</span>
+                </sc-if>
+                <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,120px),1fr));gap:9px">
+                  <sc-for list="{{ d.slots }}" as="s" hint-placeholder-count="2">
+                    <image-slot id="{{ s.slotId }}" shape="rounded" radius="12" placeholder="{{ s.label }}" style="width:100%;height:96px"></image-slot>
+                  </sc-for>
+                </div>
+              </div>
+            </sc-for>
+          </div>
+          <label style="display:flex;gap:11px;align-items:flex-start;font-size:12.5px;color:#4B5158;line-height:2.1">
+            <input type="checkbox" style="margin-top:5px" />
+            <span>اجازه می‌دهم کارشناس مجمع برای بازدید میدانی با من تماس بگیرد و به محل زندگی مراجعه کند.</span>
+          </label>
+          <button onClick="{{ next }}" style="height:56px;border:0;border-radius:14px;background:#F4511E;color:#fff;font-size:15.5px;font-weight:800;cursor:pointer">ثبت نهایی درخواست</button>
+        </div>
+      </div>
+    </sc-if>
+
+    <sc-if value="{{ isDone }}" hint-placeholder-val="{{ false }}">
+      <div style="display:flex;flex-direction:column;gap:16px">
+        <div style="background:#0F2E22;color:#fff;border-radius:26px;padding:clamp(24px,4vw,42px);display:flex;flex-direction:column;gap:14px;align-items:center;text-align:center">
+          <div style="width:66px;height:66px;border-radius:22px;background:#12805A;display:flex;align-items:center;justify-content:center;font-size:28px;font-weight:800">✓</div>
+          <h1 style="margin:0;font-size:clamp(21px,3.2vw,30px);font-weight:800;letter-spacing:-.7px">{{ c.successTitle }}</h1>
+          <p style="margin:0;font-size:14.5px;color:rgba(255,255,255,.7);line-height:2.2;max-width:520px;text-wrap:pretty">پرونده شما با کد <b style="color:#fff">DY-۲۶۰۴</b> تشکیل شد و در نوبت بررسی قرار گرفت. نتیجه هر مرحله پیامک می‌شود و در همین صفحه هم قابل پیگیری است.</p>
+          <span style="padding:11px 20px;border-radius:15px;background:rgba(255,255,255,.1);font-size:13.5px;font-weight:800">{{ c.successStatus }}</span>
+        </div>
+        <div style="background:#fff;border:1px solid #EFF0F2;border-radius:22px;padding:22px;display:flex;flex-direction:column;gap:16px">
+          <span style="font-size:15px;font-weight:800">مراحل بعدی پرونده شما</span>
+          <div style="display:flex;flex-direction:column;gap:0">
+            <sc-for list="{{ track }}" as="t" hint-placeholder-count="5">
+              <div style="display:flex;gap:14px;align-items:flex-start">
+                <div style="display:flex;flex-direction:column;align-items:center;flex:0 0 24px">
+                  <span style="{{ t.dotStyle }}"></span>
+                  <span style="{{ t.lineStyle }}"></span>
+                </div>
+                <div style="display:flex;flex-direction:column;gap:5px;padding-bottom:18px;min-width:0">
+                  <span style="{{ t.titleStyle }}">{{ t.title }}</span>
+                  <span style="font-size:12px;color:#9AA0A8">{{ t.when }}</span>
+                  <span style="font-size:13px;color:#5A6169;line-height:2.1">{{ t.body }}</span>
+                </div>
+              </div>
+            </sc-for>
+          </div>
+        </div>
+        <div style="background:#FFF6F2;border:1px solid #F7CDBB;border-radius:20px;padding:20px;display:flex;flex-direction:column;gap:10px">
+          <span style="font-size:14.5px;font-weight:800;color:#8A3A1C">تا زمان بررسی چه کاری لازم است؟</span>
+          <span style="font-size:13px;color:#8A3A1C;line-height:2.1">فقط تلفن خود را پاسخگو نگه دارید. کارشناس ما تا ۴ روز کاری برای هماهنگی بازدید تماس می‌گیرد. اگر مدرک جدیدی به دست آوردید، از همین صفحه به پرونده اضافه کنید.</span>
+        </div>
+        <div style="display:flex;gap:10px;flex-wrap:wrap">
+          <button onClick="{{ addDoc }}" style="flex:1 1 200px;height:54px;border:1.5px solid #E3E6EA;border-radius:14px;background:#fff;color:#23262B;font-size:14px;font-weight:700;cursor:pointer">{{ addDocLabel }}</button>
+          <a href="tel:02191002233" style="flex:1 1 200px;height:54px;border-radius:14px;background:#F4511E;color:#fff;display:flex;align-items:center;justify-content:center;font-size:14.5px;font-weight:800">تماس با پشتیبانی</a>
+        </div>
+      </div>
+    </sc-if>
+
+    <sc-if value="{{ showBack }}" hint-placeholder-val="{{ false }}">
+      <button onClick="{{ back }}" style="align-self:flex-start;height:44px;padding:0 16px;border:1px solid #E3E6EA;border-radius:12px;background:#fff;color:#6B7280;font-size:13px;font-weight:700;cursor:pointer">→ بازگشت به گام قبل</button>
+    </sc-if>
+  </main>
+
+  <dc-import name="SiteFooter" hint-size="100%,300px"></dc-import>
+  <div style="display:none">
+    <div style="max-width:1240px;margin-inline:auto;padding:clamp(24px,4vw,40px) clamp(14px,3vw,24px);display:flex;gap:14px;flex-wrap:wrap;align-items:center;font-size:12px;color:rgba(255,255,255,.55)">
+      <span>© ۱۴۰۵ موسسه خیریه دست یاری</span>
+      <div style="margin-inline-start:auto;display:flex;gap:16px;flex-wrap:wrap">
+        <a href="درباره ما.dc.html" style="color:rgba(255,255,255,.55)">درباره ما</a>
+        <a href="قوانین و حریم خصوصی.dc.html" style="color:rgba(255,255,255,.55)">قوانین و حریم خصوصی</a>
+      </div>
+    </div>
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;accent&quot;:{&quot;editor&quot;:&quot;color&quot;,&quot;default&quot;:&quot;#F4511E&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;options&quot;:[&quot;#F4511E&quot;,&quot;#C43C0E&quot;,&quot;#12805A&quot;],&quot;section&quot;:&quot;ظاهر&quot;}}">
+class Component extends DCLogic {
+  state = { step: 0, auth: 'phone', phone: '', code: ['', '', '', ''], timer: 90, province: 'تهران', accepted: false, readTerms: false, type: 'درمان و دارو', amount: 0, docAdded: false };
+
+  componentDidMount() {
+    this.tick = setInterval(() => {
+      if (this.state.auth === 'code' && this.state.timer > 0) this.setState(s => ({ timer: s.timer - 1 }));
+    }, 1000);
+  }
+  componentWillUnmount() { clearInterval(this.tick); }
+
+  schemaGroupId() {
+    const S = this.state;
+    if (S.typeId) return S.typeId;
+    if (!window.DY) return null;
+    const g = window.DY.activeGroups().find(x => (x.icon + ' ' + x.title) === S.type || x.title === S.type);
+    return g ? g.id : (window.DY.activeGroups()[0] || {}).id;
+  }
+
+  schemaGroupTitle() {
+    const gid = this.schemaGroupId();
+    if (!gid || !window.DY) return 'این گروه';
+    const g = window.DY.groups().find(x => x.id === gid);
+    return g ? '«' + g.title + '»' : 'این گروه';
+  }
+
+  schemaVals() {
+    const S = this.state;
+    const gid = this.schemaGroupId();
+    if (!gid || !window.DY || !window.DY.form) {
+      return { schemaQuestions: [], schemaDocs: [], schemaNote: '' };
+    }
+    const form = window.DY.form(gid);
+    const picks = S.schemaPicks || {};
+    const reqMark = (r) => (r ? '*' : '');
+    const inputTypes = { text: 'text', number: 'text', date: 'text', phone: 'tel' };
+    const holder = {
+      number: 'عدد را وارد کنید', date: 'مثلاً ۱۴۰۵/۰۵/۲۲',
+      phone: '۰۹xxxxxxxxx', text: ''
+    };
+    return {
+      schemaNote: form.note || 'پرسش‌های زیر مخصوص همین گروه است و توسط مجمع تعیین شده‌اند.',
+      schemaQuestions: (form.questions || []).map(q => {
+        const isChoice = q.type === 'radio' || q.type === 'checkbox';
+        const sel = picks[q.id];
+        return {
+          label: q.label,
+          reqMark: reqMark(q.required),
+          reqStyle: 'color:#C43034;font-weight:800',
+          isText: ['text', 'number', 'date', 'phone'].indexOf(q.type) > -1,
+          inputType: inputTypes[q.type] || 'text',
+          placeholder: holder[q.type] || '',
+          isArea: q.type === 'textarea',
+          isSelect: q.type === 'select',
+          options: (q.options || []).map(o => ({ value: o })),
+          isChoice: isChoice,
+          choiceOptions: (q.options || []).map(o => {
+            const on = q.type === 'checkbox'
+              ? (Array.isArray(sel) && sel.indexOf(o) > -1)
+              : sel === o;
+            return {
+              value: o, mark: on ? '✓' : '○',
+              style: 'padding:11px 14px;border-radius:12px;font-size:13px;font-weight:700;cursor:pointer;border:1.5px solid '
+                + (on ? '#F4511E;background:#FFF6F2;color:#C43C0E' : '#E7E9EC;background:#fff;color:#4E555E'),
+              onClick: () => {
+                const next = Object.assign({}, picks);
+                if (q.type === 'checkbox') {
+                  const arr = Array.isArray(sel) ? sel.slice() : [];
+                  const i = arr.indexOf(o);
+                  if (i > -1) arr.splice(i, 1); else arr.push(o);
+                  next[q.id] = arr;
+                } else next[q.id] = o;
+                this.setState({ schemaPicks: next });
+              }
+            };
+          }),
+          hasHint: !!q.hint, hint: q.hint || ''
+        };
+      }),
+      schemaDocs: (form.docs || []).map(d => {
+        const icons = { image: '🖼', file: '📄', pdf: '📄', video: '▶', audio: '♪' };
+        const kinds = { image: 'عکس', file: 'فایل', pdf: 'PDF', video: 'ویدئو', audio: 'صدا' };
+        const max = d.max || 1;
+        return {
+          label: d.label,
+          icon: icons[d.type] || '📄',
+          reqLabel: d.required ? 'اجباری' : 'اختیاری',
+          reqStyle: 'font-size:11px;font-weight:800;padding:4px 9px;border-radius:20px;white-space:nowrap;'
+            + (d.required ? 'background:#FDECEC;color:#C43034' : 'background:#F2F3F5;color:#8A9099'),
+          limit: (kinds[d.type] || 'فایل') + ' — حداکثر ' + this.fa(max),
+          hasHint: !!d.hint, hint: d.hint || '',
+          slots: Array.from({ length: max }, (_, i) => ({
+            slotId: 'req-' + gid + '-' + d.id + '-' + i,
+            label: (kinds[d.type] || 'فایل') + ' ' + this.fa(i + 1)
+          }))
+        };
+      })
+    };
+  }
+
+  fa(n) { return String(n).replace(/[0-9]/g, d => '۰۱۲۳۴۵۶۷۸۹'[+d]); }
+
+  renderVals() {
+    const S = this.state;
+    const step = S.step;
+    const fmt = (n) => n.toLocaleString('fa-IR');
+    const chip = (on) => 'height:38px;padding:0 14px;border-radius:12px;font-size:12.5px;font-weight:800;cursor:pointer;white-space:nowrap;border:1.5px solid ' +
+      (on ? '#F4511E;background:#FEF1EC;color:#D8420F' : '#E3E6EA;background:#fff;color:#5A6169');
+
+    return {
+      c: window.DY ? Object.assign({}, window.DY.DEFAULT_CONTENT.request, window.DY.content('request')) : {},
+      steps: ['شروع', 'عضویت', 'شرایط', 'فرم درخواست'].map((l, i) => {
+        const on = i === step, done = i < step;
+        return {
+          n: (i + 1).toLocaleString('fa-IR'), label: l,
+          boxStyle: 'flex:1 1 150px;display:flex;align-items:center;gap:10px;padding:12px 14px;border-radius:15px;border:1.5px solid ' +
+            (on ? '#F4511E;background:#FEF1EC' : done ? '#DFF0E7;background:#F7FBF9' : '#EFF0F2;background:#fff'),
+          numStyle: 'flex:0 0 28px;width:28px;height:28px;border-radius:9px;display:flex;align-items:center;justify-content:center;font-size:12.5px;font-weight:800;' +
+            (on ? 'background:#F4511E;color:#fff' : done ? 'background:#12805A;color:#fff' : 'background:#F2F3F5;color:#9AA0A8'),
+          labelStyle: 'font-size:13px;font-weight:800;color:' + (on ? '#D8420F' : done ? '#3F6B57' : '#8A9099')
+        };
+      }),
+      isIntro: step === 0, isAuth: step === 1, isTerms: step === 2, isForm: step === 3, isDone: step === 4,
+      showBack: step > 0 && step < 4,
+      back: () => this.setState({ step: Math.max(0, step - 1) }),
+      next: () => {
+        if (step === 1 && S.auth !== 'profile') return;
+        if (step === 2 && !S.accepted) return;
+        this.setState({ step: Math.min(4, step + 1) });
+      },
+      introFacts: [
+        { num: '۹ روز کاری', label: 'میانگین زمان بررسی' },
+        { num: 'رایگان', label: 'ثبت درخواست و عضویت' },
+        { num: '۹ استان', label: 'محدوده بازدید میدانی' }
+      ],
+      checklist: [
+        'کارت ملی یا شناسنامه سرپرست خانوار.',
+        'مدرک مربوط به نیاز: نسخه پزشک، حکم قضایی، قرارداد اجاره یا فاکتور هزینه.',
+        'شماره موبایلی که در دسترس شماست (کد تأیید و اطلاع‌رسانی به آن پیامک می‌شود).',
+        'نشانی دقیق محل زندگی برای هماهنگی بازدید میدانی.'
+      ],
+      authTitle: S.auth === 'phone' ? 'شماره موبایل خود را وارد کنید' : S.auth === 'code' ? 'کد چهاررقمی را وارد کنید' : 'اطلاعات هویتی شما',
+      authNote: S.auth === 'phone'
+        ? 'عضویت رایگان است و فقط برای پیگیری پرونده لازم است؛ هر زمان بخواهید می‌توانید عضویت را لغو کنید.'
+        : S.auth === 'code' ? 'کد به شماره ' + (S.phone || '۰۹۱۲۳۴۵۶۷۸۹') + ' پیامک شد.'
+        : 'این اطلاعات فقط برای تشکیل پرونده استفاده می‌شود و در اختیار هیچ فرد یا نهاد دیگری قرار نمی‌گیرد.',
+      askPhone: S.auth === 'phone', askCode: S.auth === 'code', askProfile: S.auth === 'profile',
+      phone: S.phone,
+      onPhone: (e) => this.setState({ phone: e.target.value }),
+      sendCode: () => this.setState({ auth: 'code', timer: 90 }),
+      verify: () => this.setState({ auth: 'profile' }),
+      codeBoxes: [0, 1, 2, 3].map(i => ({
+        value: S.code[i] || '',
+        onChange: (e) => {
+          const v = String(e.target.value).slice(-1);
+          const next = S.code.slice();
+          next[i] = v;
+          this.setState({ code: next });
+          const box = e.target.parentNode.children[i + 1];
+          if (v && box) box.focus();
+        }
+      })),
+      timerLabel: S.timer > 0 ? 'ارسال دوباره کد تا ' + S.timer.toLocaleString('fa-IR') + ' ثانیه' : 'می‌توانید کد را دوباره درخواست کنید',
+      provinces: ['تهران', 'خراسان رضوی', 'اصفهان', 'فارس', 'خوزستان', 'آذربایجان شرقی', 'گیلان', 'کرمانشاه', 'سیستان و بلوچستان'],
+      province: S.province,
+      onProvince: (e) => this.setState({ province: e.target.value }),
+      cities: ({
+        'تهران': ['تهران', 'کرج', 'اسلامشهر', 'ورامین'],
+        'خراسان رضوی': ['مشهد', 'نیشابور', 'سبزوار'],
+        'اصفهان': ['اصفهان', 'کاشان', 'نجف‌آباد'],
+        'فارس': ['شیراز', 'مرودشت', 'لار'],
+        'خوزستان': ['اهواز', 'آبادان', 'دزفول'],
+        'آذربایجان شرقی': ['تبریز', 'مراغه', 'مرند'],
+        'گیلان': ['رشت', 'انزلی', 'لاهیجان'],
+        'کرمانشاه': ['کرمانشاه', 'اسلام‌آباد غرب'],
+        'سیستان و بلوچستان': ['زاهدان', 'زابل', 'چابهار']
+      })[S.province] || ['تهران'],
+      educations: ['زیر دیپلم', 'دیپلم', 'کاردانی', 'کارشناسی', 'کارشناسی ارشد', 'دکتری'],
+      terms: [
+        { title: '۱. درستی اطلاعات', body: 'همه اطلاعات و مدارکی که ثبت می‌کنید باید واقعی باشد. در صورت احراز خلاف واقع، پرونده بسته و امکان ثبت درخواست جدید تا یک سال مسدود می‌شود.' },
+        { title: '۲. بازدید میدانی الزامی است', body: 'هیچ پرونده‌ای بدون بازدید کارشناس مجمع از محل زندگی بررسی و منتشر نمی‌شود. تعیین وقت بازدید با هماهنگی تلفنی انجام می‌گیرد.' },
+        { title: '۳. اولویت‌بندی بر اساس نیاز', body: 'ترتیب انتشار پرونده‌ها با شاخص‌های فوریت، شدت نیاز و نبود حامی دیگر تعیین می‌شود؛ معرفی و آشنایی هیچ اولویتی ایجاد نمی‌کند.' },
+        { title: '۴. تعهدی برای تأمین مبلغ وجود ندارد', body: 'ثبت درخواست به‌معنای تضمین تأمین مبلغ نیست. مجمع پرونده را منتشر می‌کند اما میزان مشارکت خیرین قابل پیش‌بینی نیست.' },
+        { title: '۵. نحوه پرداخت کمک', body: 'کمک‌ها به‌جای پرداخت نقدی، به‌صورت خرید کالا یا واریز به حساب مرجع رسمی (بیمارستان، داروخانه، مالک، اجرای احکام) انجام می‌شود.' },
+        { title: '۶. حریم خصوصی', body: 'نام کامل، نشانی و چهره شما بدون رضایت کتبی منتشر نمی‌شود. روایت پرونده به‌صورت غیرقابل شناسایی نوشته می‌شود.' },
+        { title: '۷. حمایت هم‌زمان', body: 'اگر از نهاد دیگری حمایت مشابه دریافت می‌کنید، لازم است اعلام کنید. حمایت هم‌زمان مانع ثبت درخواست نیست اما در اولویت‌بندی لحاظ می‌شود.' },
+        { title: '۸. انصراف', body: 'می‌توانید در هر مرحله پیش از پرداخت، از درخواست خود انصراف دهید. پس از تحویل کمک، امکان بازگشت وجود ندارد.' }
+      ],
+      onScrollTerms: (e) => {
+        const el = e.target;
+        if (!S.readTerms && el.scrollTop + el.clientHeight >= el.scrollHeight - 24) this.setState({ readTerms: true });
+      },
+      accepted: S.accepted,
+      toggleAccept: () => this.setState({ accepted: !S.accepted }),
+      acceptBtnLabel: S.accepted ? 'پذیرش شرایط و ادامه به فرم' : 'برای ادامه، شرایط را بپذیرید',
+      acceptBtnStyle: 'height:56px;border:0;border-radius:14px;font-size:15px;font-weight:800;' +
+        (S.accepted ? 'background:#F4511E;color:#fff;cursor:pointer' : 'background:#F2F3F5;color:#A9AEB6;cursor:not-allowed'),
+      typeChips: (window.DY
+        ? window.DY.activeGroups().map(g => ({ id: g.id, label: g.icon + ' ' + g.title }))
+        : ['درمان و دارو', 'آزادی زندانی', 'جهیزیه و ازدواج', 'مسکن و ودیعه', 'معیشت خانواده', 'تحصیل کودکان', 'معلولیت و سالمندی'].map(t => ({ id: t, label: t }))
+      ).map(t => ({
+        label: t.label, onClick: () => this.setState({ type: t.label, typeId: t.id }), style: chip(S.type === t.label)
+      })),
+      ...this.schemaVals(),
+      schemaTitle: this.schemaGroupTitle(),
+      amountValue: fmt(S.amount),
+      onAmount: (e) => {
+        const raw = String(e.target.value).replace(/[۰-۹]/g, d => '۰۱۲۳۴۵۶۷۸۹'.indexOf(d)).replace(/[^0-9]/g, '');
+        const n = parseInt(raw, 10);
+        this.setState({ amount: isNaN(n) ? 0 : n });
+      },
+      track: [
+        { title: 'ثبت درخواست', when: 'انجام شد — امروز', body: 'درخواست شما در سامانه ثبت و کد پرونده صادر شد.', done: true },
+        { title: 'بررسی اولیه مدارک', when: 'تا ۲ روز کاری', body: 'کارشناس مدارک بارگذاری‌شده را بررسی و در صورت نیاز مدرک تکمیلی می‌خواهد.', active: true },
+        { title: 'بازدید میدانی', when: 'تا ۴ روز کاری', body: 'برای هماهنگی زمان بازدید با شما تماس گرفته می‌شود.' },
+        { title: 'برآورد و تعیین اولویت', when: 'تا ۷ روز کاری', body: 'مبلغ مورد نیاز کارشناسی و پرونده در صف انتشار قرار می‌گیرد.' },
+        { title: 'انتشار و جمع‌آوری کمک', when: 'پس از تأیید نهایی', body: 'پرونده با حفظ حریم خصوصی منتشر و به خیرین معرفی می‌شود.' }
+      ].map((t, i, arr) => ({
+        title: t.title, when: t.when, body: t.body,
+        dotStyle: 'flex:0 0 14px;width:14px;height:14px;border-radius:50%;margin-top:5px;' +
+          (t.done ? 'background:#12805A' : t.active ? 'background:#F4511E;box-shadow:0 0 0 4px #FEF1EC' : 'background:#fff;border:2px solid #DDE0E4'),
+        lineStyle: i === arr.length - 1 ? 'display:none' : 'flex:1;width:2px;min-height:32px;background:' + (t.done ? '#CDE9DC' : '#EFF0F2'),
+        titleStyle: 'font-size:14px;font-weight:800;color:' + (t.active ? '#D8420F' : '#191C21')
+      })),
+      addDocLabel: S.docAdded ? '✓ مدرک به پرونده اضافه شد' : 'افزودن مدرک به پرونده',
+      addDoc: () => { this.setState({ docAdded: true }); setTimeout(() => this.setState({ docAdded: false }), 2200); }
+    };
+  }
+}
+</script>
+</body>
+</html>

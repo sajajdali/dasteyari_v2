@@ -1,0 +1,28 @@
+/* دست یاری — پنل نیازمند. عیناً از پنل نیازمندان.dc.html */
+*{box-sizing:border-box}
+body{margin:0;font-family:Vazirmatn,system-ui,sans-serif;background:#FAFAFB;color:#191C21;-webkit-font-smoothing:antialiased}
+a{color:#F4511E;text-decoration:none}
+a:hover{color:#C43C0E}
+button,input,select,textarea{font-family:inherit}
+::-webkit-scrollbar{width:9px}
+::-webkit-scrollbar-thumb{background:#D8DBE0;border-radius:8px}
+
+@media (max-width:900px){
+  div[style*="min-width: 900px"],div[style*="min-width: 820px"],div[style*="min-width: 760px"],div[style*="min-width: 700px"],div[style*="min-width: 640px"]{min-width:0 !important}
+  div[style*="grid-template-columns: repeat(auto-fit, minmax(2"],div[style*="minmax(190px"],div[style*="minmax(180px"],div[style*="minmax(150px"]{grid-template-columns:repeat(auto-fit,minmax(min(100%,150px),1fr)) !important}
+  div[style*="grid-template-columns: 1.6fr 1fr"],div[style*="grid-template-columns: 1.4fr 1fr"],div[style*="grid-template-columns: 2fr 1fr"],div[style*="grid-template-columns: 1fr 320px"],div[style*="grid-template-columns: 1fr 300px"]{grid-template-columns:minmax(0,1fr) !important}
+}
+#om-nmenu{display:none}
+@media (max-width:900px){
+  #om-nmenu{display:flex !important}
+  #om-ntabs{display:none !important}
+  #om-nnew{display:none !important}
+  header div[style*="max-width: 1240px"]{padding-block:10px !important;min-height:0 !important}
+}
+@media (max-width:560px){
+  header div[style*="max-width: 1240px"]{gap:10px !important}
+  header span[style*="font-size: 13px"][style*="rgba(255, 255, 255, 0.5)"]{display:none}
+  header span[style*="font-size: 11px"]{display:none}
+  header div[style*="padding: 7px 12px"]{padding:5px 8px !important;gap:8px !important}
+  div[style*="padding: 24px"],div[style*="padding: 22px"],div[style*="padding: 26px"]{padding:16px !important}
+}

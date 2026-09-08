@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<script src="./settings-store.js"></script>
+</helmet>
+<div dir="rtl" style="background:#0F1216;color:#fff;font-family:Vazirmatn,system-ui,sans-serif">
+  <div style="max-width:1240px;margin-inline:auto;padding:clamp(32px,5vw,52px) clamp(14px,3vw,24px) 28px;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,190px),1fr));gap:clamp(22px,3vw,34px)">
+    <div style="display:flex;flex-direction:column;gap:13px">
+      <img src="{{ logo }}" alt="{{ logoAlt }}" style="height:clamp(56px,7vw,72px);width:auto;object-fit:contain;display:block;filter:brightness(1.9) saturate(1.1)" />
+      <span style="font-size:12.5px;color:rgba(255,255,255,.6);line-height:2">{{ intro }}</span>
+      <span style="font-size:11.5px;color:rgba(255,255,255,.45)">{{ legal }}</span>
+    </div>
+    <sc-for list="{{ columns }}" as="c" hint-placeholder-count="3">
+      <div style="display:flex;flex-direction:column;gap:12px">
+        <span style="font-size:14px;font-weight:800">{{ c.title }}</span>
+        <sc-for list="{{ c.links }}" as="l" hint-placeholder-count="4">
+          <a href="{{ l.href }}" style="font-size:12.5px;color:rgba(255,255,255,.6);text-decoration:none">{{ l.label }}</a>
+        </sc-for>
+      </div>
+    </sc-for>
+  </div>
+  <div style="border-top:1px solid rgba(255,255,255,.08)">
+    <div style="max-width:1240px;margin-inline:auto;padding:16px clamp(14px,3vw,24px);display:flex;gap:12px;flex-wrap:wrap;align-items:center">
+      <span style="font-size:11.5px;color:rgba(255,255,255,.45)">{{ copyright }}</span>
+      <span style="margin-inline-start:auto;font-size:11.5px;color:rgba(255,255,255,.45)">{{ address }}</span>
+    </div>
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  componentDidMount() {
+    const bind = () => {
+      if (!window.DY) return false;
+      this.offDY = window.DY.onChange(() => this.setState({ rev: (this.state.rev || 0) + 1 }));
+      this.setState({ rev: (this.state.rev || 0) + 1 });
+      return true;
+    };
+    if (!bind()) {
+      let n = 0;
+      this.poll = setInterval(() => { n += 1; if (bind() || n > 40) clearInterval(this.poll); }, 50);
+    }
+  }
+
+  componentWillUnmount() { clearInterval(this.poll); if (this.offDY) this.offDY(); }
+
+  renderVals() {
+    const D = window.DY;
+    const ft = D ? D.footer() : {};
+    const br = D ? D.branding() : {};
+    return {
+      logo: br.logoLight || br.logo || 'assets/logo-t.png',
+      logoAlt: br.logoAlt || 'دست یاری',
+      intro: ft.intro || '',
+      legal: ft.legal || '',
+      copyright: ft.copyright || '',
+      address: ft.address || '',
+      columns: (ft.columns || []).filter(c => c.active !== false).map(c => ({
+        title: c.title,
+        links: (c.links || []).filter(l => l.active !== false).map(l => ({ label: l.label, href: l.link || '#' }))
+      }))
+    };
+  }
+}
+</script>
+</body>
+</html>

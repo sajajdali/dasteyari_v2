@@ -1,0 +1,568 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/rastikerdar/vazirmatn@v33.003/Vazirmatn-font-face.css">
+<style>
+  *{box-sizing:border-box}
+  body{margin:0;font-family:Vazirmatn,system-ui,sans-serif;background:#fff;color:#191C21;-webkit-font-smoothing:antialiased}
+  a{color:#F4511E;text-decoration:none}
+  a:hover{color:#C43C0E}
+  button,select,input{font-family:inherit}
+  ::-webkit-scrollbar{width:9px;height:9px}
+  ::-webkit-scrollbar-thumb{background:#D8DBE0;border-radius:8px}
+  @media (max-width:900px){
+    div[style*="min-width: 1000px"],div[style*="min-width: 900px"],div[style*="min-width: 820px"],div[style*="min-width: 760px"],div[style*="min-width: 700px"],div[style*="min-width: 640px"]{min-width:0 !important}
+    div[style*="grid-template-columns: 1.6fr 1fr"],div[style*="grid-template-columns: 1.5fr 1fr"],div[style*="grid-template-columns: 1.4fr 1fr"],div[style*="grid-template-columns: 1.3fr 1fr"],div[style*="grid-template-columns: 1.2fr 1fr"],div[style*="grid-template-columns: 2fr 1fr"],div[style*="grid-template-columns: 1fr 380px"],div[style*="grid-template-columns: 1fr 340px"],div[style*="grid-template-columns: 1fr 320px"],div[style*="grid-template-columns: 1fr 300px"]{grid-template-columns:minmax(0,1fr) !important}
+    div[style*="repeat(4, 1fr)"],div[style*="repeat(3, 1fr)"]{grid-template-columns:repeat(auto-fit,minmax(min(100%,150px),1fr)) !important}
+    div[style*="minmax(190px"],div[style*="minmax(180px"],div[style*="minmax(150px"],div[style*="minmax(130px"]{grid-template-columns:repeat(auto-fit,minmax(min(100%,145px),1fr)) !important}
+  }
+  @media (max-width:560px){
+    div[style*="padding: 26px"],div[style*="padding: 24px"],div[style*="padding: 22px"]{padding:16px !important}
+    h1{font-size:clamp(24px,7vw,32px) !important}
+  }
+</style>
+<link rel="stylesheet" href="./responsive.css" />
+<script src="./settings-store.js"></script>
+</helmet>
+<x-import component-from-global-scope="mobile-preview" from="./mobile-preview.js" hint-size="0,0"></x-import>
+
+<div dir="rtl">
+
+  <dc-import name="SiteHeader" active="finance" style="position:sticky;top:0;z-index:50" hint-size="100%,114px"></dc-import>
+  <div style="display:none">
+    <div style="background:#15181D;color:#fff">
+      <div style="max-width:1240px;margin-inline:auto;padding:8px clamp(14px,3vw,24px);min-height:42px;display:flex;align-items:center;flex-wrap:wrap;gap:16px">
+        <a href="tel:02191002233" style="display:flex;align-items:center;gap:8px;color:#fff;font-size:12.5px;font-weight:700"><span style="color:#FF7A45">✆</span>۰۲۱-۹۱۰۰۲۲۳۳</a>
+        <span style="font-size:12px;color:rgba(255,255,255,.45)">شفافیت مالی — به‌روزرسانی ماهانه</span>
+        <div style="margin-inline-start:auto;display:flex;align-items:center;gap:8px;flex-wrap:wrap">
+          <a href="ورود خیرین دست یاری.dc.html" style="height:32px;padding:0 13px;border-radius:10px;border:1px solid rgba(255,255,255,.2);display:flex;align-items:center;color:#fff;font-size:12px;font-weight:700">ورود خیرین</a>
+          <a href="پروندهها.dc.html" style="height:32px;padding:0 13px;border-radius:10px;background:#F4511E;color:#fff;font-size:12px;font-weight:800;display:flex;align-items:center">ثبت کمک</a>
+        </div>
+      </div>
+    </div>
+    <div style="max-width:1240px;margin-inline:auto;padding:10px clamp(14px,3vw,24px);min-height:68px;display:flex;align-items:center;flex-wrap:wrap;gap:12px">
+      <a href="سایت دست یاری.dc.html" style="display:flex;align-items:center;gap:12px">
+        <img src="assets/logo-t.png" alt="دست یاری" style="height:clamp(52px,7vw,76px);width:auto;object-fit:contain;display:block" />
+      </a>
+      <nav style="display:flex;gap:2px;flex-wrap:wrap;margin-inline-start:12px">
+        <a href="پروندهها.dc.html" style="display:flex;align-items:center;padding:10px 13px;border-radius:11px;font-size:13.5px;font-weight:700;white-space:nowrap;color:#4E555E">پرونده‌ها</a>
+        <a href="پرونده های گروه.dc.html" style="display:flex;align-items:center;padding:10px 13px;border-radius:11px;font-size:13.5px;font-weight:700;white-space:nowrap;color:#4E555E">گروه‌های کمک</a>
+        <a href="درباره ما.dc.html" style="display:flex;align-items:center;padding:10px 13px;border-radius:11px;font-size:13.5px;font-weight:700;white-space:nowrap;color:#4E555E">درباره ما</a>
+        <span style="display:flex;align-items:center;padding:10px 13px;border-radius:11px;font-size:13.5px;font-weight:800;white-space:nowrap;background:#FEF1EC;color:#D8420F">شفافیت مالی</span>
+      </nav>
+      <a href="پنل خیرین دست یاری.dc.html" style="margin-inline-start:auto;height:44px;padding:0 16px;border:1.5px solid #E3E6EA;border-radius:13px;display:flex;align-items:center;font-size:13.5px;font-weight:700;color:#23262B;white-space:nowrap">پنل خیرین</a>
+    </div>
+  </div>
+
+  <section style="background:#15181D;color:#fff">
+    <div style="max-width:1240px;margin-inline:auto;padding:clamp(30px,5vw,58px) clamp(14px,3vw,24px);display:flex;flex-direction:column;gap:22px">
+      <div style="display:flex;gap:26px;flex-wrap:wrap;align-items:flex-end">
+        <div style="display:flex;flex-direction:column;gap:14px;flex:1 1 380px">
+          <div style="display:flex;align-items:center;gap:10px;align-self:flex-start;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.14);padding:7px 14px;border-radius:30px">
+            <span style="width:7px;height:7px;border-radius:50%;background:#4ED08A"></span>
+            <span style="font-size:12px;color:rgba(255,255,255,.8);font-weight:700">آخرین به‌روزرسانی: ۳۱ مرداد ۱۴۰۵</span>
+          </div>
+          <h1 style="margin:0;font-size:clamp(24px,3.8vw,40px);font-weight:800;letter-spacing:-1px;line-height:1.4;text-wrap:balance">{{ c.heroTitle }}</h1>
+          <p style="margin:0;font-size:15px;color:rgba(255,255,255,.68);line-height:2.2;max-width:640px;text-wrap:pretty">{{ c.heroText }}</p>
+        </div>
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,140px),1fr));gap:10px;flex:1 1 320px">
+          <sc-for list="{{ heroStats }}" as="s" hint-placeholder-count="4">
+            <div style="{{ s.boxStyle }}">
+              <span style="{{ s.numStyle }}">{{ s.num }}</span>
+              <span style="font-size:11.5px;color:rgba(255,255,255,.6);line-height:1.8">{{ s.label }}</span>
+            </div>
+          </sc-for>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section style="background:#fff;border-bottom:1px solid #EFF0F2">
+    <div style="max-width:1240px;margin-inline:auto;padding:12px clamp(14px,3vw,24px);display:flex;gap:9px;overflow-x:auto">
+      <sc-for list="{{ tabs }}" as="t" hint-placeholder-count="4">
+        <button onClick="{{ t.onClick }}" style="{{ t.style }}">
+          <span style="font-size:15px">{{ t.icon }}</span>{{ t.label }}
+        </button>
+      </sc-for>
+    </div>
+  </section>
+
+  <main style="background:#FAFAFB">
+    <div style="max-width:1240px;margin-inline:auto;padding:clamp(22px,3.5vw,38px) clamp(14px,3vw,24px) clamp(40px,6vw,70px);display:flex;flex-direction:column;gap:18px">
+
+      <sc-if value="{{ isMonthly }}" hint-placeholder-val="{{ true }}">
+        <div style="display:flex;flex-direction:column;gap:18px">
+          <div style="display:flex;gap:14px;flex-wrap:wrap;align-items:flex-end">
+            <div style="display:flex;flex-direction:column;gap:8px">
+              <span style="font-size:12.5px;font-weight:800;color:#D8420F">گزارش مالی ماهانه</span>
+              <h2 style="margin:0;font-size:clamp(20px,2.8vw,29px);font-weight:800;letter-spacing:-.7px">آنچه در {{ month }} جمع شد و به کجا رسید</h2>
+            </div>
+            <select value="{{ month }}" onChange="{{ onMonth }}" style="margin-inline-start:auto;height:46px;border:1.5px solid #E3E6EA;border-radius:13px;padding:0 14px;font-size:13.5px;font-weight:700;background:#fff;color:#23262B">
+              <sc-for list="{{ months }}" as="m" hint-placeholder-count="6">
+                <option value="{{ m }}">{{ m }}</option>
+              </sc-for>
+            </select>
+          </div>
+
+          <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,200px),1fr));gap:12px">
+            <sc-for list="{{ monthCards }}" as="c" hint-placeholder-count="4">
+              <div style="{{ c.boxStyle }}">
+                <span style="font-size:11.5px;color:#8A9099">{{ c.label }}</span>
+                <span style="{{ c.numStyle }}">{{ c.value }}</span>
+                <span style="font-size:11.5px;color:#9AA0A8">{{ c.note }}</span>
+              </div>
+            </sc-for>
+          </div>
+
+          <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,320px),1fr));gap:16px;align-items:start">
+            <div style="background:#fff;border:1px solid #EAECEF;border-radius:20px;padding:20px;display:flex;flex-direction:column;gap:16px">
+              <div style="display:flex;flex-direction:column;gap:4px">
+                <span style="font-size:16px;font-weight:800">تخصیص کمک‌ها به گروه‌های نیاز</span>
+                <span style="font-size:12px;color:#9AA0A8">سهم هر گروه از کل مبلغ تحویل‌شده در {{ month }}</span>
+              </div>
+              <sc-for list="{{ allocation }}" as="a" hint-placeholder-count="7">
+                <div style="display:flex;flex-direction:column;gap:7px">
+                  <div style="display:flex;justify-content:space-between;gap:10px;font-size:13px;flex-wrap:wrap">
+                    <span style="font-weight:700;color:#23262B">{{ a.label }}</span>
+                    <span style="font-weight:800;color:#D8420F;white-space:nowrap">{{ a.amount }} — {{ a.pctLabel }}</span>
+                  </div>
+                  <div style="height:9px;background:#F2F3F5;border-radius:6px;overflow:hidden"><span style="{{ a.barStyle }}"></span></div>
+                </div>
+              </sc-for>
+            </div>
+
+            <div style="display:flex;flex-direction:column;gap:16px">
+              <div style="background:#fff;border:1px solid #EAECEF;border-radius:20px;padding:20px;display:flex;flex-direction:column;gap:14px">
+                <span style="font-size:16px;font-weight:800">منابع ورودی {{ month }}</span>
+                <sc-for list="{{ sources }}" as="s" hint-placeholder-count="4">
+                  <div style="display:flex;align-items:center;gap:12px;padding:13px 14px;border:1px solid #F0F1F3;border-radius:15px">
+                    <div style="flex:0 0 34px;width:34px;height:34px;border-radius:11px;background:#FEF1EC;color:#D8420F;display:flex;align-items:center;justify-content:center;font-size:14px">{{ s.icon }}</div>
+                    <div style="display:flex;flex-direction:column;gap:3px;min-width:0">
+                      <span style="font-size:13px;font-weight:800">{{ s.label }}</span>
+                      <span style="font-size:11px;color:#9AA0A8">{{ s.note }}</span>
+                    </div>
+                    <span style="margin-inline-start:auto;font-size:13.5px;font-weight:800;white-space:nowrap">{{ s.amount }}</span>
+                  </div>
+                </sc-for>
+              </div>
+              <div style="background:#F7FBF9;border:1px solid #DFF0E7;border-radius:20px;padding:20px;display:flex;flex-direction:column;gap:10px">
+                <span style="font-size:14.5px;font-weight:800;color:#12805A">تفکیک دو حساب</span>
+                <span style="font-size:12.5px;color:#3F6B57;line-height:2.1">کمک‌های پرونده‌ای و صندوق هزینه‌های اداری دو حساب بانکی مجزا دارند. در سامانه هیچ مسیری برای انتقال از حساب پرونده‌ها به حساب اداری وجود ندارد و این تفکیک در هر دوره حسابرسی بررسی می‌شود.</span>
+              </div>
+            </div>
+          </div>
+
+          <div style="background:#fff;border:1px solid #EAECEF;border-radius:20px;overflow:hidden">
+            <div style="padding:16px 20px;border-bottom:1px solid #F0F1F3;display:flex;gap:12px;flex-wrap:wrap;align-items:center">
+              <span style="font-size:16px;font-weight:800">پرونده‌های تحویل‌شده در {{ month }}</span>
+              <span style="margin-inline-start:auto;font-size:12px;color:#9AA0A8">هر ردیف رسید و مستند تحویل دارد</span>
+            </div>
+            <sc-for list="{{ delivered }}" as="d" hint-placeholder-count="6">
+              <div style="{{ d.rowStyle }}">
+                <div style="display:flex;flex-direction:column;gap:4px;min-width:0;flex:1 1 220px">
+                  <span style="font-size:13.5px;font-weight:800">{{ d.title }}</span>
+                  <span style="font-size:11.5px;color:#9AA0A8">{{ d.code }} — {{ d.city }} — تحویل {{ d.date }}</span>
+                </div>
+                <span style="font-size:12px;color:#5A6169;white-space:nowrap">{{ d.to }}</span>
+                <span style="font-size:13.5px;font-weight:800;white-space:nowrap">{{ d.amount }}</span>
+              </div>
+            </sc-for>
+            <div style="padding:15px 20px;background:#15181D;color:#fff;display:flex;gap:12px;flex-wrap:wrap;align-items:center">
+              <span style="font-size:13.5px;font-weight:800">جمع تحویل {{ month }}</span>
+              <span style="margin-inline-start:auto;font-size:15px;font-weight:800;white-space:nowrap">{{ deliveredSum }}</span>
+            </div>
+          </div>
+
+          <div style="display:flex;gap:10px;flex-wrap:wrap">
+            <button onClick="{{ download }}" style="height:52px;padding:0 20px;border:0;border-radius:14px;background:#F4511E;color:#fff;font-size:14px;font-weight:800;cursor:pointer">{{ downloadLabel }}</button>
+            <a href="پنل خیرین دست یاری.dc.html" style="height:52px;padding:0 18px;border:1.5px solid #E3E6EA;border-radius:14px;background:#fff;color:#23262B;display:flex;align-items:center;font-size:13.5px;font-weight:700">گزارش اختصاصی کمک‌های من</a>
+          </div>
+        </div>
+      </sc-if>
+
+      <sc-if value="{{ isAudit }}" hint-placeholder-val="{{ false }}">
+        <div style="display:flex;flex-direction:column;gap:18px">
+          <div style="display:flex;flex-direction:column;gap:8px">
+            <span style="font-size:12.5px;font-weight:800;color:#D8420F">حسابرسی مستقل</span>
+            <h2 style="margin:0;font-size:clamp(20px,2.8vw,29px);font-weight:800;letter-spacing:-.7px">{{ c.auditTitle }}</h2>
+            <p style="margin:0;font-size:14.5px;color:#5A6169;line-height:2.2;max-width:720px;text-wrap:pretty">{{ c.auditText }}</p>
+          </div>
+
+          <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr));gap:16px;align-items:start">
+            <div style="background:#fff;border:1px solid #EAECEF;border-radius:20px;padding:22px;display:flex;flex-direction:column;gap:16px">
+              <div style="display:flex;gap:13px;align-items:center;flex-wrap:wrap">
+                <div style="flex:0 0 48px;width:48px;height:48px;border-radius:15px;background:#F7FBF9;color:#12805A;display:flex;align-items:center;justify-content:center;font-size:20px;font-weight:800">✓</div>
+                <div style="display:flex;flex-direction:column;gap:4px;min-width:0">
+                  <span style="font-size:16.5px;font-weight:800">آخرین گزارش: نیمه اول ۱۴۰۵</span>
+                  <span style="font-size:12px;color:#9AA0A8">مؤسسه حسابرسی آگاه‌نگر — منتشرشده ۲۸ مرداد ۱۴۰۵</span>
+                </div>
+              </div>
+              <div style="background:#F7FBF9;border:1px solid #DFF0E7;border-radius:16px;padding:16px;display:flex;flex-direction:column;gap:7px">
+                <span style="font-size:13.5px;font-weight:800;color:#12805A">اظهارنظر: مقبول، بدون بند شرطی</span>
+                <span style="font-size:12.5px;color:#3F6B57;line-height:2.1">صورت‌های مالی مجمع، وضعیت مالی و گردش وجوه را به‌طور منصفانه منعکس می‌کند و تفکیک حساب کمک‌های پرونده‌ای از حساب اداری به‌درستی رعایت شده است.</span>
+              </div>
+              <sc-for list="{{ auditChecks }}" as="a" hint-placeholder-count="5">
+                <div style="display:flex;align-items:flex-start;gap:11px;padding:13px 14px;border:1px solid #F0F1F3;border-radius:15px">
+                  <span style="color:#12805A;font-weight:800">✓</span>
+                  <div style="display:flex;flex-direction:column;gap:4px;min-width:0">
+                    <span style="font-size:13px;font-weight:800">{{ a.title }}</span>
+                    <span style="font-size:12px;color:#6B7280;line-height:2">{{ a.note }}</span>
+                  </div>
+                </div>
+              </sc-for>
+              <button onClick="{{ download }}" style="height:52px;border:0;border-radius:14px;background:#F4511E;color:#fff;font-size:14px;font-weight:800;cursor:pointer">{{ downloadLabel }}</button>
+            </div>
+
+            <div style="display:flex;flex-direction:column;gap:16px">
+              <div style="background:#fff;border:1px solid #EAECEF;border-radius:20px;overflow:hidden">
+                <div style="padding:16px 20px;border-bottom:1px solid #F0F1F3;font-size:16px;font-weight:800">سابقه دوره‌های حسابرسی</div>
+                <sc-for list="{{ auditHistory }}" as="h" hint-placeholder-count="5">
+                  <div style="{{ h.rowStyle }}">
+                    <div style="display:flex;flex-direction:column;gap:4px;min-width:0;flex:1 1 160px">
+                      <span style="font-size:13px;font-weight:800">{{ h.period }}</span>
+                      <span style="font-size:11.5px;color:#9AA0A8">{{ h.firm }}</span>
+                    </div>
+                    <span style="{{ h.badgeStyle }}">{{ h.result }}</span>
+                    <span style="font-size:12px;font-weight:700;color:#F4511E;cursor:pointer;white-space:nowrap">دانلود PDF</span>
+                  </div>
+                </sc-for>
+              </div>
+              <div style="background:#fff;border:1px solid #EAECEF;border-radius:20px;padding:20px;display:flex;flex-direction:column;gap:12px">
+                <span style="font-size:16px;font-weight:800">مجوزها و نظارت بیرونی</span>
+                <sc-for list="{{ licenses }}" as="l" hint-placeholder-count="4">
+                  <div style="display:flex;align-items:center;gap:12px;padding:12px 13px;border:1px solid #F0F1F3;border-radius:14px">
+                    <div style="flex:0 0 34px;width:34px;height:34px;border-radius:11px;background:#FEF1EC;color:#D8420F;display:flex;align-items:center;justify-content:center;font-size:13px">◆</div>
+                    <div style="display:flex;flex-direction:column;gap:3px;min-width:0">
+                      <span style="font-size:12.5px;font-weight:800">{{ l.title }}</span>
+                      <span style="font-size:11px;color:#9AA0A8">{{ l.meta }}</span>
+                    </div>
+                  </div>
+                </sc-for>
+              </div>
+            </div>
+          </div>
+        </div>
+      </sc-if>
+
+      <sc-if value="{{ isAdmin }}" hint-placeholder-val="{{ false }}">
+        <div style="display:flex;flex-direction:column;gap:18px">
+          <div style="background:#15181D;color:#fff;border-radius:22px;padding:clamp(20px,3vw,30px);display:flex;flex-direction:column;gap:14px">
+            <span style="font-size:12.5px;font-weight:800;color:#FF8A5C">هزینه‌های اداری</span>
+            <h2 style="margin:0;font-size:clamp(19px,2.8vw,27px);font-weight:800;letter-spacing:-.6px;line-height:1.6">از کمک شما به پرونده‌ها، حتی یک ریال صرف اداره مجمع نمی‌شود</h2>
+            <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,280px),1fr));gap:clamp(16px,3vw,30px)">
+              <p style="margin:0;font-size:14px;color:rgba(255,255,255,.72);line-height:2.2;text-wrap:pretty">بازدید میدانی، راستی‌آزمایی مدارک، پیگیری تا لحظه تحویل و نگهداری این سامانه هزینه دارد. این هزینه‌ها از صندوقی مستقل تأمین می‌شود که فقط از سه منبع پر می‌شود: حامیان سازمانی، وقف اختصاصی، و کمک داوطلبانه خیرینی که جداگانه به این صندوق کمک می‌کنند.</p>
+              <p style="margin:0;font-size:14px;color:rgba(255,255,255,.72);line-height:2.2;text-wrap:pretty">اگر این صندوق کم بیاورد، نتیجه‌اش کاهش سرعت و دقت بررسی پرونده‌هاست — نه برداشت از سهم نیازمندان. به همین دلیل وضعیت این صندوق را هر ماه عمومی منتشر می‌کنیم.</p>
+            </div>
+            <div style="display:flex;gap:10px;flex-wrap:wrap;padding-top:4px">
+              <a href="پنل خیرین دست یاری.dc.html" style="height:50px;padding:0 20px;border-radius:14px;background:#F4511E;color:#fff;display:flex;align-items:center;font-size:14px;font-weight:800">حمایت از صندوق اداره مجمع</a>
+            </div>
+          </div>
+
+          <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,190px),1fr));gap:12px">
+            <sc-for list="{{ adminCards }}" as="c" hint-placeholder-count="4">
+              <div style="{{ c.boxStyle }}">
+                <span style="font-size:11.5px;color:#8A9099">{{ c.label }}</span>
+                <span style="{{ c.numStyle }}">{{ c.value }}</span>
+                <span style="font-size:11.5px;color:#9AA0A8">{{ c.note }}</span>
+              </div>
+            </sc-for>
+          </div>
+
+          <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,320px),1fr));gap:16px;align-items:start">
+            <div style="background:#fff;border:1px solid #EAECEF;border-radius:20px;padding:20px;display:flex;flex-direction:column;gap:14px">
+              <div style="display:flex;flex-direction:column;gap:4px">
+                <span style="font-size:16px;font-weight:800">این هزینه‌ها دقیقاً چیست؟</span>
+                <span style="font-size:12px;color:#9AA0A8">سهم هر ردیف از هزینه‌های {{ month }}</span>
+              </div>
+              <sc-for list="{{ adminCosts }}" as="c" hint-placeholder-count="6">
+                <div style="display:flex;flex-direction:column;gap:8px;padding:14px;border:1px solid #F0F1F3;border-radius:15px">
+                  <div style="display:flex;gap:12px;flex-wrap:wrap;align-items:center">
+                    <span style="font-size:13.5px;font-weight:800;min-width:0">{{ c.title }}</span>
+                    <span style="margin-inline-start:auto;font-size:13px;font-weight:800;color:#D8420F;white-space:nowrap">{{ c.amount }} — {{ c.share }}</span>
+                  </div>
+                  <span style="font-size:12px;color:#6B7280;line-height:2">{{ c.note }}</span>
+                  <div style="height:7px;background:#F2F3F5;border-radius:5px;overflow:hidden"><span style="{{ c.barStyle }}"></span></div>
+                </div>
+              </sc-for>
+            </div>
+
+            <div style="display:flex;flex-direction:column;gap:16px">
+              <div style="background:#fff;border:1px solid #EAECEF;border-radius:20px;overflow:hidden">
+                <div style="padding:16px 20px;border-bottom:1px solid #F0F1F3;display:flex;flex-direction:column;gap:3px">
+                  <span style="font-size:16px;font-weight:800">آخرین برداشت‌های ثبت‌شده</span>
+                  <span style="font-size:12px;color:#9AA0A8">هر برداشت با فاکتور و نام تأییدکننده ثبت می‌شود</span>
+                </div>
+                <sc-for list="{{ adminLedger }}" as="l" hint-placeholder-count="5">
+                  <div style="{{ l.rowStyle }}">
+                    <div style="display:flex;flex-direction:column;gap:4px;min-width:0;flex:1 1 190px">
+                      <span style="font-size:13px;font-weight:800">{{ l.title }}</span>
+                      <span style="font-size:11px;color:#9AA0A8">{{ l.date }} — مستند: {{ l.doc }} — تأیید: {{ l.by }}</span>
+                    </div>
+                    <span style="font-size:13px;font-weight:800;color:#C43034;white-space:nowrap">{{ l.amount }}</span>
+                  </div>
+                </sc-for>
+              </div>
+              <div style="background:#fff;border:1px solid #EAECEF;border-radius:20px;padding:20px;display:flex;flex-direction:column;gap:12px">
+                <span style="font-size:16px;font-weight:800">قواعدی که خودمان را به آن بسته‌ایم</span>
+                <sc-for list="{{ adminRules }}" as="r" hint-placeholder-count="4">
+                  <div style="display:flex;gap:11px;align-items:flex-start;background:#FAFAFB;border:1px solid #EFF0F2;border-radius:14px;padding:13px 14px">
+                    <span style="color:#D8420F;font-weight:800">◆</span>
+                    <span style="font-size:12.5px;color:#4B5158;line-height:2.1">{{ r }}</span>
+                  </div>
+                </sc-for>
+              </div>
+            </div>
+          </div>
+        </div>
+      </sc-if>
+
+      <sc-if value="{{ isHow }}" hint-placeholder-val="{{ false }}">
+        <div style="display:flex;flex-direction:column;gap:20px">
+          <div style="display:flex;flex-direction:column;gap:8px">
+            <span style="font-size:12.5px;font-weight:800;color:#D8420F">چطور کار می‌کند</span>
+            <h2 style="margin:0;font-size:clamp(20px,2.8vw,29px);font-weight:800;letter-spacing:-.7px">{{ c.flowTitle }}</h2>
+            <p style="margin:0;font-size:14.5px;color:#5A6169;line-height:2.2;max-width:720px;text-wrap:pretty">{{ c.flowText }}</p>
+          </div>
+
+          <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,250px),1fr));gap:14px">
+            <sc-for list="{{ flow }}" as="f" hint-placeholder-count="7">
+              <div style="background:#fff;border:1px solid #EAECEF;border-radius:20px;padding:20px;display:flex;flex-direction:column;gap:11px">
+                <div style="display:flex;align-items:center;gap:11px">
+                  <div style="flex:0 0 34px;width:34px;height:34px;border-radius:11px;background:#15181D;color:#fff;display:flex;align-items:center;justify-content:center;font-size:13.5px;font-weight:800">{{ f.n }}</div>
+                  <span style="font-size:14.5px;font-weight:800;letter-spacing:-.2px;min-width:0">{{ f.title }}</span>
+                </div>
+                <span style="font-size:12.5px;color:#5A6169;line-height:2.1;text-wrap:pretty">{{ f.body }}</span>
+                <div style="display:flex;flex-direction:column;gap:5px;padding-top:4px;border-top:1px solid #F4F5F7">
+                  <span style="font-size:11.5px;color:#9AA0A8">پول کجاست: <b style="color:#4B5158">{{ f.where }}</b></span>
+                  <span style="font-size:11.5px;color:#9AA0A8">مستند: <b style="color:#4B5158">{{ f.doc }}</b></span>
+                </div>
+              </div>
+            </sc-for>
+          </div>
+
+          <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr));gap:16px;align-items:start">
+            <div style="background:#fff;border:1px solid #EAECEF;border-radius:20px;padding:20px;display:flex;flex-direction:column;gap:12px">
+              <span style="font-size:16px;font-weight:800">سؤال‌هایی که زیاد پرسیده می‌شود</span>
+              <sc-for list="{{ faq }}" as="f" hint-placeholder-count="5">
+                <div onClick="{{ f.onClick }}" style="{{ f.boxStyle }}">
+                  <div style="display:flex;gap:10px;align-items:center">
+                    <span style="font-size:13px;font-weight:800;line-height:1.9;min-width:0">{{ f.q }}</span>
+                    <span style="margin-inline-start:auto;font-size:11px;color:#A9AEB6">{{ f.caret }}</span>
+                  </div>
+                  <sc-if value="{{ f.open }}" hint-placeholder-val="{{ false }}">
+                    <span style="font-size:12.5px;color:#5A6169;line-height:2.1">{{ f.a }}</span>
+                  </sc-if>
+                </div>
+              </sc-for>
+            </div>
+            <div style="display:flex;flex-direction:column;gap:16px">
+              <div style="background:#fff;border:1px solid #EAECEF;border-radius:20px;padding:20px;display:flex;flex-direction:column;gap:12px">
+                <span style="font-size:16px;font-weight:800">اگر چیزی مشکوک دیدید</span>
+                <span style="font-size:12.5px;color:#5A6169;line-height:2.1;text-wrap:pretty">هر خیری می‌تواند مستندات پرونده‌ای که به آن کمک کرده را با هماهنگی قبلی در دفتر مجمع ببیند. اگر مغایرتی یافتید، از همین‌جا گزارش دهید؛ بررسی هر گزارش حداکثر ۵ روز کاری طول می‌کشد و نتیجه کتبی اعلام می‌شود.</span>
+                <div style="display:flex;gap:9px;flex-wrap:wrap">
+                  <a href="درباره ما.dc.html#contact" style="height:48px;padding:0 18px;border-radius:13px;background:#F4511E;color:#fff;display:flex;align-items:center;font-size:13.5px;font-weight:800">گزارش مغایرت مالی</a>
+                  <a href="tel:02191002233" style="height:48px;padding:0 16px;border:1.5px solid #E3E6EA;border-radius:13px;background:#fff;color:#23262B;display:flex;align-items:center;font-size:13px;font-weight:700">تماس با مدیر مالی</a>
+                </div>
+              </div>
+              <div style="background:#F7FBF9;border:1px solid #DFF0E7;border-radius:20px;padding:20px;display:flex;flex-direction:column;gap:10px">
+                <span style="font-size:14.5px;font-weight:800;color:#12805A">چرا پرداخت نقدی نمی‌کنیم؟</span>
+                <span style="font-size:12.5px;color:#3F6B57;line-height:2.1">کمک‌ها به‌جای وجه نقد، به حساب مرجع رسمی (بیمارستان، داروخانه، مالک، اجرای احکام) واریز یا به‌صورت کالا تحویل می‌شود. این کار هم مسیر پول را قابل ردیابی می‌کند و هم مطمئن می‌شویم کمک صرف همان نیاز اعلام‌شده شده است.</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </sc-if>
+    </div>
+  </main>
+
+  <dc-import name="SiteFooter" hint-size="100%,300px"></dc-import>
+  <div style="display:none">
+    <div style="max-width:1240px;margin-inline:auto;padding:clamp(26px,4vw,42px) clamp(14px,3vw,24px);display:flex;gap:14px;flex-wrap:wrap;align-items:center;font-size:12px;color:rgba(255,255,255,.55)">
+      <span>© ۱۴۰۵ موسسه خیریه دست یاری — شماره ثبت ۴۸۲۱۹</span>
+      <div style="margin-inline-start:auto;display:flex;gap:16px;flex-wrap:wrap">
+        <a href="درباره ما.dc.html" style="color:rgba(255,255,255,.55)">درباره ما</a>
+        <a href="قوانین و حریم خصوصی.dc.html" style="color:rgba(255,255,255,.55)">قوانین و حریم خصوصی</a>
+        <a href="پروندهها.dc.html" style="color:rgba(255,255,255,.55)">پرونده‌ها</a>
+      </div>
+    </div>
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;startTab&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;monthly&quot;,&quot;audit&quot;,&quot;admin&quot;,&quot;how&quot;],&quot;default&quot;:&quot;monthly&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;نمایش&quot;}}">
+class Component extends DCLogic {
+  state = { tab: 'monthly', month: 'مرداد ۱۴۰۵', openFaq: 0, downloaded: false };
+
+  renderVals() {
+    const S = this.state;
+    const fa = (n) => String(n).replace(/[0-9]/g, d => '۰۱۲۳۴۵۶۷۸۹'[+d]);
+
+    const alloc = [
+      { label: 'درمان و دارو', pct: 31, amount: '۳۸۴ م' },
+      { label: 'معیشت خانواده', pct: 19, amount: '۲۳۵ م' },
+      { label: 'مسکن و ودیعه', pct: 16, amount: '۱۹۸ م' },
+      { label: 'آزادی زندانیان جرائم غیرعمد', pct: 13, amount: '۱۶۱ م' },
+      { label: 'جهیزیه و ازدواج', pct: 9, amount: '۱۱۲ م' },
+      { label: 'تحصیل کودکان', pct: 7, amount: '۸۷ م' },
+      { label: 'معلولیت و سالمندی', pct: 5, amount: '۶۲ م' }
+    ];
+    const costs = [
+      { title: 'حقوق و بیمه تیم اجرایی', pct: 58, amount: '۸۲ م', note: '۱۴ کارشناس تمام‌وقت که بازدید میدانی، راستی‌آزمایی مدارک و پیگیری تحویل را انجام می‌دهند.' },
+      { title: 'ایاب و ذهاب بازدیدهای میدانی', pct: 12, amount: '۱۷ م', note: 'حدود ۳۲۰ بازدید در ماه در ۹ استان؛ میانگین هر بازدید ۵۳ هزار تومان.' },
+      { title: 'اجاره و هزینه دفتر مرکزی', pct: 11, amount: '۱۵ م', note: 'اجاره، برق و آب، نظافت و نگهداری دفتر تهران.' },
+      { title: 'سامانه، سرور و درگاه پرداخت', pct: 9, amount: '۱۲٫۵ م', note: 'نگهداری سامانه پرونده‌ها، ۱۸۰ هزار پیامک اطلاع‌رسانی و کارمزد بانکی.' },
+      { title: 'حسابرسی مستقل و امور حقوقی', pct: 7, amount: '۹٫۵ م', note: 'حق‌الزحمه حسابرسی شش‌ماهه، تنظیم قرارداد و پیگیری قضایی پرونده‌ها.' },
+      { title: 'لوازم اداری و آموزش داوطلبان', pct: 3, amount: '۵٫۸ م', note: 'ملزومات دفتری و دوره‌های آموزشی ۲۳۰ داوطلب فعال.' }
+    ];
+    const faqData = [
+      { q: 'واقعاً هیچ درصدی از کمک من کسر نمی‌شود؟', a: 'بله. کمک پرونده‌ای به حساب مجزای پرونده‌ها می‌رود و در سامانه هیچ مسیری برای انتقال آن به حساب اداری وجود ندارد. این تفکیک در هر دوره حسابرسی مستقل بررسی و تأیید می‌شود.' },
+      { q: 'اگر مبلغ یک پرونده کامل نشود چه می‌شود؟', a: 'در پایان مهلت با خیر تماس گرفته می‌شود تا انتخاب کند کمکش در همان پرونده بماند یا به پرونده مشابه منتقل شود. هیچ مبلغی بدون اطلاع خیر جابه‌جا نمی‌شود.' },
+      { q: 'اگر بیشتر از نیاز پرونده جمع شود؟', a: 'مازاد در گزارش پرونده ثبت و به خیرین اعلام می‌شود؛ تصمیم درباره آن با خودشان است. مبلغ مازاد هرگز به‌طور خودکار صرف مورد دیگری نمی‌شود.' },
+      { q: 'چطور مطمئن شوم کمک من تحویل شده؟', a: 'برای هر تحویل، رسید واریز به مرجع رسمی یا صورت‌جلسه تحویل کالا در پنل خیر بارگذاری می‌شود. با هماهنگی قبلی، اصل مستندات در دفتر مجمع قابل مشاهده است.' },
+      { q: 'چرا اسم کامل نیازمندان منتشر نمی‌شود؟', a: 'برای حفظ کرامت خانواده‌ها، نام کامل، نشانی و چهره تنها با رضایت کتبی منتشر می‌شود. برای خیر پشتیبان، هویت و مستندات پرونده در پنل او قابل مشاهده است.' }
+    ];
+
+    return {
+      c: window.DY ? Object.assign({}, window.DY.DEFAULT_CONTENT.finance, window.DY.content('finance')) : {},
+      heroStats: [
+        { num: '۱٬۲۳۹ م', label: 'کمک تحویل‌شده در مرداد ۱۴۰۵' },
+        { num: '۱۰۰٪', label: 'کمک پرونده‌ای به پرونده' },
+        { num: '۰ ریال', label: 'برداشت اداری از کمک پرونده‌ها' },
+        { num: 'بدون بند شرطی', label: 'نتیجه آخرین حسابرسی' }
+      ].map(s => ({
+        num: s.num, label: s.label,
+        boxStyle: 'background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.13);border-radius:16px;padding:15px 16px;display:flex;flex-direction:column;gap:6px',
+        numStyle: 'font-size:clamp(16px,2.2vw,21px);font-weight:800;letter-spacing:-.4px;line-height:1.4'
+      })),
+      tabs: [
+        { k: 'monthly', l: 'گزارش مالی ماهانه', i: '▤' },
+        { k: 'audit', l: 'حسابرسی مستقل', i: '✓' },
+        { k: 'admin', l: 'هزینه‌های اداری', i: '⛁' },
+        { k: 'how', l: 'چطور کار می‌کند', i: '◈' }
+      ].map(t => {
+        const on = S.tab === t.k;
+        return {
+          label: t.l, icon: t.i,
+          onClick: () => this.setState({ tab: t.k }),
+          style: 'display:flex;align-items:center;gap:9px;height:48px;padding:0 17px;border-radius:14px;font-size:13.5px;font-weight:800;cursor:pointer;white-space:nowrap;border:1.5px solid '
+            + (on ? '#F4511E;background:#FEF1EC;color:#D8420F' : '#EFF0F2;background:#fff;color:#4E555E')
+        };
+      }),
+      isMonthly: S.tab === 'monthly', isAudit: S.tab === 'audit', isAdmin: S.tab === 'admin', isHow: S.tab === 'how',
+      months: ['مرداد ۱۴۰۵', 'تیر ۱۴۰۵', 'خرداد ۱۴۰۵', 'اردیبهشت ۱۴۰۵', 'فروردین ۱۴۰۵', 'اسفند ۱۴۰۴'],
+      month: S.month,
+      onMonth: (e) => this.setState({ month: e.target.value }),
+      monthCards: [
+        { label: 'کمک دریافتی', value: '۱٬۳۰۴ میلیون', note: '۳٬۹۱۲ تراکنش از ۲٬۶۴۰ خیر' },
+        { label: 'تحویل‌شده به پرونده‌ها', value: '۱٬۲۳۹ میلیون', note: '۱۴۸ پرونده تکمیل و تحویل شد' },
+        { label: 'در جریان (پرونده‌های باز)', value: '۶۵ میلیون', note: 'در انتظار تکمیل مبلغ پرونده' },
+        { label: 'سهم هزینه اداری از این مبالغ', value: '۰', note: 'از صندوق مستقل تأمین می‌شود', good: true }
+      ].map(c => ({
+        label: c.label, value: c.value, note: c.note,
+        boxStyle: 'display:flex;flex-direction:column;gap:6px;padding:17px 18px;border-radius:18px;border:1px solid ' + (c.good ? '#DFF0E7;background:#F7FBF9' : '#EAECEF;background:#fff'),
+        numStyle: 'font-size:clamp(18px,2.4vw,23px);font-weight:800;letter-spacing:-.5px;color:' + (c.good ? '#12805A' : '#191C21')
+      })),
+      allocation: alloc.map(a => ({
+        label: a.label, amount: a.amount, pctLabel: fa(a.pct) + '٪',
+        barStyle: 'display:block;height:100%;width:' + a.pct + '%;background:#F4511E;border-radius:6px'
+      })),
+      sources: [
+        { icon: '◍', label: 'کمک‌های موردی خیرین', note: '۳٬۱۰۴ تراکنش روی پرونده‌های منتشرشده', amount: '۸۹۲ م' },
+        { icon: '♡', label: 'حمایت‌های ماهانه', note: '۴۱۲ حامی ماهانه فعال', amount: '۳۲۱ م' },
+        { icon: '★', label: 'معرفی پشتیبانان و بلاگرها', note: 'از لینک اختصاصی ۹ پشتیبان', amount: '۷۴ م' },
+        { icon: '◈', label: 'کمپین‌های فعال', note: 'پویش جهیزیه مهر و کمپین درمان', amount: '۱۷ م' }
+      ],
+      delivered: [
+        { title: 'شیمی‌درمانی — چهار دوره', code: 'DY-۲۴۸۸', city: 'تهران', date: '۲۶ مرداد', to: 'واریز به بیمارستان مهر', amount: '۱۳۸ م' },
+        { title: 'آزادی زندانی بدهی مهریه', code: 'DY-۲۴۹۱', city: 'کرمان', date: '۲۴ مرداد', to: 'واریز به اجرای احکام', amount: '۱۰۰ م' },
+        { title: 'ودیعه مسکن مادر سرپرست خانوار', code: 'DY-۲۴۷۶', city: 'رشت', date: '۲۲ مرداد', to: 'واریز به حساب مالک', amount: '۱۲۰ م' },
+        { title: 'جهیزیه عروس بی‌سرپرست', code: 'DY-۲۴۶۲', city: 'اهواز', date: '۲۰ مرداد', to: 'خرید و تحویل کالا', amount: '۸۰ م' },
+        { title: 'سبد معیشت ماهانه ده خانوار', code: 'DY-۲۵۵۱', city: 'زاهدان', date: '۲۰ مرداد', to: 'تحویل کارت خرید', amount: '۵۰ م' },
+        { title: 'شهریه و لوازم‌التحریر ۲۰ دانش‌آموز', code: 'DY-۲۴۵۰', city: 'زاهدان', date: '۱۸ مرداد', to: 'واریز به حساب مدرسه', amount: '۵۰ م' }
+      ].map((d, i) => Object.assign({}, d, {
+        rowStyle: 'display:flex;gap:13px;flex-wrap:wrap;align-items:center;padding:14px 20px;' + (i ? 'border-top:1px solid #F4F5F7' : '')
+      })),
+      deliveredSum: '۱٬۲۳۹ میلیون تومان — ۱۴۸ پرونده',
+      auditChecks: [
+        { title: 'تفکیک حساب کمک‌های پرونده‌ای از حساب اداری', note: 'بررسی گردش هر دو حساب و تطبیق با دفاتر — بدون مغایرت.' },
+        { title: 'تطبیق نمونه‌ای ۴۰ پرونده با رسید تحویل', note: 'انتخاب تصادفی از میان ۸۹۰ پرونده دوره؛ همه رسیدها موجود بود.' },
+        { title: 'بررسی مستندات برداشت‌های صندوق اداری', note: 'همه برداشت‌ها فاکتور و تأییدکننده داشتند.' },
+        { title: 'کنترل موجودی پایان دوره و صورت بانکی', note: 'مانده اعلامی با صورت‌حساب بانکی مطابقت داشت.' },
+        { title: 'بررسی رعایت سقف هزینه‌های اداری', note: 'نسبت هزینه اداری به کل گردش مالی در محدوده مصوب هیئت امنا.' }
+      ],
+      auditHistory: [
+        { period: 'نیمه اول ۱۴۰۵', firm: 'مؤسسه حسابرسی آگاه‌نگر', result: 'مقبول', ok: true },
+        { period: 'نیمه دوم ۱۴۰۴', firm: 'مؤسسه حسابرسی آگاه‌نگر', result: 'مقبول', ok: true },
+        { period: 'نیمه اول ۱۴۰۴', firm: 'مؤسسه حسابرسی رهنمود', result: 'مقبول', ok: true },
+        { period: 'نیمه دوم ۱۴۰۳', firm: 'مؤسسه حسابرسی رهنمود', result: 'مقبول با یک بند توضیحی', ok: false },
+        { period: 'نیمه اول ۱۴۰۳', firm: 'مؤسسه حسابرسی رهنمود', result: 'مقبول', ok: true }
+      ].map((h, i) => Object.assign({}, h, {
+        rowStyle: 'display:flex;gap:12px;flex-wrap:wrap;align-items:center;padding:14px 20px;' + (i ? 'border-top:1px solid #F4F5F7' : ''),
+        badgeStyle: 'font-size:11px;font-weight:800;padding:5px 10px;border-radius:20px;white-space:nowrap;'
+          + (h.ok ? 'background:#F7FBF9;color:#12805A' : 'background:#FFF4E5;color:#A2600C')
+      })),
+      licenses: [
+        { title: 'پروانه فعالیت سازمان بهزیستی', meta: 'شماره ۱۱۹/۴۸۲۱۹ — اعتبار تا ۱۴۰۷' },
+        { title: 'ثبت در سامانه شفافیت خیریه‌ها', meta: 'کد رهگیری DY-۴۸۲۱۹' },
+        { title: 'مجوز جمع‌آوری کمک‌های مردمی', meta: 'صادره از استانداری تهران' },
+        { title: 'درگاه پرداخت دارای نماد اعتماد', meta: 'شاپرک — مجوز الکترونیکی' }
+      ],
+      adminCards: [
+        { label: 'هزینه اداری ' + S.month, value: '۱۴۲ میلیون', note: 'شش ردیف هزینه، همه با فاکتور' },
+        { label: 'تأمین‌شده', value: '۱۰۹ میلیون', note: '۷۷٪ از حامیان اداری و خیرین' },
+        { label: 'کسری این ماه', value: '۳۳ میلیون', note: 'نیازمند حمایت', hot: true },
+        { label: 'نسبت به کل گردش مالی', value: '۱۰٫۹٪', note: 'سقف مصوب هیئت امنا: ۱۵٪' }
+      ].map(c => ({
+        label: c.label, value: c.value, note: c.note,
+        boxStyle: 'display:flex;flex-direction:column;gap:6px;padding:17px 18px;border-radius:18px;border:1px solid ' + (c.hot ? '#F7CDBB;background:#FFF6F2' : '#EAECEF;background:#fff'),
+        numStyle: 'font-size:clamp(17px,2.3vw,22px);font-weight:800;letter-spacing:-.5px;color:' + (c.hot ? '#D8420F' : '#191C21')
+      })),
+      adminCosts: costs.map(c => ({
+        title: c.title, amount: c.amount, share: fa(c.pct) + '٪', note: c.note,
+        barStyle: 'display:block;height:100%;width:' + c.pct + '%;background:#15181D;border-radius:5px'
+      })),
+      adminLedger: [
+        { title: 'حقوق و بیمه تیم اجرایی — مرداد', date: '۲۹ مرداد ۱۴۰۵', doc: 'لیست حقوق + فیش بیمه', by: 'ز. رستمی', amount: '۸۲ م' },
+        { title: 'ایاب و ذهاب بازدیدهای میدانی', date: '۲۸ مرداد ۱۴۰۵', doc: '۳۲۰ برگ ماموریت', by: 'م. صادقی', amount: '۱۷ م' },
+        { title: 'اجاره دفتر مرکزی — مرداد', date: '۲۵ مرداد ۱۴۰۵', doc: 'قرارداد اجاره + رسید', by: 'ا. تهرانی‌فر', amount: '۱۵ م' },
+        { title: 'سرور، پیامک و کارمزد درگاه', date: '۲۲ مرداد ۱۴۰۵', doc: 'فاکتور رسمی', by: 'ا. تهرانی‌فر', amount: '۱۲٫۵ م' },
+        { title: 'حق‌الزحمه حسابرسی شش‌ماهه', date: '۱۸ مرداد ۱۴۰۵', doc: 'قرارداد + فاکتور', by: 'ز. رستمی', amount: '۹٫۵ م' }
+      ].map((l, i) => Object.assign({}, l, {
+        rowStyle: 'display:flex;gap:12px;flex-wrap:wrap;align-items:center;padding:14px 20px;' + (i ? 'border-top:1px solid #F4F5F7' : '')
+      })),
+      adminRules: [
+        'سقف هزینه اداری نسبت به کل گردش مالی، ۱۵٪ مصوب هیئت امنا است؛ عبور از آن نیازمند تصویب جدید است.',
+        'هیچ برداشتی بدون شرح هزینه و شماره فاکتور یا رسید در سامانه ثبت نمی‌شود.',
+        'برداشت بالای ۵۰ میلیون تومان به تأیید دوم رئیس هیئت امنا نیاز دارد.',
+        'اعضای هیئت امنا داوطلبانه و بدون دریافت حق‌الزحمه فعالیت می‌کنند.'
+      ],
+      flow: [
+        { n: '۱', title: 'پرداخت شما', body: 'مبلغ از درگاه بانکی دارای نماد اعتماد به حساب مجزای کمک‌های پرونده‌ای واریز می‌شود.', where: 'حساب پرونده‌ها', doc: 'رسید بانکی + کد پیگیری' },
+        { n: '۲', title: 'ثبت روی پرونده', body: 'مبلغ بلافاصله به نام همان پرونده ثبت و درصد پیشرفت آن به‌روز می‌شود.', where: 'حساب پرونده‌ها', doc: 'ردیف در پنل خیر' },
+        { n: '۳', title: 'تکمیل مبلغ پرونده', body: 'تا رسیدن به مبلغ کارشناسی‌شده، هیچ برداشتی از پرونده انجام نمی‌شود.', where: 'حساب پرونده‌ها', doc: 'تراز پرونده' },
+        { n: '۴', title: 'تأیید نهایی کارشناس', body: 'کارشناس مسئول، مدارک و برآورد را دوباره کنترل و اجازه پرداخت را صادر می‌کند.', where: 'حساب پرونده‌ها', doc: 'گزارش تأیید کارشناس' },
+        { n: '۵', title: 'پرداخت به مرجع رسمی', body: 'مبلغ به حساب بیمارستان، داروخانه، مالک یا اجرای احکام واریز می‌شود — نه به‌صورت نقدی.', where: 'حساب مرجع رسمی', doc: 'فیش واریز + فاکتور' },
+        { n: '۶', title: 'تحویل و مستندسازی', body: 'در پرونده‌های کالایی، خرید و تحویل با صورت‌جلسه امضاشده انجام می‌شود.', where: 'تحویل‌شده', doc: 'صورت‌جلسه تحویل' },
+        { n: '۷', title: 'گزارش برای شما', body: 'گزارش تحویل همراه با رسید در پنل خیر ثبت و پیامک اطلاع‌رسانی ارسال می‌شود.', where: 'پرونده بسته', doc: 'گزارش تحویل در پنل' }
+      ],
+      faq: faqData.map((f, i) => ({
+        q: f.q, a: f.a, open: S.openFaq === i, caret: S.openFaq === i ? '▲' : '▼',
+        onClick: () => this.setState({ openFaq: S.openFaq === i ? -1 : i }),
+        boxStyle: 'display:flex;flex-direction:column;gap:8px;padding:13px 14px;border-radius:15px;cursor:pointer;border:1px solid '
+          + (S.openFaq === i ? '#F7CDBB;background:#FFF6F2' : '#F0F1F3;background:#fff')
+      })),
+      downloadLabel: S.downloaded ? '✓ فایل در حال دانلود است' : 'دانلود گزارش کامل (PDF)',
+      download: () => { this.setState({ downloaded: true }); setTimeout(() => this.setState({ downloaded: false }), 2000); }
+    };
+  }
+}
+</script>
+</body>
+</html>

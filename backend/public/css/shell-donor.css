@@ -1,0 +1,39 @@
+/* دست یاری — پنل خیرین. عیناً از پنل خیرین دست یاری.dc.html */
+*{box-sizing:border-box}
+body{margin:0;font-family:Vazirmatn,system-ui,sans-serif;background:#F5F6F8;color:#23262B;-webkit-font-smoothing:antialiased}
+a{color:#F4511E;text-decoration:none}
+a:hover{color:#C43C0E}
+input,button,select{font-family:inherit}
+input:focus{outline:none}
+::placeholder{color:#A9AEB6}
+::-webkit-scrollbar{width:8px;height:8px}
+::-webkit-scrollbar-thumb{background:#D8DBE0;border-radius:8px}
+#om-dmenu{display:none}
+
+@media (max-width:900px){
+  header > div{padding:10px 14px !important;min-height:0 !important;gap:10px !important}
+  header nav{margin-inline-start:0 !important;width:100%;overflow-x:auto;flex-wrap:nowrap !important;gap:6px !important;padding-bottom:2px;scrollbar-width:none}
+  header nav::-webkit-scrollbar{display:none}
+  header nav > div{white-space:nowrap;flex:0 0 auto}
+  /* موبایل: لوگو و نام کاربر و اعلان یک خط؛ تب‌ها داخل همبرگر منو */
+  header nav{display:none !important}
+  #om-dmenu{display:flex !important}
+  header img[alt="دست یاری"]{width:62px !important;height:62px !important}
+  header > div{gap:6px !important}
+  header > div > a:first-child{gap:0 !important}
+  header div[style*="font-size: 16px"][style*="font-weight: 800"]{display:none}
+  header div[style*="font-size: 11.5px"]{display:none}
+  header > div > div:last-child{margin-inline-start:auto !important}
+  main > div,div[style*="max-width: 1180px"]{padding-inline:14px !important}
+  div[style*="min-width: 900px"],div[style*="min-width: 820px"],div[style*="min-width: 760px"],div[style*="min-width: 700px"]{min-width:0 !important}
+  div[style*="grid-template-columns: repeat(auto-fit, minmax(210px"],div[style*="minmax(190px"],div[style*="minmax(150px"],div[style*="minmax(130px"],div[style*="minmax(120px"]{grid-template-columns:repeat(auto-fit,minmax(min(100%,140px),1fr)) !important}
+}
+@media (max-width:560px){
+  header div[style*="font-size: 11.5px"][style*="color: rgb(154, 160, 168)"]{display:none}
+  header div[style*="padding-inline-start: 12px"]{padding-inline-start:4px !important;border-inline-start:0 !important}
+  header div[style*="font-size: 13.5px"][style*="font-weight: 700"]{display:none}
+  header span[style*="font-size: 10px"]{display:none}
+  header > div > div:last-child{gap:8px !important}
+  div[style*="padding: 24px"],div[style*="padding: 22px"]{padding:16px !important}
+  span[style*="font-size: 25px"],span[style*="font-size: 26px"]{font-size:21px !important}
+}

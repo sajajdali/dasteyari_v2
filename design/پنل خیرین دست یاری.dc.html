@@ -1,0 +1,2334 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/rastikerdar/vazirmatn@v33.003/Vazirmatn-font-face.css">
+<style>
+  *{box-sizing:border-box}
+  body{margin:0;font-family:Vazirmatn,system-ui,sans-serif;background:#F5F6F8;color:#23262B;-webkit-font-smoothing:antialiased}
+  a{color:#F4511E;text-decoration:none}
+  a:hover{color:#C43C0E}
+  input,button,select{font-family:inherit}
+  input:focus{outline:none}
+  ::placeholder{color:#A9AEB6}
+  ::-webkit-scrollbar{width:8px;height:8px}
+  ::-webkit-scrollbar-thumb{background:#D8DBE0;border-radius:8px}
+  #om-dmenu{display:none}
+
+  @media (max-width:900px){
+    header > div{padding:10px 14px !important;min-height:0 !important;gap:10px !important}
+    header nav{margin-inline-start:0 !important;width:100%;overflow-x:auto;flex-wrap:nowrap !important;gap:6px !important;padding-bottom:2px;scrollbar-width:none}
+    header nav::-webkit-scrollbar{display:none}
+    header nav > div{white-space:nowrap;flex:0 0 auto}
+    /* موبایل: لوگو و نام کاربر و اعلان یک خط؛ تب‌ها داخل همبرگر منو */
+    header nav{display:none !important}
+    #om-dmenu{display:flex !important}
+    header img[alt="دست یاری"]{width:62px !important;height:62px !important}
+    header > div{gap:6px !important}
+    header > div > a:first-child{gap:0 !important}
+    header div[style*="font-size: 16px"][style*="font-weight: 800"]{display:none}
+    header div[style*="font-size: 11.5px"]{display:none}
+    header > div > div:last-child{margin-inline-start:auto !important}
+    main > div,div[style*="max-width: 1180px"]{padding-inline:14px !important}
+    div[style*="min-width: 900px"],div[style*="min-width: 820px"],div[style*="min-width: 760px"],div[style*="min-width: 700px"]{min-width:0 !important}
+    div[style*="grid-template-columns: repeat(auto-fit, minmax(210px"],div[style*="minmax(190px"],div[style*="minmax(150px"],div[style*="minmax(130px"],div[style*="minmax(120px"]{grid-template-columns:repeat(auto-fit,minmax(min(100%,140px),1fr)) !important}
+  }
+  @media (max-width:560px){
+    header div[style*="font-size: 11.5px"][style*="color: rgb(154, 160, 168)"]{display:none}
+    header div[style*="padding-inline-start: 12px"]{padding-inline-start:4px !important;border-inline-start:0 !important}
+    header div[style*="font-size: 13.5px"][style*="font-weight: 700"]{display:none}
+    header span[style*="font-size: 10px"]{display:none}
+    header > div > div:last-child{gap:8px !important}
+    div[style*="padding: 24px"],div[style*="padding: 22px"]{padding:16px !important}
+    span[style*="font-size: 25px"],span[style*="font-size: 26px"]{font-size:21px !important}
+  }
+</style>
+<link rel="stylesheet" href="./responsive.css" />
+<script src="./settings-store.js"></script>
+</helmet>
+<x-import component-from-global-scope="mobile-preview" from="./mobile-preview.js" hint-size="0,0"></x-import>
+
+<sc-if value="{{ caseOpen }}" hint-placeholder-val="{{ false }}">
+  <div dir="rtl" style="position:fixed;inset:0;z-index:120;background:#F7F8F9;overflow-y:auto;font-family:Vazirmatn,system-ui,sans-serif">
+    <div style="position:sticky;top:0;z-index:3;background:#fff;border-bottom:1px solid #EAECEF;padding:13px clamp(14px,3vw,26px);display:flex;gap:12px;flex-wrap:wrap;align-items:center">
+      <span onClick="{{ cClose }}" style="height:42px;padding:0 15px;border:1px solid #EDEEF1;border-radius:12px;display:flex;align-items:center;gap:8px;font-size:13px;font-weight:800;color:#3A4048;cursor:pointer">→ بازگشت به تعهدهای من</span>
+      <div style="display:flex;flex-direction:column;gap:2px;min-width:0">
+        <span style="font-size:16px;font-weight:800;letter-spacing:-.3px">پرونده {{ cName }}</span>
+        <span style="font-size:11.5px;color:#9AA0A8">{{ cSubtitle }}</span>
+      </div>
+    </div>
+
+    <sc-if value="{{ wdIsPersuade }}" hint-placeholder-val="{{ false }}">
+      <div style="max-width:760px;margin-inline:auto;padding:clamp(18px,4vw,40px) clamp(14px,3vw,26px)">
+        <div style="background:#15181D;color:#fff;border-radius:26px;padding:clamp(24px,4vw,40px);display:flex;flex-direction:column;gap:18px">
+          <span style="font-size:11.5px;font-weight:800;color:#FF8A5C">یک لحظه صبر کنید</span>
+          <span style="font-size:clamp(21px,3.4vw,30px);font-weight:800;line-height:1.55;letter-spacing:-.6px;text-wrap:pretty">{{ cName }} هنوز به شما تکیه کرده است</span>
+          <p style="margin:0;font-size:14.5px;color:rgba(255,255,255,.72);line-height:2.2;text-wrap:pretty">{{ cStory }}</p>
+          <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,150px),1fr));gap:11px">
+            <sc-if value="{{ cHasGiven }}" hint-placeholder-val="{{ true }}">
+              <div style="background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);border-radius:16px;padding:15px;display:flex;flex-direction:column;gap:6px">
+                <span style="font-size:11.5px;color:rgba(255,255,255,.55)">شما تا امروز پرداخته‌اید</span>
+                <span style="font-size:19px;font-weight:800;color:#FFA51F">{{ cTotalGiven }}</span>
+              </div>
+            </sc-if>
+            <sc-if value="{{ cHasMonths }}" hint-placeholder-val="{{ true }}">
+              <div style="background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);border-radius:16px;padding:15px;display:flex;flex-direction:column;gap:6px">
+                <span style="font-size:11.5px;color:rgba(255,255,255,.55)">مدت همراهی شما</span>
+                <span style="font-size:19px;font-weight:800">{{ cMonths }}</span>
+              </div>
+            </sc-if>
+            <div style="background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);border-radius:16px;padding:15px;display:flex;flex-direction:column;gap:6px">
+              <span style="font-size:11.5px;color:rgba(255,255,255,.55)">وضعیت پرونده</span>
+              <span style="font-size:19px;font-weight:800">{{ cPctLabel }}</span>
+            </div>
+          </div>
+          <p style="margin:0;font-size:13.5px;color:rgba(255,255,255,.6);line-height:2.2;text-wrap:pretty">اگر مشکل، مبلغ یا زمان پرداخت است، لازم نیست پرونده را رها کنید: می‌توانید مبلغ را کم کنید، موعد را جابه‌جا کنید یا چند ماه توقف موقت بگیرید. پرونده شما محفوظ می‌ماند و بعد از دوره توقف، اولویت بازگشت همان پرونده به شما داده می‌شود.</p>
+          <div style="display:flex;gap:11px;flex-wrap:wrap;padding-top:6px">
+            <span onClick="{{ wdCancel }}" style="flex:1 1 220px;height:54px;border-radius:15px;background:#F4511E;color:#fff;font-size:14.5px;font-weight:800;display:flex;align-items:center;justify-content:center;cursor:pointer">به حمایتم ادامه می‌دهم</span>
+            <span onClick="{{ wdGoForm }}" style="flex:1 1 200px;height:54px;border-radius:15px;border:1.5px solid rgba(255,255,255,.28);color:rgba(255,255,255,.75);font-size:13.5px;font-weight:700;display:flex;align-items:center;justify-content:center;cursor:pointer">با این حال انصراف می‌دهم</span>
+          </div>
+        </div>
+      </div>
+    </sc-if>
+
+    <sc-if value="{{ wdIsForm }}" hint-placeholder-val="{{ false }}">
+      <div style="max-width:680px;margin-inline:auto;padding:clamp(18px,4vw,40px) clamp(14px,3vw,26px)">
+        <div style="background:#fff;border:1px solid #EAECEF;border-radius:24px;padding:clamp(20px,4vw,32px);display:flex;flex-direction:column;gap:20px">
+          <div style="display:flex;flex-direction:column;gap:6px">
+            <span style="font-size:19px;font-weight:800;letter-spacing:-.4px">{{ wdTitle }}</span>
+            <span style="font-size:13px;color:#787F88;line-height:2.1;text-wrap:pretty">{{ wdNoteText }}</span>
+          </div>
+          <div style="display:flex;flex-direction:column;gap:9px">
+            <span style="font-size:12.5px;font-weight:800;color:#5A6169">انتخاب دلیل الزامی است</span>
+            <sc-for list="{{ wdReasons }}" as="r" hint-placeholder-count="6">
+              <button onClick="{{ r.onClick }}" style="{{ r.style }}">{{ r.label }}</button>
+            </sc-for>
+          </div>
+          <div style="display:flex;flex-direction:column;gap:8px">
+            <span style="font-size:12.5px;font-weight:800;color:#5A6169">توضیح بیشتر (اختیاری)</span>
+            <textarea rows="4" value="{{ wdNote }}" onChange="{{ wdOnNote }}" placeholder="اگر توضیحی دارید بنویسید؛ به ما در پیدا کردن خیر مناسب کمک می‌کند." style="border:1.5px solid #E3E6EA;border-radius:13px;padding:12px 14px;font-size:13px;font-family:inherit;line-height:2;resize:vertical;background:#fff"></textarea>
+          </div>
+          <div style="display:flex;gap:11px;flex-wrap:wrap">
+            <button onClick="{{ wdSubmit }}" style="{{ wdBtnStyle }}">{{ wdBtnLabel }}</button>
+            <span onClick="{{ wdCancel }}" style="height:50px;padding:0 18px;border:1.5px solid #E3E6EA;border-radius:14px;display:flex;align-items:center;font-size:13px;font-weight:700;color:#3A4048;cursor:pointer">بازگشت</span>
+          </div>
+        </div>
+      </div>
+    </sc-if>
+
+    <sc-if value="{{ wdIsDone }}" hint-placeholder-val="{{ false }}">
+      <div style="max-width:620px;margin-inline:auto;padding:clamp(18px,4vw,40px) clamp(14px,3vw,26px)">
+        <div style="background:#fff;border:1px solid #EAECEF;border-radius:24px;padding:clamp(22px,4vw,34px);display:flex;flex-direction:column;gap:16px;align-items:center;text-align:center">
+          <div style="width:62px;height:62px;border-radius:20px;background:#FEF3E7;color:#8A4B08;display:flex;align-items:center;justify-content:center;font-size:26px">⏳</div>
+          <span style="font-size:19px;font-weight:800;letter-spacing:-.4px">درخواست انصراف شما ثبت شد</span>
+          <p style="margin:0;font-size:13.5px;color:#5A6169;line-height:2.2;text-wrap:pretty">پرونده {{ cName }} در فهرست تعهدهای شما با رنگ متفاوت نشان داده می‌شود و تا تایید مدیر مجمع در پنل شما باقی می‌ماند. پس از تایید، پرونده از پنل شما خارج و برای خیر جدید آماده می‌شود. اگر نظرتان عوض شد، پیش از تایید مدیر می‌توانید از طریق پیام‌ها اطلاع دهید.</p>
+          <span style="font-size:12.5px;font-weight:700;color:#8A4B08;background:#FEF3E7;border:1px solid #F3D9BD;border-radius:12px;padding:11px 14px;line-height:1.9">دلیل ثبت‌شده: {{ wdDoneReason }}</span>
+          <span onClick="{{ wdBackToPanel }}" style="height:50px;padding:0 20px;border-radius:14px;background:#15181D;color:#fff;font-size:13.5px;font-weight:800;display:flex;align-items:center;cursor:pointer">بازگشت به پنل</span>
+        </div>
+      </div>
+    </sc-if>
+
+    <sc-if value="{{ cShowDossier }}" hint-placeholder-val="{{ true }}">
+      <div style="max-width:1100px;margin-inline:auto;padding:clamp(16px,3vw,26px) clamp(14px,3vw,26px) 46px;display:flex;flex-direction:column;gap:16px">
+
+        <sc-if value="{{ cIsClosed }}" hint-placeholder-val="{{ false }}">
+          <div style="display:flex;gap:12px;flex-wrap:wrap;align-items:center;background:#EAF7F1;border:1.5px solid #C9E9DA;border-radius:20px;padding:18px 20px">
+            <span style="flex:0 0 42px;width:42px;height:42px;border-radius:14px;background:#fff;color:#12805A;display:flex;align-items:center;justify-content:center;font-size:18px">✓</span>
+            <div style="display:flex;flex-direction:column;gap:4px;min-width:0">
+              <span style="font-size:15px;font-weight:800;color:#0F6B4C">این پرونده تکمیل و بسته شده است</span>
+              <span style="font-size:12.5px;color:#2C7A5C;line-height:1.9">{{ cClosedNote }}</span>
+            </div>
+          </div>
+        </sc-if>
+
+        <sc-if value="{{ cHasCountdown }}" hint-placeholder-val="{{ true }}">
+        <div style="{{ cCdBoxStyle }}">
+          <span style="font-size:12.5px;font-weight:800;opacity:.7">{{ cCdLabel }}</span>
+          <div style="display:flex;gap:10px;flex-wrap:wrap">
+            <sc-for list="{{ cCdCells }}" as="c" hint-placeholder-count="4">
+              <div style="flex:1 1 90px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.12);border-radius:16px;padding:14px 10px;display:flex;flex-direction:column;gap:4px;align-items:center">
+                <span style="font-size:clamp(24px,4vw,34px);font-weight:800;letter-spacing:-1px;line-height:1;font-variant-numeric:tabular-nums">{{ c.num }}</span>
+                <span style="font-size:11.5px;opacity:.6">{{ c.label }}</span>
+              </div>
+            </sc-for>
+          </div>
+          <div style="display:flex;gap:12px;flex-wrap:wrap;align-items:center;padding-top:4px">
+            <span style="font-size:13px;opacity:.75">{{ cPlan }} — موعد {{ cDate }}</span>
+            <span style="margin-inline-start:auto;font-size:clamp(18px,3vw,24px);font-weight:800">{{ cAmount }} تومان</span>
+          </div>
+        </div>
+        </sc-if>
+
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,320px),1fr));gap:16px;align-items:start">
+          <div style="display:flex;flex-direction:column;gap:16px;min-width:0">
+            <div style="background:#fff;border:1px solid #EAECEF;border-radius:20px;padding:20px;display:flex;flex-direction:column;gap:14px">
+              <span style="font-size:15.5px;font-weight:800">این خانواده کیست؟</span>
+              <div style="display:flex;gap:8px;flex-wrap:wrap">
+                <sc-for list="{{ cChips }}" as="ch" hint-placeholder-count="4">
+                  <span style="{{ ch.style }}">{{ ch.label }}</span>
+                </sc-for>
+              </div>
+              <p style="margin:0;font-size:13.5px;color:#3A4048;line-height:2.3;text-wrap:pretty">{{ cStory }}</p>
+              <div style="background:#FBFBFC;border:1px solid #EFF0F2;border-radius:14px;padding:14px;display:flex;flex-direction:column;gap:7px">
+                <span style="font-size:12.5px;font-weight:800;color:#5A6169">چرا این پرونده وارد سامانه شد؟</span>
+                <p style="margin:0;font-size:12.5px;color:#5A6169;line-height:2.2;text-wrap:pretty">{{ cWhy }}</p>
+              </div>
+              <div style="display:flex;flex-direction:column;gap:9px">
+                <span style="font-size:12.5px;font-weight:800;color:#5A6169">مدارک تأییدشده پرونده</span>
+                <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,220px),1fr));gap:8px">
+                  <sc-for list="{{ cDocs }}" as="d" hint-placeholder-count="4">
+                    <div style="{{ d.style }}">
+                      <span style="{{ d.iconStyle }}">{{ d.icon }}</span>
+                      {{ d.label }}
+                    </div>
+                  </sc-for>
+                </div>
+              </div>
+            </div>
+
+            <div style="background:#fff;border:1px solid #EAECEF;border-radius:20px;padding:20px;display:flex;flex-direction:column;gap:13px">
+              <span style="font-size:15.5px;font-weight:800">ویدئوی پرونده</span>
+              <sc-if value="{{ cHasVideo }}" hint-placeholder-val="{{ true }}">
+                <div style="border-radius:16px;overflow:hidden;background:#15181D;aspect-ratio:16/9;display:flex;align-items:center;justify-content:center;position:relative">
+                  <image-slot id="case-video-thumb" shape="rect" fit="cover" placeholder="فریم ویدئوی مددکار"></image-slot>
+                  <div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;pointer-events:none">
+                    <div style="width:64px;height:64px;border-radius:50%;background:rgba(255,255,255,.92);color:#15181D;display:flex;align-items:center;justify-content:center;font-size:22px">▶</div>
+                  </div>
+                </div>
+                <span style="font-size:12px;color:#9AA0A8;line-height:1.9">{{ cVideoNote }}</span>
+              </sc-if>
+              <sc-if value="{{ cNoVideo }}" hint-placeholder-val="{{ false }}">
+                <span style="font-size:12.5px;color:#9AA0A8;background:#FBFBFC;border:1.5px dashed #E3E6EA;border-radius:14px;padding:22px;text-align:center;line-height:1.9">{{ cVideoNote }}</span>
+              </sc-if>
+            </div>
+
+            <div style="background:#fff;border:1px solid #EAECEF;border-radius:20px;padding:20px;display:flex;flex-direction:column;gap:13px">
+              <span style="font-size:15.5px;font-weight:800">تصاویر پرونده</span>
+              <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,150px),1fr));gap:10px">
+                <sc-for list="{{ cPhotos }}" as="ph" hint-placeholder-count="3">
+                  <div style="display:flex;flex-direction:column;gap:7px">
+                    <div style="border-radius:14px;overflow:hidden;aspect-ratio:4/3;background:#F5F6F8">
+                      <image-slot id="{{ ph.slot }}" shape="rect" fit="cover" placeholder="تصویر پرونده"></image-slot>
+                    </div>
+                    <span style="font-size:11.5px;color:#9AA0A8">{{ ph.label }}</span>
+                  </div>
+                </sc-for>
+              </div>
+            </div>
+          </div>
+
+          <div style="display:flex;flex-direction:column;gap:16px;min-width:0">
+            <div style="background:#fff;border:1px solid #EAECEF;border-radius:20px;padding:20px;display:flex;flex-direction:column;gap:13px">
+              <span style="font-size:15.5px;font-weight:800">پیشرفت پرونده</span>
+              <div style="height:12px;border-radius:20px;background:#F1F2F4;overflow:hidden">
+                <div style="{{ cBarStyle }}"></div>
+              </div>
+              <span style="font-size:12.5px;font-weight:700;color:#5A6169">{{ cPctLabel }}</span>
+              <sc-if value="{{ cHasStats }}" hint-placeholder-val="{{ true }}">
+                <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,130px),1fr));gap:10px">
+                  <sc-if value="{{ cHasGiven }}" hint-placeholder-val="{{ true }}">
+                    <div style="background:#FBFBFC;border:1px solid #EFF0F2;border-radius:14px;padding:13px;display:flex;flex-direction:column;gap:5px">
+                      <span style="font-size:11.5px;color:#9AA0A8">مجموع کمک شما</span>
+                      <span style="font-size:16px;font-weight:800">{{ cTotalGiven }}</span>
+                    </div>
+                  </sc-if>
+                  <sc-if value="{{ cHasMonths }}" hint-placeholder-val="{{ true }}">
+                    <div style="background:#FBFBFC;border:1px solid #EFF0F2;border-radius:14px;padding:13px;display:flex;flex-direction:column;gap:5px">
+                      <span style="font-size:11.5px;color:#9AA0A8">مدت همراهی</span>
+                      <span style="font-size:16px;font-weight:800">{{ cMonths }}</span>
+                    </div>
+                  </sc-if>
+                </div>
+              </sc-if>
+            </div>
+
+            <div style="background:#fff;border:1px solid #EAECEF;border-radius:20px;overflow:hidden">
+              <div style="padding:17px 20px;border-bottom:1px solid #F0F1F3">
+                <span style="font-size:15.5px;font-weight:800">پرداخت‌های شما به این پرونده</span>
+              </div>
+              <sc-if value="{{ cHasPayments }}" hint-placeholder-val="{{ false }}">
+                <span style="display:none"></span>
+              </sc-if>
+              <sc-for list="{{ cPayments }}" as="pm" hint-placeholder-count="4">
+                <div style="padding:14px 20px;border-bottom:1px solid #F4F5F7;display:flex;gap:11px;flex-wrap:wrap;align-items:center">
+                  <div style="display:flex;flex-direction:column;gap:4px;min-width:0;flex:1 1 130px">
+                    <span style="font-size:13px;font-weight:700">{{ pm.when }}</span>
+                    <span style="font-size:11.5px;color:#9AA0A8">{{ pm.receipt }}</span>
+                  </div>
+                  <span style="font-size:13.5px;font-weight:800;white-space:nowrap">{{ pm.amount }}</span>
+                  <span style="font-size:11px;font-weight:800;background:#EAF7F1;color:#12805A;padding:5px 10px;border-radius:20px;white-space:nowrap">{{ pm.state }}</span>
+                </div>
+              </sc-for>
+              <sc-if value="{{ cNoPayments }}" hint-placeholder-val="{{ false }}">
+                <span style="display:block;padding:20px;font-size:12.5px;color:#9AA0A8;text-align:center;line-height:1.9">پرداختی برای این پرونده ثبت نشده است.</span>
+              </sc-if>
+            </div>
+
+            <sc-if value="{{ cHasReports }}" hint-placeholder-val="{{ true }}">
+            <div style="background:#fff;border:1px solid #EAECEF;border-radius:20px;overflow:hidden">
+              <div style="padding:17px 20px;border-bottom:1px solid #F0F1F3">
+                <span style="font-size:15.5px;font-weight:800">گزارش‌های پرونده</span>
+              </div>
+              <sc-for list="{{ cReports }}" as="rp" hint-placeholder-count="3">
+                <div style="padding:15px 20px;border-bottom:1px solid #F4F5F7;display:flex;flex-direction:column;gap:7px">
+                  <div style="display:flex;gap:9px;flex-wrap:wrap;align-items:center">
+                    <span style="font-size:12.5px;font-weight:800">{{ rp.when }}</span>
+                    <span style="font-size:11.5px;color:#9AA0A8">{{ rp.by }}</span>
+                  </div>
+                  <p style="margin:0;font-size:12.5px;color:#5A6169;line-height:2.2;text-wrap:pretty">{{ rp.text }}</p>
+                </div>
+              </sc-for>
+            </div>
+            </sc-if>
+          </div>
+        </div>
+
+        <sc-if value="{{ cCanWithdraw }}" hint-placeholder-val="{{ true }}">
+          <div style="display:flex;justify-content:center;padding-top:6px">
+            <span onClick="{{ cOpenWithdraw }}" style="height:38px;padding:0 14px;border:1px solid #EDEEF1;border-radius:11px;display:flex;align-items:center;font-size:11.5px;font-weight:700;color:#9AA0A8;cursor:pointer">دیگر قصد حمایت ندارم</span>
+          </div>
+        </sc-if>
+      </div>
+    </sc-if>
+  </div>
+</sc-if>
+
+<div dir="rtl" style="min-height:100vh;display:flex;flex-direction:column">
+
+  <header style="background:#fff;border-bottom:1px solid #EAECEF;position:sticky;top:0;z-index:10">
+    <div style="max-width:1180px;margin-inline:auto;padding:12px 24px;min-height:76px;display:flex;align-items:center;flex-wrap:wrap;gap:16px">
+      <a href="سایت دست یاری.dc.html" style="display:flex;align-items:center;gap:11px;color:#191C21;text-decoration:none">
+        <img src="assets/logo.png" alt="دست یاری" style="width:44px;height:44px;object-fit:contain;mix-blend-mode:multiply" />
+        <div style="display:flex;flex-direction:column;gap:2px">
+          <div style="font-size:16px;font-weight:800;letter-spacing:-.3px">دست یاری</div>
+          <div style="font-size:11.5px;color:#9AA0A8">پنل خیرین</div>
+        </div>
+      </a>
+      <div id="om-dmenu" onClick="{{ toggleMenu }}" style="width:40px;height:40px;border-radius:12px;border:1px solid #EDEEF1;align-items:center;justify-content:center;color:#23262B;font-size:17px;cursor:pointer" style-hover="background:#F5F6F8">☰</div>
+      <nav style="display:flex;gap:4px;margin-inline-start:22px;flex-wrap:wrap">
+        <sc-for list="{{ navItems }}" as="n" hint-placeholder-count="4">
+          <div onClick="{{ n.onClick }}" style="{{ n.style }}">{{ n.label }}</div>
+        </sc-for>
+      </nav>
+      <div style="margin-inline-start:auto;display:flex;align-items:center;gap:12px">
+        <sc-if value="{{ anyOverlayOpen }}" hint-placeholder-val="{{ false }}">
+          <div onClick="{{ closeOverlays }}" style="position:fixed;inset:0;z-index:30"></div>
+        </sc-if>
+        <div style="position:relative;z-index:41">
+          <div onClick="{{ toggleNotif }}" style="position:relative;width:40px;height:40px;border-radius:12px;border:1px solid #EDEEF1;display:flex;align-items:center;justify-content:center;color:#5A6169;cursor:pointer" style-hover="background:#F5F6F8">
+            🔔
+            <span style="position:absolute;top:-6px;left:-6px;min-width:19px;height:19px;padding:0 5px;border-radius:20px;background:#E5484D;border:2px solid #fff;color:#fff;font-size:10.5px;font-weight:800;display:flex;align-items:center;justify-content:center">{{ notifCount }}</span>
+          </div>
+          <sc-if value="{{ notifOpen }}" hint-placeholder-val="{{ false }}">
+            <div style="position:absolute;top:52px;left:0;z-index:40;width:min(400px,88vw);background:#fff;border:1px solid #E3E6EA;border-radius:18px;box-shadow:0 26px 55px -24px rgba(20,22,26,.4);overflow:hidden">
+              <div style="padding:15px 16px;border-bottom:1px solid #F0F1F3;display:flex;align-items:center;gap:10px">
+                <span style="font-size:14.5px;font-weight:800">اعلان‌ها</span>
+                <span style="font-size:11.5px;background:#FDECEC;color:#C43034;padding:3px 9px;border-radius:20px;font-weight:700">{{ notifCount }} خوانده‌نشده</span>
+                <span onClick="{{ closeNotif }}" style="margin-inline-start:auto;font-size:12px;color:#F4511E;font-weight:700;cursor:pointer">خواندن همه</span>
+              </div>
+              <div style="max-height:400px;overflow-y:auto">
+                <sc-for list="{{ notifs }}" as="n" hint-placeholder-count="5">
+                  <div onClick="{{ n.onClick }}" style="{{ n.rowStyle }}">
+                    <div style="{{ n.iconStyle }}">{{ n.icon }}</div>
+                    <div style="display:flex;flex-direction:column;gap:4px;min-width:0">
+                      <span style="font-size:13px;font-weight:700;line-height:1.6">{{ n.title }}</span>
+                      <span style="font-size:11.5px;color:#787F88;line-height:1.8">{{ n.text }}</span>
+                      <span style="font-size:11px;color:#B6BBC2">{{ n.when }}</span>
+                    </div>
+                    <span style="{{ n.dotStyle }}"></span>
+                  </div>
+                </sc-for>
+              </div>
+              <div style="padding:13px 16px;text-align:center;font-size:12.5px;color:#F4511E;font-weight:700;cursor:pointer">همه اعلان‌ها ←</div>
+            </div>
+          </sc-if>
+        </div>
+        <div style="position:relative;z-index:41;padding-inline-start:12px;border-inline-start:1px solid #EDEEF1">
+          <div onClick="{{ toggleUserMenu }}" style="display:flex;align-items:center;gap:10px;padding:5px 8px;border-radius:12px;cursor:pointer;transition:background .12s" style-hover="background:#F5F6F8">
+            <div style="width:38px;height:38px;border-radius:50%;background:#FEF1EC;color:#D8420F;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:800">ب ا</div>
+            <div style="display:flex;flex-direction:column;gap:2px">
+              <div style="font-size:13.5px;font-weight:700">بهنام اسدی</div>
+              <div style="font-size:11.5px;color:#9AA0A8">خیر سطح طلایی</div>
+            </div>
+            <span style="font-size:10px;color:#9AA0A8;margin-inline-start:4px">▼</span>
+          </div>
+          <sc-if value="{{ userMenuOpen }}" hint-placeholder-val="{{ false }}">
+            <div style="position:absolute;top:56px;left:0;z-index:40;width:280px;background:#fff;border:1px solid #E3E6EA;border-radius:18px;box-shadow:0 26px 55px -24px rgba(20,22,26,.4);overflow:hidden;padding:6px 0">
+              <div style="padding:14px 16px;border-bottom:1px solid #F0F1F3;display:flex;flex-direction:column;gap:3px">
+                <span style="font-size:13.5px;font-weight:800">بهنام اسدی</span>
+                <span style="font-size:11.5px;color:#9AA0A8">۰۹۱۲۳۳۴۵۵۶۷ — عضو از ۱۴۰۳</span>
+              </div>
+              <div onClick="{{ goProfileTab }}" style="display:flex;align-items:center;gap:11px;padding:11px 14px;cursor:pointer" style-hover="background:#F5F6F8">
+                <div style="flex:0 0 34px;width:34px;height:34px;border-radius:11px;background:#FEF1EC;color:#D8420F;display:flex;align-items:center;justify-content:center;font-size:14px">☷</div>
+                <div style="display:flex;flex-direction:column;gap:2px">
+                  <span style="font-size:13px;font-weight:700">ویرایش اطلاعات من</span>
+                  <span style="font-size:11px;color:#9AA0A8">نام، عکس و شماره تماس</span>
+                </div>
+              </div>
+              <sc-for list="{{ userMenuItems }}" as="i" hint-placeholder-count="3">
+                <div onClick="{{ i.onClick }}" style="{{ i.rowStyle }}" style-hover="background:#F5F6F8">
+                  <div style="{{ i.iconStyle }}">{{ i.icon }}</div>
+                  <div style="display:flex;flex-direction:column;gap:2px;min-width:0">
+                    <span style="font-size:13px;font-weight:700">{{ i.label }}</span>
+                    <span style="font-size:11px;color:#9AA0A8">{{ i.note }}</span>
+                  </div>
+                </div>
+              </sc-for>
+              <div style="display:flex;align-items:center;gap:11px;padding:11px 14px;margin-top:6px;border-top:1px solid #F0F1F3;color:#C43034;cursor:pointer" style-hover="background:#FDECEC">
+                <div style="flex:0 0 34px;width:34px;height:34px;border-radius:11px;background:#FDECEC;color:#C43034;display:flex;align-items:center;justify-content:center;font-size:14px">⏻</div>
+                <span style="font-size:13px;font-weight:700">خروج از حساب</span>
+              </div>
+            </div>
+          </sc-if>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <sc-if value="{{ menuOpen }}" hint-placeholder-val="{{ false }}">
+    <div onClick="{{ closeMenu }}" style="position:fixed;inset:0;z-index:60;background:rgba(15,17,20,.5)"></div>
+    <div style="position:fixed;top:0;right:0;bottom:0;z-index:61;width:min(300px,86vw);background:#fff;box-shadow:0 0 60px -18px rgba(0,0,0,.45);display:flex;flex-direction:column;padding:16px 14px;gap:14px;overflow-y:auto">
+      <div style="display:flex;align-items:center;gap:10px">
+        <img src="assets/logo.png" alt="دست یاری" style="width:42px;height:42px;object-fit:contain;mix-blend-mode:multiply" />
+        <div style="display:flex;flex-direction:column;gap:2px">
+          <span style="font-size:15px;font-weight:800">دست یاری</span>
+          <span style="font-size:11.5px;color:#9AA0A8">پنل خیرین</span>
+        </div>
+        <div onClick="{{ closeMenu }}" style="margin-inline-start:auto;width:36px;height:36px;border-radius:11px;border:1px solid #EDEEF1;display:flex;align-items:center;justify-content:center;color:#5A6169;cursor:pointer">✕</div>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:4px">
+        <sc-for list="{{ menuItems }}" as="m" hint-placeholder-count="6">
+          <div onClick="{{ m.onClick }}" style="{{ m.style }}">{{ m.label }}</div>
+        </sc-for>
+      </div>
+      <div style="margin-top:auto;display:flex;flex-direction:column;gap:4px;border-top:1px solid #F0F1F3;padding-top:12px">
+        <a href="سایت دست یاری.dc.html" style="display:flex;align-items:center;gap:9px;padding:12px 13px;border-radius:12px;font-size:13.5px;font-weight:700;color:#23262B"><span style="color:#F4511E">⌂</span>صفحه اصلی سایت</a>
+      </div>
+    </div>
+  </sc-if>
+
+  <div style="flex:1;max-width:1180px;width:100%;margin-inline:auto;padding:24px 24px 48px;display:flex;flex-direction:column;gap:20px">
+
+    <sc-if value="{{ accountClosed }}" hint-placeholder-val="{{ false }}">
+      <div style="background:#2A1416;border:2px solid #C43034;border-radius:22px;padding:clamp(22px,4vw,34px);display:flex;gap:20px;flex-wrap:wrap;align-items:center">
+        <div style="flex:0 0 58px;width:58px;height:58px;border-radius:18px;background:#C43034;color:#fff;display:flex;align-items:center;justify-content:center;font-size:26px;font-weight:800">!</div>
+        <div style="display:flex;flex-direction:column;gap:9px;min-width:0;flex:1 1 260px">
+          <span style="font-size:clamp(20px,3vw,28px);font-weight:800;color:#fff;letter-spacing:-.6px">حساب شما بسته است</span>
+          <span style="font-size:13.5px;color:rgba(255,255,255,.7);line-height:2.1">هیچ پیامی برایتان ارسال نمی‌شود و تعهد جدیدی ثبت نمی‌گردد. اطلاعات و سابقه کمک‌های شما محفوظ است — هر زمان بخواهید با یک کلیک برمی‌گردید.</span>
+        </div>
+        <button onClick="{{ reactivate }}" style="height:54px;padding:0 24px;border:0;border-radius:15px;background:#F4511E;color:#fff;font-size:15px;font-weight:800;cursor:pointer;font-family:inherit;white-space:nowrap">فعال‌سازی دوباره حساب</button>
+      </div>
+    </sc-if>
+
+    <sc-if value="{{ isMuted }}" hint-placeholder-val="{{ false }}">
+      <div style="background:#F4F8FE;border:1px solid #CFE0F5;border-radius:16px;padding:15px 18px;display:flex;gap:12px;flex-wrap:wrap;align-items:center">
+        <span style="font-size:16px;color:#2660B8">⏸</span>
+        <span style="font-size:13px;color:#2F5580;line-height:2;min-width:0;flex:1 1 200px">پیام‌ها و اعلان‌های شما خاموش است — یادآوری موعد پرداخت ارسال نمی‌شود.</span>
+        <button onClick="{{ unmute }}" style="height:40px;padding:0 15px;border:1.5px solid #CFE0F5;border-radius:12px;background:#fff;color:#2660B8;font-size:12.5px;font-weight:800;cursor:pointer;font-family:inherit">روشن کردن پیام‌ها</button>
+      </div>
+    </sc-if>
+
+    <sc-if value="{{ isPaused }}" hint-placeholder-val="{{ false }}">
+      <div style="background:#FFF6F2;border:1px solid #F7CDBB;border-radius:16px;padding:15px 18px;display:flex;gap:12px;flex-wrap:wrap;align-items:center">
+        <span style="font-size:16px;color:#D8420F">⌛</span>
+        <span style="font-size:13px;color:#8A3A1C;line-height:2;min-width:0;flex:1 1 200px">{{ pausedLabel }} — پرونده‌هایتان موقتاً به خیر دیگری سپرده شده است.</span>
+        <button onClick="{{ resume }}" style="height:40px;padding:0 15px;border:0;border-radius:12px;background:#F4511E;color:#fff;font-size:12.5px;font-weight:800;cursor:pointer;font-family:inherit">ازسرگیری حمایت</button>
+      </div>
+    </sc-if>
+
+    <sc-if value="{{ isDash }}" hint-placeholder-val="{{ true }}">
+    <sc-if value="{{ intAsk }}" hint-placeholder-val="{{ true }}">
+      <div style="background:#fff;border:1.5px solid #F0D5C8;border-radius:22px;padding:22px;display:flex;flex-direction:column;gap:16px">
+        <div style="display:flex;align-items:center;gap:12px;flex-wrap:wrap">
+          <span style="flex:0 0 38px;width:38px;height:38px;border-radius:12px;background:#FEF1EC;color:#D8420F;display:flex;align-items:center;justify-content:center;font-size:17px">♡</span>
+          <div style="display:flex;flex-direction:column;gap:4px;min-width:0">
+            <span style="font-size:17px;font-weight:800;letter-spacing:-.3px;text-wrap:pretty">بیشتر دوست دارید در کدام پرونده‌ها مشارکت داشته باشید؟</span>
+            <span style="font-size:12.5px;color:#8A9099;line-height:1.9">یکی یا چند دسته را انتخاب کنید؛ پرونده‌های تازه همین دسته‌ها زودتر به شما اطلاع داده می‌شود.</span>
+          </div>
+          <span style="margin-inline-start:auto;font-size:11.5px;font-weight:700;background:#F5F6F8;color:#5A6169;padding:6px 12px;border-radius:20px;white-space:nowrap">{{ intCount }}</span>
+        </div>
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,230px),1fr));gap:10px">
+          <sc-for list="{{ intChips }}" as="g" hint-placeholder-count="7">
+            <div onClick="{{ g.onClick }}" style="{{ g.style }}">
+              <span style="{{ g.iconStyle }}">{{ g.icon }}</span>
+              <div style="display:flex;flex-direction:column;gap:4px;min-width:0">
+                <span style="{{ g.titleStyle }}">{{ g.label }}</span>
+                <span style="font-size:11.5px;color:#9AA0A8;line-height:1.85;text-wrap:pretty">{{ g.desc }}</span>
+              </div>
+            </div>
+          </sc-for>
+        </div>
+        <div style="display:flex;gap:10px;flex-wrap:wrap;align-items:center">
+          <button onClick="{{ intOnSave }}" style="{{ intSaveStyle }}">{{ intSaveLabel }}</button>
+          <span style="font-size:11.5px;color:#9AA0A8;line-height:1.9">هر زمان می‌توانید این انتخاب را تغییر دهید.</span>
+        </div>
+      </div>
+    </sc-if>
+
+    <sc-if value="{{ intAnswered }}" hint-placeholder-val="{{ false }}">
+      <div style="background:#F7FBF9;border:1.5px solid #BFE3D0;border-radius:20px;padding:18px 20px;display:flex;gap:14px;flex-wrap:wrap;align-items:center">
+        <div style="display:flex;flex-direction:column;gap:6px;min-width:0;flex:1 1 260px">
+          <span style="font-size:13.5px;font-weight:800;color:#0F6B4C">پرونده‌های مورد علاقه شما</span>
+          <div style="display:flex;gap:7px;flex-wrap:wrap">
+            <sc-for list="{{ intPickedChips }}" as="p" hint-placeholder-count="2">
+              <span style="display:flex;align-items:center;gap:6px;font-size:12px;font-weight:700;background:#fff;border:1px solid #C9E9DA;color:#0F6B4C;padding:7px 11px;border-radius:20px;white-space:nowrap">{{ p.icon }} {{ p.label }}</span>
+            </sc-for>
+          </div>
+        </div>
+        <button onClick="{{ intOnEdit }}" style="margin-inline-start:auto;height:42px;padding:0 15px;border:1px solid #C9E9DA;border-radius:12px;background:#fff;color:#0F6B4C;font-size:12.5px;font-weight:800;cursor:pointer;font-family:inherit;white-space:nowrap" style-hover="background:#EAF7F1">تغییر انتخاب</button>
+      </div>
+    </sc-if>
+
+    <sc-if value="{{ hasOverdue }}" hint-placeholder-val="{{ true }}">
+      <div style="background:#fff;border:2px solid #E5484D;border-radius:22px;overflow:hidden;box-shadow:0 18px 40px -26px rgba(229,72,77,.65)">
+        <div style="background:#E5484D;color:#fff;padding:16px 22px;display:flex;align-items:center;gap:14px;flex-wrap:wrap">
+          <span style="font-size:19px">⚑</span>
+          <div style="display:flex;flex-direction:column;gap:3px;min-width:0">
+            <span style="font-size:16.5px;font-weight:800;letter-spacing:-.3px">پرداخت‌هایی که از موعد گذشته‌اند</span>
+            <span style="font-size:12.5px;color:rgba(255,255,255,.85)">{{ overdueCount }} تعهد شما پرداخت نشده — مجموع {{ overdueSum }} تومان</span>
+          </div>
+          <button style="margin-inline-start:auto;height:42px;padding:0 18px;border:0;border-radius:12px;background:#fff;color:#C43034;font-size:13.5px;font-weight:800;white-space:nowrap;cursor:pointer">پرداخت همه معوقات</button>
+        </div>
+        <sc-for list="{{ overdueItems }}" as="o" hint-placeholder-count="2">
+          <div style="padding:20px 22px;border-bottom:1px solid #F4F5F7;display:flex;gap:18px;flex-wrap:wrap;align-items:center">
+            <div style="display:flex;flex-direction:column;gap:8px;min-width:0;flex:1 1 320px">
+              <div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap">
+                <span style="font-size:18px;font-weight:800;color:#C43034;letter-spacing:-.3px">{{ o.headline }}</span>
+                <span style="font-size:11.5px;font-weight:700;background:#FDECEC;color:#C43034;padding:4px 10px;border-radius:20px">{{ o.late }}</span>
+              </div>
+              <div style="font-size:14px;color:#3A4048;line-height:2.1;text-wrap:pretty">{{ o.line }}</div>
+              <div style="font-size:11.5px;color:#9AA0A8">{{ o.need }} — {{ o.date }}</div>
+            </div>
+            <div style="display:flex;flex-direction:column;gap:4px;flex:0 0 130px">
+              <span style="font-size:20px;font-weight:800">{{ o.amount }}</span>
+              <span style="font-size:11px;color:#9AA0A8">تومان</span>
+            </div>
+            <div style="margin-inline-start:auto;display:flex;gap:9px;flex-wrap:wrap">
+              <button style="height:44px;padding:0 20px;border:0;border-radius:12px;background:#F4511E;color:#fff;font-size:14px;font-weight:800;white-space:nowrap;cursor:pointer" style-hover="background:#DE4514">پرداخت فوری</button>
+            </div>
+          </div>
+        </sc-for>
+      </div>
+    </sc-if>
+
+    <div style="background:#1B1E23;border-radius:22px;padding:26px;color:#fff;display:flex;gap:24px;flex-wrap:wrap;align-items:center;position:relative;overflow:hidden">
+      <div style="position:absolute;inset:auto -100px -140px auto;width:400px;height:400px;border-radius:50%;background:radial-gradient(circle at 30% 30%,rgba(244,81,30,.5),rgba(244,81,30,0) 65%)"></div>
+      <div style="position:relative;display:flex;flex-direction:column;gap:12px;min-width:0;flex:1 1 320px">
+        <span style="font-size:12.5px;color:rgba(255,255,255,.6);font-weight:700">نزدیک‌ترین تعهد شما</span>
+        <div style="font-size:24px;font-weight:800;line-height:1.6;letter-spacing:-.4px;text-wrap:pretty">{{ hero.headline }}</div>
+        <div style="font-size:13px;color:rgba(255,255,255,.65);line-height:2">{{ hero.sub }}</div>
+        <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:6px">
+          <button style="height:46px;padding:0 20px;border:0;border-radius:13px;background:#F4511E;color:#fff;font-size:14px;font-weight:700;white-space:nowrap;cursor:pointer" style-hover="background:#DE4514">پرداخت {{ hero.amount }} تومان</button>
+          <button style="height:46px;padding:0 16px;border:1px solid rgba(255,255,255,.2);border-radius:13px;background:transparent;color:#fff;font-size:13.5px;font-weight:700;white-space:nowrap;cursor:pointer">جابه‌جایی موعد</button>
+        </div>
+      </div>
+      <div style="position:relative;display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:14px;flex:1 1 300px">
+        <div style="background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);border-radius:16px;padding:16px;display:flex;flex-direction:column;gap:6px">
+          <span style="font-size:11.5px;color:rgba(255,255,255,.55)">مجموع کمک شما</span>
+          <span style="font-size:20px;font-weight:800">{{ stats.total }}</span>
+        </div>
+        <div style="background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);border-radius:16px;padding:16px;display:flex;flex-direction:column;gap:6px">
+          <span style="font-size:11.5px;color:rgba(255,255,255,.55)">تعهد این ماه</span>
+          <span style="font-size:20px;font-weight:800;color:#FFA51F">{{ stats.month }}</span>
+        </div>
+        <div style="background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);border-radius:16px;padding:16px;display:flex;flex-direction:column;gap:6px">
+          <span style="font-size:11.5px;color:rgba(255,255,255,.55)">افراد تحت حمایت</span>
+          <span style="font-size:20px;font-weight:800">{{ stats.people }}</span>
+        </div>
+        <div style="background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);border-radius:16px;padding:16px;display:flex;flex-direction:column;gap:6px">
+          <span style="font-size:11.5px;color:rgba(255,255,255,.55)">پرداخت به‌موقع</span>
+          <span style="font-size:20px;font-weight:800;color:#4ED08A">{{ stats.onTime }}</span>
+        </div>
+      </div>
+    </div>
+
+    <sc-if value="{{ hasTicket }}" hint-placeholder-val="{{ true }}">
+      <div style="background:#fff;border:1px solid #F7E2CE;border-radius:18px;padding:18px 20px;display:flex;gap:16px;flex-wrap:wrap;align-items:center">
+        <div style="flex:0 0 42px;width:42px;height:42px;border-radius:13px;background:#FFF4E5;color:#B26A00;display:flex;align-items:center;justify-content:center;font-size:17px">✉</div>
+        <div style="display:flex;flex-direction:column;gap:5px;min-width:0;flex:1 1 260px">
+          <div style="display:flex;gap:9px;align-items:center;flex-wrap:wrap">
+            <span style="font-size:14px;font-weight:800">{{ ticket.subject }}</span>
+            <span style="font-size:11.5px;font-weight:700;background:#FFF4E5;color:#B26A00;padding:4px 10px;border-radius:20px">{{ ticket.state }}</span>
+            <span style="font-size:11.5px;color:#9AA0A8">{{ ticket.id }} — {{ ticket.when }}</span>
+          </div>
+          <div style="font-size:12.5px;color:#787F88;line-height:1.9;text-wrap:pretty">{{ ticket.preview }}</div>
+        </div>
+        <div style="margin-inline-start:auto;display:flex;gap:9px;flex-wrap:wrap">
+          <button style="height:40px;padding:0 15px;border:0;border-radius:11px;background:#23262B;color:#fff;font-size:12.5px;font-weight:700;white-space:nowrap;cursor:pointer" style-hover="background:#000">مشاهده و پاسخ</button>
+          <button style="height:40px;padding:0 15px;border:1px solid #EDEEF1;border-radius:11px;background:#fff;color:#5A6169;font-size:12.5px;font-weight:700;white-space:nowrap;cursor:pointer" style-hover="background:#F5F6F8">تیکت جدید</button>
+        </div>
+      </div>
+    </sc-if>
+
+    <div style="background:#fff;border:1px solid #EAECEF;border-radius:18px;overflow:hidden">
+      <div style="padding:18px 20px;border-bottom:1px solid #F0F1F3;display:flex;align-items:center;gap:12px;flex-wrap:wrap">
+        <div style="display:flex;flex-direction:column;gap:3px">
+          <div style="font-size:15.5px;font-weight:800">پیغام‌های مدیریت</div>
+          <div style="font-size:12px;color:#9AA0A8">پیام‌های تیم دست یاری برای شما</div>
+        </div>
+        <span style="margin-inline-start:auto;font-size:12px;color:#F4511E;font-weight:700;cursor:pointer">همه پیام‌ها</span>
+      </div>
+      <sc-for list="{{ adminMsgs }}" as="m" hint-placeholder-count="3">
+        <div style="{{ m.rowStyle }}">
+          <div style="{{ m.avatarStyle }}">{{ m.avatar }}</div>
+          <div style="display:flex;flex-direction:column;gap:7px;min-width:0;flex:1 1 280px">
+            <div style="display:flex;gap:9px;align-items:center;flex-wrap:wrap">
+              <span style="font-size:14px;font-weight:800">{{ m.title }}</span>
+              <sc-if value="{{ m.pinned }}" hint-placeholder-val="{{ false }}">
+                <span style="font-size:11px;font-weight:700;background:#FEF1EC;color:#D8420F;padding:3px 9px;border-radius:20px">سنجاق‌شده</span>
+              </sc-if>
+            </div>
+            <div style="font-size:13px;color:#3A4048;line-height:2.1;text-wrap:pretty">{{ m.text }}</div>
+            <div style="font-size:11.5px;color:#9AA0A8">{{ m.from }} — {{ m.when }}</div>
+          </div>
+          <div style="margin-inline-start:auto;display:flex;gap:9px;flex-wrap:wrap">
+            <button style="height:38px;padding:0 14px;border:1px solid #EDEEF1;border-radius:11px;background:#fff;color:#23262B;font-size:12.5px;font-weight:700;white-space:nowrap;cursor:pointer" style-hover="background:#F5F6F8">{{ m.cta }}</button>
+            <button style="height:38px;padding:0 13px;border:1px solid #EDEEF1;border-radius:11px;background:#fff;color:#5A6169;font-size:12.5px;font-weight:700;white-space:nowrap;cursor:pointer" style-hover="background:#F5F6F8">پاسخ</button>
+          </div>
+        </div>
+      </sc-for>
+    </div>
+
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,520px),1fr));gap:20px;align-items:start">
+
+      <div style="background:#fff;border:1px solid #EAECEF;border-radius:18px;overflow:hidden">
+        <div style="padding:18px 20px;border-bottom:1px solid #F0F1F3;display:flex;align-items:center;gap:12px;flex-wrap:wrap">
+          <div style="display:flex;flex-direction:column;gap:3px">
+            <div style="font-size:15.5px;font-weight:800">به کی و کِی باید کمک کنم</div>
+            <div style="font-size:12px;color:#9AA0A8">تعهدهای شما به ترتیب نزدیک‌ترین موعد</div>
+          </div>
+          <span style="margin-inline-start:auto;font-size:11.5px;background:#FDECEC;color:#C43034;padding:4px 10px;border-radius:20px;font-weight:700">{{ dueSoonCount }} مورد تا ۷ روز آینده</span>
+        </div>
+        <sc-for list="{{ pledges }}" as="p" hint-placeholder-count="5">
+          <div style="{{ p.rowStyle }}">
+            <div style="{{ p.whenBox }}">
+              <span style="font-size:15px;font-weight:800">{{ p.whenBig }}</span>
+              <span style="font-size:10.5px;opacity:.8">{{ p.whenSmall }}</span>
+            </div>
+            <div style="display:flex;flex-direction:column;gap:5px;min-width:0;flex:1 1 190px">
+              <span style="font-size:14px;font-weight:700">{{ p.text }}</span>
+              <span style="font-size:11.5px;color:#9AA0A8">{{ p.date }} — {{ p.plan }}</span>
+            </div>
+            <div style="display:flex;flex-direction:column;gap:4px;flex:0 0 120px">
+              <span style="font-size:14px;font-weight:800">{{ p.amount }}</span>
+              <span style="font-size:11px;color:#9AA0A8">تومان</span>
+            </div>
+            <div style="margin-inline-start:auto;display:flex;gap:8px;flex-wrap:wrap">
+              <button style="{{ p.payStyle }}">{{ p.payLabel }}</button>
+              <button style="height:36px;padding:0 12px;border:1px solid #EDEEF1;border-radius:10px;background:#fff;color:#5A6169;font-size:12.5px;font-weight:700;white-space:nowrap;cursor:pointer" style-hover="background:#F5F6F8">جزئیات</button>
+            </div>
+          </div>
+        </sc-for>
+        <div style="padding:15px 20px;display:flex;align-items:center;gap:12px;flex-wrap:wrap;font-size:12.5px;color:#9AA0A8">
+          <span>جمع تعهد باقی‌مانده تا پایان ماه: <b style="color:#23262B">{{ monthLeft }} تومان</b></span>
+          <span style="margin-inline-start:auto;color:#F4511E;font-weight:700;cursor:pointer">پرداخت یکجای همه ←</span>
+        </div>
+      </div>
+
+      <div style="display:flex;flex-direction:column;gap:20px">
+        <div style="background:#fff;border:1px solid #EAECEF;border-radius:18px;overflow:hidden">
+          <div style="padding:18px 20px;border-bottom:1px solid #F0F1F3;display:flex;align-items:center;gap:12px;flex-wrap:wrap">
+            <div style="font-size:15.5px;font-weight:800">افرادی که حمایت می‌کنید</div>
+            <span style="margin-inline-start:auto;font-size:12px;color:#F4511E;font-weight:700;cursor:pointer">همه</span>
+          </div>
+          <sc-for list="{{ supported }}" as="s" hint-placeholder-count="4">
+            <div style="display:flex;align-items:center;flex-wrap:wrap;gap:13px;padding:14px 20px;border-bottom:1px solid #F4F5F7" style-hover="background:#FCFCFD">
+              <div style="flex:0 0 40px;width:40px;height:40px;border-radius:13px;background:#F5F6F8;color:#5A6169;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:800">{{ s.initials }}</div>
+              <div style="display:flex;flex-direction:column;gap:4px;min-width:0;flex:1 1 140px">
+                <span style="font-size:13.5px;font-weight:700">{{ s.name }}</span>
+                <span style="font-size:11.5px;color:#9AA0A8">{{ s.type }} — {{ s.months }}</span>
+              </div>
+              <div style="display:flex;flex-direction:column;gap:5px;flex:0 0 120px">
+                <div style="height:5px;background:#F2F3F5;border-radius:5px;overflow:hidden"><span style="{{ s.barStyle }}"></span></div>
+                <span style="font-size:11px;color:#9AA0A8">{{ s.pct }} تامین شده</span>
+              </div>
+              <div style="display:flex;flex-direction:column;gap:4px;flex:0 0 100px;align-items:flex-end">
+                <span style="font-size:13px;font-weight:800">{{ s.given }}</span>
+                <span style="font-size:11px;color:#9AA0A8">کمک شما</span>
+              </div>
+            </div>
+          </sc-for>
+        </div>
+
+        <div onClick="{{ goFund }}" style="position:relative;overflow:hidden;background:#15181D;border:1px solid rgba(255,255,255,.08);border-radius:20px;padding:22px;display:flex;gap:18px;flex-wrap:wrap;align-items:center;cursor:pointer;box-shadow:0 20px 44px -30px rgba(20,22,26,.8)">
+          <span style="position:absolute;inset-inline-start:-40px;top:-60px;width:200px;height:200px;border-radius:50%;background:radial-gradient(circle,rgba(244,81,30,.28),transparent 70%);pointer-events:none"></span>
+          <div style="flex:0 0 52px;width:52px;height:52px;border-radius:16px;background:rgba(244,81,30,.16);border:1px solid rgba(244,81,30,.3);color:#FF8A5C;display:flex;align-items:center;justify-content:center;font-size:22px">⛁</div>
+          <div style="display:flex;flex-direction:column;gap:7px;min-width:0;flex:1 1 240px">
+            <div style="display:flex;gap:9px;align-items:center;flex-wrap:wrap">
+              <span style="font-size:15.5px;font-weight:800;color:#fff;letter-spacing:-.3px">از کمک شما به پرونده‌ها، یک ریال هم برداشت نمی‌شود</span>
+              <span style="font-size:10.5px;font-weight:800;background:rgba(78,208,138,.14);border:1px solid rgba(78,208,138,.3);color:#4ED08A;padding:4px 9px;border-radius:20px;white-space:nowrap">۱۰۰٪ به پرونده</span>
+            </div>
+            <span style="font-size:12.5px;color:rgba(255,255,255,.62);line-height:2;text-wrap:pretty">هزینه‌های اداره مجمع — راستی‌آزمایی، بازدید میدانی و نگهداری سامانه — از صندوقی مستقل تأمین می‌شود. اگر بخواهید، می‌توانید جداگانه از آن حمایت کنید.</span>
+          </div>
+          <div style="display:flex;flex-direction:column;gap:8px;align-items:flex-end;min-width:0">
+            <span style="height:46px;padding:0 18px;border-radius:13px;background:#F4511E;color:#fff;display:flex;align-items:center;gap:8px;font-size:13.5px;font-weight:800;white-space:nowrap">حمایت از صندوق اداره مجمع <span style="font-size:15px">←</span></span>
+            <span style="font-size:11px;color:rgba(255,255,255,.45);white-space:nowrap">اختیاری — قابل لغو در هر زمان</span>
+          </div>
+        </div>
+
+        <div style="background:#fff;border:1px solid #EAECEF;border-radius:18px;overflow:hidden">
+          <div style="padding:18px 20px;border-bottom:1px solid #F0F1F3;display:flex;flex-direction:column;gap:3px">
+            <div style="font-size:15.5px;font-weight:800">پیشنهاد برای شما</div>
+            <div style="font-size:12px;color:#9AA0A8">بر اساس سابقه حمایت و توان ماهانه شما</div>
+          </div>
+          <sc-for list="{{ suggestions }}" as="g" hint-placeholder-count="3">
+            <div style="padding:16px 20px;border-bottom:1px solid #F4F5F7;display:flex;flex-direction:column;gap:11px">
+              <div style="display:flex;align-items:center;gap:11px;flex-wrap:wrap">
+                <div style="flex:0 0 38px;width:38px;height:38px;border-radius:12px;background:#FEF1EC;color:#D8420F;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:800">{{ g.initials }}</div>
+                <div style="display:flex;flex-direction:column;gap:4px;min-width:0">
+                  <span style="font-size:13.5px;font-weight:700">{{ g.name }}</span>
+                  <span style="font-size:11.5px;color:#9AA0A8">{{ g.type }} — {{ g.city }}</span>
+                </div>
+                <span style="margin-inline-start:auto;{{ g.tagStyle }}">{{ g.tag }}</span>
+              </div>
+              <div style="font-size:12.5px;color:#5A6169;line-height:1.9;text-wrap:pretty">{{ g.reason }}</div>
+              <div style="display:flex;flex-direction:column;gap:6px">
+                <div style="height:6px;background:#F2F3F5;border-radius:5px;overflow:hidden"><span style="{{ g.barStyle }}"></span></div>
+                <div style="display:flex;justify-content:space-between;font-size:11.5px;color:#9AA0A8">
+                  <span>{{ g.raised }} از {{ g.need }}</span>
+                  <span>مانده {{ g.left }}</span>
+                </div>
+              </div>
+              <div style="display:flex;gap:8px;flex-wrap:wrap">
+                <button style="height:36px;padding:0 14px;border:0;border-radius:10px;background:#F4511E;color:#fff;font-size:12.5px;font-weight:700;white-space:nowrap;cursor:pointer" style-hover="background:#DE4514">{{ g.cta }}</button>
+                <button style="height:36px;padding:0 12px;border:1px solid #EDEEF1;border-radius:10px;background:#fff;color:#5A6169;font-size:12.5px;font-weight:700;white-space:nowrap;cursor:pointer" style-hover="background:#F5F6F8">مشاهده پرونده</button>
+              </div>
+            </div>
+          </sc-for>
+        </div>
+      </div>
+    </div>
+
+    <div style="background:#fff;border:1px solid #EAECEF;border-radius:18px;overflow:hidden">
+      <div style="padding:18px 20px;border-bottom:1px solid #F0F1F3;display:flex;align-items:center;gap:12px;flex-wrap:wrap">
+        <div style="font-size:15.5px;font-weight:800">پرداخت‌های اخیر شما</div>
+        <span style="margin-inline-start:auto;font-size:12px;color:#F4511E;font-weight:700;cursor:pointer">صورت‌حساب سالانه</span>
+      </div>
+      <div style="display:flex;align-items:center;gap:14px;padding:11px 20px;background:#FBFBFC;border-bottom:1px solid #F0F1F3;font-size:11.5px;color:#9AA0A8;font-weight:700">
+        <span style="flex:0 0 130px">تاریخ</span>
+        <span style="flex:1 1 160px;min-width:0">نیازمند</span>
+        <span style="flex:0 0 130px">مبلغ</span>
+        <span style="flex:0 0 120px">روش</span>
+        <span style="flex:0 0 110px">کد پیگیری</span>
+        <span style="flex:0 0 100px">رسید</span>
+      </div>
+      <sc-for list="{{ payments }}" as="t" hint-placeholder-count="5">
+        <div style="display:flex;align-items:center;flex-wrap:wrap;gap:14px;padding:13px 20px;border-bottom:1px solid #F4F5F7" style-hover="background:#FCFCFD">
+          <span style="flex:0 0 130px;font-size:12.5px;color:#5A6169">{{ t.date }}</span>
+          <span style="flex:1 1 160px;min-width:0;font-size:13px;font-weight:700">{{ t.needy }}</span>
+          <span style="flex:0 0 130px;font-size:13px;font-weight:800">{{ t.amount }}</span>
+          <span style="flex:0 0 120px;font-size:12px;color:#5A6169">{{ t.way }}</span>
+          <span style="flex:0 0 110px;font-size:12px;color:#9AA0A8">{{ t.ref }}</span>
+          <span style="flex:0 0 100px;font-size:12.5px;font-weight:700;color:#F4511E;cursor:pointer">دانلود</span>
+        </div>
+      </sc-for>
+      <sc-if value="{{ paymentsPager.show }}" hint-placeholder-val="{{ true }}">
+        <div style="padding:14px 20px;display:flex;gap:10px;flex-wrap:wrap;align-items:center">
+          <span style="font-size:12.5px;color:#8A9099">{{ paymentsPager.info }}</span>
+          <div style="margin-inline-start:auto;display:flex;gap:7px;flex-wrap:wrap;align-items:center">
+            <button onClick="{{ paymentsPager.prev }}" style="min-width:36px;height:36px;border-radius:11px;border:1px solid #EDEEF1;background:#fff;color:#5A6169;font-size:12.5px;font-weight:700;cursor:pointer;font-family:inherit">‹</button>
+            <sc-for list="{{ paymentsPager.btns }}" as="b" hint-placeholder-count="2">
+              <button onClick="{{ b.onClick }}" style="{{ b.style }}">{{ b.label }}</button>
+            </sc-for>
+            <button onClick="{{ paymentsPager.next }}" style="min-width:36px;height:36px;border-radius:11px;border:1px solid #EDEEF1;background:#fff;color:#5A6169;font-size:12.5px;font-weight:700;cursor:pointer;font-family:inherit">›</button>
+          </div>
+        </div>
+      </sc-if>
+    </div>
+    </sc-if>
+
+    <sc-if value="{{ isFundTab }}" hint-placeholder-val="{{ false }}">
+      <div style="display:flex;flex-direction:column;gap:16px">
+
+        <div style="background:#15181D;color:#fff;border-radius:22px;padding:clamp(20px,3vw,32px);display:flex;flex-direction:column;gap:16px">
+          <div style="display:flex;align-items:center;gap:10px;align-self:flex-start;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.14);padding:7px 14px;border-radius:30px">
+            <span style="width:7px;height:7px;border-radius:50%;background:#4ED08A"></span>
+            <span style="font-size:12px;color:rgba(255,255,255,.8);font-weight:700">جدا از کمک‌های پرونده‌ای</span>
+          </div>
+          <span style="font-size:clamp(19px,2.8vw,26px);font-weight:800;letter-spacing:-.6px;line-height:1.6">کمک شما به پرونده‌ها دست‌نخورده می‌ماند؛ اداره مجمع هزینه‌ی جداگانه‌ای دارد</span>
+          <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,280px),1fr));gap:clamp(16px,3vw,32px)">
+          <p style="margin:0;font-size:14px;color:rgba(255,255,255,.72);line-height:2.2;text-wrap:pretty">سیاست دست یاری از روز اول یک اصل ساده داشته است: از کمکی که برای یک پرونده می‌دهید، حتی یک ریال برای هزینه‌های خودمان برنمی‌داریم. مبلغی که برای درمان یک بیمار یا اجاره‌بهای یک خانواده می‌پردازید، تمام و کمال به همان مورد می‌رسد و رسید آن در پنل شما ثبت می‌شود.</p>
+          <p style="margin:0;font-size:14px;color:rgba(255,255,255,.72);line-height:2.2;text-wrap:pretty">اما راستی‌آزمایی هر پرونده، بازدید میدانی، پیگیری تا لحظه تحویل و نگهداری این سامانه، خودش هزینه دارد. این هزینه‌ها از یک صندوق مستقل تأمین می‌شود که فقط از حامیان اداری، وقف اختصاصی و کمک‌های داوطلبانه‌ی خیرینی مثل شما پر می‌شود. اگر این صندوق خالی بماند، سرعت و دقت بررسی پرونده‌ها کم می‌شود — نه اینکه از سهم نیازمندان برداشت شود.</p>
+          </div>
+          <div style="display:flex;gap:10px;flex-wrap:wrap">
+            <a href="شفافیت مالی.dc.html" style="height:48px;padding:0 18px;border-radius:13px;border:1.5px solid rgba(255,255,255,.22);color:#fff;display:flex;align-items:center;font-size:13.5px;font-weight:700">گزارش حسابرسی صندوق</a>
+          </div>
+        </div>
+
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,180px),1fr));gap:12px">
+          <sc-for list="{{ fundStats }}" as="s" hint-placeholder-count="4">
+            <div style="{{ s.boxStyle }}">
+              <span style="font-size:11.5px;color:#8A9099">{{ s.label }}</span>
+              <span style="{{ s.numStyle }}">{{ s.value }}</span>
+              <span style="font-size:11.5px;color:#9AA0A8">{{ s.note }}</span>
+            </div>
+          </sc-for>
+        </div>
+
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr));gap:16px;align-items:start">
+          <div style="background:#fff;border:1px solid #EAECEF;border-radius:18px;padding:20px;display:flex;flex-direction:column;gap:14px">
+            <div style="display:flex;flex-direction:column;gap:5px">
+              <span style="font-size:16px;font-weight:800">هزینه‌های جاری صندوق شامل چیست؟</span>
+              <span style="font-size:12px;color:#9AA0A8">سهم هر ردیف از هزینه ماه گذشته — بر پایه صورت‌های مالی</span>
+            </div>
+            <sc-for list="{{ fundCosts }}" as="c" hint-placeholder-count="6">
+              <div style="display:flex;gap:12px;align-items:flex-start;padding:13px 14px;border:1px solid #F0F1F3;border-radius:15px">
+                <div style="display:flex;flex-direction:column;gap:4px;min-width:0;flex:1 1 180px">
+                  <span style="font-size:13.5px;font-weight:800">{{ c.title }}</span>
+                  <span style="font-size:12px;color:#6B7280;line-height:2">{{ c.note }}</span>
+                </div>
+                <span style="font-size:13px;font-weight:800;color:#D8420F;white-space:nowrap">{{ c.share }}</span>
+              </div>
+            </sc-for>
+            <div style="display:flex;gap:10px;align-items:flex-start;background:#F7FBF9;border:1px solid #DFF0E7;border-radius:14px;padding:13px 15px">
+              <span style="color:#12805A;font-weight:800">✓</span>
+              <span style="font-size:12px;color:#3F6B57;line-height:2">هیچ‌یک از این ردیف‌ها از کمک‌های پرونده‌ای تأمین نمی‌شود. تفکیک این دو حساب در گزارش حسابرسی مستقل قابل بررسی است.</span>
+            </div>
+          </div>
+
+          <div style="display:flex;flex-direction:column;gap:16px">
+            <div style="background:#FFF6F2;border:1px solid #F7CDBB;border-radius:18px;padding:20px;display:flex;flex-direction:column;gap:14px">
+              <div style="display:flex;flex-direction:column;gap:5px">
+                <span style="font-size:16px;font-weight:800;color:#8A3A1C">حمایت از هزینه‌های اداره مجمع</span>
+                <span style="font-size:12px;color:#8A3A1C">اختیاری، قابل لغو در هر زمان، جدا از کمک به پرونده‌ها</span>
+              </div>
+              <div style="display:flex;gap:7px;background:#fff;padding:5px;border-radius:13px">
+                <sc-for list="{{ fundModes }}" as="m" hint-placeholder-count="2">
+                  <button onClick="{{ m.onClick }}" style="{{ m.style }}">{{ m.label }}</button>
+                </sc-for>
+              </div>
+              <div style="display:flex;gap:8px;flex-wrap:wrap">
+                <sc-for list="{{ fundAmounts }}" as="a" hint-placeholder-count="4">
+                  <button onClick="{{ a.onClick }}" style="{{ a.style }}">{{ a.label }}</button>
+                </sc-for>
+              </div>
+              <div style="display:flex;flex-direction:column;gap:7px">
+                <label style="font-size:12.5px;font-weight:700;color:#8A3A1C">مبلغ (تومان)</label>
+                <input type="text" value="{{ fundAmountValue }}" onChange="{{ onFundAmount }}" style="height:54px;border:1.5px solid #F0D5C8;border-radius:13px;padding:0 14px;font-size:17px;font-weight:800;background:#fff;font-family:inherit" />
+              </div>
+              <span style="font-size:12.5px;color:#8A3A1C;line-height:2">{{ fundImpact }}</span>
+              <button style="height:54px;border:0;border-radius:14px;background:#F4511E;color:#fff;font-size:15px;font-weight:800;cursor:pointer">پرداخت به صندوق اداره مجمع</button>
+              <span style="font-size:11.5px;color:#8A3A1C;line-height:2">این مبلغ در گزارش شما با عنوان «حمایت از هزینه‌های اداری» ثبت می‌شود و با کمک‌های پرونده‌ای شما مخلوط نمی‌شود.</span>
+            </div>
+
+            <div style="background:#fff;border:1px solid #EAECEF;border-radius:18px;padding:20px;display:flex;flex-direction:column;gap:12px">
+              <span style="font-size:15px;font-weight:800">حمایت‌های اداری من</span>
+              <sc-for list="{{ fundMyHistory }}" as="h" hint-placeholder-count="3">
+                <div style="display:flex;align-items:center;gap:12px;padding:12px;border:1px solid #F0F1F3;border-radius:14px">
+                  <div style="flex:0 0 32px;width:32px;height:32px;border-radius:10px;background:#F7FBF9;color:#12805A;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:800">✓</div>
+                  <div style="display:flex;flex-direction:column;gap:3px;min-width:0">
+                    <span style="font-size:12.5px;font-weight:800">{{ h.title }}</span>
+                    <span style="font-size:11px;color:#9AA0A8">{{ h.when }}</span>
+                  </div>
+                  <span style="margin-inline-start:auto;font-size:13px;font-weight:800;white-space:nowrap">{{ h.amount }}</span>
+                </div>
+              </sc-for>
+            </div>
+          </div>
+        </div>
+
+        <div style="background:#fff;border:1px solid #EAECEF;border-radius:18px;padding:20px;display:flex;flex-direction:column;gap:12px">
+          <span style="font-size:15px;font-weight:800">تعهد ما به شما</span>
+          <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,240px),1fr));gap:12px">
+            <sc-for list="{{ fundPrinciples }}" as="p" hint-placeholder-count="4">
+              <div style="display:flex;gap:11px;align-items:flex-start;background:#FAFAFB;border:1px solid #EFF0F2;border-radius:15px;padding:14px 15px">
+                <span style="color:#12805A;font-weight:800">✓</span>
+                <span style="font-size:12.5px;color:#4B5158;line-height:2.1">{{ p }}</span>
+              </div>
+            </sc-for>
+          </div>
+        </div>
+      </div>
+    </sc-if>
+
+    <sc-if value="{{ isPledgesTab }}" hint-placeholder-val="{{ false }}">
+      <div style="background:#fff;border:1px solid #EAECEF;border-radius:18px;overflow:hidden">
+        <div style="padding:18px 20px;border-bottom:1px solid #F0F1F3;display:flex;align-items:center;gap:12px;flex-wrap:wrap">
+          <div style="display:flex;flex-direction:column;gap:3px">
+            <div style="font-size:15.5px;font-weight:800">تعهدهای من</div>
+            <div style="font-size:12px;color:#9AA0A8">همه تعهدها — معوق، در پیش و پرداخت‌شده</div>
+          </div>
+          <span style="margin-inline-start:auto;font-size:12.5px;color:#787F88">تعهد باقی‌مانده ماه: <b style="color:#23262B">{{ monthLeft }} تومان</b></span>
+        </div>
+        <div style="display:flex;align-items:center;gap:14px;padding:11px 20px;background:#FBFBFC;border-bottom:1px solid #F0F1F3;font-size:11.5px;color:#9AA0A8;font-weight:700">
+          <span style="flex:1 1 180px;min-width:0">نیازمند و نیاز</span>
+          <span style="flex:0 0 190px">الگو و قسط</span>
+          <span style="flex:0 0 130px">تاریخ موعد</span>
+          <span style="flex:0 0 130px">مبلغ</span>
+          <span style="flex:0 0 120px">وضعیت</span>
+          <span style="flex:0 0 110px"></span>
+        </div>
+        <sc-for list="{{ allPledges }}" as="p" hint-placeholder-count="5">
+          <div style="{{ p.rowStyle }}">
+            <div style="flex:1 1 180px;min-width:0;display:flex;flex-direction:column;gap:4px">
+              <span style="font-size:13.5px;font-weight:700">{{ p.who }}</span>
+              <span style="font-size:11.5px;color:#9AA0A8">{{ p.need }}</span>
+              <sc-if value="{{ p.isPending }}" hint-placeholder-val="{{ false }}">
+                <span style="font-size:11px;font-weight:800;color:#8A4B08;background:#FEF3E7;border:1px solid #F3D9BD;padding:4px 9px;border-radius:8px;align-self:flex-start">{{ p.pendLabel }}</span>
+              </sc-if>
+            </div>
+            <span style="flex:0 0 190px;font-size:12px;color:#5A6169">{{ p.plan }}</span>
+            <span style="flex:0 0 130px;font-size:12.5px;color:#5A6169">{{ p.date }}</span>
+            <span style="flex:0 0 130px;font-size:13.5px;font-weight:800">{{ p.amount }}</span>
+            <span style="flex:0 0 120px"><span style="{{ p.stateStyle }}">{{ p.state }}</span></span>
+            <span onClick="{{ p.onDetails }}" style="flex:0 0 110px;font-size:12.5px;font-weight:700;color:#F4511E;cursor:pointer">جزئیات ←</span>
+          </div>
+        </sc-for>
+        <sc-if value="{{ pledgePager.show }}" hint-placeholder-val="{{ true }}">
+          <div style="padding:14px 20px;display:flex;gap:10px;flex-wrap:wrap;align-items:center">
+            <span style="font-size:12.5px;color:#8A9099">{{ pledgePager.info }}</span>
+            <div style="margin-inline-start:auto;display:flex;gap:7px;flex-wrap:wrap;align-items:center">
+              <button onClick="{{ pledgePager.prev }}" style="min-width:36px;height:36px;border-radius:11px;border:1px solid #EDEEF1;background:#fff;color:#5A6169;font-size:12.5px;font-weight:700;cursor:pointer;font-family:inherit">‹</button>
+              <sc-for list="{{ pledgePager.btns }}" as="b" hint-placeholder-count="3">
+                <button onClick="{{ b.onClick }}" style="{{ b.style }}">{{ b.label }}</button>
+              </sc-for>
+              <button onClick="{{ pledgePager.next }}" style="min-width:36px;height:36px;border-radius:11px;border:1px solid #EDEEF1;background:#fff;color:#5A6169;font-size:12.5px;font-weight:700;cursor:pointer;font-family:inherit">›</button>
+            </div>
+          </div>
+        </sc-if>
+      </div>
+    </sc-if>
+
+    <sc-if value="{{ isPeopleTab }}" hint-placeholder-val="{{ false }}">
+      <div style="display:flex;gap:10px;flex-wrap:wrap">
+        <sc-for list="{{ peopleSegChips }}" as="c" hint-placeholder-count="2">
+          <div onClick="{{ c.onClick }}" style="{{ c.style }}">{{ c.label }}<span style="{{ c.countStyle }}">{{ c.count }}</span></div>
+        </sc-for>
+      </div>
+      <sc-if value="{{ peoplePager.show }}" hint-placeholder-val="{{ true }}">
+        <div style="display:flex;gap:10px;flex-wrap:wrap;align-items:center">
+          <span style="font-size:12.5px;color:#8A9099">{{ peoplePager.info }}</span>
+          <div style="margin-inline-start:auto;display:flex;gap:7px;flex-wrap:wrap;align-items:center">
+            <button onClick="{{ peoplePager.prev }}" style="min-width:36px;height:36px;border-radius:11px;border:1px solid #EDEEF1;background:#fff;color:#5A6169;font-size:12.5px;font-weight:700;cursor:pointer;font-family:inherit">‹</button>
+            <sc-for list="{{ peoplePager.btns }}" as="b" hint-placeholder-count="2">
+              <button onClick="{{ b.onClick }}" style="{{ b.style }}">{{ b.label }}</button>
+            </sc-for>
+            <button onClick="{{ peoplePager.next }}" style="min-width:36px;height:36px;border-radius:11px;border:1px solid #EDEEF1;background:#fff;color:#5A6169;font-size:12.5px;font-weight:700;cursor:pointer;font-family:inherit">›</button>
+          </div>
+        </div>
+      </sc-if>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,420px),1fr));gap:20px">
+        <sc-for list="{{ peopleCards }}" as="p" hint-placeholder-count="4">
+          <div onClick="{{ p.onOpen }}" style="background:#fff;border:1px solid #EAECEF;border-radius:18px;padding:20px;display:flex;flex-direction:column;gap:14px;cursor:pointer;transition:border-color .12s" style-hover="border-color:#F4511E">
+            <div style="display:flex;align-items:center;gap:12px;flex-wrap:wrap">
+              <div style="flex:0 0 46px;width:46px;height:46px;border-radius:15px;background:#F5F6F8;color:#5A6169;display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:800">{{ p.initials }}</div>
+              <div style="display:flex;flex-direction:column;gap:4px;min-width:0">
+                <span style="font-size:15px;font-weight:800">{{ p.name }}</span>
+                <span style="font-size:11.5px;color:#9AA0A8">{{ p.type }} — {{ p.city }} — {{ p.code }}</span>
+              </div>
+              <span style="margin-inline-start:auto;{{ p.stateStyle }}">{{ p.state }}</span>
+            </div>
+            <div style="font-size:12.5px;color:#5A6169;line-height:2;text-wrap:pretty">{{ p.story }}</div>
+            <div style="display:flex;flex-direction:column;gap:7px">
+              <div style="height:7px;background:#F2F3F5;border-radius:6px;overflow:hidden"><span style="{{ p.barStyle }}"></span></div>
+              <div style="display:flex;justify-content:space-between;font-size:11.5px;color:#9AA0A8">
+                <span>{{ p.pctLabel }} تامین شده</span>
+                <span>موعد بعدی: {{ p.next }}</span>
+              </div>
+            </div>
+            <div style="display:flex;gap:22px;flex-wrap:wrap;padding-top:12px;border-top:1px solid #F2F3F5">
+              <div style="display:flex;flex-direction:column;gap:3px">
+                <span style="font-size:11px;color:#9AA0A8">کمک شما</span>
+                <span style="font-size:15px;font-weight:800">{{ p.given }}</span>
+              </div>
+              <div style="display:flex;flex-direction:column;gap:3px">
+                <span style="font-size:11px;color:#9AA0A8">مدت حمایت</span>
+                <span style="font-size:15px;font-weight:800">{{ p.months }}</span>
+              </div>
+              <button onClick="{{ p.onOpen }}" style="margin-inline-start:auto;align-self:center;height:38px;padding:0 14px;border:1px solid #EDEEF1;border-radius:11px;background:#fff;color:#23262B;font-size:12.5px;font-weight:700;white-space:nowrap;cursor:pointer" style-hover="background:#F5F6F8">مشاهده پرونده</button>
+            </div>
+          </div>
+        </sc-for>
+      </div>
+
+      <div style="background:#fff;border:1px solid #EAECEF;border-radius:20px;overflow:hidden;margin-top:8px">
+        <div style="padding:22px 24px;border-bottom:1px solid #F0F1F3;display:flex;flex-direction:column;gap:10px">
+          <div style="display:flex;gap:11px;flex-wrap:wrap;align-items:center">
+            <span style="font-size:19px;color:#D8420F">♡</span>
+            <span style="font-size:18px;font-weight:800;letter-spacing:-.4px">{{ sgTitle }}</span>
+          </div>
+          <span style="font-size:13.5px;color:#5A6169;line-height:2.1;text-wrap:pretty;max-width:70ch">{{ sgLead }}</span>
+        </div>
+
+        <sc-if value="{{ sgDone }}" hint-placeholder-val="{{ false }}">
+          <div style="margin:16px 24px 0;background:#F7FBF9;border:1px solid #BFE3D0;border-radius:14px;padding:14px 16px;display:flex;gap:11px;flex-wrap:wrap;align-items:center">
+            <span style="font-size:15px;color:#12805A">✓</span>
+            <span style="font-size:12.5px;font-weight:700;color:#0F6B4C;line-height:1.9;min-width:0;flex:1 1 240px">{{ sgDoneText }}</span>
+            <span onClick="{{ sgClear }}" style="font-size:12px;color:#5A6169;font-weight:700;cursor:pointer">بستن</span>
+          </div>
+        </sc-if>
+
+        <div style="padding:20px 24px;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr));gap:16px">
+          <sc-for list="{{ sgCards }}" as="p" hint-placeholder-count="3">
+            <div style="border:1px solid #EFF0F2;border-radius:16px;padding:18px;display:flex;flex-direction:column;gap:13px;background:#FBFBFC">
+              <div style="display:flex;gap:11px;align-items:center;flex-wrap:wrap">
+                <div style="flex:0 0 42px;width:42px;height:42px;border-radius:14px;background:#fff;border:1px solid #EFF0F2;color:#5A6169;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:800">{{ p.initials }}</div>
+                <div style="display:flex;flex-direction:column;gap:3px;min-width:0">
+                  <span style="font-size:14.5px;font-weight:800">{{ p.name }}</span>
+                  <span style="font-size:11px;color:#9AA0A8">{{ p.type }} — {{ p.city }} — {{ p.code }}</span>
+                </div>
+                <span style="margin-inline-start:auto;{{ p.urgencyStyle }}">{{ p.urgency }}</span>
+              </div>
+              <span style="font-size:12.5px;color:#5A6169;line-height:2;text-wrap:pretty">{{ p.story }}</span>
+              <div style="display:flex;flex-direction:column;gap:6px">
+                <div style="height:7px;background:#F2F3F5;border-radius:6px;overflow:hidden"><span style="{{ p.barStyle }}"></span></div>
+                <div style="display:flex;justify-content:space-between;font-size:11.5px;color:#9AA0A8">
+                  <span>{{ p.pctLabel }}</span>
+                  <span>باقی‌مانده: {{ p.left }} از {{ p.need }}</span>
+                </div>
+              </div>
+              <div style="background:#fff;border:1px solid #EFF0F2;border-radius:12px;padding:10px 12px;font-size:11.5px;color:#8A3A1C;font-weight:700;line-height:1.9">چرا این پرونده به شما پیشنهاد شد: {{ p.why }}</div>
+              <div style="display:flex;gap:7px;flex-wrap:wrap">
+                <button onClick="{{ p.onSupport }}" style="height:40px;padding:0 14px;border:0;border-radius:12px;background:#F4511E;color:#fff;font-size:12.5px;font-weight:800;cursor:pointer;font-family:inherit;white-space:nowrap">حمایت از این پرونده</button>
+                <button onClick="{{ p.onDetails }}" style="height:40px;padding:0 13px;border:1.5px solid #E3E6EA;border-radius:12px;background:#fff;color:#23262B;font-size:12.5px;font-weight:700;cursor:pointer;font-family:inherit;white-space:nowrap">جزئیات بیشتر</button>
+                <button onClick="{{ p.onMark }}" style="height:40px;padding:0 13px;border:1.5px solid #E3E6EA;border-radius:12px;background:#fff;color:#5A6169;font-size:12.5px;font-weight:700;cursor:pointer;font-family:inherit;white-space:nowrap">فعلاً نشان کن</button>
+              </div>
+            </div>
+          </sc-for>
+        </div>
+
+        <div style="padding:0 24px 22px">
+          <div style="background:#FBFBFC;border:1px solid #EFF0F2;border-radius:14px;padding:15px 17px;font-size:12.5px;color:#787F88;line-height:2.1;text-wrap:pretty">{{ sgNote }}</div>
+        </div>
+      </div>
+    </sc-if>
+
+    <sc-if value="{{ isPaymentsTab }}" hint-placeholder-val="{{ false }}">
+      <div style="display:flex;flex-direction:column;gap:16px">
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:16px">
+          <div style="background:#fff;border:1px solid #EAECEF;border-radius:18px;padding:20px;display:flex;flex-direction:column;gap:9px">
+            <span style="font-size:13px;color:#787F88;font-weight:600">جمع پرداخت‌های شما</span>
+            <span style="font-size:25px;font-weight:800">{{ payYearTotal }}<span style="font-size:13px;font-weight:500;color:#9AA0A8"> تومان</span></span>
+            <span style="font-size:11.5px;color:#9AA0A8">{{ payYearCount }} پرداخت ثبت‌شده</span>
+          </div>
+          <div style="background:#fff;border:1px solid #EAECEF;border-radius:18px;padding:20px;display:flex;flex-direction:column;gap:9px">
+            <span style="font-size:13px;color:#787F88;font-weight:600">مجموع کل از ابتدا</span>
+            <span style="font-size:25px;font-weight:800">{{ stats.total }}<span style="font-size:13px;font-weight:500;color:#9AA0A8"> تومان</span></span>
+            <span style="font-size:11.5px;color:#12805A">نرخ پرداخت به‌موقع {{ stats.onTime }}</span>
+          </div>
+          <div style="background:#1B1E23;border-radius:18px;padding:20px;color:#fff;display:flex;flex-direction:column;gap:9px">
+            <span style="font-size:13px;color:rgba(255,255,255,.65);font-weight:600">صورت‌حساب مالیاتی</span>
+            <span style="font-size:15px;font-weight:800;color:#FFA51F">گزارش سال ۱۴۰۴ آماده است</span>
+            <span style="font-size:12px;color:rgba(255,255,255,.55);cursor:pointer">دانلود PDF ←</span>
+          </div>
+        </div>
+        <div style="background:#fff;border:1px solid #EAECEF;border-radius:18px;overflow:hidden">
+          <div style="padding:18px 20px;border-bottom:1px solid #F0F1F3;font-size:15.5px;font-weight:800">همه پرداخت‌های من</div>
+          <div style="display:flex;align-items:center;gap:14px;padding:11px 20px;background:#FBFBFC;border-bottom:1px solid #F0F1F3;font-size:11.5px;color:#9AA0A8;font-weight:700">
+            <span style="flex:0 0 130px">تاریخ</span>
+            <span style="flex:1 1 160px;min-width:0">نیازمند</span>
+            <span style="flex:0 0 130px">مبلغ</span>
+            <span style="flex:0 0 120px">روش</span>
+            <span style="flex:0 0 110px">کد پیگیری</span>
+            <span style="flex:0 0 100px">رسید</span>
+          </div>
+          <sc-for list="{{ allPayments }}" as="t" hint-placeholder-count="8">
+            <div style="display:flex;align-items:center;flex-wrap:wrap;gap:14px;padding:13px 20px;border-bottom:1px solid #F4F5F7" style-hover="background:#FCFCFD">
+              <span style="flex:0 0 130px;font-size:12.5px;color:#5A6169">{{ t.date }}</span>
+              <span style="flex:1 1 160px;min-width:0;font-size:13px;font-weight:700">{{ t.needy }}</span>
+              <span style="flex:0 0 130px;font-size:13px;font-weight:800">{{ t.amount }}</span>
+              <span style="flex:0 0 120px;font-size:12px;color:#5A6169">{{ t.way }}</span>
+              <span style="flex:0 0 110px;font-size:12px;color:#9AA0A8">{{ t.ref }}</span>
+              <span style="flex:0 0 100px;font-size:12.5px;font-weight:700;color:#F4511E;cursor:pointer">دانلود</span>
+            </div>
+          </sc-for>
+        </div>
+      </div>
+    </sc-if>
+
+    <sc-if value="{{ isTicketsTab }}" hint-placeholder-val="{{ false }}">
+      <div style="display:flex;flex-direction:column;gap:16px">
+        <div style="background:#fff;border:1px solid #EAECEF;border-radius:18px;padding:20px;display:flex;gap:14px;flex-wrap:wrap;align-items:center">
+          <div style="display:flex;flex-direction:column;gap:4px;min-width:0;flex:1 1 240px">
+            <span style="font-size:15px;font-weight:800">سوالی دارید؟</span>
+            <span style="font-size:12.5px;color:#787F88;line-height:1.9">درباره تعهد، رسید، تغییر موعد یا برداشتن پرونده جدید پیام بگذارید — میانگین پاسخ ۴۲ دقیقه.</span>
+          </div>
+          <button style="margin-inline-start:auto;height:44px;padding:0 18px;border:0;border-radius:12px;background:#F4511E;color:#fff;font-size:13.5px;font-weight:700;white-space:nowrap;cursor:pointer" style-hover="background:#DE4514">+ تیکت جدید</button>
+        </div>
+        <sc-for list="{{ myTickets }}" as="t" hint-placeholder-count="3">
+          <div style="background:#fff;border:1px solid #EAECEF;border-radius:18px;padding:18px 20px;display:flex;flex-direction:column;gap:10px">
+            <div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap">
+              <span style="font-size:11.5px;color:#9AA0A8;font-weight:700">{{ t.id }}</span>
+              <span style="font-size:14px;font-weight:800">{{ t.subject }}</span>
+              <span style="{{ t.stateStyle }}">{{ t.state }}</span>
+              <span style="margin-inline-start:auto;font-size:11.5px;color:#9AA0A8">{{ t.when }}</span>
+            </div>
+            <div style="font-size:13px;color:#3A4048;line-height:2;text-wrap:pretty">{{ t.last }}</div>
+            <div style="display:flex;gap:9px;flex-wrap:wrap">
+              <button style="height:36px;padding:0 13px;border:1px solid #EDEEF1;border-radius:10px;background:#fff;color:#23262B;font-size:12.5px;font-weight:700;white-space:nowrap;cursor:pointer" style-hover="background:#F5F6F8">مشاهده گفتگو</button>
+            </div>
+          </div>
+        </sc-for>
+        <sc-if value="{{ ticketsPager.show }}" hint-placeholder-val="{{ true }}">
+          <div style="display:flex;gap:10px;flex-wrap:wrap;align-items:center">
+            <span style="font-size:12.5px;color:#8A9099">{{ ticketsPager.info }}</span>
+            <div style="margin-inline-start:auto;display:flex;gap:7px;flex-wrap:wrap;align-items:center">
+              <button onClick="{{ ticketsPager.prev }}" style="min-width:36px;height:36px;border-radius:11px;border:1px solid #EDEEF1;background:#fff;color:#5A6169;font-size:12.5px;font-weight:700;cursor:pointer;font-family:inherit">‹</button>
+              <sc-for list="{{ ticketsPager.btns }}" as="b" hint-placeholder-count="2">
+                <button onClick="{{ b.onClick }}" style="{{ b.style }}">{{ b.label }}</button>
+              </sc-for>
+              <button onClick="{{ ticketsPager.next }}" style="min-width:36px;height:36px;border-radius:11px;border:1px solid #EDEEF1;background:#fff;color:#5A6169;font-size:12.5px;font-weight:700;cursor:pointer;font-family:inherit">›</button>
+            </div>
+          </div>
+        </sc-if>
+      </div>
+    </sc-if>
+
+    <sc-if value="{{ isProfileTab }}" hint-placeholder-val="{{ false }}">
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,380px),1fr));gap:20px;align-items:start">
+        <div style="background:#fff;border:1px solid #EAECEF;border-radius:18px;padding:22px;display:flex;flex-direction:column;gap:18px">
+          <div style="font-size:15.5px;font-weight:800">ویرایش اطلاعات</div>
+          <div style="display:flex;gap:18px;flex-wrap:wrap;align-items:center;padding-bottom:18px;border-bottom:1px solid #F2F3F5">
+            <div style="flex:0 0 86px;width:86px;height:86px;border-radius:26px;background:#FEF1EC;color:#D8420F;display:flex;align-items:center;justify-content:center;font-size:22px;font-weight:800">ب ا</div>
+            <div style="display:flex;flex-direction:column;gap:9px;min-width:0;flex:1 1 200px">
+              <span style="font-size:13px;font-weight:700;color:#4E555E">عکس پروفایل</span>
+              <span style="font-size:11.5px;color:#9AA0A8;line-height:1.8">JPG یا PNG تا ۲ مگابایت — مربعی بهترین نتیجه را می‌دهد.</span>
+              <div style="display:flex;gap:9px;flex-wrap:wrap">
+                <button style="height:38px;padding:0 14px;border:0;border-radius:11px;background:#23262B;color:#fff;font-size:12.5px;font-weight:700;white-space:nowrap;cursor:pointer" style-hover="background:#000">انتخاب عکس جدید</button>
+                <button style="height:38px;padding:0 14px;border:1px solid #EDEEF1;border-radius:11px;background:#fff;color:#C43034;font-size:12.5px;font-weight:700;white-space:nowrap;cursor:pointer" style-hover="background:#FDECEC">حذف عکس</button>
+              </div>
+            </div>
+          </div>
+          <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:14px">
+            <label style="display:flex;flex-direction:column;gap:8px">
+              <span style="font-size:12.5px;font-weight:700;color:#4E555E">نام و نام خانوادگی</span>
+              <input type="text" value="بهنام اسدی" style="height:46px;border:1.5px solid #E7E9EC;border-radius:12px;padding:0 14px;font-size:13.5px;background:#FBFBFC" style-focus="border-color:#F4511E;background:#fff" />
+            </label>
+            <label style="display:flex;flex-direction:column;gap:8px">
+              <span style="font-size:12.5px;font-weight:700;color:#4E555E">شماره موبایل</span>
+              <input type="text" value="۰۹۱۲۳۳۴۵۵۶۷" style="height:46px;border:1.5px solid #E7E9EC;border-radius:12px;padding:0 14px;font-size:13.5px;background:#FBFBFC" style-focus="border-color:#F4511E;background:#fff" />
+            </label>
+            <label style="display:flex;flex-direction:column;gap:8px">
+              <span style="font-size:12.5px;font-weight:700;color:#4E555E">ایمیل</span>
+              <input type="text" placeholder="اختیاری" style="height:46px;border:1.5px solid #E7E9EC;border-radius:12px;padding:0 14px;font-size:13.5px;background:#FBFBFC" style-focus="border-color:#F4511E;background:#fff" />
+            </label>
+            <label style="display:flex;flex-direction:column;gap:8px">
+              <span style="font-size:12.5px;font-weight:700;color:#4E555E">شهر</span>
+              <input type="text" value="تهران" style="height:46px;border:1.5px solid #E7E9EC;border-radius:12px;padding:0 14px;font-size:13.5px;background:#FBFBFC" style-focus="border-color:#F4511E;background:#fff" />
+            </label>
+            <label style="display:flex;flex-direction:column;gap:8px">
+              <span style="font-size:12.5px;font-weight:700;color:#4E555E">روش ارتباط ترجیحی</span>
+              <select style="height:46px;border:1.5px solid #E7E9EC;border-radius:12px;padding:0 12px;font-size:13.5px;background:#FBFBFC;color:#4E555E">
+                <option>پیامک</option><option>تماس تلفنی</option><option>واتس‌اپ</option><option>ایمیل</option>
+              </select>
+            </label>
+            <label style="display:flex;flex-direction:column;gap:8px">
+              <span style="font-size:12.5px;font-weight:700;color:#4E555E">نمایش نام در گزارش عمومی</span>
+              <select style="height:46px;border:1.5px solid #E7E9EC;border-radius:12px;padding:0 12px;font-size:13.5px;background:#FBFBFC;color:#4E555E">
+                <option>ناشناس</option><option>با نام کامل</option><option>با حرف اول نام</option>
+              </select>
+            </label>
+          </div>
+          <button style="align-self:flex-start;height:44px;padding:0 20px;border:0;border-radius:12px;background:#F4511E;color:#fff;font-size:13.5px;font-weight:700;cursor:pointer" style-hover="background:#DE4514">ذخیره تغییرات</button>
+        </div>
+
+        <div style="display:flex;flex-direction:column;gap:20px">
+          <div style="background:#fff;border:1px solid #EAECEF;border-radius:18px;padding:20px;display:flex;flex-direction:column;gap:14px">
+            <div style="font-size:15px;font-weight:800">تنظیمات یادآوری</div>
+            <label style="display:flex;align-items:center;gap:10px;font-size:12.5px;color:#4E555E;cursor:pointer">
+              <span style="width:17px;height:17px;border-radius:5px;border:1.5px solid #F4511E;background:#F4511E;color:#fff;display:flex;align-items:center;justify-content:center;font-size:10px">✓</span>
+              پیامک یادآور ۲۴ ساعت قبل از موعد
+            </label>
+            <label style="display:flex;align-items:center;gap:10px;font-size:12.5px;color:#4E555E;cursor:pointer">
+              <span style="width:17px;height:17px;border-radius:5px;border:1.5px solid #F4511E;background:#F4511E;color:#fff;display:flex;align-items:center;justify-content:center;font-size:10px">✓</span>
+              اطلاع از تکمیل پرونده افرادی که حمایت می‌کنم
+            </label>
+            <label style="display:flex;align-items:center;gap:10px;font-size:12.5px;color:#4E555E;cursor:pointer">
+              <span style="width:17px;height:17px;border-radius:5px;border:1.5px solid #DDE0E4;background:#fff"></span>
+              پیشنهاد پرونده جدید هنگام آزاد شدن ظرفیت
+            </label>
+            <label style="display:flex;flex-direction:column;gap:8px;padding-top:12px;border-top:1px solid #F2F3F5">
+              <span style="font-size:12.5px;font-weight:700;color:#4E555E">سقف کمک ماهانه من</span>
+              <div style="position:relative;display:flex">
+                <input type="text" value="۱۵٫۰۰۰٫۰۰۰" style="height:46px;flex:1;min-width:0;border:1.5px solid #E7E9EC;border-radius:12px;padding:0 14px;font-size:13.5px;background:#FBFBFC" style-focus="border-color:#F4511E;background:#fff" />
+                <span style="position:absolute;left:12px;top:0;height:46px;display:flex;align-items:center;font-size:12px;color:#A9AEB6">تومان</span>
+              </div>
+            </label>
+          </div>
+          <div style="background:#fff;border:1px solid #EAECEF;border-radius:18px;padding:20px;display:flex;flex-direction:column;gap:14px">
+            <div style="font-size:15px;font-weight:800">امنیت حساب</div>
+            <div style="font-size:12.5px;color:#787F88;line-height:1.9">آخرین ورود: امروز ۰۸:۱۲ — تهران</div>
+            <div style="display:flex;gap:9px;flex-wrap:wrap;border-top:1px solid #F2F3F5;padding-top:14px">
+              <button onClick="{{ openPw }}" style="height:40px;padding:0 15px;border:1.5px solid #E3E6EA;border-radius:11px;background:#fff;color:#23262B;font-size:12.5px;font-weight:800;white-space:nowrap;cursor:pointer;font-family:inherit" style-hover="background:#F5F6F8">تغییر گذرواژه</button>
+              <button style="height:40px;padding:0 15px;border:1px solid #EDEEF1;border-radius:11px;background:#fff;color:#5A6169;font-size:12.5px;font-weight:700;white-space:nowrap;cursor:pointer;font-family:inherit" style-hover="background:#F5F6F8">خروج از همه دستگاه‌ها</button>
+            </div>
+          </div>
+
+          <div style="background:#fff;border:1px solid #F3DACE;border-radius:18px;padding:20px;display:flex;flex-direction:column;gap:11px">
+            <div style="font-size:15px;font-weight:800">بستن حساب کاربری</div>
+            <div style="font-size:12.5px;color:#787F88;line-height:2">اگر دیگر مایل به فعالیت نیستید و نمی‌خواهید هیچ پیامی برایتان ارسال شود، می‌توانید حسابتان را ببندید. حساب حذف نمی‌شود و هر زمان بخواهید دوباره فعال می‌شود.</div>
+            <button onClick="{{ openClose }}" style="align-self:flex-start;height:42px;padding:0 16px;border:1.5px solid #F0D5C8;border-radius:12px;background:#fff;color:#C43034;font-size:12.5px;font-weight:800;cursor:pointer;font-family:inherit">بستن حساب کاربری</button>
+          </div>
+        </div>
+      </div>
+    </sc-if>
+
+  </div>
+
+  <sc-if value="{{ oldCaseOpen }}" hint-placeholder-val="{{ false }}">
+    <div style="position:fixed;inset:0;z-index:60;display:flex;justify-content:flex-start">
+      <div onClick="{{ closeCase }}" style="position:absolute;inset:0;background:rgba(20,22,26,.5)"></div>
+      <div style="position:relative;width:min(620px,100%);height:100%;background:#F7F8F9;box-shadow:-24px 0 60px -30px rgba(20,22,26,.6);display:flex;flex-direction:column;overflow-y:auto">
+        <div style="padding:20px 22px;background:#fff;border-bottom:1px solid #EAECEF;display:flex;align-items:center;gap:14px;position:sticky;top:0;z-index:2">
+          <div style="flex:0 0 46px;width:46px;height:46px;border-radius:15px;background:#F5F6F8;color:#5A6169;display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:800">{{ caseData.initials }}</div>
+          <div style="display:flex;flex-direction:column;gap:4px;min-width:0">
+            <div style="font-size:16px;font-weight:800">{{ caseData.name }}</div>
+            <div style="font-size:11.5px;color:#9AA0A8">{{ caseData.code }} — {{ caseData.type }} — {{ caseData.city }}</div>
+          </div>
+          <div onClick="{{ closeCase }}" style="margin-inline-start:auto;width:36px;height:36px;border:1px solid #EDEEF1;border-radius:11px;display:flex;align-items:center;justify-content:center;color:#8A9099;cursor:pointer" style-hover="background:#F5F6F8">✕</div>
+        </div>
+
+        <div style="padding:20px 22px 40px;display:flex;flex-direction:column;gap:16px">
+
+          <div style="background:#fff;border:1px solid #EAECEF;border-radius:18px;padding:20px;display:flex;flex-direction:column;gap:14px">
+            <div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap">
+              <span style="{{ caseData.stateStyle }}">{{ caseData.state }}</span>
+              <span style="font-size:11.5px;color:#9AA0A8">بازشده {{ caseData.opened }} — مهلت {{ caseData.deadline }}</span>
+            </div>
+            <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:14px">
+              <div style="display:flex;flex-direction:column;gap:4px">
+                <span style="font-size:11.5px;color:#9AA0A8">مبلغ کل پرونده</span>
+                <span style="font-size:16px;font-weight:800">{{ caseData.need }}</span>
+              </div>
+              <div style="display:flex;flex-direction:column;gap:4px">
+                <span style="font-size:11.5px;color:#9AA0A8">تامین‌شده</span>
+                <span style="font-size:16px;font-weight:800;color:#12805A">{{ caseData.raised }}</span>
+              </div>
+              <div style="display:flex;flex-direction:column;gap:4px">
+                <span style="font-size:11.5px;color:#9AA0A8">مانده</span>
+                <span style="font-size:16px;font-weight:800;color:#C43034">{{ caseData.left }}</span>
+              </div>
+              <div style="display:flex;flex-direction:column;gap:4px">
+                <span style="font-size:11.5px;color:#9AA0A8">کمک شما</span>
+                <span style="font-size:16px;font-weight:800">{{ caseData.given }}</span>
+              </div>
+            </div>
+            <div style="display:flex;flex-direction:column;gap:7px">
+              <div style="height:8px;background:#F2F3F5;border-radius:6px;overflow:hidden"><span style="{{ caseData.barStyle }}"></span></div>
+              <div style="display:flex;justify-content:space-between;font-size:11.5px;color:#9AA0A8">
+                <span>{{ caseData.pctLabel }} تامین شده</span>
+                <span>{{ caseData.donors }} خیر حامی — موعد بعدی {{ caseData.next }}</span>
+              </div>
+            </div>
+          </div>
+
+          <div style="background:#fff;border:1px solid #EAECEF;border-radius:18px;padding:20px;display:flex;flex-direction:column;gap:11px">
+            <div style="font-size:14.5px;font-weight:800">توضیحات پرونده</div>
+            <div style="font-size:13px;color:#3A4048;line-height:2.2;text-wrap:pretty">{{ caseData.description }}</div>
+          </div>
+
+          <div style="background:#fff;border:1px solid #EAECEF;border-radius:18px;padding:20px;display:flex;flex-direction:column;gap:14px">
+            <div style="font-size:14.5px;font-weight:800">تصاویر پرونده</div>
+            <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px">
+              <sc-for list="{{ caseData.photos }}" as="ph" hint-placeholder-count="3">
+                <div style="aspect-ratio:4/3;border-radius:14px;background:#F2F3F5;color:#9AA0A8;display:flex;align-items:center;justify-content:center;font-size:11.5px;text-align:center;padding:10px;cursor:pointer">🖼 {{ ph }}</div>
+              </sc-for>
+            </div>
+            <div style="font-size:14.5px;font-weight:800;padding-top:8px">ویدئوها</div>
+            <sc-for list="{{ caseData.videos }}" as="v" hint-placeholder-count="2">
+              <div style="display:flex;align-items:center;gap:12px;border:1px solid #EFF0F2;border-radius:14px;padding:12px 14px;background:#FBFBFC;cursor:pointer" style-hover="border-color:#DDE0E4">
+                <div style="flex:0 0 56px;width:56px;height:38px;border-radius:9px;background:#23262B;color:#fff;display:flex;align-items:center;justify-content:center;font-size:12px">▶</div>
+                <span style="font-size:13px;font-weight:700">{{ v }}</span>
+                <span style="margin-inline-start:auto;font-size:12px;color:#F4511E;font-weight:700">پخش</span>
+              </div>
+            </sc-for>
+          </div>
+
+          <div style="background:#fff;border:1px solid #EAECEF;border-radius:18px;overflow:hidden">
+            <div style="padding:16px 20px;border-bottom:1px solid #F0F1F3;font-size:14.5px;font-weight:800">مبالغی که شما پرداخت کرده‌اید</div>
+            <sc-for list="{{ caseData.pays }}" as="p" hint-placeholder-count="4">
+              <div style="display:flex;align-items:center;flex-wrap:wrap;gap:12px;padding:13px 20px;border-bottom:1px solid #F4F5F7">
+                <span style="flex:0 0 130px;font-size:12.5px;color:#5A6169">{{ p.date }}</span>
+                <span style="flex:0 0 120px;font-size:13px;font-weight:800">{{ p.amount }}</span>
+                <span style="flex:0 0 110px;font-size:12px;color:#5A6169">{{ p.way }}</span>
+                <span style="flex:0 0 90px;font-size:12px;color:#9AA0A8">{{ p.ref }}</span>
+                <span style="margin-inline-start:auto;{{ p.stateStyle }}">{{ p.state }}</span>
+              </div>
+            </sc-for>
+          </div>
+
+          <div style="background:#fff;border:1px solid #EAECEF;border-radius:18px;padding:20px;display:flex;flex-direction:column;gap:14px">
+            <div style="font-size:14.5px;font-weight:800">به‌روزرسانی‌های پرونده</div>
+            <sc-for list="{{ caseData.updates }}" as="u" hint-placeholder-count="3">
+              <div style="display:flex;gap:12px;align-items:flex-start">
+                <span style="flex:0 0 8px;width:8px;height:8px;border-radius:50%;background:#F4511E;margin-top:6px"></span>
+                <div style="display:flex;flex-direction:column;gap:3px">
+                  <span style="font-size:12.5px;color:#3A4048;line-height:1.9">{{ u.text }}</span>
+                  <span style="font-size:11.5px;color:#9AA0A8">{{ u.when }}</span>
+                </div>
+              </div>
+            </sc-for>
+          </div>
+
+          <div style="display:flex;gap:10px;flex-wrap:wrap">
+            <button style="height:46px;padding:0 20px;border:0;border-radius:13px;background:#F4511E;color:#fff;font-size:13.5px;font-weight:700;white-space:nowrap;cursor:pointer" style-hover="background:#DE4514">پرداخت موعد بعدی</button>
+            <button style="height:46px;padding:0 16px;border:1px solid #EDEEF1;border-radius:13px;background:#fff;color:#23262B;font-size:13px;font-weight:700;white-space:nowrap;cursor:pointer" style-hover="background:#F5F6F8">پیام به مدیریت درباره این پرونده</button>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </sc-if>
+
+  <sc-if value="{{ pwOpen }}" hint-placeholder-val="{{ false }}">
+    <div style="position:fixed;inset:0;z-index:95;display:flex;align-items:center;justify-content:center;padding:20px">
+      <div onClick="{{ closePw }}" style="position:absolute;inset:0;background:rgba(15,17,20,.62)"></div>
+      <div style="position:relative;width:min(480px,100%);max-height:100%;overflow-y:auto;background:#fff;border-radius:22px">
+        <div style="padding:18px 22px;border-bottom:1px solid #EFF0F2;display:flex;align-items:center;gap:12px">
+          <span style="font-size:17px;font-weight:800">تغییر گذرواژه</span>
+          <div onClick="{{ closePw }}" style="margin-inline-start:auto;flex:0 0 34px;width:34px;height:34px;border:1px solid #EDEEF1;border-radius:11px;display:flex;align-items:center;justify-content:center;color:#6B7280;cursor:pointer">✕</div>
+        </div>
+        <div style="padding:20px 22px 26px;display:flex;flex-direction:column;gap:14px">
+          <label style="display:flex;flex-direction:column;gap:7px">
+            <span style="font-size:12.5px;font-weight:700;color:#4E555E">گذرواژه فعلی</span>
+            <input type="password" value="{{ pwOld }}" onChange="{{ onPwOld }}" style="height:50px;border:1.5px solid #E7E9EC;border-radius:12px;padding:0 14px;font-size:13.5px;font-family:inherit" />
+          </label>
+          <label style="display:flex;flex-direction:column;gap:7px">
+            <span style="font-size:12.5px;font-weight:700;color:#4E555E">گذرواژه جدید</span>
+            <input type="password" value="{{ pwNew }}" onChange="{{ onPwNew }}" placeholder="حداقل ۸ کاراکتر، ترکیب حرف و عدد" style="height:50px;border:1.5px solid #E7E9EC;border-radius:12px;padding:0 14px;font-size:13.5px;font-family:inherit" />
+            <span style="{{ pwHintStyle }}">{{ pwHint }}</span>
+          </label>
+          <label style="display:flex;flex-direction:column;gap:7px">
+            <span style="font-size:12.5px;font-weight:700;color:#4E555E">تکرار گذرواژه جدید</span>
+            <input type="password" value="{{ pwNew2 }}" onChange="{{ onPwNew2 }}" style="height:50px;border:1.5px solid #E7E9EC;border-radius:12px;padding:0 14px;font-size:13.5px;font-family:inherit" />
+            <span style="{{ pwMatchStyle }}">{{ pwMatchHint }}</span>
+          </label>
+          <button onClick="{{ savePw }}" style="{{ pwBtnStyle }}">{{ pwBtnLabel }}</button>
+        </div>
+      </div>
+    </div>
+  </sc-if>
+
+  <sc-if value="{{ closeOpen }}" hint-placeholder-val="{{ false }}">
+    <div style="position:fixed;inset:0;z-index:95;display:flex;align-items:center;justify-content:center;padding:20px">
+      <div onClick="{{ cancelClose }}" style="position:absolute;inset:0;background:rgba(15,17,20,.66)"></div>
+      <div style="position:relative;width:min(600px,100%);max-height:100%;overflow-y:auto;background:#fff;border-radius:24px">
+
+        <sc-if value="{{ closeStep1 }}" hint-placeholder-val="{{ true }}">
+          <div style="display:flex;flex-direction:column">
+            <div style="background:#15181D;color:#fff;padding:clamp(20px,4vw,28px);display:flex;flex-direction:column;gap:12px">
+              <span style="font-size:clamp(18px,2.6vw,23px);font-weight:800;line-height:1.6">قبل از رفتن، یک لحظه صبر کنید</span>
+              <span style="font-size:13.5px;color:rgba(255,255,255,.7);line-height:2.1;text-wrap:pretty">بستن حساب یعنی دیگر هیچ پیامی برایتان ارسال نمی‌شود و تعهدهای فعال شما متوقف می‌گردد. اما پیش از آن، بد نیست بدانید چه چیزی از دست می‌رود.</span>
+              <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,130px),1fr));gap:10px;padding-top:4px">
+                <sc-for list="{{ closeImpact }}" as="i" hint-placeholder-count="3">
+                  <div style="background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.13);border-radius:15px;padding:13px 14px;display:flex;flex-direction:column;gap:5px">
+                    <span style="font-size:17px;font-weight:800">{{ i.n }}</span>
+                    <span style="font-size:11px;color:rgba(255,255,255,.6);line-height:1.8">{{ i.label }}</span>
+                  </div>
+                </sc-for>
+              </div>
+            </div>
+            <div style="padding:clamp(18px,3vw,24px);display:flex;flex-direction:column;gap:13px">
+              <span style="font-size:14.5px;font-weight:800">شاید یکی از این‌ها کافی باشد</span>
+              <sc-for list="{{ closeAlternatives }}" as="a" hint-placeholder-count="3">
+                <div style="display:flex;gap:12px;align-items:center;flex-wrap:wrap;border:1.5px solid #EFF0F2;border-radius:16px;padding:14px 15px">
+                  <div style="flex:0 0 38px;width:38px;height:38px;border-radius:12px;background:#FEF1EC;color:#D8420F;display:flex;align-items:center;justify-content:center;font-size:15px">{{ a.icon }}</div>
+                  <div style="display:flex;flex-direction:column;gap:4px;min-width:0;flex:1 1 170px">
+                    <span style="font-size:13.5px;font-weight:800">{{ a.title }}</span>
+                    <span style="font-size:12px;color:#6B7280;line-height:2">{{ a.note }}</span>
+                  </div>
+                  <button onClick="{{ a.onPick }}" style="height:40px;padding:0 14px;border:1.5px solid #E3E6EA;border-radius:12px;background:#fff;color:#23262B;font-size:12.5px;font-weight:800;cursor:pointer;white-space:nowrap;font-family:inherit">{{ a.cta }}</button>
+                </div>
+              </sc-for>
+              <div style="display:flex;gap:10px;flex-wrap:wrap;padding-top:4px">
+                <button onClick="{{ cancelClose }}" style="flex:1 1 200px;height:54px;border:0;border-radius:14px;background:#F4511E;color:#fff;font-size:15px;font-weight:800;cursor:pointer;font-family:inherit">می‌مانم و ادامه می‌دهم</button>
+                <button onClick="{{ goCloseStep2 }}" style="height:54px;padding:0 18px;border:1.5px solid #E3E6EA;border-radius:14px;background:#fff;color:#8A9099;font-size:13.5px;font-weight:700;cursor:pointer;font-family:inherit">با این حال می‌خواهم ببندم</button>
+              </div>
+            </div>
+          </div>
+        </sc-if>
+
+        <sc-if value="{{ closeStepAlt }}" hint-placeholder-val="{{ false }}">
+          <div style="display:flex;flex-direction:column">
+            <div style="padding:18px 22px;border-bottom:1px solid #EFF0F2;display:flex;align-items:center;gap:12px">
+              <div onClick="{{ backToClose1 }}" style="flex:0 0 34px;width:34px;height:34px;border:1px solid #EDEEF1;border-radius:11px;display:flex;align-items:center;justify-content:center;color:#6B7280;cursor:pointer">→</div>
+              <span style="font-size:17px;font-weight:800">{{ altTitle }}</span>
+              <div onClick="{{ cancelClose }}" style="margin-inline-start:auto;flex:0 0 34px;width:34px;height:34px;border:1px solid #EDEEF1;border-radius:11px;display:flex;align-items:center;justify-content:center;color:#6B7280;cursor:pointer">✕</div>
+            </div>
+            <div style="padding:20px 22px 26px;display:flex;flex-direction:column;gap:15px">
+              <span style="font-size:13px;color:#5A6169;line-height:2.1;text-wrap:pretty">{{ altNote }}</span>
+
+              <sc-if value="{{ altIsMute }}" hint-placeholder-val="{{ false }}">
+                <div style="display:flex;flex-direction:column;gap:9px">
+                  <span style="font-size:12.5px;font-weight:700;color:#4B5158">تا چه مدت پیام‌ها خاموش باشد؟</span>
+                  <div style="display:flex;gap:8px;flex-wrap:wrap">
+                    <sc-for list="{{ muteOptions }}" as="m" hint-placeholder-count="3">
+                      <button onClick="{{ m.onClick }}" style="{{ m.style }}">{{ m.label }}</button>
+                    </sc-for>
+                  </div>
+                </div>
+              </sc-if>
+
+              <sc-if value="{{ altIsAmount }}" hint-placeholder-val="{{ false }}">
+                <div style="display:flex;flex-direction:column;gap:9px">
+                  <span style="font-size:12.5px;font-weight:700;color:#4B5158">مبلغ جدید ماهانه (تومان)</span>
+                  <input type="text" value="{{ newAmountValue }}" onChange="{{ onNewAmount }}" style="height:54px;border:1.5px solid #E3E6EA;border-radius:13px;padding:0 14px;font-size:17px;font-weight:800;font-family:inherit" />
+                  <div style="display:flex;gap:8px;flex-wrap:wrap">
+                    <sc-for list="{{ amountChipsAlt }}" as="c" hint-placeholder-count="3">
+                      <button onClick="{{ c.onClick }}" style="{{ c.style }}">{{ c.label }}</button>
+                    </sc-for>
+                  </div>
+                </div>
+              </sc-if>
+
+              <sc-if value="{{ altIsPause }}" hint-placeholder-val="{{ false }}">
+                <div style="display:flex;flex-direction:column;gap:9px">
+                  <span style="font-size:12.5px;font-weight:700;color:#4B5158">مدت توقف</span>
+                  <div style="display:flex;gap:8px;flex-wrap:wrap">
+                    <sc-for list="{{ pauseOptions }}" as="p" hint-placeholder-count="3">
+                      <button onClick="{{ p.onClick }}" style="{{ p.style }}">{{ p.label }}</button>
+                    </sc-for>
+                  </div>
+                </div>
+              </sc-if>
+
+              <div style="display:flex;gap:10px;flex-wrap:wrap;padding-top:4px">
+                <button onClick="{{ confirmAlt }}" style="flex:1 1 190px;height:54px;border:0;border-radius:14px;background:#F4511E;color:#fff;font-size:15px;font-weight:800;cursor:pointer;font-family:inherit">{{ altConfirmLabel }}</button>
+                <button onClick="{{ backToClose1 }}" style="height:54px;padding:0 18px;border:1.5px solid #E3E6EA;border-radius:14px;background:#fff;color:#5A6169;font-size:13.5px;font-weight:700;cursor:pointer;font-family:inherit">بازگشت</button>
+              </div>
+            </div>
+          </div>
+        </sc-if>
+
+        <sc-if value="{{ closeStep2 }}" hint-placeholder-val="{{ false }}">
+          <div style="display:flex;flex-direction:column">
+            <div style="padding:18px 22px;border-bottom:1px solid #EFF0F2;display:flex;align-items:center;gap:12px">
+              <span style="font-size:17px;font-weight:800">تأیید بستن حساب</span>
+              <div onClick="{{ cancelClose }}" style="margin-inline-start:auto;flex:0 0 34px;width:34px;height:34px;border:1px solid #EDEEF1;border-radius:11px;display:flex;align-items:center;justify-content:center;color:#6B7280;cursor:pointer">✕</div>
+            </div>
+            <div style="padding:20px 22px 26px;display:flex;flex-direction:column;gap:15px">
+              <div style="background:#FEF5F5;border:1px solid #F5C9C9;border-radius:16px;padding:16px;display:flex;flex-direction:column;gap:9px">
+                <span style="font-size:13.5px;font-weight:800;color:#C43034">با بستن حساب چه می‌شود؟</span>
+                <span style="font-size:12.5px;color:#8C3236;line-height:2.1">ارسال هر نوع پیامک و اعلان متوقف می‌شود، تعهدهای فعال شما لغو و پرونده‌هایتان به صف خیر جدید بازمی‌گردد. اطلاعات و سابقه کمک‌های شما حذف نمی‌شود و هر زمان بخواهید حساب دوباره فعال می‌شود.</span>
+              </div>
+              <div style="display:flex;flex-direction:column;gap:9px">
+                <span style="font-size:12.5px;font-weight:700;color:#4B5158">اگر مایل هستید، دلیل را بگویید (اختیاری)</span>
+                <div style="display:flex;gap:8px;flex-wrap:wrap">
+                  <sc-for list="{{ closeReasons }}" as="r" hint-placeholder-count="5">
+                    <button onClick="{{ r.onClick }}" style="{{ r.style }}">{{ r.label }}</button>
+                  </sc-for>
+                </div>
+              </div>
+              <div style="display:flex;gap:10px;flex-wrap:wrap">
+                <button onClick="{{ cancelClose }}" style="flex:1 1 180px;height:54px;border:0;border-radius:14px;background:#F4511E;color:#fff;font-size:15px;font-weight:800;cursor:pointer;font-family:inherit">منصرف شدم</button>
+                <button onClick="{{ doClose }}" style="height:54px;padding:0 18px;border:1.5px solid #F5C9C9;border-radius:14px;background:#fff;color:#C43034;font-size:13.5px;font-weight:800;cursor:pointer;font-family:inherit">بله، حسابم را ببند</button>
+              </div>
+            </div>
+          </div>
+        </sc-if>
+      </div>
+    </div>
+  </sc-if>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:1280,&quot;height&quot;:900}}">
+class Component extends DCLogic {
+  state = { tab: 'dash', peopleSeg: 'active', caseOpen: null, notifOpen: false,
+    intPick: null, intSaved: false, intEdit: false };
+
+  intStored() {
+    if (this.state.intPick) return this.state.intPick;
+    try {
+      const raw = localStorage.getItem('dy-donor-interests');
+      return raw ? JSON.parse(raw) : {};
+    } catch (e) { return {}; }
+  }
+
+  intSave() {
+    const pick = this.intStored();
+    try { localStorage.setItem('dy-donor-interests', JSON.stringify(pick)); } catch (e) {}
+    this.setState({ intPick: pick, intSaved: true, intEdit: false });
+  }
+
+  interestVals() {
+    const groups = window.DY ? window.DY.activeGroups() : [];
+    const pick = this.intStored();
+    const picked = groups.filter(g => pick[g.id]);
+    const answered = picked.length > 0 && !this.state.intEdit;
+    return {
+      intAsk: !answered,
+      intAnswered: answered,
+      intChips: groups.map(g => {
+        const on = !!pick[g.id];
+        return {
+          label: g.title, icon: g.icon, desc: g.desc,
+          onClick: () => this.setState({ intPick: Object.assign({}, pick, { [g.id]: !on }), intSaved: false }),
+          style: 'display:flex;align-items:flex-start;gap:11px;padding:14px 15px;border-radius:16px;cursor:pointer;text-align:right;border:1.5px solid '
+            + (on ? '#F4511E;background:#FFF6F2' : '#EAECEF;background:#fff'),
+          iconStyle: 'flex:0 0 34px;width:34px;height:34px;border-radius:11px;display:flex;align-items:center;justify-content:center;font-size:15px;'
+            + (on ? 'background:#F4511E;color:#fff' : 'background:#F5F6F8;color:#8A9099'),
+          titleStyle: 'font-size:13.5px;font-weight:800;line-height:1.7;color:' + (on ? '#8A3A1C' : '#23262B')
+        };
+      }),
+      intPickedChips: picked.map(g => ({ label: g.title, icon: g.icon })),
+      intCount: picked.length ? this.fa(picked.length) + ' دسته انتخاب شده' : 'هنوز انتخابی نکرده‌اید',
+      intCanSave: picked.length > 0,
+      intSaveStyle: 'height:48px;padding:0 20px;border:0;border-radius:13px;font-size:13.5px;font-weight:800;font-family:inherit;white-space:nowrap;'
+        + (picked.length ? 'background:#F4511E;color:#fff;cursor:pointer' : 'background:#F2F3F5;color:#A9AEB6;cursor:not-allowed'),
+      intSaveLabel: picked.length ? 'ذخیره علاقه‌مندی‌ها' : 'دست‌کم یک دسته را انتخاب کنید',
+      intOnSave: () => { if (picked.length) this.intSave(); },
+      intOnEdit: () => this.setState({ intEdit: true }),
+      intJustSaved: !!this.state.intSaved
+    };
+  }
+
+  fa(v) { return String(v).replace(/\d/g, d => '۰۱۲۳۴۵۶۷۸۹'[d]); }
+
+  PAYS_MAP = {
+    'کبری محمدی': [
+      { date: '۲۰ مرداد ۱۴۰۵', amount: '۴٫۰۰۰٫۰۰۰', way: 'پایا', ref: '۸۸۳۹۰۲', state: 'پرداخت شد', kind: 'ok' },
+      { date: '۲۰ تیر ۱۴۰۵', amount: '۴٫۰۰۰٫۰۰۰', way: 'پایا', ref: '۸۷۹۱۴۰', state: 'پرداخت شد', kind: 'ok' },
+      { date: '۲۰ خرداد ۱۴۰۵', amount: '۴٫۰۰۰٫۰۰۰', way: 'کارت به کارت', ref: '۸۷۴۰۹۰', state: 'پرداخت شد', kind: 'ok' },
+      { date: '۲۵ اسفند ۱۴۰۴', amount: '۲۰٫۰۰۰٫۰۰۰', way: 'کارت به کارت', ref: '۷۹۴۴۰۱', state: 'ودیعه — پرداخت شد', kind: 'ok' },
+      { date: '۲۳ مرداد ۱۴۰۵', amount: '۴٫۰۰۰٫۰۰۰', way: '—', ref: '—', state: 'موعد فردا', kind: 'soon' }
+    ],
+    'فاطمه احمدی': [
+      { date: '۳۱ تیر ۱۴۰۵', amount: '۲٫۵۰۰٫۰۰۰', way: 'درگاه آنلاین', ref: '۸۸۰۱۲۰', state: 'پرداخت شد', kind: 'ok' },
+      { date: '۳۱ خرداد ۱۴۰۵', amount: '۲٫۰۰۰٫۰۰۰', way: 'درگاه آنلاین', ref: '۸۷۴۸۸۰', state: 'پرداخت شد', kind: 'ok' },
+      { date: '۳۱ مرداد ۱۴۰۵', amount: '۲٫۵۰۰٫۰۰۰', way: '—', ref: '—', state: '۹ روز دیگر', kind: 'idle' }
+    ],
+    'هادی نجفی': [
+      { date: '۲۴ تیر ۱۴۰۵', amount: '۳٫۰۰۰٫۰۰۰', way: 'درگاه آنلاین', ref: '۸۷۹۵۵۱', state: 'پرداخت شد', kind: 'ok' },
+      { date: '۲۴ خرداد ۱۴۰۵', amount: '۳٫۰۰۰٫۰۰۰', way: 'درگاه آنلاین', ref: '۸۷۴۳۱۰', state: 'پرداخت شد', kind: 'ok' },
+      { date: '۲۷ مرداد ۱۴۰۵', amount: '۳٫۰۰۰٫۰۰۰', way: '—', ref: '—', state: '۵ روز دیگر', kind: 'idle' }
+    ],
+    'احمد رضایی': [
+      { date: '۲۷ تیر ۱۴۰۵', amount: '۵٫۰۰۰٫۰۰۰', way: 'کارت به کارت', ref: '۸۷۹۸۸۰', state: 'پرداخت شد', kind: 'ok' },
+      { date: '۲۵ مرداد ۱۴۰۵', amount: '۵٫۰۰۰٫۰۰۰', way: '—', ref: '—', state: '۳ روز دیگر', kind: 'idle' }
+    ],
+    'نرگس طاهری': [
+      { date: '۳۱ تیر ۱۴۰۵', amount: '۲٫۰۰۰٫۰۰۰', way: 'درگاه آنلاین', ref: '۸۸۰۱۵۰', state: 'پرداخت شد', kind: 'ok' },
+      { date: '۳۱ خرداد ۱۴۰۵', amount: '۲٫۰۰۰٫۰۰۰', way: 'درگاه آنلاین', ref: '۸۷۴۹۰۰', state: 'پرداخت شد', kind: 'ok' },
+      { date: '۳۱ اردیبهشت ۱۴۰۵', amount: '۲٫۰۰۰٫۰۰۰', way: 'درگاه آنلاین', ref: '۸۶۹۷۷۰', state: 'پرداخت شد', kind: 'ok' }
+    ],
+    'مینا صادقی': [
+      { date: '۲۰ تیر ۱۴۰۵', amount: '۵٫۰۰۰٫۰۰۰', way: 'کارت به کارت', ref: '۸۷۹۳۲۰', state: 'پرداخت شد', kind: 'ok' },
+      { date: '۲۰ خرداد ۱۴۰۵', amount: '۵٫۰۰۰٫۰۰۰', way: 'کارت به کارت', ref: '۸۷۴۲۱۰', state: 'پرداخت شد', kind: 'ok' },
+      { date: '۲۰ اردیبهشت ۱۴۰۵', amount: '۵٫۰۰۰٫۰۰۰', way: 'درگاه آنلاین', ref: '۸۶۹۱۰۵', state: 'پرداخت شد', kind: 'ok' }
+    ]
+  };
+
+  peopleAll() {
+    return [
+      { initials: 'ک م', name: 'کبری محمدی', code: 'DY-۱۸۲۰', type: 'مسکن و اجاره', city: 'یزد', months: '۱۱ ماه', given: '۴۴ م', pct: 92, next: '۲۳ مرداد', state: 'در حال تامین', kind: 'ok', story: 'مادر سه فرزند، سرپرست خانوار؛ با حمایت شما اجاره‌بهای سال کامل پرداخت شده است.' },
+      { initials: 'ف ا', name: 'فاطمه احمدی', code: 'DY-۱۹۰۳', type: 'معیشت روزانه', city: 'تهران', months: '۸ ماه', given: '۲۰ م', pct: 67, next: '۳۱ مرداد', state: 'در حال تامین', kind: 'ok', story: 'همسر بیمار و بدون درآمد ثابت؛ کمک شما هزینه خورد و خوراک ماهانه را پوشش می‌دهد.' },
+      { initials: 'ه ن', name: 'هادی نجفی', code: 'DY-۲۲۰۱', type: 'معلولیت', city: 'زاهدان', months: '۵ ماه', given: '۱۵ م', pct: 25, next: '۲۷ مرداد', state: 'در حال تامین', kind: 'soon', story: 'ویلچر و داروی ماهانه؛ کمک بهزیستی او قطع شده است.' },
+      { initials: 'ا ر', name: 'احمد رضایی', code: 'DY-۲۵۴۰', type: 'جهیزیه و ازدواج', city: 'قم', months: '۲ قسط', given: '۱۰ م', pct: 35, next: '۲۵ مرداد', state: 'در حال تامین', kind: 'soon', story: 'تاریخ عقد شهریور تعیین شده؛ اقلام اصلی جهیزیه در حال تهیه است.' },
+      { initials: 'ن ط', name: 'نرگس طاهری', code: 'DY-۲۳۰۸', type: 'معیشت روزانه', city: 'شیراز', months: '۱۲ ماه', given: '۲۴ م', pct: 100, next: '—', state: 'تکمیل شده', kind: 'idle', story: 'پرونده با همراهی شما کامل و بسته شد؛ خانواده به درآمد پایدار رسید.' },
+      { initials: 'م ص', name: 'مینا صادقی', code: 'DY-۲۴۹۰', type: 'جهیزیه و ازدواج', city: 'شیراز', months: '۳ قسط', given: '۱۵ م', pct: 100, next: '—', state: 'تکمیل شده', kind: 'idle', story: 'جهیزیه کامل تهیه و تحویل شد؛ پرونده در تیر ۱۴۰۵ بسته شد.' }
+    ];
+  }
+
+  paysFor(name) { return (this.PAYS_MAP || {})[name] || []; }
+
+  caseDetail(p) {
+    const paysMap = this.PAYS_MAP;
+    const __unusedPaysMap = {
+      'کبری محمدی': [
+        { date: '۲۰ مرداد ۱۴۰۵', amount: '۴٫۰۰۰٫۰۰۰', way: 'پایا', ref: '۸۸۳۹۰۲', state: 'پرداخت شد', kind: 'ok' },
+        { date: '۲۰ تیر ۱۴۰۵', amount: '۴٫۰۰۰٫۰۰۰', way: 'پایا', ref: '۸۷۹۱۴۰', state: 'پرداخت شد', kind: 'ok' },
+        { date: '۲۰ خرداد ۱۴۰۵', amount: '۴٫۰۰۰٫۰۰۰', way: 'کارت به کارت', ref: '۸۷۴۰۹۰', state: 'پرداخت شد', kind: 'ok' },
+        { date: '۲۵ اسفند ۱۴۰۴', amount: '۲۰٫۰۰۰٫۰۰۰', way: 'کارت به کارت', ref: '۷۹۴۴۰۱', state: 'ودیعه — پرداخت شد', kind: 'ok' },
+        { date: '۲۳ مرداد ۱۴۰۵', amount: '۴٫۰۰۰٫۰۰۰', way: '—', ref: '—', state: 'موعد فردا', kind: 'soon' }
+      ],
+      'فاطمه احمدی': [
+        { date: '۳۱ تیر ۱۴۰۵', amount: '۲٫۵۰۰٫۰۰۰', way: 'درگاه آنلاین', ref: '۸۸۰۱۲۰', state: 'پرداخت شد', kind: 'ok' },
+        { date: '۳۱ خرداد ۱۴۰۵', amount: '۲٫۰۰۰٫۰۰۰', way: 'درگاه آنلاین', ref: '۸۷۴۸۸۰', state: 'پرداخت شد', kind: 'ok' },
+        { date: '۳۱ مرداد ۱۴۰۵', amount: '۲٫۵۰۰٫۰۰۰', way: '—', ref: '—', state: '۹ روز دیگر', kind: 'idle' }
+      ],
+      'هادی نجفی': [
+        { date: '۲۴ تیر ۱۴۰۵', amount: '۳٫۰۰۰٫۰۰۰', way: 'درگاه آنلاین', ref: '۸۷۹۵۵۱', state: 'پرداخت شد', kind: 'ok' },
+        { date: '۲۴ خرداد ۱۴۰۵', amount: '۳٫۰۰۰٫۰۰۰', way: 'درگاه آنلاین', ref: '۸۷۴۳۱۰', state: 'پرداخت شد', kind: 'ok' },
+        { date: '۲۷ مرداد ۱۴۰۵', amount: '۳٫۰۰۰٫۰۰۰', way: '—', ref: '—', state: '۵ روز دیگر', kind: 'idle' }
+      ],
+      'احمد رضایی': [
+        { date: '۲۷ تیر ۱۴۰۵', amount: '۵٫۰۰۰٫۰۰۰', way: 'کارت به کارت', ref: '۸۷۹۸۸۰', state: 'پرداخت شد', kind: 'ok' },
+        { date: '۲۵ مرداد ۱۴۰۵', amount: '۵٫۰۰۰٫۰۰۰', way: '—', ref: '—', state: '۳ روز دیگر', kind: 'idle' }
+      ],
+      'نرگس طاهری': [
+        { date: '۳۱ تیر ۱۴۰۵', amount: '۲٫۰۰۰٫۰۰۰', way: 'درگاه آنلاین', ref: '۸۸۰۱۵۰', state: 'پرداخت شد', kind: 'ok' },
+        { date: '۳۱ خرداد ۱۴۰۵', amount: '۲٫۰۰۰٫۰۰۰', way: 'درگاه آنلاین', ref: '۸۷۴۹۰۰', state: 'پرداخت شد', kind: 'ok' },
+        { date: '۳۱ اردیبهشت ۱۴۰۵', amount: '۲٫۰۰۰٫۰۰۰', way: 'درگاه آنلاین', ref: '۸۶۹۷۷۰', state: 'پرداخت شد', kind: 'ok' }
+      ]
+    };
+    const docsMap = {
+      'کبری محمدی': { need: '۴۸٫۰۰۰٫۰۰۰', raised: '۴۴٫۰۰۰٫۰۰۰', left: '۴٫۰۰۰٫۰۰۰', donors: '۴', opened: '۵ دی ۱۴۰۴', deadline: 'تا اسفند ۱۴۰۵' },
+      'فاطمه احمدی': { need: '۳۰٫۰۰۰٫۰۰۰', raised: '۲۰٫۰۰۰٫۰۰۰', left: '۱۰٫۰۰۰٫۰۰۰', donors: '۳', opened: '۱ فروردین ۱۴۰۵', deadline: 'تا اسفند ۱۴۰۵' },
+      'هادی نجفی': { need: '۳۶٫۰۰۰٫۰۰۰', raised: '۱۵٫۰۰۰٫۰۰۰', left: '۲۱٫۰۰۰٫۰۰۰', donors: '۲', opened: '۱۰ فروردین ۱۴۰۵', deadline: 'تا اسفند ۱۴۰۵' },
+      'احمد رضایی': { need: '۲۰۰٫۰۰۰٫۰۰۰', raised: '۷۰٫۰۰۰٫۰۰۰', left: '۱۳۰٫۰۰۰٫۰۰۰', donors: '۵', opened: '۱۲ خرداد ۱۴۰۵', deadline: '۳۰ شهریور ۱۴۰۵' },
+      'نرگس طاهری': { need: '۲۴٫۰۰۰٫۰۰۰', raised: '۲۴٫۰۰۰٫۰۰۰', left: '۰', donors: '۳', opened: '۱ مرداد ۱۴۰۴', deadline: 'بسته‌شده ۳۱ تیر ۱۴۰۵' }
+    };
+    const d = docsMap[p.name] || docsMap['کبری محمدی'];
+    const map = { ok: ['#EAF7F1', '#12805A'], soon: ['#FFF4E5', '#B26A00'], late: ['#FDECEC', '#C43034'], idle: ['#F1F2F4', '#5A6169'], info: ['#EEF2FF', '#3B4EA0'] };
+    const c = map[p.kind] || map.idle;
+    return Object.assign({}, p, d, {
+      stateStyle: 'font-size:11.5px;font-weight:700;padding:5px 10px;border-radius:8px;white-space:nowrap;background:' + c[0] + ';color:' + c[1],
+      pctLabel: this.fa(p.pct) + '٪',
+      barStyle: 'display:block;height:100%;width:' + p.pct + '%;background:' + (p.pct === 100 ? '#1E9E6A' : '#FFA51F'),
+      pays: paysMap[p.name] || [],
+      description: p.story + ' گزارش میدانی مددکار و مدارک هویتی بررسی و تایید شده است؛ مبالغ مستقیماً به هزینه اعلام‌شده تخصیص می‌یابد و رسید هر پرداخت برای شما ثبت می‌شود.',
+      photos: ['عکس محل سکونت', 'عکس اقلام تهیه‌شده', 'رسید هزینه'],
+      videos: ['روایت خانواده — ۱:۲۴', 'گزارش مددکار — ۲:۰۵'],
+      updates: [
+        { when: '۲۰ مرداد ۱۴۰۵', text: 'پرداخت شما دریافت و به حساب موجر واریز شد.' },
+        { when: '۵ مرداد ۱۴۰۵', text: 'گزارش بازدید میدانی مددکار به‌روزرسانی شد.' },
+        { when: '۲۰ تیر ۱۴۰۵', text: 'قسط یازدهم تسویه و رسید صادر شد.' }
+      ]
+    });
+  }
+
+  msgs() {
+    return [
+      {
+        from: 'مهدی کریمی — مدیر ارشد', when: 'امروز ۰۹:۲۰', pinned: true,
+        title: 'سپاس از ۱۱ ماه همراهی بی‌وقفه',
+        text: 'پرونده کبری محمدی با پرداخت فردای شما کامل می‌شود. اگر مایل باشید، یک پرونده سالمند در همان محله آماده واگذاری به شماست.',
+        cta: 'مشاهده پرونده پیشنهادی'
+      },
+      {
+        from: 'سمیرا فرد — امور مالی', when: 'دیروز ۱۶:۴۰', pinned: false,
+        title: 'صورت‌حساب سالانه شما آماده شد',
+        text: 'گزارش کمک‌های سال ۱۴۰۴ برای ارائه به امور مالیاتی در بخش پرداخت‌ها قابل دانلود است.',
+        cta: 'دانلود صورت‌حساب'
+      },
+      {
+        from: 'اطلاعیه دست یاری', when: '۱۸ مرداد', pinned: false,
+        title: 'تغییر شماره کارت صندوق',
+        text: 'از اول شهریور واریزهای کارت به کارت را فقط به شماره کارت جدید اعلام‌شده در اپ انجام دهید.',
+        cta: 'مشاهده اطلاعیه'
+      }
+    ];
+  }
+
+  /* پرونده کامل نیازمندان — برای صفحه جزئیات تعهد */
+  DOSSIER = {
+    'کبری محمدی': {
+      code: 'DY-۱۸۲۰', city: 'یزد', age: '۵۸ ساله', household: 'سرپرست خانوار — ۲ فرزند',
+      type: 'مسکن و اجاره', since: 'شهریور ۱۴۰۳',
+      story: 'همسر کبری خانم چهار سال پیش در سانحه کاری جان خود را از دست داد و از آن زمان او سرپرست دو فرزند دبیرستانی است. درآمد او از خیاطی خانگی ماهی حدود ۴ میلیون تومان است که کفاف اجاره ۷ میلیونی خانه را نمی‌دهد. سال گذشته دو بار حکم تخلیه گرفت و با کمک مجمع، بدهی اجاره تسویه و قرارداد جدید تنظیم شد.',
+      why: 'پرونده با معرفی بهزیستی استان یزد و بازدید میدانی مددکار مجمع در تیر ۱۴۰۳ تشکیل شد. مبلغ اجاره و درآمد خانوار با اجاره‌نامه رسمی و گردش حساب راستی‌آزمایی شده است.',
+      docs: [
+        { label: 'اجاره‌نامه رسمی — ۱۴۰۴/۰۴/۰۱', ok: true },
+        { label: 'گزارش بازدید میدانی مددکار', ok: true },
+        { label: 'گواهی فوت همسر', ok: true },
+        { label: 'گردش حساب شش‌ماهه', ok: true }
+      ],
+      hasVideo: true, videoNote: 'ویدئوی گزارش مددکار — ۲ دقیقه و ۱۴ ثانیه — تیر ۱۴۰۵',
+      photos: ['وضعیت مسکن — نشیمن', 'وضعیت مسکن — آشپزخانه', 'کارگاه خیاطی خانگی'],
+      reports: [
+        { when: '۲۰ تیر ۱۴۰۵', by: 'مددکار: فرزانه اکبری', text: 'اجاره تیر پرداخت شد و رسید موجر دریافت شد. فرزند بزرگ‌تر امسال کنکور دارد و کلاس تقویتی رایگان مجمع برای او هماهنگ شد.' },
+        { when: '۲۰ خرداد ۱۴۰۵', by: 'مددکار: فرزانه اکبری', text: 'اجاره خرداد پرداخت شد. موجر با تمدید یک‌ساله قرارداد بدون افزایش موافقت کرد.' },
+        { when: '۱۵ اردیبهشت ۱۴۰۵', by: 'کارشناس مالی', text: 'درآمد خیاطی این ماه ۴٫۲ میلیون بوده؛ سهم کمک بدون تغییر باقی می‌ماند.' }
+      ],
+      payments: [
+        { when: '۲۰ تیر ۱۴۰۵', amount: '۴٫۰۰۰٫۰۰۰', receipt: 'رسید ۸۸۲۱۰۴', state: 'تحویل شد' },
+        { when: '۲۰ خرداد ۱۴۰۵', amount: '۴٫۰۰۰٫۰۰۰', receipt: 'رسید ۸۷۹۹۳۱', state: 'تحویل شد' },
+        { when: '۲۰ اردیبهشت ۱۴۰۵', amount: '۴٫۰۰۰٫۰۰۰', receipt: 'رسید ۸۷۶۵۲۲', state: 'تحویل شد' },
+        { when: '۲۰ فروردین ۱۴۰۵', amount: '۴٫۰۰۰٫۰۰۰', receipt: 'رسید ۸۷۲۱۰۹', state: 'تحویل شد' }
+      ],
+      totalGiven: '۴۴٫۰۰۰٫۰۰۰', months: '۱۱ ماه', pct: 92
+    }
+  };
+
+  DOSSIER_FALLBACK = {
+    city: 'ثبت‌شده در سامانه', age: '', household: 'پرونده تأییدشده',
+    since: '',
+    story: 'شرح کامل وضعیت این خانواده توسط مددکار مجمع پس از بازدید میدانی تنظیم شده است. مدارک نیاز، مدارک هویتی و گزارش وضعیت اقتصادی خانوار در پرونده موجود و تأییدشده است.',
+    why: 'پرونده با معرفی نهاد حمایتی یا مراجعه مستقیم تشکیل و پس از بازدید میدانی و راستی‌آزمایی مدارک تأیید شده است.',
+    docs: [
+      { label: 'مدارک هویتی', ok: true },
+      { label: 'مدرک مربوط به نیاز', ok: true },
+      { label: 'گزارش بازدید میدانی', ok: true }
+    ],
+    hasVideo: false, videoNote: 'برای این پرونده ویدئویی ثبت نشده است',
+    photos: ['تصویر وضعیت — ۱', 'تصویر وضعیت — ۲'],
+    reports: [],
+    payments: [],
+    totalGiven: '', months: '', pct: 50
+  };
+
+  PLEDGES = [
+    { who: 'کبری محمدی', need: 'اجاره‌بهای مسکن', amount: '۴٫۰۰۰٫۰۰۰', date: '۲۳ مرداد ۱۴۰۵', plan: 'ماهانه — قسط ۱۲ از ۱۲', state: 'موعد فردا', kind: 'soon' },
+    { who: 'احمد رضایی', need: 'جهیزیه', amount: '۵٫۰۰۰٫۰۰۰', date: '۲۵ مرداد ۱۴۰۵', plan: 'بازه ۹۰ روزه — قسط ۲ از ۳', state: '۳ روز دیگر', kind: 'idle' },
+    { who: 'هادی نجفی', need: 'هزینه معلولیت', amount: '۳٫۰۰۰٫۰۰۰', date: '۲۷ مرداد ۱۴۰۵', plan: 'ماهانه — قسط ۶ از ۱۲', state: '۵ روز دیگر', kind: 'idle' },
+    { who: 'فاطمه احمدی', need: 'معیشت خانواده', amount: '۲٫۵۰۰٫۰۰۰', date: '۳۱ مرداد ۱۴۰۵', plan: 'ماهانه — قسط ۹ از ۱۲', state: '۹ روز دیگر', kind: 'idle' },
+    { who: 'رضا نیک‌پور', need: 'دارو و توانبخشی', amount: '۳٫۰۰۰٫۰۰۰', date: '۲۰ مرداد ۱۴۰۵', plan: 'ماهانه — قسط ۳ از ۱۲', state: '۲ روز تاخیر', kind: 'late' },
+    { who: 'سکینه مرادی', need: 'اجاره‌بهای مسکن', amount: '۵٫۰۰۰٫۰۰۰', date: '۱۶ مرداد ۱۴۰۵', plan: 'ماهانه — قسط ۸ از ۱۲', state: '۶ روز تاخیر', kind: 'late' },
+    { who: 'کبری محمدی', need: 'اجاره‌بهای مسکن', amount: '۴٫۰۰۰٫۰۰۰', date: '۲۰ تیر ۱۴۰۵', plan: 'ماهانه — قسط ۱۱ از ۱۲', state: 'پرداخت شد', kind: 'ok' },
+    { who: 'احمد رضایی', need: 'جهیزیه', amount: '۵٫۰۰۰٫۰۰۰', date: '۲۷ تیر ۱۴۰۵', plan: 'بازه ۹۰ روزه — قسط ۱ از ۳', state: 'پرداخت شد', kind: 'ok' },
+    { who: 'هادی نجفی', need: 'هزینه معلولیت', amount: '۳٫۰۰۰٫۰۰۰', date: '۲۴ تیر ۱۴۰۵', plan: 'ماهانه — قسط ۵ از ۱۲', state: 'پرداخت شد', kind: 'ok' },
+    { who: 'فاطمه احمدی', need: 'معیشت خانواده', amount: '۲٫۵۰۰٫۰۰۰', date: '۳۱ تیر ۱۴۰۵', plan: 'ماهانه — قسط ۸ از ۱۲', state: 'پرداخت شد', kind: 'ok' },
+    { who: 'سکینه مرادی', need: 'اجاره‌بهای مسکن', amount: '۵٫۰۰۰٫۰۰۰', date: '۱۶ تیر ۱۴۰۵', plan: 'ماهانه — قسط ۷ از ۱۲', state: 'پرداخت شد', kind: 'ok' },
+    { who: 'رضا نیک‌پور', need: 'دارو و توانبخشی', amount: '۳٫۰۰۰٫۰۰۰', date: '۲۰ تیر ۱۴۰۵', plan: 'ماهانه — قسط ۲ از ۱۲', state: 'پرداخت شد', kind: 'ok' }
+  ];
+
+  TICKETS = [
+    { id: 'T-۴۸۳۰', subject: 'می‌خواهم یک پرونده جدید هم بردارم', when: 'امروز ۱۰:۴۰', state: 'در انتظار پاسخ ما', kind: 'soon', last: 'اگر پرونده سالمند یا معلول دارید، ماهی ۲ میلیون دیگر می‌توانم.' },
+    { id: 'T-۴۷۵۰', subject: 'درخواست تغییر روز پرداخت ماهانه', when: '۱۴ مرداد ۱۴۰۵', state: 'بسته', kind: 'idle', last: 'موعد شما بدون تغییر روی ۲۰ هر ماه تایید شد.' },
+    { id: 'T-۴۶۸۲', subject: 'رسید واریز اسفند را ندارم', when: '۲ فروردین ۱۴۰۵', state: 'بسته', kind: 'idle', last: 'رسید ودیعه برای اظهارنامه ارسال شد.' },
+    { id: 'T-۴۶۱۰', subject: 'گزارش تحویل پرونده DY-۱۸۲۰ کجاست؟', when: '۱۸ اسفند ۱۴۰۴', state: 'بسته', kind: 'idle', last: 'گزارش و صورت‌جلسه تحویل در بخش پرداخت‌ها بارگذاری شد.' },
+    { id: 'T-۴۵۴۴', subject: 'امکان دریافت گواهی کمک برای مالیات', when: '۹ بهمن ۱۴۰۴', state: 'بسته', kind: 'idle', last: 'گواهی سالانه به رایانامه شما ارسال شد.' },
+    { id: 'T-۴۴۹۰', subject: 'تغییر شماره موبایل حساب', when: '۲۲ دی ۱۴۰۴', state: 'بسته', kind: 'idle', last: 'شماره جدید ثبت و با کد تأیید فعال شد.' }
+  ];
+
+  PAYMENTS = [
+    { date: '۲۰ مرداد ۱۴۰۵', needy: 'کبری محمدی', amount: '۴٫۰۰۰٫۰۰۰', way: 'پایا', ref: '۸۸۳۹۰۲' },
+    { date: '۳۱ تیر ۱۴۰۵', needy: 'فاطمه احمدی', amount: '۲٫۵۰۰٫۰۰۰', way: 'درگاه آنلاین', ref: '۸۸۰۱۲۰' },
+    { date: '۲۷ تیر ۱۴۰۵', needy: 'احمد رضایی', amount: '۵٫۰۰۰٫۰۰۰', way: 'کارت به کارت', ref: '۸۷۹۸۸۰' },
+    { date: '۲۴ تیر ۱۴۰۵', needy: 'هادی نجفی', amount: '۳٫۰۰۰٫۰۰۰', way: 'درگاه آنلاین', ref: '۸۷۹۵۵۱' },
+    { date: '۲۰ تیر ۱۴۰۵', needy: 'کبری محمدی', amount: '۴٫۰۰۰٫۰۰۰', way: 'پایا', ref: '۸۷۹۱۴۰' },
+    { date: '۱۶ تیر ۱۴۰۵', needy: 'سکینه مرادی', amount: '۵٫۰۰۰٫۰۰۰', way: 'پایا', ref: '۸۷۸۷۲۰' },
+    { date: '۳۱ خرداد ۱۴۰۵', needy: 'فاطمه احمدی', amount: '۲٫۵۰۰٫۰۰۰', way: 'درگاه آنلاین', ref: '۸۷۶۴۱۰' },
+    { date: '۲۷ خرداد ۱۴۰۵', needy: 'رضا نیک‌پور', amount: '۳٫۰۰۰٫۰۰۰', way: 'درگاه آنلاین', ref: '۸۷۶۱۰۲' },
+    { date: '۲۴ خرداد ۱۴۰۵', needy: 'هادی نجفی', amount: '۳٫۰۰۰٫۰۰۰', way: 'کارت به کارت', ref: '۸۷۵۸۸۰' },
+    { date: '۲۰ خرداد ۱۴۰۵', needy: 'کبری محمدی', amount: '۴٫۰۰۰٫۰۰۰', way: 'پایا', ref: '۸۷۵۵۳۰' },
+    { date: '۳۱ اردیبهشت ۱۴۰۵', needy: 'فاطمه احمدی', amount: '۲٫۵۰۰٫۰۰۰', way: 'درگاه آنلاین', ref: '۸۷۲۹۰۰' },
+    { date: '۲۴ اردیبهشت ۱۴۰۵', needy: 'هادی نجفی', amount: '۳٫۰۰۰٫۰۰۰', way: 'درگاه آنلاین', ref: '۸۷۲۳۴۰' }
+  ];
+
+  pwReady() {
+    const s = this.state;
+    return !!(s.pwOld && s.pwNew && s.pwNew.length >= 8 && /[0-9]/.test(s.pwNew) && /[a-zA-Zآ-ی]/.test(s.pwNew) && s.pwNew2 === s.pwNew);
+  }
+
+  pager(key, total, per) {
+    const pages = Math.max(1, Math.ceil(total / per));
+    const cur = Math.min((this.state.pages || {})[key] || 1, pages);
+    const set = (p) => this.setState({ pages: Object.assign({}, this.state.pages, { [key]: Math.min(Math.max(1, p), pages) }) });
+    const shown = Math.min(per, Math.max(0, total - (cur - 1) * per));
+    return {
+      show: total > per,
+      info: 'نمایش ' + this.fa(shown) + ' از ' + this.fa(total) + ' مورد — صفحه ' + this.fa(cur) + ' از ' + this.fa(pages),
+      prev: () => set(cur - 1),
+      next: () => set(cur + 1),
+      btns: Array.from({ length: pages }, (_, i) => i + 1).map(p => ({
+        label: this.fa(p), onClick: () => set(p),
+        style: 'min-width:36px;height:36px;border-radius:11px;font-size:12.5px;font-weight:800;cursor:pointer;font-family:inherit;border:1px solid '
+          + (p === cur ? '#F4511E' : '#EDEEF1') + ';background:' + (p === cur ? '#F4511E' : '#fff') + ';color:' + (p === cur ? '#fff' : '#5A6169')
+      }))
+    };
+  }
+
+  page(key, list, per) {
+    const pages = Math.max(1, Math.ceil(list.length / per));
+    const cur = Math.min((this.state.pages || {})[key] || 1, pages);
+    return list.slice((cur - 1) * per, cur * per);
+  }
+
+  componentDidMount() {
+    this.tick = setInterval(() => {
+      if (this.state.caseOpen) this.setState({ clock: Date.now() });
+    }, 1000);
+    if (this.dyMount) this.dyMount();
+  }
+
+  componentWillUnmount() { clearInterval(this.tick); }
+
+  /* شمارش معکوس تا موعد بعدی — روز/ساعت/دقیقه/ثانیه */
+  countdown(days) {
+    const target = this.cdBase(days);
+    let left = Math.max(0, target - Date.now());
+    const d = Math.floor(left / 86400000); left -= d * 86400000;
+    const h = Math.floor(left / 3600000); left -= h * 3600000;
+    const m = Math.floor(left / 60000); left -= m * 60000;
+    const s = Math.floor(left / 1000);
+    return { d, h, m, s, past: target <= Date.now() };
+  }
+
+  cdBase(days) {
+    if (!this._cdOrigin) this._cdOrigin = Date.now();
+    return this._cdOrigin + days * 86400000;
+  }
+
+  caseVals() {
+    const S = this.state;
+    const openWho = S.caseOpen;
+    const person = openWho ? this.peopleAll().find(x => x.name === openWho) : null;
+    /* اگر تعهد فعالی نبود، پرونده از داده «افراد من» ساخته می‌شود (پرونده‌های تکمیل‌شده) */
+    const p = openWho
+      ? (this.PLEDGES.find(x => x.who === openWho && x.kind !== 'ok')
+        || this.PLEDGES.find(x => x.who === openWho)
+        || (person ? { who: person.name, need: person.type, amount: '', plan: '', date: '', kind: 'idle' } : null))
+      : null;
+    const closed = !!p && !this.PLEDGES.some(x => x.who === openWho && x.kind !== 'ok');
+    const D = p ? Object.assign({}, this.DOSSIER_FALLBACK, person ? {
+      code: person.code, city: person.city, household: '',
+      story: person.story || this.DOSSIER_FALLBACK.story,
+      totalGiven: person.given ? person.given + ' تومان' : '',
+      months: person.months || '', pct: person.pct,
+      payments: this.paysFor(person.name).filter(r => r.kind === 'ok').map(r => ({
+        when: r.date, amount: r.amount, receipt: 'رسید ' + r.ref, state: r.state
+      })),
+      reports: [
+        { when: person.next && person.next !== '—' ? 'موعد بعدی ' + person.next : 'آخرین گزارش',
+          by: 'مددکار مجمع — ' + person.city,
+          text: person.story || 'کمک شما به این پرونده تحویل و رسید آن در پرونده ثبت شده است.' }
+      ]
+    } : {}, this.DOSSIER[p.who] || {}) : null;
+    const daysMap = { 'کبری محمدی': 1, 'احمد رضایی': 3, 'هادی نجفی': 5, 'فاطمه احمدی': 9, 'رضا نیک‌پور': -2, 'سکینه مرادی': -6 };
+    const days = p ? (daysMap[p.who] === undefined ? 4 : daysMap[p.who]) : 0;
+    const cd = this.countdown(Math.max(0, days) + 0.42);
+    const late = days < 0;
+    const W = window.DY ? window.DY.withdraw() : { reasons: [] };
+    const reasons = (W.reasons || []).filter(r => r.active !== false);
+    const wReason = S.wdReason || '';
+    const wNote = S.wdNote || '';
+    const pend = S.wdPending || {};
+
+    /* آمار واقعی این پرونده از فهرست پرداخت‌های خیر */
+    const paidRows = p ? this.PLEDGES.filter(x => x.who === p.who && x.kind === 'ok') : [];
+    const sumGiven = () => {
+      if (D && D.totalGiven && D.totalGiven !== '—') return D.totalGiven;
+      const n = paidRows.reduce((a, r) => a + (parseInt(String(r.amount).replace(/[^۰-۹0-9]/g, '').replace(/[۰-۹]/g, c => '۰۱۲۳۴۵۶۷۸۹'.indexOf(c)), 10) || 0), 0);
+      return n ? this.fa(n.toLocaleString('en-US').replace(/,/g, '٫')) : '';
+    };
+    const monthsOf = () => {
+      if (D && D.months && D.months !== '—') return D.months;
+      return paidRows.length ? this.fa(paidRows.length) + ' پرداخت انجام‌شده' : '';
+    };
+    const given = sumGiven();
+    const months = monthsOf();
+
+    const chip = (txt, accent) => ({
+      label: txt,
+      style: 'font-size:11.5px;font-weight:700;padding:6px 11px;border-radius:9px;white-space:nowrap;'
+        + (accent ? 'background:#FEF1EC;border:1px solid #F8D6C6;color:#C43C0E' : 'background:#FBFBFC;border:1px solid #EFF0F2;color:#5A6169')
+    });
+    const chips = [];
+    if (D) {
+      if (D.city) chips.push(chip(D.city));
+      if (D.age) chips.push(chip(D.age));
+      if (D.household) chips.push(chip(D.household));
+      if (D.since) chips.push(chip('حمایت شما از ' + D.since, true));
+    }
+    const subParts = p ? [D && D.code, p.need, D && D.city].filter(v => v && v !== '—') : [];
+
+    return {
+      caseOpen: !!p,
+      cShowDossier: !!p && !S.wdStep,
+      cHasCountdown: !!p && !closed,
+      cIsClosed: closed,
+      cCanWithdraw: !!p && !closed,
+      cClosedNote: person ? (person.state + ' — ' + (person.given ? 'مجموع کمک شما ' + person.given + ' تومان' : 'پرونده بسته شده است')) : 'پرونده بسته شده است',
+      cNoVideo: !!p && !(D && D.hasVideo),
+      cName: p ? p.who : '', cNeed: p ? p.need : '',
+      cCode: D ? D.code || '—' : '', cCity: D ? D.city : '', cAge: D ? D.age : '',
+      cHousehold: D ? D.household : '', cSince: D ? D.since : '',
+      cStory: D ? D.story : '', cWhy: D ? D.why : '',
+      cDocs: D ? D.docs.map(d => ({ label: d.label, icon: d.ok ? '✓' : '⋯',
+        style: 'display:flex;align-items:center;gap:9px;background:#FBFBFC;border:1px solid #EFF0F2;border-radius:12px;padding:11px 12px;font-size:12.5px;font-weight:700;color:#3A4048',
+        iconStyle: 'flex:0 0 22px;width:22px;height:22px;border-radius:7px;background:' + (d.ok ? '#EAF7F1;color:#12805A' : '#F5F6F8;color:#9AA0A8') + ';display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:800' })) : [],
+      cHasVideo: !!(D && D.hasVideo), cVideoNote: D ? D.videoNote : '',
+      cPhotos: D ? D.photos.map((t, i) => ({ label: t, slot: 'case-photo-' + (p ? p.who : '') + '-' + i })) : [],
+      cReports: D ? D.reports : [],
+      cHasReports: !!(D && (D.reports || []).length),
+      cPayments: D ? D.payments : [],
+      cHasPayments: !!(D && (D.payments || []).length),
+      cNoPayments: !!p && !(D && (D.payments || []).length),
+      cChips: chips,
+      cSubtitle: subParts.join(' — '),
+      cTotalGiven: given, cMonths: months,
+      cHasGiven: !!given, cHasMonths: !!months,
+      cHasStats: !!given || !!months,
+      cBarStyle: 'height:100%;border-radius:20px;background:#F4511E;width:' + (D ? D.pct : 0) + '%',
+      cPctLabel: D ? this.fa(D.pct) + '٪ از پرونده تأمین شده' : '',
+      cAmount: p ? p.amount : '', cPlan: p ? p.plan : '', cDate: p ? p.date : '',
+      cIsLate: late,
+      cCdLabel: late ? 'از موعد پرداخت گذشته است' : 'تا موعد پرداخت بعدی شما',
+      cCdCells: [
+        { num: this.fa(cd.d), label: 'روز' },
+        { num: this.fa(cd.h), label: 'ساعت' },
+        { num: this.fa(cd.m), label: 'دقیقه' },
+        { num: this.fa(cd.s), label: 'ثانیه' }
+      ],
+      cCdBoxStyle: 'display:flex;flex-direction:column;gap:14px;border-radius:22px;padding:clamp(18px,3vw,26px);'
+        + (late ? 'background:#C43034;color:#fff' : 'background:#15181D;color:#fff'),
+      cClose: () => this.setState({ caseOpen: null, wdStep: null }),
+      cOpenWithdraw: () => this.setState({ wdStep: 'persuade', wdReason: '', wdNote: '' }),
+
+      wdStep: S.wdStep || '',
+      wdIsPersuade: S.wdStep === 'persuade',
+      wdIsForm: S.wdStep === 'form',
+      wdIsDone: S.wdStep === 'done',
+      wdGoForm: () => this.setState({ wdStep: 'form' }),
+      wdCancel: () => this.setState({ wdStep: null }),
+      wdTitle: W.title || 'دلیل انصراف از حمایت',
+      wdNoteText: W.note || '',
+      wdReasons: reasons.map(r => ({
+        label: r.label,
+        onClick: () => this.setState({ wdReason: r.label }),
+        style: 'text-align:right;min-height:48px;padding:13px 15px;border-radius:13px;font-size:13px;font-weight:700;cursor:pointer;font-family:inherit;line-height:1.8;border:1.5px solid '
+          + (wReason === r.label ? '#15181D;background:#15181D;color:#fff' : '#EFF0F2;background:#fff;color:#3A4048')
+      })),
+      wdNote: wNote,
+      wdOnNote: (e) => this.setState({ wdNote: e.target.value }),
+      wdReady: !!wReason,
+      wdBtnStyle: 'height:50px;padding:0 20px;border:0;border-radius:14px;font-size:13.5px;font-weight:800;font-family:inherit;'
+        + (wReason ? 'background:#C43034;color:#fff;cursor:pointer' : 'background:#EFF0F2;color:#B6BBC2;cursor:not-allowed'),
+      wdBtnLabel: wReason ? 'ثبت درخواست انصراف' : 'یکی از دلایل بالا را انتخاب کنید',
+      wdSubmit: () => {
+        if (!wReason || !p) return;
+        this.setState({
+          wdStep: 'done',
+          wdPending: Object.assign({}, pend, { [p.who]: { reason: wReason, note: wNote.trim(), when: 'امروز' } })
+        });
+      },
+      wdDoneReason: pend[p ? p.who : ''] ? pend[p.who].reason : wReason,
+      wdBackToPanel: () => this.setState({ caseOpen: null, wdStep: null }),
+      wdPendingMap: pend
+    };
+  }
+
+  renderVals() {
+    const navDefault = [['dash', 'داشبورد'], ['pledges', 'تعهدهای من'], ['people', 'افراد من'], ['payments', 'پرداخت‌ها'], ['fund', 'صندوق اداره مجمع'], ['tickets', 'پیام‌ها'], ['profile', 'اطلاعات من']];
+    const navSet = window.DY ? window.DY.menu('donor') : null;
+    const nav = (navSet && navSet.length) ? navSet.map(m => [m.id, m.label]) : navDefault;
+    const raw = [
+      { days: 1, who: 'کبری محمدی', need: 'اجاره‌بهای مسکن', amount: '۴٫۰۰۰٫۰۰۰', date: 'شنبه ۲۳ مرداد', plan: 'ماهانه — قسط ۱۲ از ۱۲', state: 'due' },
+      { days: 3, who: 'احمد رضایی', need: 'جهیزیه', amount: '۵٫۰۰۰٫۰۰۰', date: 'دوشنبه ۲۵ مرداد', plan: 'بازه ۹۰ روزه — قسط ۲ از ۳', state: 'soon' },
+      { days: 5, who: 'هادی نجفی', need: 'هزینه معلولیت', amount: '۳٫۰۰۰٫۰۰۰', date: 'چهارشنبه ۲۷ مرداد', plan: 'ماهانه — قسط ۶ از ۱۲', state: 'soon' },
+      { days: 9, who: 'فاطمه احمدی', need: 'معیشت خانواده', amount: '۲٫۵۰۰٫۰۰۰', date: 'یکشنبه ۳۱ مرداد', plan: 'ماهانه — قسط ۹ از ۱۲', state: 'plan' },
+      { days: 29, who: 'کبری محمدی', need: 'اجاره‌بهای مسکن', amount: '۴٫۰۰۰٫۰۰۰', date: '۲۰ شهریور', plan: 'دوره بعد', state: 'plan' }
+    ];
+    const whenBig = (d) => d === 1 ? 'فردا' : d === 2 ? 'پس‌فردا' : this.fa(d);
+    const whenSmall = (d) => d <= 2 ? 'موعد' : 'روز دیگر';
+
+    const pledges = raw.map(p => {
+      const urgent = p.days <= 1, soon = p.days <= 5;
+      return {
+        whenBig: whenBig(p.days), whenSmall: whenSmall(p.days),
+        text: 'کمک به ' + p.who + ' برای ' + p.need,
+        date: p.date, plan: p.plan, amount: p.amount,
+        whenBox: 'flex:0 0 76px;height:60px;border-radius:15px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;'
+          + (urgent ? 'background:#FEF1EC;color:#C43034' : soon ? 'background:#FFF7EC;color:#B26A00' : 'background:#F5F6F8;color:#5A6169'),
+        rowStyle: 'display:flex;align-items:center;flex-wrap:wrap;gap:14px;padding:16px 20px;border-bottom:1px solid #F4F5F7;'
+          + (urgent ? 'background:#FFFCFA' : ''),
+        payLabel: urgent ? 'پرداخت فوری' : 'پرداخت',
+        payStyle: 'height:36px;padding:0 14px;border:0;border-radius:10px;font-size:12.5px;font-weight:700;white-space:nowrap;cursor:pointer;'
+          + (urgent ? 'background:#F4511E;color:#fff' : 'background:#23262B;color:#fff')
+      };
+    });
+
+    const T = this.state.tab;
+    const badge = (kind) => {
+      const map = { ok: ['#EAF7F1', '#12805A'], soon: ['#FFF4E5', '#B26A00'], late: ['#FDECEC', '#C43034'], idle: ['#F1F2F4', '#5A6169'], info: ['#EEF2FF', '#3B4EA0'] };
+      const c = map[kind];
+      return 'font-size:11.5px;font-weight:700;padding:5px 10px;border-radius:8px;white-space:nowrap;background:' + c[0] + ';color:' + c[1];
+    };
+
+    return {
+      ...this.interestVals(),
+      isDash: T === 'dash',
+      isFundTab: T === 'fund',
+      pwOpen: !!this.state.pwOpen,
+      openPw: () => this.setState({ pwOpen: true, pwSaved: false }),
+      closePw: () => this.setState({ pwOpen: false, pwOld: '', pwNew: '', pwNew2: '' }),
+      pwOld: this.state.pwOld || '',
+      onPwOld: (e) => this.setState({ pwOld: e.target.value }),
+      pwNew: this.state.pwNew || '',
+      onPwNew: (e) => this.setState({ pwNew: e.target.value }),
+      pwNew2: this.state.pwNew2 || '',
+      onPwNew2: (e) => this.setState({ pwNew2: e.target.value }),
+      pwHint: !this.state.pwNew ? 'ترکیب حرف و عدد، حداقل ۸ کاراکتر'
+        : (this.state.pwNew.length < 8 ? 'کوتاه است — حداقل ۸ کاراکتر'
+        : (/[0-9]/.test(this.state.pwNew) && /[a-zA-Zآ-ی]/.test(this.state.pwNew) ? 'گذرواژه مناسب است' : 'ترکیب حرف و عدد را رعایت کنید')),
+      pwHintStyle: 'font-size:11px;line-height:1.9;color:' + (!this.state.pwNew ? '#9AA0A8'
+        : (this.state.pwNew.length >= 8 && /[0-9]/.test(this.state.pwNew) && /[a-zA-Zآ-ی]/.test(this.state.pwNew) ? '#12805A' : '#C43034')),
+      pwMatchHint: !this.state.pwNew2 ? 'برای تأیید، گذرواژه جدید را دوباره وارد کنید'
+        : (this.state.pwNew2 === this.state.pwNew ? 'مطابقت دارد' : 'با گذرواژه جدید یکسان نیست'),
+      pwMatchStyle: 'font-size:11px;line-height:1.9;color:' + (!this.state.pwNew2 ? '#9AA0A8' : (this.state.pwNew2 === this.state.pwNew ? '#12805A' : '#C43034')),
+      pwBtnLabel: this.state.pwSaved ? '✓ گذرواژه تغییر کرد' : (this.pwReady() ? 'ثبت گذرواژه جدید' : 'فیلدها را کامل کنید'),
+      pwBtnStyle: 'align-self:flex-start;height:44px;padding:0 18px;border:0;border-radius:12px;font-size:13px;font-weight:800;font-family:inherit;'
+        + (this.pwReady() ? 'background:#F4511E;color:#fff;cursor:pointer' : 'background:#F2F3F5;color:#A9AEB6;cursor:not-allowed'),
+      savePw: () => {
+        if (!this.pwReady()) return;
+        this.setState({ pwSaved: true });
+        setTimeout(() => this.setState({ pwSaved: false, pwOpen: false, pwOld: '', pwNew: '', pwNew2: '' }), 1500);
+      },
+      accountClosed: !!this.state.closed,
+      closeOpen: !!this.state.closeStep,
+      closeStep2: this.state.closeStep === 2,
+      closeStep1: this.state.closeStep === 1,
+      openClose: () => this.setState({ closeStep: 1, closeReason: null }),
+      cancelClose: () => this.setState({ closeStep: null }),
+      goCloseStep2: () => this.setState({ closeStep: 2 }),
+      closeReasons: ['توان مالی فعلی را ندارم', 'پیام‌ها زیاد است', 'از طریق خیریه دیگری کمک می‌کنم', 'فعلاً فقط می‌خواهم استراحت کنم', 'دلیل دیگر'].map(r => ({
+        label: r,
+        onClick: () => this.setState({ closeReason: r }),
+        style: 'height:40px;padding:0 14px;border-radius:12px;font-size:12.5px;font-weight:700;cursor:pointer;white-space:nowrap;font-family:inherit;border:1.5px solid '
+          + (this.state.closeReason === r ? '#F4511E;background:#FEF1EC;color:#D8420F' : '#E3E6EA;background:#fff;color:#5A6169')
+      })),
+      closeImpact: [
+        { n: '۴ نفر', label: 'کسانی که هم‌اکنون به حمایت شما تکیه کرده‌اند' },
+        { n: '۲۴۰ م', label: 'کمکی که تا امروز از دست شما رسیده است' },
+        { n: '۹۴٪', label: 'پرداخت‌های به‌موقع شما' }
+      ],
+      closeAlternatives: [
+        { k: 'mute', icon: '⏸', title: 'به‌جای بستن، پیام‌ها را خاموش کنید', note: 'همه پیامک‌ها و اعلان‌ها قطع می‌شود و حساب شما باز می‌ماند.', cta: 'خاموش کردن پیام‌ها' },
+        { k: 'amount', icon: '↓', title: 'مبلغ حمایت ماهانه را کم کنید', note: 'می‌توانید تا حداقل ۱۰۰ هزار تومان در ماه کاهش دهید.', cta: 'تغییر مبلغ ماهانه' },
+        { k: 'pause', icon: '⌛', title: 'حمایت را سه ماه متوقف کنید', note: 'پرونده‌های شما به خیر دیگری سپرده می‌شود و بعد برمی‌گردید.', cta: 'توقف موقت' }
+      ].map(a => Object.assign({}, a, { onPick: () => this.setState({ closeStep: 'alt', alt: a.k }) })),
+      closeStepAlt: this.state.closeStep === 'alt',
+      altIsMute: this.state.alt === 'mute',
+      altIsAmount: this.state.alt === 'amount',
+      altIsPause: this.state.alt === 'pause',
+      altTitle: this.state.alt === 'mute' ? 'خاموش کردن پیام‌ها'
+        : this.state.alt === 'amount' ? 'تغییر مبلغ حمایت ماهانه' : 'توقف موقت حمایت',
+      backToClose1: () => this.setState({ closeStep: 1 }),
+      muteOptions: [['۱ ماه', 1], ['۳ ماه', 3], ['تا اطلاع ثانوی', 0]].map(o => ({
+        label: o[0], onClick: () => this.setState({ muteLen: o[1] }),
+        style: 'height:42px;padding:0 15px;border-radius:12px;font-size:12.5px;font-weight:800;cursor:pointer;white-space:nowrap;font-family:inherit;border:1.5px solid '
+          + ((this.state.muteLen === undefined ? 3 : this.state.muteLen) === o[1] ? '#F4511E;background:#FEF1EC;color:#D8420F' : '#E3E6EA;background:#fff;color:#5A6169')
+      })),
+      pauseOptions: [['۱ ماه', 1], ['۳ ماه', 3], ['۶ ماه', 6]].map(o => ({
+        label: o[0], onClick: () => this.setState({ pauseLen: o[1] }),
+        style: 'height:42px;padding:0 15px;border-radius:12px;font-size:12.5px;font-weight:800;cursor:pointer;white-space:nowrap;font-family:inherit;border:1.5px solid '
+          + ((this.state.pauseLen || 3) === o[1] ? '#F4511E;background:#FEF1EC;color:#D8420F' : '#E3E6EA;background:#fff;color:#5A6169')
+      })),
+      newAmountValue: (this.state.newAmount == null ? 15000000 : this.state.newAmount).toLocaleString('fa-IR'),
+      onNewAmount: (e) => {
+        const raw = String(e.target.value).replace(/[۰-۹]/g, d => '۰۱۲۳۴۵۶۷۸۹'.indexOf(d)).replace(/[^0-9]/g, '');
+        const n = parseInt(raw, 10);
+        this.setState({ newAmount: isNaN(n) ? 0 : n });
+      },
+      amountChipsAlt: [3000000, 7000000, 10000000].map(v => ({
+        label: v.toLocaleString('fa-IR'), onClick: () => this.setState({ newAmount: v }),
+        style: 'height:40px;padding:0 14px;border-radius:12px;font-size:12.5px;font-weight:800;cursor:pointer;white-space:nowrap;font-family:inherit;border:1.5px solid '
+          + ((this.state.newAmount == null ? 15000000 : this.state.newAmount) === v ? '#F4511E;background:#FEF1EC;color:#D8420F' : '#E3E6EA;background:#fff;color:#5A6169')
+      })),
+      altNote: this.state.alt === 'mute'
+        ? 'در این مدت هیچ پیامک، اعلان یا یادآوری موعدی برای شما ارسال نمی‌شود. تعهدهای فعال شما دست‌نخورده می‌ماند و هر زمان بخواهید دوباره روشن می‌شود.'
+        : this.state.alt === 'amount'
+        ? 'مبلغ جدید از ماه آینده اعمال می‌شود. اگر مبلغ کمتر از تعهد فعلی باشد، مابه‌التفاوت پرونده به خیر دیگری سپرده می‌شود تا خانواده بدون حمایت نماند.'
+        : 'در مدت توقف، پرونده‌های شما موقتاً به خیر دیگری سپرده می‌شود و پس از پایان دوره، اولویت بازگشت همان پرونده‌ها با شماست.',
+      altConfirmLabel: this.state.altDone ? '✓ اعمال شد' : 'تأیید و اعمال',
+      confirmAlt: () => {
+        const a = this.state.alt;
+        this.setState({ altDone: true, muted: a === 'mute' ? true : this.state.muted, paused: a === 'pause' ? (this.state.pauseLen || 3) : this.state.paused });
+        setTimeout(() => this.setState({ altDone: false, closeStep: null }), 1400);
+      },
+      isMuted: !!this.state.muted,
+      unmute: () => this.setState({ muted: false }),
+      isPaused: !!this.state.paused,
+      pausedLabel: 'حمایت شما برای ' + this.fa(this.state.paused || 0) + ' ماه متوقف است',
+      resume: () => this.setState({ paused: 0 }),
+      doClose: () => this.setState({ closed: true, closeStep: null, tab: 'dash' }),
+      reactivate: () => this.setState({ closed: false }),
+      goFund: () => this.setState({ tab: 'fund' }),
+      fundStats: [
+        { label: 'هزینه جاری ماه گذشته', value: '۱۴۲ میلیون', note: 'مرداد ۱۴۰۵ — با فاکتور' },
+        { label: 'تأمین‌شده از حامیان اداری', value: '۱۰۹ میلیون', note: '۷۷٪ هزینه ماه' },
+        { label: 'کسری این ماه', value: '۳۳ میلیون', note: 'نیازمند حمایت شما', hot: true },
+        { label: 'برداشت از کمک پرونده‌ها', value: '۰ ریال', note: 'همیشه صفر — سیاست مجمع', good: true }
+      ].map(s => ({
+        label: s.label, value: s.value, note: s.note,
+        boxStyle: 'display:flex;flex-direction:column;gap:6px;padding:16px 18px;border-radius:16px;border:1px solid '
+          + (s.hot ? '#F7CDBB;background:#FFF6F2' : s.good ? '#DFF0E7;background:#F7FBF9' : '#EAECEF;background:#fff'),
+        numStyle: 'font-size:21px;font-weight:800;letter-spacing:-.5px;color:' + (s.hot ? '#D8420F' : s.good ? '#12805A' : '#191C21')
+      })),
+      fundCosts: [
+        { title: 'حقوق و بیمه تیم اجرایی', note: '۱۴ کارشناس تمام‌وقت؛ بازدید میدانی، راستی‌آزمایی و پیگیری پرونده‌ها', share: '۵۸٪' },
+        { title: 'ایاب و ذهاب بازدیدهای میدانی', note: 'حدود ۳۲۰ بازدید در ماه در ۹ استان', share: '۱۲٪' },
+        { title: 'اجاره و هزینه دفتر مرکزی', note: 'اجاره، برق و آب، نظافت و نگهداری', share: '۱۱٪' },
+        { title: 'سامانه، سرور و درگاه پرداخت', note: 'نگهداری سامانه پرونده‌ها، پیامک اطلاع‌رسانی و کارمزد بانکی', share: '۹٪' },
+        { title: 'حسابرسی مستقل و امور حقوقی', note: 'حسابرسی شش‌ماهه، تنظیم قرارداد و پیگیری قضایی پرونده‌ها', share: '۷٪' },
+        { title: 'لوازم اداری و آموزش داوطلبان', note: 'ملزومات دفتری و دوره‌های آموزشی ۲۳۰ داوطلب', share: '۳٪' }
+      ],
+      fundAmounts: [200000, 500000, 1000000, 3000000].map(v => ({
+        label: v.toLocaleString('fa-IR') + ' تومان',
+        onClick: () => this.setState({ fundAmount: v }),
+        style: 'height:44px;padding:0 15px;border-radius:12px;font-size:13px;font-weight:800;cursor:pointer;white-space:nowrap;border:1.5px solid '
+          + ((this.state.fundAmount || 500000) === v ? '#F4511E;background:#FEF1EC;color:#D8420F' : '#E3E6EA;background:#fff;color:#5A6169')
+      })),
+      fundAmountValue: (this.state.fundAmount || 500000).toLocaleString('fa-IR'),
+      onFundAmount: (e) => {
+        const raw = String(e.target.value).replace(/[۰-۹]/g, d => '۰۱۲۳۴۵۶۷۸۹'.indexOf(d)).replace(/[^0-9]/g, '');
+        const n = parseInt(raw, 10);
+        this.setState({ fundAmount: isNaN(n) ? 0 : n });
+      },
+      fundModes: ['یک‌بار', 'ماهانه'].map(m => ({
+        label: m, onClick: () => this.setState({ fundMode: m }),
+        style: 'flex:1;height:42px;border:0;border-radius:11px;font-size:13px;font-weight:800;cursor:pointer;'
+          + ((this.state.fundMode || 'ماهانه') === m ? 'background:#fff;color:#191C21;box-shadow:0 2px 8px -4px rgba(20,22,26,.35)' : 'background:transparent;color:#6B7280')
+      })),
+      fundImpact: (() => {
+        const a = this.state.fundAmount || 500000;
+        return a >= 3000000 ? 'این مبلغ هزینه ایاب و ذهاب حدود ۳۰ بازدید میدانی را پوشش می‌دهد.'
+          : a >= 1000000 ? 'این مبلغ هزینه پیامک‌های اطلاع‌رسانی یک ماه سامانه را تأمین می‌کند.'
+          : a >= 500000 ? 'این مبلغ هزینه ایاب و ذهاب پنج بازدید میدانی است.'
+          : 'هر مبلغی سهمی از هزینه اداره مجمع را تأمین می‌کند.';
+      })(),
+      fundMyHistory: [
+        { title: 'حمایت ماهانه صندوق اداری', when: 'مرداد ۱۴۰۵', amount: '۵۰۰ هزار' },
+        { title: 'حمایت ماهانه صندوق اداری', when: 'تیر ۱۴۰۵', amount: '۵۰۰ هزار' },
+        { title: 'کمک به هزینه حسابرسی', when: 'خرداد ۱۴۰۵', amount: '۲ میلیون' }
+      ],
+      fundPrinciples: [
+        'صد درصد کمکی که برای یک پرونده می‌دهید به همان پرونده می‌رسد؛ حتی یک ریال از آن صرف اداره مجمع نمی‌شود.',
+        'کمک به صندوق اداری کاملاً اختیاری و جدا از کمک به پرونده‌هاست و در گزارش شما با عنوان مشخص ثبت می‌شود.',
+        'هر برداشت از این صندوق با شرح هزینه، فاکتور و نام تأییدکننده ثبت و در گزارش شش‌ماهه منتشر می‌شود.',
+        'موجودی و گردش صندوق توسط مؤسسه حسابرسی مستقل بررسی و در بخش شفافیت مالی سایت منتشر می‌شود.'
+      ],
+      isPledgesTab: T === 'pledges',
+      isPeopleTab: T === 'people',
+      isPaymentsTab: T === 'payments',
+      isTicketsTab: T === 'tickets',
+      isProfileTab: T === 'profile',
+      pledgePager: this.pager('pledge', this.PLEDGES.length, 5),
+      ...this.caseVals(),
+      allPledges: this.page('pledge', this.PLEDGES, 5).map(p => {
+        const pend = (this.state.wdPending || {})[p.who];
+        return Object.assign({}, p, {
+          stateStyle: badge(p.kind),
+          isPending: !!pend,
+          pendLabel: pend ? 'انصراف ثبت شد — در انتظار تایید مدیر' : '',
+          rowStyle: 'display:flex;align-items:center;flex-wrap:wrap;gap:14px;padding:14px 20px;border-bottom:1px solid #F4F5F7;'
+            + (pend ? 'background:#FFFBF6;border-inline-end:4px solid #E09B4A' : ''),
+          onDetails: () => this.setState({ caseOpen: p.who, wdStep: null })
+        });
+      }),
+      __unusedPledges: [
+        { who: 'کبری محمدی', need: 'اجاره‌بهای مسکن', amount: '۴٫۰۰۰٫۰۰۰', date: '۲۳ مرداد ۱۴۰۵', plan: 'ماهانه — قسط ۱۲ از ۱۲', state: 'موعد فردا', kind: 'soon' },
+        { who: 'احمد رضایی', need: 'جهیزیه', amount: '۵٫۰۰۰٫۰۰۰', date: '۲۵ مرداد ۱۴۰۵', plan: 'بازه ۹۰ روزه — قسط ۲ از ۳', state: '۳ روز دیگر', kind: 'idle' },
+        { who: 'هادی نجفی', need: 'هزینه معلولیت', amount: '۳٫۰۰۰٫۰۰۰', date: '۲۷ مرداد ۱۴۰۵', plan: 'ماهانه — قسط ۶ از ۱۲', state: '۵ روز دیگر', kind: 'idle' },
+        { who: 'فاطمه احمدی', need: 'معیشت خانواده', amount: '۲٫۵۰۰٫۰۰۰', date: '۳۱ مرداد ۱۴۰۵', plan: 'ماهانه — قسط ۹ از ۱۲', state: '۹ روز دیگر', kind: 'idle' },
+        { who: 'رضا نیک‌پور', need: 'دارو و توانبخشی', amount: '۳٫۰۰۰٫۰۰۰', date: '۲۰ مرداد ۱۴۰۵', plan: 'ماهانه — قسط ۳ از ۱۲', state: '۲ روز تاخیر', kind: 'late' },
+        { who: 'سکینه مرادی', need: 'اجاره‌بهای مسکن', amount: '۵٫۰۰۰٫۰۰۰', date: '۱۶ مرداد ۱۴۰۵', plan: 'ماهانه — قسط ۸ از ۱۲', state: '۶ روز تاخیر', kind: 'late' },
+        { who: 'کبری محمدی', need: 'اجاره‌بهای مسکن', amount: '۴٫۰۰۰٫۰۰۰', date: '۲۰ تیر ۱۴۰۵', plan: 'ماهانه — قسط ۱۱ از ۱۲', state: 'پرداخت شد', kind: 'ok' },
+        { who: 'احمد رضایی', need: 'جهیزیه', amount: '۵٫۰۰۰٫۰۰۰', date: '۲۷ تیر ۱۴۰۵', plan: 'بازه ۹۰ روزه — قسط ۱ از ۳', state: 'پرداخت شد', kind: 'ok' }
+      ].map(p => Object.assign({}, p, { stateStyle: badge(p.kind) })),
+      peopleSeg: this.state.peopleSeg,
+      peopleSegChips: [['active', 'در حال حمایت'], ['done', 'تکمیل‌شده']].map(s => ({
+        label: s[1],
+        count: this.fa(s[0] === 'done' ? this.peopleAll().filter(x => x.pct === 100).length : this.peopleAll().filter(x => x.pct < 100).length),
+        onClick: () => this.setState({ peopleSeg: s[0] }),
+        style: 'display:flex;align-items:center;gap:8px;height:42px;padding:0 18px;border-radius:13px;font-size:13.5px;font-weight:700;cursor:pointer;border:1.5px solid '
+          + (this.state.peopleSeg === s[0] ? '#F4511E' : '#E7E9EC') + ';background:' + (this.state.peopleSeg === s[0] ? '#F4511E' : '#fff') + ';color:' + (this.state.peopleSeg === s[0] ? '#fff' : '#5A6169'),
+        countStyle: 'font-size:11.5px;font-weight:800;padding:2px 8px;border-radius:20px;'
+          + (this.state.peopleSeg === s[0] ? 'background:rgba(255,255,255,.22);color:#fff' : 'background:#F1F2F4;color:#6B7280')
+      })),
+      oldCaseOpen: false,
+      peoplePager: this.pager('people' + this.state.peopleSeg, this.peopleAll().filter(p => this.state.peopleSeg === 'done' ? p.pct === 100 : p.pct < 100).length, 4),
+      peopleCards: this.page('people' + this.state.peopleSeg, this.peopleAll().filter(p => this.state.peopleSeg === 'done' ? p.pct === 100 : p.pct < 100), 4)
+        .map(p => Object.assign({}, p, {
+          stateStyle: badge(p.kind), pctLabel: this.fa(p.pct) + '٪',
+          barStyle: 'display:block;height:100%;width:' + p.pct + '%;background:' + (p.pct === 100 ? '#1E9E6A' : '#FFA51F'),
+          onOpen: () => this.setState({ tab: 'pledges', caseOpen: p.name, wdStep: null })
+        })),
+      sgTitle: 'خانواده‌هایی که هنوز منتظرند',
+      sgLead: 'شما تا امروز چهار پرونده را تا انتها همراهی کرده‌اید. این چند خانواده پرونده تأییدشده دارند اما هنوز حامی ثابتی پیدا نکرده‌اند — انتخاب آن‌ها با شماست و هیچ تعهدی ایجاد نمی‌کند.',
+      sgNote: 'اگر امسال ظرفیت مالی بیشتری ندارید، همین همراهی فعلی ارزشمند است. می‌توانید فقط پرونده‌ای را نشان کنید تا در صورت آزاد شدن ظرفیت، اول به شما اطلاع دهیم.',
+      sgCards: [
+        { initials: 'س م', name: 'سکینه مرادی', code: 'DY-۲۲۷۷', type: 'مسکن و اجاره', city: 'کرمان', need: '۹۰ م', left: '۵۲ م', pct: 42, urgency: 'مهلت تخلیه تا مهر', tone: 'late',
+          story: 'سرپرست خانوار سه‌نفره پس از فوت همسر؛ حکم تخلیه دارد و تا مهر باید ودیعه تأمین شود.', why: 'چون پرونده‌های مسکن را بهتر از هر کس می‌شناسید' },
+        { initials: 'ع ص', name: 'علی صابری', code: 'DY-۱۷۷۱', type: 'معلولیت', city: 'مشهد', need: '۳۸ م', left: '۳۸ م', pct: 0, urgency: 'هنوز حامی ندارد', tone: 'new',
+          story: 'ویلچر برقی و فیزیوتراپی ماهانه؛ مستمری بهزیستی او سه ماه است قطع شده.', why: 'با ماهی ۳ میلیون، کل نیاز او پوشش داده می‌شود' },
+        { initials: 'م ص', name: 'مینا صادقی', code: 'DY-۲۴۹۰', type: 'معیشت روزانه', city: 'یزد', need: '۲۴ م', left: '۹ م', pct: 62, urgency: 'حامی قبلی انصراف داد', tone: 'orphan',
+          story: 'دو فرزند مدرسه‌ای؛ حامی قبلی به دلیل مشکل مالی ادامه نداد و پرونده نیمه‌کاره مانده است.', why: 'ادامه یک مسیر نیمه‌تمام، از شروع تازه کم‌هزینه‌تر است' }
+      ].map(p => ({
+        initials: p.initials, name: p.name, code: p.code, type: p.type, city: p.city,
+        need: p.need, left: p.left, story: p.story, why: p.why, urgency: p.urgency,
+        pctLabel: this.fa(p.pct) + '٪ تأمین شده',
+        barStyle: 'display:block;height:100%;width:' + p.pct + '%;background:' + (p.pct === 0 ? '#C9CDD3' : '#FFA51F'),
+        urgencyStyle: 'font-size:11px;font-weight:800;padding:4px 9px;border-radius:8px;white-space:nowrap;'
+          + (p.tone === 'late' ? 'background:#FDECEC;color:#C43034'
+            : p.tone === 'orphan' ? 'background:#FFF4E5;color:#A2600C' : 'background:#EEF2FF;color:#3B4EA0'),
+        onSupport: () => this.setState({ sgPicked: p.code, sgMode: 'support' }),
+        onMark: () => this.setState({ sgPicked: p.code, sgMode: 'mark' }),
+        onDetails: () => this.setState({ sgPicked: p.code, sgMode: 'detail' })
+      })),
+      sgDone: !!this.state.sgPicked,
+      sgDoneText: this.state.sgMode === 'mark'
+        ? 'پرونده نشان شد — به‌محض آزاد شدن ظرفیت شما، اول به شما خبر می‌دهیم.'
+        : this.state.sgMode === 'detail'
+          ? 'درخواست شما ثبت شد — کارشناس پرونده جزئیات کامل و مدارک را برایتان می‌فرستد.'
+          : 'درخواست حمایت ثبت شد — کارشناس تا ۲۴ ساعت آینده برای هماهنگی مبلغ و موعد با شما تماس می‌گیرد.',
+      sgClear: () => this.setState({ sgPicked: null, sgMode: null }),
+      unusedPeople: [
+        { initials: 'ک م', name: 'کبری محمدی', code: 'DY-۱۸۲۰', type: 'مسکن و اجاره', city: 'یزد', months: '۱۱ ماه', given: '۴۴ م', pct: 92, next: '۲۳ مرداد', state: 'در حال تامین', kind: 'ok', story: 'مادر سه فرزند، سرپرست خانوار؛ با حمایت شما اجاره‌بهای سال کامل پرداخت شده است.' },
+        { initials: 'ف ا', name: 'فاطمه احمدی', code: 'DY-۱۹۰۳', type: 'معیشت روزانه', city: 'تهران', months: '۸ ماه', given: '۲۰ م', pct: 67, next: '۳۱ مرداد', state: 'در حال تامین', kind: 'ok', story: 'همسر بیمار و بدون درآمد ثابت؛ کمک شما هزینه خورد و خوراک ماهانه را پوشش می‌دهد.' },
+        { initials: 'ه ن', name: 'هادی نجفی', code: 'DY-۲۲۰۱', type: 'معلولیت', city: 'زاهدان', months: '۵ ماه', given: '۱۵ م', pct: 25, next: '۲۷ مرداد', state: 'در حال تامین', kind: 'soon', story: 'ویلچر و داروی ماهانه؛ کمک بهزیستی او قطع شده است.' },
+        { initials: 'ا ر', name: 'احمد رضایی', code: 'DY-۲۵۴۰', type: 'جهیزیه و ازدواج', city: 'قم', months: '۲ قسط', given: '۱۰ م', pct: 35, next: '۲۵ مرداد', state: 'در حال تامین', kind: 'soon', story: 'تاریخ عقد شهریور تعیین شده؛ اقلام اصلی جهیزیه در حال تهیه است.' },
+        { initials: 'ن ط', name: 'نرگس طاهری', code: 'DY-۲۳۰۸', type: 'معیشت روزانه', city: 'شیراز', months: '۱۲ ماه', given: '۲۴ م', pct: 100, next: '—', state: 'تکمیل شده', kind: 'idle', story: 'پرونده با همراهی شما کامل و بسته شد؛ خانواده به درآمد پایدار رسید.' }
+      ],
+      allPayments: [
+        { date: '۲۰ مرداد ۱۴۰۵', needy: 'کبری محمدی', amount: '۴٫۰۰۰٫۰۰۰', way: 'پایا', ref: '۸۸۳۹۰۲' },
+        { date: '۳۱ تیر ۱۴۰۵', needy: 'فاطمه احمدی', amount: '۲٫۵۰۰٫۰۰۰', way: 'درگاه آنلاین', ref: '۸۸۰۱۲۰' },
+        { date: '۲۷ تیر ۱۴۰۵', needy: 'احمد رضایی', amount: '۵٫۰۰۰٫۰۰۰', way: 'کارت به کارت', ref: '۸۷۹۸۸۰' },
+        { date: '۲۴ تیر ۱۴۰۵', needy: 'هادی نجفی', amount: '۳٫۰۰۰٫۰۰۰', way: 'درگاه آنلاین', ref: '۸۷۹۵۵۱' },
+        { date: '۲۰ تیر ۱۴۰۵', needy: 'کبری محمدی', amount: '۴٫۰۰۰٫۰۰۰', way: 'پایا', ref: '۸۷۹۱۴۰' },
+        { date: '۲۰ خرداد ۱۴۰۵', needy: 'کبری محمدی', amount: '۴٫۰۰۰٫۰۰۰', way: 'کارت به کارت', ref: '۸۷۴۰۹۰' },
+        { date: '۲۴ خرداد ۱۴۰۵', needy: 'هادی نجفی', amount: '۳٫۰۰۰٫۰۰۰', way: 'درگاه آنلاین', ref: '۸۷۴۳۱۰' },
+        { date: '۲۵ اسفند ۱۴۰۴', needy: 'کبری محمدی', amount: '۲۰٫۰۰۰٫۰۰۰', way: 'کارت به کارت', ref: '۷۹۴۴۰۱' }
+      ],
+      payYearTotal: '۴۵٫۵۰۰٫۰۰۰',
+      payYearCount: '۸',
+      __unusedTickets: [
+        { id: 'T-۴۸۳۰', subject: 'می‌خواهم یک پرونده جدید هم بردارم', when: 'امروز ۱۰:۴۰', state: 'در انتظار پاسخ ما', kind: 'soon', last: 'اگر پرونده سالمند یا معلول دارید، ماهی ۲ میلیون دیگر می‌توانم.' },
+        { id: 'T-۴۷۵۰', subject: 'درخواست تغییر روز پرداخت ماهانه', when: '۱۴ مرداد ۱۴۰۵', state: 'بسته', kind: 'idle', last: 'موعد شما بدون تغییر روی ۲۰ هر ماه تایید شد.' },
+        { id: 'T-۴۶۸۲', subject: 'رسید واریز اسفند را ندارم', when: '۲ فروردین ۱۴۰۵', state: 'بسته', kind: 'idle', last: 'رسید ودیعه برای اظهارنامه ارسال شد.' }
+      ].map(t => Object.assign({}, t, { stateStyle: badge(t.kind) })),
+      anyOverlayOpen: !!(this.state.userMenu || this.state.notifOpen),
+      closeOverlays: () => this.setState({ userMenu: false, notifOpen: false }),
+      userMenuOpen: !!this.state.userMenu,
+      toggleUserMenu: () => this.setState(s => ({ userMenu: !s.userMenu, notifOpen: false })),
+      goProfileTab: () => this.setState({ tab: 'profile', userMenu: false }),
+      userMenuItems: [
+        { icon: '⇄', label: 'پرداخت‌ها و رسیدها', note: '۸ پرداخت ثبت‌شده', go: 'payments' },
+        { icon: '◔', label: 'یادآوری‌ها', note: 'پیامک ۲۴ ساعت قبل فعال است', go: 'profile' },
+        { icon: '▤', label: 'صورت‌حساب سالانه', note: 'گزارش ۱۴۰۴ آماده است', go: 'payments' }
+      ].map(i => ({
+        icon: i.icon, label: i.label, note: i.note,
+        onClick: () => this.setState({ tab: i.go, userMenu: false }),
+        iconStyle: 'flex:0 0 34px;width:34px;height:34px;border-radius:11px;background:#F5F6F8;color:#5A6169;display:flex;align-items:center;justify-content:center;font-size:14px',
+        rowStyle: 'display:flex;align-items:center;gap:11px;padding:11px 14px;cursor:pointer;transition:background .12s'
+      })),
+      notifOpen: this.state.notifOpen,
+      toggleNotif: () => this.setState(s => ({ notifOpen: !s.notifOpen, userMenu: false })),
+      closeNotif: () => this.setState({ notifOpen: false }),
+      notifCount: '۴',
+      notifs: [
+        { icon: '⚑', kind: 'late', title: 'پرداخت رضا نیک‌پور ۲ روز عقب افتاده', text: 'تعهد ۳ میلیونی شما برای دارو و توانبخشی پرداخت نشده است.', when: 'امروز ۰۸:۳۰', unread: true, go: 'dash' },
+        { icon: '◔', kind: 'soon', title: 'فردا موعد پرداخت کبری محمدی', text: '۴ میلیون تومان — آخرین قسط از ۱۲ قسط.', when: 'امروز ۰۷:۰۰', unread: true, go: 'pledges' },
+        { icon: '✉', kind: 'info', title: 'پاسخ مدیریت به تیکت شما', text: 'درباره برداشتن پرونده جدید پیام گذاشته‌اند.', when: 'دیروز ۱۷:۱۰', unread: true, go: 'tickets' },
+        { icon: '✓', kind: 'ok', title: 'پرونده نرگس طاهری تکمیل شد', text: 'با همراهی شما پرونده بسته شد؛ گزارش پایانی در دسترس است.', when: '۳۱ تیر', unread: true, go: 'people' },
+        { icon: '⇄', kind: 'idle', title: 'رسید پرداخت ۲۰ مرداد صادر شد', text: 'کد پیگیری ۸۸۳۹۰۲ — قابل دانلود.', when: '۲۰ مرداد', unread: false, go: 'payments' }
+      ].map(n => {
+        const map = { late: ['#FDECEC', '#C43034'], soon: ['#FFF4E5', '#B26A00'], ok: ['#EAF7F1', '#12805A'], info: ['#EEF2FF', '#3B4EA0'], idle: ['#F1F2F4', '#5A6169'] };
+        const c = map[n.kind];
+        return {
+          icon: n.icon, title: n.title, text: n.text, when: n.when,
+          onClick: () => this.setState({ tab: n.go, notifOpen: false }),
+          iconStyle: 'flex:0 0 36px;width:36px;height:36px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:14px;background:' + c[0] + ';color:' + c[1],
+          rowStyle: 'display:flex;gap:12px;padding:14px 16px;border-bottom:1px solid #F4F5F7;cursor:pointer;' + (n.unread ? 'background:#FFFCFA' : ''),
+          dotStyle: n.unread ? 'flex:0 0 7px;width:7px;height:7px;border-radius:50%;background:#F4511E;margin-top:7px' : 'display:none'
+        };
+      }),
+      menuOpen: !!this.state.menuOpen,
+      toggleMenu: () => this.setState({ menuOpen: !this.state.menuOpen }),
+      closeMenu: () => this.setState({ menuOpen: false }),
+      menuItems: nav.map(n => ({
+        label: n[1],
+        onClick: () => this.setState({ tab: n[0], menuOpen: false }),
+        style: 'display:flex;align-items:center;padding:12px 13px;border-radius:12px;font-size:14px;font-weight:700;cursor:pointer;'
+          + (this.state.tab === n[0] ? 'background:#FEF1EC;color:#D8420F' : 'color:#3A4048')
+      })),
+      navItems: nav.map(n => ({
+        label: n[1], onClick: () => this.setState({ tab: n[0] }),
+        style: 'padding:10px 14px;border-radius:11px;font-size:13.5px;font-weight:700;cursor:pointer;white-space:nowrap;'
+          + (this.state.tab === n[0] ? 'background:#FEF1EC;color:#D8420F' : 'color:#5A6169')
+      })),
+      hero: {
+        headline: 'فردا موعد کمک ۴ میلیونی شما به کبری محمدی برای اجاره مسکن است',
+        sub: 'این آخرین قسط از ۱۲ قسط تعهد شماست؛ با این پرداخت پرونده او کامل می‌شود.',
+        amount: '۴٫۰۰۰٫۰۰۰'
+      },
+      stats: { total: '۲۴۰ م', month: '۱۴٫۵ م', people: '۴ نفر', onTime: '۹۴٪' },
+      hasOverdue: true,
+      overdueCount: '۲',
+      overdueSum: '۸٫۰۰۰٫۰۰۰',
+      overdueItems: [
+        {
+          who: 'رضا نیک‌پور', headline: 'رضا منتظر شماست',
+          line: 'تعهد شما برای هزینه نگهداری و داروی رضا ۲ روز از موعد گذشته — این کمک، ماندنِ او در مرکز توانبخشی را ممکن می‌کند.',
+          amount: '۳٫۰۰۰٫۰۰۰', late: '۲ روز تاخیر', need: 'معلولیت — قسط ۳ از ۱۲', date: 'موعد ۲۰ مرداد'
+        },
+        {
+          who: 'سکینه مرادی', headline: 'خانواده سکینه در آستانه تخلیه است',
+          line: 'تعهد شما نسبت به اجاره‌بهای مسکن او ۶ روز عقب افتاده — با این پرداخت حکم تخلیه متوقف می‌شود.',
+          amount: '۵٫۰۰۰٫۰۰۰', late: '۶ روز تاخیر', need: 'مسکن و اجاره — قسط ۸ از ۱۲', date: 'موعد ۱۶ مرداد'
+        }
+      ],
+      adminMsgs: this.msgs().map(m => ({
+        from: m.from, when: m.when, title: m.title, text: m.text, cta: m.cta, pinned: m.pinned,
+        avatar: m.pinned ? 'م ک' : '◈',
+        avatarStyle: 'flex:0 0 44px;width:44px;height:44px;border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:12.5px;font-weight:800;'
+          + (m.pinned ? 'background:#FEF1EC;color:#D8420F' : 'background:#F1F2F4;color:#5A6169'),
+        rowStyle: 'padding:18px 20px;border-bottom:1px solid #F4F5F7;display:flex;gap:14px;flex-wrap:wrap;align-items:center;'
+          + (m.pinned ? 'background:#FFFCFA' : '')
+      })),
+      unusedMsgs: [
+        {
+          from: 'مهدی کریمی — مدیر ارشد', when: 'امروز ۰۹:۲۰', pinned: true,
+          title: 'سپاس از ۱۱ ماه همراهی بی‌وقفه',
+          text: 'پرونده کبری محمدی با پرداخت فردای شما کامل می‌شود. اگر مایل باشید، یک پرونده سالمند در همان محله آماده واگذاری به شماست.',
+          cta: 'مشاهده پرونده پیشنهادی'
+        },
+        {
+          from: 'سمیرا فرد — امور مالی', when: 'دیروز ۱۶:۴۰', pinned: false,
+          title: 'صورت‌حساب سالانه شما آماده شد',
+          text: 'گزارش کمک‌های سال ۱۴۰۴ برای ارائه به امور مالیاتی در بخش پرداخت‌ها قابل دانلود است.',
+          cta: 'دانلود صورت‌حساب'
+        },
+        {
+          from: 'اطلاعیه دست یاری', when: '۱۸ مرداد', pinned: false,
+          title: 'تغییر شماره کارت صندوق',
+          text: 'از اول شهریور واریزهای کارت به کارت را فقط به شماره کارت جدید اعلام‌شده در اپ انجام دهید.',
+          cta: 'مشاهده اطلاعیه'
+        }
+      ],
+      hasTicket: true,
+      ticketDummy: null,
+      ticket: {
+        id: 'T-۴۸۳۰', subject: 'می‌خواهم یک پرونده جدید هم بردارم', state: 'در انتظار پاسخ ما', when: 'امروز ۱۰:۴۰',
+        preview: 'اگر پرونده سالمند یا معلول دارید، ماهی ۲ میلیون دیگر می‌توانم کمک کنم.'
+      },
+      dueSoonCount: '۳',
+      monthLeft: '۱۰٫۵۰۰٫۰۰۰',
+      pledges,
+      supported: [
+        { initials: 'ک م', name: 'کبری محمدی', type: 'مسکن و اجاره', months: '۱۱ ماه حمایت', pct: '۹۲٪', given: '۴۴ م', w: 92 },
+        { initials: 'ف ا', name: 'فاطمه احمدی', type: 'معیشت روزانه', months: '۸ ماه حمایت', pct: '۶۷٪', given: '۲۰ م', w: 67 },
+        { initials: 'ه ن', name: 'هادی نجفی', type: 'معلولیت', months: '۵ ماه حمایت', pct: '۲۵٪', given: '۱۵ م', w: 25 },
+        { initials: 'ا ر', name: 'احمد رضایی', type: 'جهیزیه و ازدواج', months: '۲ قسط', given: '۱۰ م', pct: '۳۵٪', w: 35 }
+      ].map(s => Object.assign({}, s, {
+        barStyle: 'display:block;height:100%;width:' + s.w + '%;background:' + (s.w >= 90 ? '#1E9E6A' : '#FFA51F')
+      })),
+      suggestions: [
+        {
+          initials: 'ص ک', name: 'صغرا کریمی', type: 'سالمند بی‌سرپرست', city: 'تهران — منطقه ۱۲',
+          reason: 'شما ۸ ماه معیشت یک خانواده در تهران را پوشش داده‌اید؛ این پرونده هم ماهانه و در همان محله است.',
+          need: '۲۴ م', raised: '۶ م', left: '۱۸ م', w: 25, cta: 'حمایت ماهانه ۲ م', tag: 'مطابق توان شما', kind: 'ok'
+        },
+        {
+          initials: 'ب ش', name: 'بهرام شریفی', type: 'معلولیت — یک‌باره', city: 'زاهدان',
+          reason: 'تنها ۴٫۵ میلیون تا تکمیل پرونده مانده است و با یک پرداخت بسته می‌شود.',
+          need: '۴۵ م', raised: '۴۰٫۵ م', left: '۴٫۵ م', w: 90, cta: 'تکمیل این پرونده', tag: 'نزدیک به تکمیل', kind: 'soon'
+        },
+        {
+          initials: 'ج ب', name: 'جواد بهرامی', type: 'آزادی زندانی', city: 'کرمانشاه',
+          reason: 'مهلت قانونی ۱۰ روزه دارد و اولویت A است؛ هر مبلغی کمک‌کننده است.',
+          need: '۴۵۰ م', raised: '۴۵ م', left: '۴۰۵ م', w: 10, cta: 'مشارکت آزاد', tag: 'فوری', kind: 'late'
+        }
+      ].map(g => {
+        const map = { ok: ['#EAF7F1', '#12805A'], soon: ['#FFF4E5', '#B26A00'], late: ['#FDECEC', '#C43034'] };
+        const c = map[g.kind];
+        return Object.assign({}, g, {
+          tagStyle: 'font-size:11.5px;font-weight:700;padding:4px 10px;border-radius:20px;white-space:nowrap;background:' + c[0] + ';color:' + c[1],
+          barStyle: 'display:block;height:100%;width:' + g.w + '%;background:#FFA51F'
+        });
+      }),
+      paymentsPager: this.pager('pay', this.PAYMENTS.length, 6),
+      payments: this.page('pay', this.PAYMENTS, 6),
+      ticketsPager: this.pager('tk', this.TICKETS.length, 3),
+      myTickets: this.page('tk', this.TICKETS, 3).map(t => Object.assign({}, t, { stateStyle: badge(t.kind) })),
+      __unusedPayments: [
+        { date: '۲۰ مرداد ۱۴۰۵', needy: 'کبری محمدی', amount: '۴٫۰۰۰٫۰۰۰', way: 'پایا', ref: '۸۸۳۹۰۲' },
+        { date: '۳۱ تیر ۱۴۰۵', needy: 'فاطمه احمدی', amount: '۲٫۵۰۰٫۰۰۰', way: 'درگاه آنلاین', ref: '۸۸۰۱۲۰' },
+        { date: '۲۷ تیر ۱۴۰۵', needy: 'احمد رضایی', amount: '۵٫۰۰۰٫۰۰۰', way: 'کارت به کارت', ref: '۸۷۹۸۸۰' },
+        { date: '۲۴ تیر ۱۴۰۵', needy: 'هادی نجفی', amount: '۳٫۰۰۰٫۰۰۰', way: 'درگاه آنلاین', ref: '۸۷۹۵۵۱' },
+        { date: '۲۰ تیر ۱۴۰۵', needy: 'کبری محمدی', amount: '۴٫۰۰۰٫۰۰۰', way: 'پایا', ref: '۸۷۹۱۴۰' }
+      ]
+    };
+  }
+}
+</script>
+</body>
+</html>

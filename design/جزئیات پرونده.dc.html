@@ -1,0 +1,793 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/rastikerdar/vazirmatn@v33.003/Vazirmatn-font-face.css">
+<script src="./image-slot.js"></script>
+<style>
+  *{box-sizing:border-box}
+  body{margin:0;font-family:Vazirmatn,system-ui,sans-serif;background:#fff;color:#191C21;-webkit-font-smoothing:antialiased}
+  a{color:#F4511E;text-decoration:none}
+  a:hover{color:#C43C0E}
+  button,select,input,textarea{font-family:inherit}
+  ::-webkit-scrollbar{width:9px;height:9px}
+  ::-webkit-scrollbar-thumb{background:#D8DBE0;border-radius:8px}
+  @media (max-width:900px){
+    div[style*="min-width: 1000px"],div[style*="min-width: 900px"],div[style*="min-width: 820px"],div[style*="min-width: 760px"],div[style*="min-width: 700px"],div[style*="min-width: 640px"]{min-width:0 !important}
+    div[style*="grid-template-columns: 1.6fr 1fr"],div[style*="grid-template-columns: 1.5fr 1fr"],div[style*="grid-template-columns: 1.4fr 1fr"],div[style*="grid-template-columns: 1.3fr 1fr"],div[style*="grid-template-columns: 1.2fr 1fr"],div[style*="grid-template-columns: 2fr 1fr"],div[style*="grid-template-columns: 1fr 380px"],div[style*="grid-template-columns: 1fr 360px"],div[style*="grid-template-columns: 1fr 340px"],div[style*="grid-template-columns: 1fr 320px"],div[style*="grid-template-columns: 1fr 300px"]{grid-template-columns:minmax(0,1fr) !important}
+    div[style*="repeat(4, 1fr)"],div[style*="repeat(3, 1fr)"]{grid-template-columns:repeat(auto-fit,minmax(min(100%,150px),1fr)) !important}
+    div[style*="minmax(190px"],div[style*="minmax(180px"],div[style*="minmax(150px"],div[style*="minmax(130px"]{grid-template-columns:repeat(auto-fit,minmax(min(100%,145px),1fr)) !important}
+  }
+  @media (max-width:560px){
+    div[style*="padding: 26px"],div[style*="padding: 24px"],div[style*="padding: 22px"]{padding:16px !important}
+    h1{font-size:clamp(24px,7vw,32px) !important}
+  }
+</style>
+<link rel="stylesheet" href="./responsive.css" />
+<script src="./settings-store.js"></script>
+</helmet>
+<x-import component-from-global-scope="mobile-preview" from="./mobile-preview.js" hint-size="0,0"></x-import>
+
+<div dir="rtl">
+
+  <dc-import name="SiteHeader" active="cases" style="position:sticky;top:0;z-index:50" hint-size="100%,114px"></dc-import>
+  <div style="display:none">
+    <div style="background:#15181D;color:#fff">
+      <div style="max-width:1240px;margin-inline:auto;padding:8px clamp(14px,3vw,24px);min-height:42px;display:flex;align-items:center;flex-wrap:wrap;gap:16px">
+        <a href="tel:02191002233" style="display:flex;align-items:center;gap:8px;color:#fff;font-size:12.5px;font-weight:700"><span style="color:#FF7A45">✆</span>۰۲۱-۹۱۰۰۲۲۳۳</a>
+        <span style="font-size:12px;color:rgba(255,255,255,.45)">سامانه کمک به نیازمندان</span>
+        <div style="margin-inline-start:auto;display:flex;align-items:center;gap:8px;flex-wrap:wrap">
+          <a href="ورود خیرین دست یاری.dc.html" style="height:32px;padding:0 13px;border-radius:10px;border:1px solid rgba(255,255,255,.2);display:flex;align-items:center;color:#fff;font-size:12px;font-weight:700">ورود خیرین</a>
+        </div>
+      </div>
+    </div>
+    <div style="max-width:1240px;margin-inline:auto;padding:10px clamp(14px,3vw,24px);min-height:68px;display:flex;align-items:center;flex-wrap:wrap;gap:12px">
+      <a href="سایت دست یاری.dc.html" style="display:flex;align-items:center;gap:12px">
+        <img src="assets/logo-t.png" alt="دست یاری" style="height:clamp(52px,7vw,76px);width:auto;object-fit:contain;display:block" />
+      </a>
+      <nav style="display:flex;gap:2px;flex-wrap:wrap;margin-inline-start:12px">
+        <a href="پروندهها.dc.html" style="display:flex;align-items:center;padding:10px 13px;border-radius:11px;font-size:13.5px;font-weight:700;white-space:nowrap;color:#4E555E">همه پرونده‌ها</a>
+        <a href="پرونده های گروه.dc.html" style="display:flex;align-items:center;padding:10px 13px;border-radius:11px;font-size:13.5px;font-weight:700;white-space:nowrap;color:#4E555E">گروه‌های کمک</a>
+        <a href="درباره ما.dc.html" style="display:flex;align-items:center;padding:10px 13px;border-radius:11px;font-size:13.5px;font-weight:700;white-space:nowrap;color:#4E555E">درباره ما</a>
+      </nav>
+      <div style="margin-inline-start:auto;display:flex;align-items:center;gap:10px;flex-wrap:wrap">
+        <button onClick="{{ share }}" style="height:44px;padding:0 15px;border:1.5px solid #E3E6EA;border-radius:13px;background:#fff;font-size:13.5px;font-weight:700;color:#23262B;cursor:pointer;white-space:nowrap">{{ shareLabel }}</button>
+        <span onClick="{{ openDonate }}" style="height:44px;padding:0 20px;border-radius:13px;display:flex;align-items:center;background:#F4511E;color:#fff;font-size:14px;font-weight:800;cursor:pointer;white-space:nowrap">کمک به این پرونده</span>
+      </div>
+    </div>
+  </div>
+
+  <section style="background:#15181D;color:#fff">
+    <div style="max-width:1240px;margin-inline:auto;padding:clamp(20px,3vw,30px) clamp(14px,3vw,24px);display:flex;gap:8px;align-items:center;font-size:12.5px;color:rgba(255,255,255,.5);flex-wrap:wrap">
+      <a href="سایت دست یاری.dc.html" style="color:rgba(255,255,255,.5)">خانه</a><span>/</span>
+      <a href="پروندهها.dc.html" style="color:rgba(255,255,255,.5)">پرونده‌ها</a><span>/</span>
+      <a href="پرونده های گروه.dc.html" style="color:rgba(255,255,255,.5)">درمان و دارو</a><span>/</span>
+      <span style="color:#fff">DY-۲۵۲۹</span>
+    </div>
+  </section>
+
+  <section style="background:#FAFAFB;border-bottom:1px solid #EFF0F2">
+    <div style="max-width:1240px;margin-inline:auto;padding:clamp(20px,3.5vw,34px) clamp(14px,3vw,24px);display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,330px),1fr));gap:clamp(20px,3vw,32px);align-items:start">
+
+      <div style="display:flex;flex-direction:column;gap:16px">
+        <div style="display:flex;gap:9px;flex-wrap:wrap">
+          <span style="font-size:11.5px;font-weight:800;background:#FDECEC;color:#C43034;padding:6px 12px;border-radius:20px">فوری — مهلت ۱۴ روز</span>
+          <span style="font-size:11.5px;font-weight:800;background:#FEF1EC;color:#D8420F;padding:6px 12px;border-radius:20px">درمان و دارو</span>
+          <span style="font-size:11.5px;font-weight:800;background:#F7FBF9;color:#12805A;padding:6px 12px;border-radius:20px">✓ راستی‌آزمایی شده</span>
+        </div>
+        <h1 style="margin:0;font-size:clamp(22px,3.2vw,34px);font-weight:800;letter-spacing:-.8px;line-height:1.5;text-wrap:balance">هزینه شیمی‌درمانی مادر دو کودک</h1>
+        <div style="display:flex;gap:10px;flex-wrap:wrap;font-size:12.5px;color:#8A9099">
+          <span>کد پرونده DY-۲۵۲۹</span><span>•</span><span>تهران، منطقه ۱۷</span><span>•</span><span>خانوار ۳ نفره</span><span>•</span><span>ثبت: ۴ مرداد ۱۴۰۵</span>
+        </div>
+        <div style="height:clamp(220px,32vw,380px);border-radius:22px;overflow:hidden;position:relative;background:#F2F3F5;border:1px solid #EFF0F2">
+          <image-slot id="{{ mainSlot }}" shape="rect" fit="cover" placeholder="عکس اصلی پرونده (با رضایت خانواده)"></image-slot>
+        </div>
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,92px),1fr));gap:10px">
+          <sc-for list="{{ gallery }}" as="g" hint-placeholder-count="4">
+            <div style="display:flex;flex-direction:column;gap:6px">
+              <div style="height:110px;border-radius:14px;overflow:hidden;position:relative;background:#F2F3F5;border:1px solid #EFF0F2">
+                <image-slot id="{{ g.slotId }}" shape="rect" fit="cover"></image-slot>
+              </div>
+              <span style="font-size:11px;color:#8A9099;text-align:center">{{ g.label }}</span>
+            </div>
+          </sc-for>
+        </div>
+        <span style="font-size:11.5px;color:#9AA0A8;line-height:2">تصاویر با رضایت کتبی خانواده منتشر شده و چهره افراد در صورت درخواست آن‌ها پوشانده می‌شود.</span>
+      </div>
+
+      <div style="display:flex;flex-direction:column;gap:14px;position:sticky;top:150px">
+        <div style="background:#fff;border:1px solid #EFF0F2;border-radius:24px;padding:clamp(18px,2.6vw,24px);display:flex;flex-direction:column;gap:16px;box-shadow:0 18px 40px -30px rgba(20,22,26,.4)">
+          <div style="display:flex;flex-direction:column;gap:9px">
+            <div style="display:flex;align-items:flex-end;gap:8px;flex-wrap:wrap">
+              <span style="font-size:clamp(22px,3vw,28px);font-weight:800;letter-spacing:-.6px">۲۹ میلیون</span>
+              <span style="font-size:13px;color:#8A9099;padding-bottom:5px">جمع‌آوری‌شده از ۱۴۰ میلیون تومان</span>
+            </div>
+            <div style="height:11px;background:#F2F3F5;border-radius:7px;overflow:hidden"><span style="display:block;height:100%;width:21%;background:#F4511E;border-radius:7px"></span></div>
+            <div style="display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;font-size:12.5px;color:#8A9099">
+              <span style="white-space:nowrap">۲۱٪ تکمیل شده</span>
+              <span style="white-space:nowrap">مانده ۱۱۱ میلیون تومان</span>
+            </div>
+          </div>
+          <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,100px),1fr));gap:9px">
+            <sc-for list="{{ quickFacts }}" as="f" hint-placeholder-count="3">
+              <div style="background:#FAFAFB;border:1px solid #EFF0F2;border-radius:14px;padding:12px;display:flex;flex-direction:column;gap:4px">
+                <span style="font-size:14px;font-weight:800">{{ f.value }}</span>
+                <span style="font-size:11px;color:#9AA0A8">{{ f.label }}</span>
+              </div>
+            </sc-for>
+          </div>
+          <div style="display:flex;flex-direction:column;gap:9px">
+            <span style="font-size:12.5px;font-weight:700;color:#4B5158">مبلغ کمک شما</span>
+            <div style="display:flex;gap:8px;flex-wrap:wrap">
+              <sc-for list="{{ amountChips }}" as="a" hint-placeholder-count="4">
+                <button onClick="{{ a.onClick }}" style="{{ a.style }}">{{ a.label }}</button>
+              </sc-for>
+            </div>
+            <div style="position:relative;display:flex">
+              <input type="text" value="{{ amountValue }}" onChange="{{ onAmount }}" style="height:54px;flex:1;min-width:0;border:1.5px solid #E3E6EA;border-radius:13px;padding:0 14px;font-size:17px;font-weight:800" />
+              <span style="position:absolute;left:14px;top:0;height:54px;display:flex;align-items:center;font-size:12.5px;color:#A9AEB6">تومان</span>
+            </div>
+          </div>
+          <div style="display:flex;gap:7px;background:#F5F6F8;padding:5px;border-radius:13px">
+            <sc-for list="{{ modeTabs }}" as="t" hint-placeholder-count="2">
+              <button onClick="{{ t.onClick }}" style="{{ t.style }}">{{ t.label }}</button>
+            </sc-for>
+          </div>
+          <span style="font-size:12.5px;color:#5A6169;line-height:2">{{ impactNote }}</span>
+          <button onClick="{{ openDonate }}" style="height:56px;border:0;border-radius:14px;background:#F4511E;color:#fff;font-size:15.5px;font-weight:800;cursor:pointer">پرداخت و ثبت کمک</button>
+          <div style="display:flex;align-items:center;gap:10px;background:#F7FBF9;border:1px solid #DFF0E7;border-radius:13px;padding:12px 14px">
+            <span style="color:#12805A">✓</span>
+            <span style="font-size:12px;color:#3F6B57;line-height:1.9">پرداخت مستقیم به حساب بیمارستان انجام می‌شود و رسید آن در پنل شما ثبت می‌گردد.</span>
+          </div>
+        </div>
+        <div style="background:#fff;border:1px solid #EFF0F2;border-radius:20px;padding:18px;display:flex;flex-direction:column;gap:12px">
+          <span style="font-size:14px;font-weight:800">۳۸ خیر در این پرونده مشارکت کرده‌اند</span>
+          <sc-for list="{{ donors }}" as="d" hint-placeholder-count="4">
+            <div style="display:flex;align-items:center;gap:11px">
+              <div style="flex:0 0 34px;width:34px;height:34px;border-radius:11px;background:#FEF1EC;color:#D8420F;display:flex;align-items:center;justify-content:center;font-size:12.5px;font-weight:800">{{ d.initial }}</div>
+              <div style="display:flex;flex-direction:column;gap:2px;min-width:0">
+                <span style="font-size:13px;font-weight:700">{{ d.name }}</span>
+                <span style="font-size:11px;color:#9AA0A8">{{ d.when }}</span>
+              </div>
+              <span style="margin-inline-start:auto;font-size:13px;font-weight:800;color:#D8420F;white-space:nowrap">{{ d.amount }}</span>
+            </div>
+          </sc-for>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section style="background:#fff">
+    <div style="max-width:1240px;margin-inline:auto;padding:clamp(30px,4.5vw,56px) clamp(14px,3vw,24px);display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,330px),1fr));gap:clamp(22px,3.5vw,40px);align-items:start">
+      <div style="display:flex;flex-direction:column;gap:26px">
+        <div style="display:flex;gap:7px;flex-wrap:wrap;border-bottom:1px solid #EFF0F2;padding-bottom:2px">
+          <sc-for list="{{ tabs }}" as="t" hint-placeholder-count="4">
+            <button onClick="{{ t.onClick }}" style="{{ t.style }}">{{ t.label }}</button>
+          </sc-for>
+        </div>
+
+        <sc-if value="{{ isStory }}" hint-placeholder-val="{{ true }}">
+          <div style="display:flex;flex-direction:column;gap:16px">
+            <h2 style="margin:0;font-size:clamp(19px,2.6vw,26px);font-weight:800;letter-spacing:-.6px">وضعیت خانواده</h2>
+            <sc-for list="{{ story }}" as="p" hint-placeholder-count="4">
+              <p style="margin:0;font-size:15px;color:#4B5158;line-height:2.3;text-wrap:pretty">{{ p }}</p>
+            </sc-for>
+            <div style="background:#FFF6F2;border:1px solid #F7CDBB;border-radius:18px;padding:18px;display:flex;flex-direction:column;gap:9px">
+              <span style="font-size:13.5px;font-weight:800;color:#8A3A1C">اگر این پرونده به‌موقع تکمیل نشود</span>
+              <span style="font-size:13.5px;color:#8A3A1C;line-height:2.1">دوره درمان با تأخیر شروع می‌شود و بر اساس نظر پزشک معالج، احتمال گسترش بیماری و نیاز به درمان سنگین‌تر افزایش می‌یابد.</span>
+            </div>
+          </div>
+        </sc-if>
+
+        <sc-if value="{{ isBudget }}" hint-placeholder-val="{{ false }}">
+          <div style="display:flex;flex-direction:column;gap:16px">
+            <h2 style="margin:0;font-size:clamp(19px,2.6vw,26px);font-weight:800;letter-spacing:-.6px">برآورد هزینه‌ها</h2>
+            <p style="margin:0;font-size:14.5px;color:#5A6169;line-height:2.2">مبالغ زیر بر اساس فاکتور رسمی بیمارستان و نسخه پزشک معالج کارشناسی شده است. سهم بیمه از جمع کل کسر شده است.</p>
+            <div style="border:1px solid #EFF0F2;border-radius:20px;overflow:hidden">
+              <sc-for list="{{ budget }}" as="b" hint-placeholder-count="5">
+                <div style="{{ b.rowStyle }}">
+                  <div style="display:flex;flex-direction:column;gap:4px;min-width:0">
+                    <span style="font-size:13.5px;font-weight:700">{{ b.title }}</span>
+                    <span style="font-size:11.5px;color:#9AA0A8">{{ b.note }}</span>
+                  </div>
+                  <span style="margin-inline-start:auto;font-size:14px;font-weight:800;white-space:nowrap">{{ b.amount }}</span>
+                </div>
+              </sc-for>
+              <div style="display:flex;align-items:center;gap:12px;padding:16px 18px;background:#15181D;color:#fff">
+                <span style="font-size:14px;font-weight:800">جمع مورد نیاز پرونده</span>
+                <span style="margin-inline-start:auto;font-size:16px;font-weight:800;white-space:nowrap">۱۴۰٬۰۰۰٬۰۰۰ تومان</span>
+              </div>
+            </div>
+          </div>
+        </sc-if>
+
+        <sc-if value="{{ isDocs }}" hint-placeholder-val="{{ false }}">
+          <div style="display:flex;flex-direction:column;gap:16px">
+            <h2 style="margin:0;font-size:clamp(19px,2.6vw,26px);font-weight:800;letter-spacing:-.6px">مدارک و راستی‌آزمایی</h2>
+            <p style="margin:0;font-size:14.5px;color:#5A6169;line-height:2.2">مدارک هویتی و پزشکی این پرونده توسط واحد راستی‌آزمایی بررسی و تأیید شده است. اصل مدارک به‌دلیل حفظ حریم خصوصی منتشر نمی‌شود و در دفتر مجمع قابل مشاهده است.</p>
+            <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,220px),1fr));gap:12px">
+              <sc-for list="{{ docs }}" as="d" hint-placeholder-count="5">
+                <div style="display:flex;align-items:center;gap:12px;border:1px solid #EFF0F2;border-radius:16px;padding:14px 15px">
+                  <div style="flex:0 0 38px;width:38px;height:38px;border-radius:12px;background:#F7FBF9;color:#12805A;display:flex;align-items:center;justify-content:center;font-size:15px">✓</div>
+                  <div style="display:flex;flex-direction:column;gap:3px;min-width:0">
+                    <span style="font-size:13.5px;font-weight:800">{{ d.title }}</span>
+                    <span style="font-size:11.5px;color:#9AA0A8">{{ d.meta }}</span>
+                  </div>
+                </div>
+              </sc-for>
+            </div>
+          </div>
+        </sc-if>
+
+        <sc-if value="{{ isTrack }}" hint-placeholder-val="{{ false }}">
+          <div style="display:flex;flex-direction:column;gap:16px">
+            <h2 style="margin:0;font-size:clamp(19px,2.6vw,26px);font-weight:800;letter-spacing:-.6px">پیگیری پرونده</h2>
+            <div style="display:flex;flex-direction:column;gap:0">
+              <sc-for list="{{ track }}" as="t" hint-placeholder-count="6">
+                <div style="display:flex;gap:14px;align-items:flex-start">
+                  <div style="display:flex;flex-direction:column;align-items:center;flex:0 0 24px">
+                    <span style="{{ t.dotStyle }}"></span>
+                    <span style="{{ t.lineStyle }}"></span>
+                  </div>
+                  <div style="display:flex;flex-direction:column;gap:5px;padding-bottom:20px;min-width:0">
+                    <span style="{{ t.titleStyle }}">{{ t.title }}</span>
+                    <span style="font-size:12px;color:#9AA0A8">{{ t.date }}</span>
+                    <span style="font-size:13px;color:#5A6169;line-height:2.1">{{ t.body }}</span>
+                  </div>
+                </div>
+              </sc-for>
+            </div>
+          </div>
+        </sc-if>
+      </div>
+
+      <div style="display:flex;flex-direction:column;gap:14px">
+        <div style="background:#FAFAFB;border:1px solid #EFF0F2;border-radius:22px;padding:20px;display:flex;flex-direction:column;gap:14px">
+          <span style="font-size:15px;font-weight:800">کارشناس مسئول پرونده</span>
+          <div style="display:flex;align-items:center;gap:12px">
+            <div style="flex:0 0 52px;width:52px;height:52px;border-radius:16px;background:#FEF1EC;color:#D8420F;display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:800">ن.ک</div>
+            <div style="display:flex;flex-direction:column;gap:3px;min-width:0">
+              <span style="font-size:14px;font-weight:800">نگار کیانی</span>
+              <span style="font-size:12px;color:#8A9099">کارشناس واحد راستی‌آزمایی — تهران</span>
+            </div>
+          </div>
+          <span style="font-size:12.5px;color:#5A6169;line-height:2.1">بازدید میدانی این پرونده در ۶ مرداد انجام شده است. برای سؤال درباره جزئیات می‌توانید با دفتر مجمع تماس بگیرید.</span>
+          <a href="tel:02191002233" style="height:46px;border:1.5px solid #E3E6EA;border-radius:13px;background:#fff;color:#23262B;display:flex;align-items:center;justify-content:center;font-size:13.5px;font-weight:700">تماس با دفتر مجمع</a>
+        </div>
+        <div style="background:#fff;border:1px solid #EFF0F2;border-radius:22px;padding:20px;display:flex;flex-direction:column;gap:12px">
+          <span style="font-size:15px;font-weight:800">سؤال‌های رایج درباره این پرونده</span>
+          <sc-for list="{{ faq }}" as="f" hint-placeholder-count="3">
+            <div onClick="{{ f.onClick }}" style="{{ f.boxStyle }}">
+              <div style="display:flex;gap:10px;align-items:center">
+                <span style="font-size:13px;font-weight:800;line-height:1.9">{{ f.q }}</span>
+                <span style="margin-inline-start:auto;font-size:11px;color:#A9AEB6">{{ f.caret }}</span>
+              </div>
+              <sc-if value="{{ f.open }}" hint-placeholder-val="{{ false }}">
+                <span style="font-size:12.5px;color:#5A6169;line-height:2.1">{{ f.a }}</span>
+              </sc-if>
+            </div>
+          </sc-for>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section style="background:#FAFAFB;border-top:1px solid #EFF0F2">
+    <div style="max-width:1240px;margin-inline:auto;padding:clamp(30px,4.5vw,56px) clamp(14px,3vw,24px);display:flex;flex-direction:column;gap:20px">
+      <div style="display:flex;gap:16px;flex-wrap:wrap;align-items:flex-end">
+        <div style="display:flex;flex-direction:column;gap:8px">
+          <span style="font-size:12.5px;font-weight:800;color:#D8420F">پرونده‌های مشابه</span>
+          <h2 style="margin:0;font-size:clamp(19px,2.6vw,27px);font-weight:800;letter-spacing:-.6px">پرونده‌های دیگر گروه درمان</h2>
+        </div>
+        <a href="پرونده های گروه.dc.html" style="margin-inline-start:auto;height:46px;padding:0 18px;border:1.5px solid #E3E6EA;border-radius:13px;background:#fff;color:#23262B;display:flex;align-items:center;font-size:13.5px;font-weight:700">دیدن همه گروه درمان</a>
+      </div>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,270px),1fr));gap:14px">
+        <sc-for list="{{ similar }}" as="s" hint-placeholder-count="3">
+          <a href="جزئیات پرونده.dc.html" style="background:#fff;border:1px solid #EFF0F2;border-radius:20px;overflow:hidden;display:flex;flex-direction:column;color:#191C21">
+            <div style="position:relative;height:150px;background:#F2F3F5;border-bottom:1px solid #EFF0F2">
+              <image-slot id="{{ s.slotId }}" shape="rect" fit="cover" placeholder="عکس پرونده"></image-slot>
+              <span style="{{ s.badgeStyle }}">{{ s.badge }}</span>
+            </div>
+            <div style="padding:16px;display:flex;flex-direction:column;gap:10px">
+              <span style="font-size:14.5px;font-weight:800;line-height:1.8">{{ s.title }}</span>
+              <span style="font-size:11.5px;color:#8A9099">{{ s.code }} — {{ s.city }}</span>
+              <div style="height:7px;background:#F2F3F5;border-radius:5px;overflow:hidden"><span style="{{ s.barStyle }}"></span></div>
+              <span style="font-size:12px;color:#9AA0A8;white-space:nowrap">مانده {{ s.left }}</span>
+            </div>
+          </a>
+        </sc-for>
+      </div>
+    </div>
+  </section>
+
+  <sc-if value="{{ donateOpen }}" hint-placeholder-val="{{ false }}">
+    <div style="position:fixed;inset:0;z-index:90;display:flex;align-items:center;justify-content:center;padding:clamp(10px,3vw,24px)">
+      <div onClick="{{ closeDonate }}" style="position:absolute;inset:0;background:rgba(15,17,20,.62)"></div>
+      <div style="position:relative;width:min(500px,100%);max-height:100%;overflow-y:auto;background:#fff;border-radius:24px;box-shadow:0 40px 80px -30px rgba(0,0,0,.6)">
+        <div style="padding:18px 22px;border-bottom:1px solid #EFF0F2;display:flex;align-items:center;gap:12px;position:sticky;top:0;background:#fff;z-index:2">
+          <sc-if value="{{ canGoBack }}" hint-placeholder-val="{{ false }}">
+            <div onClick="{{ stepBack }}" style="flex:0 0 34px;width:34px;height:34px;border:1px solid #EDEEF1;border-radius:11px;display:flex;align-items:center;justify-content:center;color:#6B7280;cursor:pointer">→</div>
+          </sc-if>
+          <div style="display:flex;flex-direction:column;gap:4px;min-width:0">
+            <span style="font-size:11.5px;font-weight:800;color:#D8420F">{{ stepBadge }}</span>
+            <span style="font-size:17px;font-weight:800;letter-spacing:-.4px">{{ stepTitle }}</span>
+          </div>
+          <div onClick="{{ closeDonate }}" style="margin-inline-start:auto;flex:0 0 36px;width:36px;height:36px;border:1px solid #EDEEF1;border-radius:11px;display:flex;align-items:center;justify-content:center;color:#6B7280;cursor:pointer">✕</div>
+        </div>
+
+        <div style="padding:20px 22px 26px;display:flex;flex-direction:column;gap:16px">
+
+          <sc-if value="{{ isChoice }}" hint-placeholder-val="{{ true }}">
+            <div style="display:flex;flex-direction:column;gap:14px">
+              <p style="margin:0;font-size:13.5px;color:#5A6169;line-height:2.1;text-wrap:pretty">برای ثبت کمک لازم نیست عضو شوید — اما اگر عضو شوید، گزارش تحویل و رسید همین پرونده در پنل شما ثبت می‌شود و می‌توانید مسیر کمکتان را تا انتها ببینید.</p>
+
+              <div onClick="{{ goSignup }}" style="border:2px solid #F4511E;background:#FFF6F2;border-radius:20px;padding:18px;display:flex;flex-direction:column;gap:12px;cursor:pointer">
+                <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap">
+                  <span style="font-size:15.5px;font-weight:800">عضویت و پرداخت</span>
+                  <span style="font-size:10.5px;font-weight:800;background:#F4511E;color:#fff;padding:4px 9px;border-radius:20px">پیشنهاد ما</span>
+                </div>
+                <sc-for list="{{ memberBenefits }}" as="b" hint-placeholder-count="4">
+                  <div style="display:flex;gap:9px;align-items:flex-start">
+                    <span style="color:#12805A;font-weight:800;font-size:12px">✓</span>
+                    <span style="font-size:12.5px;color:#4B5158;line-height:2">{{ b }}</span>
+                  </div>
+                </sc-for>
+                <div style="display:flex;gap:9px;align-items:flex-start;background:#fff;border:1px solid #F3DACE;border-radius:14px;padding:11px 13px">
+                  <span style="color:#D8420F;font-weight:800;font-size:12px">؟</span>
+                  <span style="font-size:12px;color:#8A3A1C;line-height:2">اگر بعداً نخواستید، لغو عضویت با یک کلیک در پنل خودتان انجام می‌شود — هیچ تعهد مالی و هیچ تماس پیگیری‌ای در پی ندارد.</span>
+                </div>
+                <span style="height:48px;border-radius:13px;background:#F4511E;color:#fff;display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:800">عضویت با کد یک‌بارمصرف</span>
+              </div>
+
+              <div onClick="{{ goGuest }}" style="border:1.5px solid #E3E6EA;border-radius:20px;padding:18px;display:flex;flex-direction:column;gap:10px;cursor:pointer">
+                <div style="display:flex;align-items:center;gap:10px">
+                  <span style="font-size:15px;font-weight:800">پرداخت سریع بدون عضویت</span>
+                  <span style="margin-inline-start:auto;font-size:11px;color:#9AA0A8">۳۰ ثانیه</span>
+                </div>
+                <span style="font-size:12.5px;color:#6B7280;line-height:2">فقط مبلغ را وارد کنید و پرداخت کنید. رسید به شماره‌ای که وارد می‌کنید پیامک می‌شود، اما سابقه کمک در پنلی ثبت نمی‌شود.</span>
+              </div>
+            </div>
+          </sc-if>
+
+          <sc-if value="{{ isPhone }}" hint-placeholder-val="{{ false }}">
+            <div style="display:flex;flex-direction:column;gap:14px">
+              <span style="font-size:13.5px;color:#5A6169;line-height:2.1">شماره موبایل خود را وارد کنید؛ یک کد چهاررقمی برایتان پیامک می‌شود. رمز عبوری در کار نیست.</span>
+              <div style="display:flex;flex-direction:column;gap:8px">
+                <label style="font-size:12.5px;font-weight:700;color:#4B5158">شماره موبایل</label>
+                <input type="tel" value="{{ phone }}" onChange="{{ onPhone }}" placeholder="۰۹۱۲۳۴۵۶۷۸۹" style="height:54px;border:1.5px solid #E3E6EA;border-radius:13px;padding:0 14px;font-size:16px;font-weight:700;letter-spacing:1px" />
+              </div>
+              <button onClick="{{ sendCode }}" style="height:54px;border:0;border-radius:14px;background:#F4511E;color:#fff;font-size:15px;font-weight:800;cursor:pointer">ارسال کد یک‌بارمصرف</button>
+              <button onClick="{{ goGuest }}" style="height:48px;border:1.5px solid #E3E6EA;border-radius:13px;background:#fff;color:#4B5158;font-size:13.5px;font-weight:700;cursor:pointer">بی‌خیال، بدون عضویت پرداخت می‌کنم</button>
+            </div>
+          </sc-if>
+
+          <sc-if value="{{ isCode }}" hint-placeholder-val="{{ false }}">
+            <div style="display:flex;flex-direction:column;gap:16px">
+              <span style="font-size:13.5px;color:#5A6169;line-height:2.1">کد چهاررقمی ارسال‌شده به {{ phoneLabel }} را وارد کنید.</span>
+              <div dir="ltr" style="display:flex;gap:10px;justify-content:center">
+                <sc-for list="{{ codeBoxes }}" as="c" hint-placeholder-count="4">
+                  <input type="text" maxlength="1" value="{{ c.value }}" onChange="{{ c.onChange }}" style="width:56px;height:62px;text-align:center;border:1.5px solid #E3E6EA;border-radius:14px;font-size:22px;font-weight:800" />
+                </sc-for>
+              </div>
+              <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap">
+                <span style="font-size:12.5px;color:#9AA0A8">{{ timerLabel }}</span>
+                <button onClick="{{ sendCode }}" style="margin-inline-start:auto;height:38px;padding:0 13px;border:1px solid #E3E6EA;border-radius:11px;background:#fff;color:#4B5158;font-size:12.5px;font-weight:700;cursor:pointer">ارسال دوباره کد</button>
+              </div>
+              <button onClick="{{ goProfile }}" style="height:54px;border:0;border-radius:14px;background:#F4511E;color:#fff;font-size:15px;font-weight:800;cursor:pointer">تأیید کد</button>
+            </div>
+          </sc-if>
+
+          <sc-if value="{{ isProfile }}" hint-placeholder-val="{{ false }}">
+            <div style="display:flex;flex-direction:column;gap:14px">
+              <span style="font-size:13.5px;color:#5A6169;line-height:2.1">همین چند مورد کافی است؛ نه کد ملی می‌خواهیم و نه اطلاعات بانکی.</span>
+              <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,150px),1fr));gap:12px">
+                <div style="display:flex;flex-direction:column;gap:7px">
+                  <label style="font-size:12.5px;font-weight:700;color:#4B5158">نام</label>
+                  <input type="text" placeholder="زهرا" style="height:50px;border:1.5px solid #E3E6EA;border-radius:13px;padding:0 14px;font-size:14px" />
+                </div>
+                <div style="display:flex;flex-direction:column;gap:7px">
+                  <label style="font-size:12.5px;font-weight:700;color:#4B5158">نام خانوادگی</label>
+                  <input type="text" placeholder="محمدی" style="height:50px;border:1.5px solid #E3E6EA;border-radius:13px;padding:0 14px;font-size:14px" />
+                </div>
+                <div style="display:flex;flex-direction:column;gap:7px">
+                  <label style="font-size:12.5px;font-weight:700;color:#4B5158">استان</label>
+                  <select value="{{ province }}" onChange="{{ onProvince }}" style="height:50px;border:1.5px solid #E3E6EA;border-radius:13px;padding:0 12px;font-size:14px;background:#fff">
+                    <sc-for list="{{ provinces }}" as="p" hint-placeholder-count="5">
+                      <option value="{{ p }}">{{ p }}</option>
+                    </sc-for>
+                  </select>
+                </div>
+                <div style="display:flex;flex-direction:column;gap:7px">
+                  <label style="font-size:12.5px;font-weight:700;color:#4B5158">شهر</label>
+                  <select style="height:50px;border:1.5px solid #E3E6EA;border-radius:13px;padding:0 12px;font-size:14px;background:#fff">
+                    <sc-for list="{{ cities }}" as="c" hint-placeholder-count="4">
+                      <option value="{{ c }}">{{ c }}</option>
+                    </sc-for>
+                  </select>
+                </div>
+                <div style="display:flex;flex-direction:column;gap:7px;grid-column:1/-1">
+                  <label style="font-size:12.5px;font-weight:700;color:#4B5158">تحصیلات</label>
+                  <select style="height:50px;border:1.5px solid #E3E6EA;border-radius:13px;padding:0 12px;font-size:14px;background:#fff">
+                    <sc-for list="{{ educations }}" as="e" hint-placeholder-count="5">
+                      <option value="{{ e }}">{{ e }}</option>
+                    </sc-for>
+                  </select>
+                </div>
+              </div>
+              <div style="display:flex;gap:9px;align-items:flex-start;background:#F7FBF9;border:1px solid #DFF0E7;border-radius:14px;padding:12px 14px">
+                <span style="color:#12805A;font-weight:800;font-size:12px">✓</span>
+                <span style="font-size:12px;color:#3F6B57;line-height:2">عضویت رایگان است و هر زمان بخواهید از پنل خودتان لغو می‌شود؛ اطلاعات شما در اختیار هیچ فرد یا سازمان دیگری قرار نمی‌گیرد.</span>
+              </div>
+              <button onClick="{{ goPay }}" style="height:54px;border:0;border-radius:14px;background:#F4511E;color:#fff;font-size:15px;font-weight:800;cursor:pointer">ثبت عضویت و ادامه به پرداخت</button>
+            </div>
+          </sc-if>
+
+          <sc-if value="{{ isPay }}" hint-placeholder-val="{{ false }}">
+            <div style="display:flex;flex-direction:column;gap:16px">
+              <div style="display:flex;gap:11px;align-items:center;background:#FFF6F2;border:1px solid #F7CDBB;border-radius:16px;padding:13px 15px">
+                <span style="color:#D8420F;font-weight:800">♡</span>
+                <span style="font-size:12.5px;color:#8A3A1C;line-height:2">{{ payerNote }}</span>
+              </div>
+              <div style="display:flex;flex-direction:column;gap:9px">
+                <label style="font-size:12.5px;font-weight:700;color:#4B5158">مبلغ کمک (تومان) — هر مقدار که بخواهید</label>
+                <input type="text" value="{{ amountValue }}" onChange="{{ onAmount }}" style="height:56px;border:1.5px solid #E3E6EA;border-radius:13px;padding:0 14px;font-size:18px;font-weight:800" />
+              </div>
+              <div style="display:flex;gap:8px;flex-wrap:wrap">
+                <sc-for list="{{ amountChips }}" as="a" hint-placeholder-count="4">
+                  <button onClick="{{ a.onClick }}" style="{{ a.style }}">{{ a.label }}</button>
+                </sc-for>
+              </div>
+              <sc-if value="{{ isGuest }}" hint-placeholder-val="{{ false }}">
+                <div style="display:flex;flex-direction:column;gap:7px">
+                  <label style="font-size:12.5px;font-weight:700;color:#4B5158">شماره موبایل برای ارسال رسید</label>
+                  <input type="tel" value="{{ phone }}" onChange="{{ onPhone }}" placeholder="۰۹۱۲۳۴۵۶۷۸۹" style="height:50px;border:1.5px solid #E3E6EA;border-radius:13px;padding:0 14px;font-size:14px" />
+                </div>
+              </sc-if>
+              <div style="display:flex;flex-direction:column;gap:7px">
+                <label style="font-size:12.5px;font-weight:700;color:#4B5158">نام نمایشی در فهرست خیرین</label>
+                <input type="text" placeholder="مثلاً ز. محمدی یا ناشناس" style="height:50px;border:1.5px solid #E3E6EA;border-radius:13px;padding:0 14px;font-size:14px" />
+              </div>
+              <span style="font-size:12.5px;color:#5A6169;line-height:2">{{ impactNote }}</span>
+              <button style="height:56px;border:0;border-radius:14px;background:#F4511E;color:#fff;font-size:15.5px;font-weight:800;cursor:pointer">انتقال به درگاه پرداخت</button>
+              <sc-if value="{{ isGuest }}" hint-placeholder-val="{{ false }}">
+                <button onClick="{{ goSignup }}" style="height:48px;border:1.5px solid #F7CDBB;border-radius:13px;background:#FFF6F2;color:#8A3A1C;font-size:13px;font-weight:800;cursor:pointer">می‌خواهم عضو شوم تا گزارش تحویل را ببینم</button>
+              </sc-if>
+            </div>
+          </sc-if>
+        </div>
+      </div>
+    </div>
+  </sc-if>
+
+  <sc-if value="{{ shOpen }}" hint-placeholder-val="{{ false }}">
+    <div style="position:fixed;inset:0;z-index:120;display:flex;align-items:flex-end;justify-content:center;background:rgba(11,13,16,.6)">
+      <div style="width:min(520px,100%);max-height:88vh;background:#fff;border-radius:26px 26px 0 0;display:flex;flex-direction:column;overflow:hidden;box-shadow:0 -20px 60px -20px rgba(0,0,0,.5)">
+        <div style="padding:18px 22px 14px;display:flex;gap:12px;align-items:flex-start;border-bottom:1px solid #F0F1F3">
+          <div style="display:flex;flex-direction:column;gap:5px;min-width:0">
+            <span style="font-size:16.5px;font-weight:800;letter-spacing:-.3px">هم‌رسانی این پرونده</span>
+            <span style="font-size:12px;color:#9AA0A8;line-height:1.9;text-wrap:pretty">با هر هم‌رسانی، این خانوار زودتر به موعد تامین می‌رسد.</span>
+          </div>
+          <span onClick="{{ shClose }}" style="margin-inline-start:auto;flex:0 0 36px;width:36px;height:36px;border-radius:11px;border:1px solid #EDEEF1;display:flex;align-items:center;justify-content:center;font-size:13px;color:#5A6169;cursor:pointer">✕</span>
+        </div>
+        <div style="padding:16px 22px 24px;display:flex;flex-direction:column;gap:16px;overflow-y:auto">
+          <div style="border:1.5px solid #EAECEF;border-radius:18px;padding:15px;display:flex;flex-direction:column;gap:9px;background:#FBFBFC">
+            <span style="font-size:13.5px;font-weight:800;line-height:1.85;text-wrap:pretty">{{ shCardTitle }}</span>
+            <div style="height:8px;background:#F2F3F5;border-radius:7px;overflow:hidden"><span style="{{ shCardBar }}"></span></div>
+            <span style="font-size:11.5px;font-weight:700;color:#5A6169">{{ shCardMeta }}</span>
+            <span style="font-size:11.5px;color:#8A9099">{{ shCardRemain }}</span>
+            <span style="font-size:11px;color:#9AA0A8;direction:ltr;word-break:break-all;line-height:1.8">{{ shCardUrl }}</span>
+          </div>
+          <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,150px),1fr));gap:9px">
+            <sc-for list="{{ shTargets }}" as="t" hint-placeholder-count="6">
+              <button onClick="{{ t.onClick }}" style="display:flex;align-items:center;gap:11px;text-align:right;padding:10px 12px;border:1.5px solid #EFF0F2;border-radius:14px;background:#fff;font-family:inherit;cursor:pointer" style-hover="border-color:#DDE0E4;background:#FBFBFC">
+                <span style="{{ t.iconStyle }}">{{ t.icon }}</span>
+                <span style="font-size:13px;font-weight:800;color:#23262B">{{ t.label }}</span>
+              </button>
+            </sc-for>
+          </div>
+          <sc-if value="{{ shNative }}" hint-placeholder-val="{{ false }}">
+            <button onClick="{{ shNativeGo }}" style="min-height:50px;border:0;border-radius:14px;background:#15181D;color:#fff;font-size:13.5px;font-weight:800;cursor:pointer;font-family:inherit">↗ هم‌رسانی با اپ‌های گوشی</button>
+          </sc-if>
+          <button onClick="{{ shCopyText }}" style="min-height:50px;border:1.5px solid #F7CDBB;border-radius:14px;background:#FEF6F2;color:#C43C0E;font-size:13.5px;font-weight:800;cursor:pointer;font-family:inherit">⧉ کپی متن و لینک با هم</button>
+          <sc-if value="{{ shFlashAny }}" hint-placeholder-val="{{ false }}">
+            <span style="font-size:12px;font-weight:800;color:#0F6B4C;background:#F7FBF9;border:1px solid #BFE3D0;border-radius:12px;padding:11px 13px;line-height:1.9">✓ {{ shFlash }}</span>
+          </sc-if>
+        </div>
+      </div>
+    </div>
+  </sc-if>
+
+  <dc-import name="SiteFooter" hint-size="100%,300px"></dc-import>
+  <div style="display:none">
+    <div style="max-width:1240px;margin-inline:auto;padding:clamp(28px,4vw,44px) clamp(14px,3vw,24px);display:flex;gap:14px;flex-wrap:wrap;align-items:center;font-size:12px;color:rgba(255,255,255,.55)">
+      <span>© ۱۴۰۵ موسسه خیریه دست یاری — همه حقوق محفوظ است.</span>
+      <div style="margin-inline-start:auto;display:flex;gap:16px;flex-wrap:wrap">
+        <a href="درباره ما.dc.html" style="color:rgba(255,255,255,.55)">درباره ما</a>
+        <a href="قوانین و حریم خصوصی.dc.html" style="color:rgba(255,255,255,.55)">قوانین و حریم خصوصی</a>
+        <a href="شفافیت مالی.dc.html" style="color:rgba(255,255,255,.55)">شفافیت مالی</a>
+      </div>
+    </div>
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;accent&quot;:{&quot;editor&quot;:&quot;color&quot;,&quot;default&quot;:&quot;#F4511E&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;options&quot;:[&quot;#F4511E&quot;,&quot;#C43C0E&quot;,&quot;#12805A&quot;],&quot;section&quot;:&quot;ظاهر&quot;}}">
+class Component extends DCLogic {
+  state = { tab: 'روایت پرونده', amount: 2000000, mode: 'یک‌بار', openFaq: 0, donate: false, shared: false, mainSlot: 'detail-g1',
+    step: 'choice', phone: '', code: ['', '', '', ''], timer: 90, province: 'تهران' };
+
+  componentDidMount() {
+    this.tick = setInterval(() => {
+      if (this.state.step === 'code' && this.state.timer > 0) this.setState(s => ({ timer: s.timer - 1 }));
+    }, 1000);
+  }
+
+  componentWillUnmount() { clearInterval(this.tick); }
+
+  fa(n) { return String(n).replace(/[0-9]/g, d => '۰۱۲۳۴۵۶۷۸۹'[+d]); }
+
+  /* پروندهٔ همین صفحه — تنها منبع عنوان، کد و درصد برای هم‌رسانی */
+  CASE = {
+    title: 'هزینه شیمی‌درمانی مادر دو کودک',
+    code: 'DY-۲۵۲۹', slug: 'DY-2529', group: 'درمان و دارو',
+    city: 'تهران، منطقه ۱۷', pct: 21, remain: '۱۱۱ میلیون تومان', daysLeft: '۱۴'
+  };
+
+  shUrl() { return location.href.split('#')[0].split('?')[0] + '?case=' + this.CASE.slug; }
+
+  shTxt() {
+    const c = this.CASE;
+    return c.title + ' — پرونده ' + c.code + '. ' + this.fa(c.pct) + '٪ تامین شده، مانده '
+      + c.remain + ' و ' + c.daysLeft + ' روز تا پایان مهلت. می‌توانید سهم خودتان را همین‌جا مشخص کنید:';
+  }
+
+  shFlashMsg(msg) {
+    this.setState({ shared: msg });
+    clearTimeout(this._sf);
+    this._sf = setTimeout(() => this.setState({ shared: '' }), 2200);
+  }
+
+  shCopy() {
+    const txt = this.shTxt() + '\n' + this.shUrl();
+    const done = () => this.shFlashMsg('لینک پرونده کپی شد');
+    try {
+      if (navigator.clipboard && navigator.clipboard.writeText) { navigator.clipboard.writeText(txt).then(done, done); return; }
+    } catch (e) {}
+    const t = document.createElement('textarea');
+    t.value = txt; t.style.position = 'fixed'; t.style.opacity = '0';
+    document.body.appendChild(t); t.select();
+    try { document.execCommand('copy'); } catch (e) {}
+    document.body.removeChild(t);
+    done();
+  }
+
+  shareVals() {
+    const S = this.state;
+    const u = encodeURIComponent(this.shUrl());
+    const t = encodeURIComponent(this.shTxt());
+    const open = (h, name) => { try { window.open(h, '_blank', 'noopener'); } catch (e) {} this.shFlashMsg(name + ' باز شد'); };
+    const list = [
+      { label: 'تلگرام', icon: '✈', color: '#229ED9', onClick: () => open('https://t.me/share/url?url=' + u + '&text=' + t, 'تلگرام') },
+      { label: 'واتساپ', icon: '✆', color: '#25D366', onClick: () => open('https://wa.me/?text=' + t + '%20' + u, 'واتساپ') },
+      { label: 'ایکس', icon: '✕', color: '#15181D', onClick: () => open('https://twitter.com/intent/tweet?text=' + t + '&url=' + u, 'ایکس') },
+      { label: 'کپی لینک', icon: '⧉', color: '#F4511E', onClick: () => this.shCopy() },
+      { label: 'ایمیل', icon: '✉', color: '#5A6169', onClick: () => { location.href = 'mailto:?subject=' + encodeURIComponent(this.CASE.title + ' — ' + this.CASE.code) + '&body=' + t + '%0A' + u; this.shFlashMsg('ایمیل باز شد'); } },
+      { label: 'پیامک', icon: '⌨', color: '#4B45A8', onClick: () => { location.href = 'sms:?&body=' + t + '%20' + u; this.shFlashMsg('پیامک باز شد'); } }
+    ];
+    return {
+      shOpen: !!S.shOpen,
+      shClose: () => this.setState({ shOpen: false }),
+      shCardTitle: this.CASE.title,
+      shCardMeta: 'پرونده ' + this.CASE.code + ' — ' + this.CASE.group + ' — ' + this.fa(this.CASE.pct) + '٪ تامین شده',
+      shCardRemain: 'مانده ' + this.CASE.remain + ' — ' + this.CASE.daysLeft + ' روز مهلت',
+      shCardBar: 'display:block;height:100%;width:' + this.CASE.pct + '%;background:#F4511E;border-radius:7px',
+      shCardUrl: this.shUrl(),
+      shTargets: list.map(x => ({
+        label: x.label, icon: x.icon, onClick: x.onClick,
+        iconStyle: 'flex:0 0 38px;width:38px;height:38px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:15px;color:#fff;background:' + x.color
+      })),
+      shNative: typeof navigator !== 'undefined' && !!navigator.share,
+      shNativeGo: () => {
+        try { navigator.share({ title: this.CASE.title + ' — ' + this.CASE.code, text: this.shTxt(), url: this.shUrl() }).catch(() => {}); } catch (e) {}
+      },
+      shCopyText: () => this.shCopy(),
+      shFlash: S.shared || '',
+      shFlashAny: !!S.shared
+    };
+  }
+
+  renderVals() {
+    const S = this.state;
+    const step = S.step;
+    const fmt = (n) => n.toLocaleString('fa-IR');
+    const chip = (on) => 'height:36px;padding:0 13px;border-radius:11px;font-size:12.5px;font-weight:800;cursor:pointer;white-space:nowrap;border:1.5px solid ' +
+      (on ? '#F4511E;background:#FEF1EC;color:#D8420F' : '#E3E6EA;background:#fff;color:#5A6169');
+    const tabNames = ['روایت پرونده', 'برآورد هزینه', 'مدارک', 'پیگیری'];
+    const amount = S.amount || 0;
+    const faqData = [
+      { q: 'کمک من دقیقاً به چه چیزی تخصیص می‌یابد؟', a: 'کمک شما تنها برای ردیف‌های اعلام‌شده در برآورد هزینه این پرونده مصرف می‌شود و به حساب بیمارستان یا داروخانه واریز می‌گردد.' },
+      { q: 'اگر مبلغ پرونده کامل نشود چه می‌شود؟', a: 'در پایان مهلت، اگر مبلغ کامل نشده باشد با شما تماس گرفته می‌شود تا انتخاب کنید کمکتان به همین پرونده بماند یا به پرونده مشابه منتقل شود.' },
+      { q: 'اگر مبلغ اضافه جمع شود؟', a: 'مبلغ اضافه هرگز صرف پرونده دیگری نمی‌شود مگر با اطلاع خیر؛ گزارش مانده به‌صورت شفاف در پنل شما ثبت می‌شود.' },
+      { q: 'می‌توانم مدارک اصل را ببینم؟', a: 'بله. با هماهنگی قبلی، اصل مدارک در دفتر مجمع برای خیرین قابل مشاهده است.' }
+    ];
+
+    return {
+      mainSlot: 'detail-view',
+      agentSlot: 'detail-agent',
+      gallery: [
+        { key: 'detail-g1', label: 'نمای خانه' },
+        { key: 'detail-g2', label: 'محل زندگی' },
+        { key: 'detail-g3', label: 'مدارک (محو)' },
+        { key: 'detail-g4', label: 'بازدید میدانی' }
+      ].map(g => ({ slotId: g.key, label: g.label })),
+      quickFacts: [
+        { value: '۱۴ روز', label: 'مهلت باقی‌مانده' },
+        { value: '۳۸ نفر', label: 'خیر مشارکت‌کننده' },
+        { value: '۶ مرداد', label: 'تاریخ بازدید میدانی' }
+      ],
+      amountChips: [500000, 2000000, 10000000, 35000000].map(v => ({
+        label: fmt(v), onClick: () => this.setState({ amount: v }), style: chip(amount === v)
+      })),
+      amountValue: fmt(amount),
+      onAmount: (e) => {
+        const raw = String(e.target.value).replace(/[۰-۹]/g, d => '۰۱۲۳۴۵۶۷۸۹'.indexOf(d)).replace(/[^0-9]/g, '');
+        const n = parseInt(raw, 10);
+        this.setState({ amount: isNaN(n) ? 0 : n });
+      },
+      modeTabs: ['یک‌بار', 'ماهانه تا تکمیل'].map(m => ({
+        label: m, onClick: () => this.setState({ mode: m }),
+        style: 'flex:1;height:42px;border:0;border-radius:11px;font-size:13px;font-weight:800;cursor:pointer;' +
+          (S.mode === m ? 'background:#fff;color:#191C21;box-shadow:0 2px 8px -4px rgba(20,22,26,.35)' : 'background:transparent;color:#6B7280')
+      })),
+      impactNote: amount >= 35000000 ? 'این مبلغ هزینه یک دوره کامل شیمی‌درمانی را پوشش می‌دهد.'
+        : amount >= 10000000 ? 'این مبلغ داروی دو دوره درمان را تأمین می‌کند.'
+        : amount >= 2000000 ? 'این مبلغ هزینه آزمایش‌ها و ویزیت‌های یک دوره را پوشش می‌دهد.'
+        : 'هر مبلغی سهمی از دوره درمان این مادر را تأمین می‌کند.',
+      donors: [
+        { initial: 'ز.م', name: 'ز. محمدی', when: 'امروز، ۱۰:۲۴', amount: '۵ م' },
+        { initial: 'نا', name: 'خیر ناشناس', when: 'دیروز', amount: '۱۲ م' },
+        { initial: 'ح.ر', name: 'ح. رادفر', when: '۲ روز پیش', amount: '۳ م' },
+        { initial: 'س.ک', name: 'س. کاظمی', when: '۳ روز پیش', amount: '۹۰۰ هزار' }
+      ],
+      tabs: tabNames.map(t => ({
+        label: t, onClick: () => this.setState({ tab: t }),
+        style: 'height:44px;padding:0 16px;border:0;border-radius:12px 12px 0 0;font-size:13.5px;font-weight:800;cursor:pointer;' +
+          (S.tab === t ? 'background:#FEF1EC;color:#D8420F' : 'background:transparent;color:#6B7280')
+      })),
+      isStory: S.tab === 'روایت پرونده',
+      isBudget: S.tab === 'برآورد هزینه',
+      isDocs: S.tab === 'مدارک',
+      isTrack: S.tab === 'پیگیری',
+      story: [
+        'خانم ر. م، ۳۶ ساله، مادر دو کودک هفت و چهار ساله است. سه ماه پیش پس از مراجعه به درمانگاه محله، سرطان پستان او تشخیص داده شد و پزشک معالج شش دوره شیمی‌درمانی تجویز کرده است.',
+        'همسر او کارگر ساختمانی روزمزد است و درآمد ماهانه خانواده به‌سختی هزینه اجاره و خورد و خوراک را پوشش می‌دهد. بیمه تنها بخشی از هزینه دارو را می‌پذیرد و سهم بیمار برای هر دوره حدود ۲۳ میلیون تومان است.',
+        'کارشناس مجمع در بازدید میدانی ۶ مرداد، خانه استیجاری خانواده در منطقه ۱۷ تهران را بررسی و مدارک پزشکی را با مرکز درمانی تطبیق داده است. دو دوره اول درمان با کمک اقوام انجام شده و چهار دوره باقی مانده است.',
+        'در صورت تکمیل این پرونده، مبلغ به‌صورت مستقیم به حساب مرکز درمانی واریز و برنامه چهار دوره باقی‌مانده بدون وقفه انجام می‌شود. گزارش هر دوره همراه با فاکتور در پنل خیرین پشتیبان ثبت خواهد شد.'
+      ],
+      budget: [
+        { title: 'داروی شیمی‌درمانی — چهار دوره', note: 'سهم بیمار پس از کسر بیمه', amount: '۹۲٬۰۰۰٬۰۰۰' },
+        { title: 'آزمایش و تصویربرداری دوره‌ای', note: 'سه نوبت آزمایش و یک سی‌تی‌اسکن', amount: '۱۸٬۰۰۰٬۰۰۰' },
+        { title: 'ویزیت و خدمات بستری روزانه', note: 'مرکز درمانی طرف قرارداد', amount: '۱۵٬۰۰۰٬۰۰۰' },
+        { title: 'داروهای حمایتی و مکمل', note: 'نسخه پزشک معالج', amount: '۹٬۰۰۰٬۰۰۰' },
+        { title: 'ایاب و ذهاب بیمار', note: 'دوازده نوبت رفت‌وبرگشت', amount: '۶٬۰۰۰٬۰۰۰' }
+      ].map((b, i) => Object.assign({}, b, {
+        rowStyle: 'display:flex;gap:12px;align-items:center;padding:15px 18px;background:#fff;' + (i ? 'border-top:1px solid #F0F1F3' : '')
+      })),
+      docs: [
+        { title: 'کارت ملی و شناسنامه', meta: 'احراز هویت — تأیید ۵ مرداد' },
+        { title: 'پرونده و نسخه پزشک معالج', meta: 'بازبینی پزشک همکار مجمع' },
+        { title: 'فاکتور رسمی مرکز درمانی', meta: 'تطبیق مبلغ — ۷ مرداد' },
+        { title: 'گزارش بازدید میدانی', meta: 'کارشناس: نگار کیانی' },
+        { title: 'استعلام سهم بیمه', meta: 'تأیید سازمان بیمه‌گر' }
+      ],
+      track: [
+        { title: 'ثبت درخواست', date: '۴ مرداد ۱۴۰۵', body: 'درخواست از طریق درمانگاه محله به مجمع ارجاع شد.', done: true },
+        { title: 'بازدید میدانی', date: '۶ مرداد ۱۴۰۵', body: 'بازدید از محل زندگی و مصاحبه با خانواده انجام شد.', done: true },
+        { title: 'راستی‌آزمایی مدارک', date: '۷ مرداد ۱۴۰۵', body: 'مدارک پزشکی و سهم بیمه استعلام و تأیید شد.', done: true },
+        { title: 'انتشار پرونده', date: '۹ مرداد ۱۴۰۵', body: 'پرونده در گروه درمان با مبلغ ۱۴۰ میلیون تومان منتشر شد.', done: true },
+        { title: 'جمع‌آوری کمک', date: 'در جریان — ۲۱٪', body: 'تا این لحظه ۳۸ خیر مشارکت کرده‌اند؛ مهلت ۱۴ روز.', done: false, active: true },
+        { title: 'پرداخت و گزارش تحویل', date: 'پس از تکمیل مبلغ', body: 'واریز به حساب مرکز درمانی و ثبت فاکتور در پنل خیرین.', done: false }
+      ].map((t, i, arr) => ({
+        title: t.title, date: t.date, body: t.body,
+        dotStyle: 'flex:0 0 14px;width:14px;height:14px;border-radius:50%;margin-top:5px;' +
+          (t.done ? 'background:#12805A' : t.active ? 'background:#F4511E;box-shadow:0 0 0 4px #FEF1EC' : 'background:#fff;border:2px solid #DDE0E4'),
+        lineStyle: i === arr.length - 1 ? 'display:none' : 'flex:1;width:2px;min-height:34px;background:' + (t.done ? '#CDE9DC' : '#EFF0F2'),
+        titleStyle: 'font-size:14px;font-weight:800;color:' + (t.active ? '#D8420F' : '#191C21')
+      })),
+      faq: faqData.map((f, i) => ({
+        q: f.q, a: f.a, open: S.openFaq === i, caret: S.openFaq === i ? '▲' : '▼',
+        onClick: () => this.setState({ openFaq: S.openFaq === i ? -1 : i }),
+        boxStyle: 'display:flex;flex-direction:column;gap:8px;padding:13px 14px;border-radius:15px;cursor:pointer;border:1px solid ' +
+          (S.openFaq === i ? '#F7CDBB;background:#FFF6F2' : '#F0F1F3;background:#fff')
+      })),
+      similar: [
+        { slotId: 'sim-1', title: 'جراحی قلب کودک هفت ساله', code: 'DY-۲۵۴۴', city: 'مشهد', pct: 52, left: '۷۲ م', urgent: false },
+        { slotId: 'sim-2', title: 'پروتز پا برای جوان حادثه‌دیده', code: 'DY-۲۵۷۴', city: 'کرمانشاه', pct: 15, left: '۷۲ م', urgent: true },
+        { slotId: 'sim-3', title: 'داروی ماهانه بیمار ام‌اس', code: 'DY-۲۵۵۸', city: 'تهران', pct: 83, left: '۵ م', urgent: false }
+      ].map(s => Object.assign({}, s, {
+        badge: s.urgent ? 'فوری' : 'در جریان',
+        badgeStyle: 'position:absolute;top:10px;left:10px;pointer-events:none;font-size:11px;font-weight:800;padding:5px 10px;border-radius:9px;' +
+          (s.urgent ? 'background:#FDECEC;color:#C43034' : 'background:#FFF4E5;color:#A2600C'),
+        barStyle: 'display:block;height:100%;width:' + s.pct + '%;background:#F4511E;border-radius:5px'
+      })),
+      donateOpen: S.donate,
+      openDonate: () => this.setState({ donate: true, step: 'choice' }),
+      closeDonate: () => this.setState({ donate: false, step: 'choice' }),
+      isChoice: step === 'choice',
+      isPhone: step === 'phone',
+      isCode: step === 'code',
+      isProfile: step === 'profile',
+      isPay: step === 'pay' || step === 'guest',
+      isGuest: step === 'guest',
+      stepBadge: step === 'choice' ? 'DY-۲۵۲۹ — تهران'
+        : step === 'guest' ? 'پرداخت سریع، بدون عضویت'
+        : step === 'pay' ? 'عضویت انجام شد ✓'
+        : 'عضویت خیرین — گام ' + (step === 'phone' ? '۱ از ۳' : step === 'code' ? '۲ از ۳' : '۳ از ۳'),
+      stepTitle: step === 'choice' ? 'ثبت کمک به این پرونده'
+        : step === 'phone' ? 'شماره موبایل شما'
+        : step === 'code' ? 'کد یک‌بارمصرف'
+        : step === 'profile' ? 'اطلاعات عضویت'
+        : 'مبلغ کمک و پرداخت',
+      canGoBack: step !== 'choice',
+      stepBack: () => this.setState({
+        step: step === 'phone' || step === 'guest' ? 'choice' : step === 'code' ? 'phone' : step === 'profile' ? 'code' : 'profile'
+      }),
+      goSignup: () => this.setState({ step: 'phone' }),
+      goGuest: () => this.setState({ step: 'guest' }),
+      goProfile: () => this.setState({ step: 'profile' }),
+      goPay: () => this.setState({ step: 'pay' }),
+      memberBenefits: [
+        'گزارش تحویل و رسید همین پرونده در پنل شما ثبت می‌شود.',
+        'می‌بینید کمکتان دقیقاً به کدام خانواده و در چه تاریخی رسید.',
+        'سابقه همه کمک‌ها یک‌جا، برای پیگیری یا گزارش مالیاتی.',
+        'اگر بخواهید می‌توانید حامی ماهانه شوید؛ اجباری نیست.'
+      ],
+      phone: S.phone,
+      phoneLabel: S.phone || '۰۹۱۲۳۴۵۶۷۸۹',
+      onPhone: (e) => this.setState({ phone: e.target.value }),
+      sendCode: () => this.setState({ step: 'code', timer: 90 }),
+      codeBoxes: [0, 1, 2, 3].map(i => ({
+        value: S.code[i] || '',
+        onChange: (e) => {
+          const v = String(e.target.value).slice(-1);
+          const next = S.code.slice();
+          next[i] = v;
+          this.setState({ code: next });
+          const box = e.target.parentNode.children[i + 1];
+          if (v && box) box.focus();
+        }
+      })),
+      timerLabel: S.timer > 0 ? 'ارسال دوباره کد تا ' + S.timer.toLocaleString('fa-IR') + ' ثانیه' : 'می‌توانید کد را دوباره درخواست کنید',
+      provinces: ['تهران', 'خراسان رضوی', 'اصفهان', 'فارس', 'خوزستان', 'آذربایجان شرقی', 'گیلان', 'کرمانشاه', 'سیستان و بلوچستان'],
+      province: S.province,
+      onProvince: (e) => this.setState({ province: e.target.value }),
+      cities: ({
+        'تهران': ['تهران', 'کرج', 'اسلامشهر', 'ورامین'],
+        'خراسان رضوی': ['مشهد', 'نیشابور', 'سبزوار'],
+        'اصفهان': ['اصفهان', 'کاشان', 'نجف‌آباد'],
+        'فارس': ['شیراز', 'مرودشت', 'لار'],
+        'خوزستان': ['اهواز', 'آبادان', 'دزفول'],
+        'آذربایجان شرقی': ['تبریز', 'مراغه', 'مرند'],
+        'گیلان': ['رشت', 'انزلی', 'لاهیجان'],
+        'کرمانشاه': ['کرمانشاه', 'اسلام‌آباد غرب'],
+        'سیستان و بلوچستان': ['زاهدان', 'زابل', 'چابهار']
+      })[S.province] || ['تهران'],
+      educations: ['زیر دیپلم', 'دیپلم', 'کاردانی', 'کارشناسی', 'کارشناسی ارشد', 'دکتری'],
+      payerNote: step === 'guest'
+        ? 'پرداخت بدون عضویت انجام می‌شود؛ رسید پیامک می‌شود اما سابقه در پنل ثبت نمی‌ماند.'
+        : 'عضویت شما ثبت شد. از این پس گزارش تحویل این پرونده در پنل شما قابل مشاهده است و هر زمان خواستید عضویت را لغو می‌کنید.',
+      shareLabel: S.shared ? '✓ کپی شد' : 'اشتراک‌گذاری',
+      share: () => this.setState({ shOpen: true }),
+      ...this.shareVals()
+    };
+  }
+}
+</script>
+</body>
+</html>
