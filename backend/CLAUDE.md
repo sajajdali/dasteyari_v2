@@ -53,6 +53,10 @@
 
 ## نکات فنی که یک‌بار باگ ساختند — دوباره تکرار نشوند
 
+- `Illuminate\Database\Schema\Blueprint` در این نسخهٔ Laravel متد `check()` ندارد — برای قید CHECK (مثل مقصد اجباری تراکنش ورودی، بخش ۸.۳ پلن) باید بعد از `Schema::create` با `DB::statement("ALTER TABLE ... ADD CONSTRAINT ... CHECK (...)")` اضافه شود، نه `$table->check(...)` که اصلاً وجود ندارد.
+- هر مدلی که قرار است `::factory()` داشته باشد **باید صریح `use HasFactory;`** بگیرد (خودکار نیست، حتی اگر فایل factory متناظرش وجود داشته باشد) — وگرنه `BadMethodCallException: Call to undefined method`.
+- ترتیب مهاجرت‌ها مهم است: جدول `reasons` خیلی زودتر از جایی که منطقاً «متعلق» به آن است (بخش تنظیمات) ساخته می‌شود، چون `supports.end_reason_id`، `transfers.reason_id` و `case_events.reason_id` خیلی زودتر به آن FK دارند. همین‌طور `allocations` با اینکه در بخش ۳.۳ (کمپین) پلن تعریف شده، در مهاجرت finance ساخته می‌شود چون به `transactions` هم وابسته است. اگر جدول جدیدی اضافه کردی که به چند بخش دیگر FK دارد، مهاجرتش را در همان نقطه‌ای بگذار که **آخرین** وابستگی‌اش ساخته شده، نه جایی که موضوعاً بهش نزدیک‌تر است.
+
 - سایدبار/هدرهای منو از جدول `menus` (مدل `App\Models\Menu`) می‌خوانند، نه از `config('nav')` مستقیم در ویو
 - بازیابی رمز ادمین: URL سفارشی باید با `ResetPassword::createUrlUsing(...)` در `AppServiceProvider::boot()` ثبت شود، نه با override کردن `sendPasswordResetNotification` و صدا زدن `parent::toMail()` (چون خود `toMail()` پیش‌فرض قبل از هر override به دنبال روت `password.reset` می‌گردد که وجود ندارد)
 - ساخت رکورد در `Spatie\Permission\Models\Permission` وسط یک request نیاز به `app(PermissionRegistrar::class)->forgetCachedPermissions()` دارد، وگرنه `syncPermissions()` بلافاصله بعدش خطای «permission does not exist» می‌دهد
