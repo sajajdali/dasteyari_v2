@@ -34,7 +34,7 @@
     </div>
 
     <div x-show="menuOpen" x-cloak @click="menuOpen = false" style="position:fixed;inset:0;z-index:60;background:rgba(15,17,20,.55)"></div>
-    <div x-show="menuOpen" x-cloak @click.outside="menuOpen = false" style="position:fixed;top:0;right:0;bottom:0;z-index:61;width:min(300px,86vw);background:#fff;box-shadow:0 0 60px -18px rgba(0,0,0,.45);display:flex;flex-direction:column;padding:16px 14px;gap:14px;overflow-y:auto">
+    <div class="om-flex" x-show="menuOpen" x-cloak @click.outside="menuOpen = false" style="position:fixed;top:0;right:0;bottom:0;z-index:61;width:min(300px,86vw);background:#fff;box-shadow:0 0 60px -18px rgba(0,0,0,.45);flex-direction:column;padding:16px 14px;gap:14px;overflow-y:auto">
         <div style="display:flex;align-items:center;gap:10px">
             <img src="{{ asset('assets/logo-t.png') }}" alt="دست یاری" style="height:46px;width:auto;object-fit:contain" />
             <div @click="menuOpen = false" style="margin-inline-start:auto;width:36px;height:36px;border-radius:11px;border:1px solid #EDEEF1;display:flex;align-items:center;justify-content:center;color:#5A6169;cursor:pointer">✕</div>

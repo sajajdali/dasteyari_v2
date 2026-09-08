@@ -53,6 +53,35 @@
 
 نمونهٔ انجام‌شده: `.om-admin-shell` در `shell-admin.css`، `.om-auth-shell` در `layouts/auth.blade.php`. این کار برای هر صفحهٔ جدید که شبکهٔ اصلی چیدمانش در استایل inline با breakpoint عوض می‌شود باید تکرار شود.
 
+## Alpine — دو باگ ساکت که هیچ‌وقت ارور نمی‌دهند
+
+### ۱. `x-show` با `display:flex`/`display:grid` inline
+Alpine وقتی عنصر را با `x-show` مخفی می‌کند فقط `display:none` را ست می‌کند؛ وقتی دوباره نشانش می‌دهد آن مقدار را با `removeProperty('display')` **حذف** می‌کند، نه با «flex»ی که در همان رشتهٔ style نوشته بودی جایگزین کند. نتیجه: عنصر به‌جای flex/grid با `display:block` پیش‌فرض مرورگر رندر می‌شود — بدون خطا، فقط چیدمانش (وسط‌چینی، ردیف‌شدن) به‌هم می‌ریزد. این باگ کل مدال انتخاب کشور و منوهای کشویی موبایل را خراب کرده بود.
+
+**قاعده:** هر جا `x-show` روی عنصری هست که باید `display:flex` یا `display:grid` باشد، آن یک تکه از `style` inline در بیاور و به‌جایش کلاس `om-flex` یا `om-grid` (تعریف‌شده در `public/css/app.css`) بگذار:
+```html
+<!-- غلط -->
+<div x-show="open" style="display:flex;align-items:center">
+
+<!-- درست -->
+<div class="om-flex" x-show="open" style="align-items:center">
+```
+
+### ۲. state پیچیدهٔ Alpine داخل یک کامپوننت تک‌فایلی Livewire بدون `wire:ignore`
+اگر ریشهٔ یک کامپوننت Livewire (`⚡name.blade.php`) هم `x-data` با state واقعی دارد (چند مرحله، تایمر، مدال...) و از طریق `$wire.method()` با سرور صحبت می‌کند، **باید ریشهٔ همان div که `x-data` رویش است `wire:ignore` بگیرد**. بدون آن، هر رفت‌وبرگشت واقعی به سرور (حتی یک `$wire.someMethod()` ساده) باعث morph شدن DOM توسط Livewire می‌شود؛ خودِ دادهٔ Alpine درست mutate می‌شود (`Alpine.$data(el).step` مقدار درست را نشان می‌دهد) ولی binding بین آن داده و DOM واقعی قطع می‌شود و `x-show`/`x-text` دیگر رندر نمی‌شوند — باز هم بدون هیچ خطایی در کنسول. علامت مشخصه: مقدار state درست است ولی صفحه عوض نمی‌شود.
+
+نمونهٔ درست (`auth/⚡donor-login.blade.php`):
+```html
+<div wire:ignore style="...">
+    <div x-data="donorAuth({...})" style="display:contents">
+        ...
+    </div>
+</div>
+```
+همچنین `x-data` را مستقیم روی ریشهٔ خودِ کامپوننت Livewire نگذار؛ یک `<div style="display:contents">` جدا داخلش بساز و `x-data` را آنجا بگذار — ریشهٔ Livewire باید «تمیز» بماند.
+
+**قاعدهٔ کلی برای تست:** بعد از هر تغییر state با `$wire.method()`، فقط خواندن مقدار جاوااسکریپتی state (`Alpine.$data(el).x`) کافی نیست — همیشه `getComputedStyle(el).display` (یا اسکرین‌شات واقعی) را هم چک کن، وگرنه ممکن است دادهٔ درست را ببینی ولی DOM واقعاً عوض نشده باشد.
+
 ---
 
 <laravel-boost-guidelines>

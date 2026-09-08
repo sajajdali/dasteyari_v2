@@ -1,4 +1,11 @@
 /* دست یاری — قواعد ریسپانسیو مشترک همه صفحات. آخرین استایل لود شده. */
+[x-cloak] { display: none !important; }
+
+/* Alpine x-show فقط display:none را روی خود عنصر ست/حذف می‌کند و مقدار غیر-block (flex/grid)
+   نوشته‌شده در همان style inline را برنمی‌گرداند؛ برای همین روی هر عنصر x-show که باید flex/grid
+   باشد، آن یک خط از استایل inline در می‌آید و این کلاس‌ها جایگزین می‌شوند. */
+.om-flex { display: flex; }
+.om-grid { display: grid; }
 
 @media (max-width: 900px) {
   .om-set-2col { grid-template-columns: minmax(0, 1fr) !important; }
