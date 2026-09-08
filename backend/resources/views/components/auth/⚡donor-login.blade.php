@@ -37,13 +37,20 @@ new class extends Component
 
         $user = User::where('phone', $full)->where('kind', 'donor')->first();
 
-        if (! $user) {
-            return ['ok' => true, 'needsSignup' => true];
+        if ($user) {
+            $this->login($user);
+
+            return ['ok' => true, 'redirect' => route('donor.dashboard')];
         }
 
-        $this->login($user);
+        // شمارهٔ users.phone یکتای سراسری است — اگر همین شماره قبلاً با نقش دیگری
+        // (مدیر/نیازمند) ثبت شده، اجازهٔ عضویت دوبارهٔ خیر با همان شماره را نمی‌دهیم.
+        $otherKind = User::where('phone', $full)->value('kind');
+        if ($otherKind) {
+            return ['ok' => false, 'error' => 'این شماره قبلاً در سامانه با نقش «'.$this->kindLabel($otherKind).'» ثبت شده و نمی‌تواند دوباره به‌عنوان خیر ثبت‌نام شود.'];
+        }
 
-        return ['ok' => true, 'redirect' => route('donor.dashboard')];
+        return ['ok' => true, 'needsSignup' => true];
     }
 
     public function completeSignup(string $country, string $phone, array $profile): array
@@ -53,6 +60,13 @@ new class extends Component
         $name = trim(($profile['firstName'] ?? '').' '.($profile['lastName'] ?? ''));
         if ($name === '') {
             return ['ok' => false, 'error' => 'نام و نام خانوادگی را وارد کنید.'];
+        }
+
+        // بررسی دوباره درست قبل از ثبت — جلوگیری از خطای خام دیتابیس اگر بین تایید کد
+        // و تکمیل فرم، این شماره جای دیگری (مثلاً هم‌زمان) ثبت شده باشد.
+        $otherKind = User::where('phone', $full)->value('kind');
+        if ($otherKind) {
+            return ['ok' => false, 'error' => 'این شماره قبلاً در سامانه با نقش «'.$this->kindLabel($otherKind).'» ثبت شده و نمی‌تواند دوباره به‌عنوان خیر ثبت‌نام شود.'];
         }
 
         $user = User::create([
@@ -73,6 +87,16 @@ new class extends Component
         $this->login($user);
 
         return ['ok' => true, 'redirect' => route('donor.dashboard')];
+    }
+
+    private function kindLabel(string $kind): string
+    {
+        return match ($kind) {
+            'staff' => 'مدیر سامانه',
+            'needy' => 'نیازمند',
+            'donor' => 'خیر',
+            default => $kind,
+        };
     }
 
     /** شمارهٔ ایران بدون +۹۸ ذخیره می‌شود (مطابق ستون یکتای users.phone)؛ بقیه با dial code کامل. */
