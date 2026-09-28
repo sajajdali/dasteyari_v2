@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\MorphMany;
 
 class Broadcast extends Model
 {
@@ -29,5 +30,10 @@ class Broadcast extends Model
     public function recipients(): HasMany
     {
         return $this->hasMany(BroadcastRecipient::class);
+    }
+
+    public function events(): MorphMany
+    {
+        return $this->morphMany(CaseEvent::class, 'subject');
     }
 }

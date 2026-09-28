@@ -34,6 +34,7 @@ class MenuSeeder extends Seeder
             ['route' => 'site.cases', 'label' => 'پرونده‌ها'],
             ['route' => 'site.groups', 'label' => 'گروه‌های کمک'],
             ['route' => 'site.campaigns', 'label' => 'کمپین‌ها'],
+            ['route' => 'site.news', 'label' => 'اخبار'],
             ['route' => 'site.about', 'label' => 'درباره ما'],
             ['route' => 'site.finance', 'label' => 'شفافیت مالی'],
             ['route' => 'site.terms', 'label' => 'قوانین'],

@@ -7,6 +7,7 @@
  * ثبت‌نام نیازمند جدید از این‌جا نیست — از فرم «ثبت درخواست کمک» (فاز ۱۱) انجام می‌شود.
  */
 
+use App\Exceptions\TooManyOtpAttemptsException;
 use App\Models\User;
 use App\Services\OtpService;
 use Illuminate\Support\Facades\Auth;
@@ -20,14 +21,24 @@ new class extends Component
             return ['ok' => false, 'error' => 'این شماره در سامانه ثبت نشده.'];
         }
 
-        app(OtpService::class)->send($phone);
+        try {
+            app(OtpService::class)->send($phone);
+        } catch (TooManyOtpAttemptsException $e) {
+            return ['ok' => false, 'error' => $e->getMessage()];
+        }
 
         return ['ok' => true];
     }
 
     public function verifyCode(string $phone, string $code): array
     {
-        if (! app(OtpService::class)->verify($phone, $code)) {
+        try {
+            $verified = app(OtpService::class)->verify($phone, $code);
+        } catch (TooManyOtpAttemptsException $e) {
+            return ['ok' => false, 'error' => $e->getMessage()];
+        }
+
+        if (! $verified) {
             return ['ok' => false, 'error' => 'کد واردشده صحیح نیست — دوباره تلاش کنید'];
         }
 

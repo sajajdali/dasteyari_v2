@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\MorphMany;
 
 class Support extends Model
 {
@@ -14,7 +15,7 @@ class Support extends Model
 
     protected $fillable = [
         'donor_id', 'request_id', 'plan', 'amount', 'started_at', 'ended_at',
-        'end_reason_id', 'status', 'given_total', 'months_count',
+        'end_reason_id', 'status', 'given_total', 'months_count', 'reassignment_status',
     ];
 
     protected $casts = [
@@ -45,6 +46,11 @@ class Support extends Model
     public function statusEnum(): SupportStatus
     {
         return SupportStatus::from($this->status);
+    }
+
+    public function events(): MorphMany
+    {
+        return $this->morphMany(CaseEvent::class, 'subject');
     }
 
     /** ردیف منتقل‌شده کم‌رنگ نشان داده می‌شود — بخش ۸.۱ پلن. */

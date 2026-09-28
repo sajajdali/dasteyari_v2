@@ -22,6 +22,14 @@ class RolePermissionSeeder extends Seeder
 
     private const ACTIONS = ['view', 'create', 'edit', 'approve'];
 
+    /**
+     * دیدن سراسری پرونده‌ها، جدا از requests.view — بخش ۲.۴ پلن:
+     * «case-officer فقط پرونده‌هایی را می‌بیند که در keepers پیگیر آن است، مگر requests.view سراسری داشته باشد.»
+     * یعنی خودِ requests.view برای همه هست ولی «سراسری‌بودن» یک مجوز جداست؛ فقط case-officer آن را ندارد
+     * (استفاده در CaseRequest::scopeVisibleTo()).
+     */
+    private const GLOBAL_VIEW_ROLES = ['super-admin', 'manager', 'visit-officer', 'finance', 'support'];
+
     /** ماتریس مجوز — بخش ۲.۳ پلن. 'all' یعنی هر چهار اقدام. */
     private const MATRIX = [
         'super-admin' => [
@@ -64,6 +72,7 @@ class RolePermissionSeeder extends Seeder
                     Permission::findOrCreate("$section.$action", 'admin');
                 }
             }
+            Permission::findOrCreate('requests.view.all', 'admin');
 
             app(PermissionRegistrar::class)->forgetCachedPermissions();
 
@@ -75,6 +84,9 @@ class RolePermissionSeeder extends Seeder
                     foreach ($actions as $action) {
                         $permissions[] = "$section.$action";
                     }
+                }
+                if (in_array($roleName, self::GLOBAL_VIEW_ROLES, true)) {
+                    $permissions[] = 'requests.view.all';
                 }
                 $role->syncPermissions($permissions);
             }

@@ -19,6 +19,7 @@
     </style>
     @livewireStyles
     <script src="{{ asset('js/digits.js') }}" defer></script>
+    <script src="{{ asset('js/jalali-date.js') }}" defer></script>
 </head>
 <body dir="rtl">
     {{ $slot }}

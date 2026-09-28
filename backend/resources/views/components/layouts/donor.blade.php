@@ -10,6 +10,7 @@
     @stack('styles')
     @livewireStyles
     <script src="{{ asset('js/digits.js') }}" defer></script>
+    <script src="{{ asset('js/jalali-date.js') }}" defer></script>
 </head>
 <body dir="rtl">
 <x-donor.header :active="$active ?? 'dashboard'" />

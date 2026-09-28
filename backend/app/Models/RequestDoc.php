@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\MorphMany;
 
 class RequestDoc extends Model
 {
@@ -26,5 +27,10 @@ class RequestDoc extends Model
     public function verifiedBy(): BelongsTo
     {
         return $this->belongsTo(User::class, 'verified_by');
+    }
+
+    public function events(): MorphMany
+    {
+        return $this->morphMany(CaseEvent::class, 'subject');
     }
 }

@@ -1,3 +1,3 @@
 <x-layouts.admin title="داشبورد">
-    <x-partials.soon title="میز کار من" />
+    <livewire:admin.desk />
 </x-layouts.admin>

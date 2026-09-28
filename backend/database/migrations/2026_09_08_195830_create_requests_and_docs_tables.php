@@ -30,7 +30,11 @@ return new class extends Migration
             $t->index(['status', 'published_at']);
             $t->index('needy_id');
             $t->index('requested_at');
-            $t->fullText('title');
+
+            // sqlite (اتصال تست) پشتیبانی fullText ندارد؛ فقط روی mysql/mariadb واقعی ساخته می‌شود.
+            if (Schema::getConnection()->getDriverName() !== 'sqlite') {
+                $t->fullText('title');
+            }
         });
 
         Schema::create('request_docs', function (Blueprint $t) {

@@ -6,13 +6,14 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\MorphMany;
 
 class Transaction extends Model
 {
     use HasFactory;
 
     protected $fillable = [
-        'kind', 'donor_id', 'request_id', 'campaign_id', 'amount', 'way', 'ref',
+        'kind', 'donor_id', 'request_id', 'campaign_id', 'campaign_supporter_id', 'amount', 'way', 'ref',
         'gateway_id', 'status', 'paid_at', 'registered_by', 'manual', 'description', 'meta',
     ];
 
@@ -37,6 +38,11 @@ class Transaction extends Model
         return $this->belongsTo(Campaign::class);
     }
 
+    public function supporter(): BelongsTo
+    {
+        return $this->belongsTo(CampaignSupporter::class, 'campaign_supporter_id');
+    }
+
     public function registeredBy(): BelongsTo
     {
         return $this->belongsTo(User::class, 'registered_by');
@@ -45,5 +51,10 @@ class Transaction extends Model
     public function allocations(): HasMany
     {
         return $this->hasMany(Allocation::class);
+    }
+
+    public function events(): MorphMany
+    {
+        return $this->morphMany(CaseEvent::class, 'subject');
     }
 }

@@ -42,6 +42,16 @@ class User extends Authenticatable
         return $this->hasOne(\App\Models\Needy::class);
     }
 
+    public function donor(): \Illuminate\Database\Eloquent\Relations\HasOne
+    {
+        return $this->hasOne(\App\Models\Donor::class);
+    }
+
+    public function events(): \Illuminate\Database\Eloquent\Relations\MorphMany
+    {
+        return $this->morphMany(\App\Models\CaseEvent::class, 'subject');
+    }
+
     /** حروف اول نام — برای آواتار متنی در هدرها. بخش ۹.۵ پلن. */
     public function getInitialsAttribute(): string
     {

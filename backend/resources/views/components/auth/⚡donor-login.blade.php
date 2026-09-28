@@ -6,6 +6,8 @@
  * guard: donor — بدون رمز، فقط OTP (طبق قالب hi-fi؛ برخلاف جدول ۲.۱ پلن که رمز فرض کرده بود).
  */
 
+use App\Exceptions\TooManyOtpAttemptsException;
+use App\Models\Donor;
 use App\Models\User;
 use App\Services\OtpService;
 use Illuminate\Support\Facades\Auth;
@@ -22,7 +24,11 @@ new class extends Component
             return ['ok' => false, 'error' => 'شماره موبایل معتبر نیست.'];
         }
 
-        app(OtpService::class)->send($full);
+        try {
+            app(OtpService::class)->send($full);
+        } catch (TooManyOtpAttemptsException $e) {
+            return ['ok' => false, 'error' => $e->getMessage()];
+        }
 
         return ['ok' => true];
     }
@@ -31,7 +37,13 @@ new class extends Component
     {
         $full = $this->normalizedPhone($country, $phone);
 
-        if (! app(OtpService::class)->verify($full, $code)) {
+        try {
+            $verified = app(OtpService::class)->verify($full, $code);
+        } catch (TooManyOtpAttemptsException $e) {
+            return ['ok' => false, 'error' => $e->getMessage()];
+        }
+
+        if (! $verified) {
             return ['ok' => false, 'error' => 'کد واردشده صحیح نیست — دوباره تلاش کنید'];
         }
 
@@ -82,6 +94,16 @@ new class extends Component
                 'city' => $profile['city'] ?? null,
                 'currency' => $profile['currency'] ?? null,
             ]),
+        ]);
+
+        // بخش ۳.۴ پلن: پنل خیرین (فاز ۱۰) روی مدل Donor کار می‌کند نه مستقیم User — بدون این ردیف
+        // کاربر می‌تواند وارد شود ولی هیچ‌جای پنل (پرونده‌ها/تعهدها/تراکنش‌ها) او را پیدا نمی‌کند.
+        Donor::create([
+            'user_id' => $user->id,
+            'kind' => 'person',
+            'city' => $profile['city'] ?? null,
+            'status' => 'active',
+            'joined_at' => now(),
         ]);
 
         $this->login($user);

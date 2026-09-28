@@ -7,6 +7,8 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\MorphMany;
+use Illuminate\Database\Eloquent\Builder;
 
 class Donor extends Model
 {
@@ -46,5 +48,32 @@ class Donor extends Model
     public function statusEnum(): DonorStatus
     {
         return DonorStatus::from($this->status);
+    }
+
+    public function events(): MorphMany
+    {
+        return $this->morphMany(CaseEvent::class, 'subject');
+    }
+
+    public function keepers(): MorphMany
+    {
+        return $this->morphMany(Keeper::class, 'subject');
+    }
+
+    public function notes(): MorphMany
+    {
+        return $this->morphMany(Note::class, 'subject');
+    }
+
+    public function pledges(): HasMany
+    {
+        return $this->hasMany(Pledge::class);
+    }
+
+    public function scopeSearch(Builder $q, string $term): Builder
+    {
+        return $q->whereHas('user', fn ($u) => $u
+            ->where('name', 'like', "%$term%")
+            ->orWhere('phone', 'like', "%$term%"));
     }
 }

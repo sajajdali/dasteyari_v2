@@ -49,7 +49,11 @@ return new class extends Migration
 
             $t->index('status');
             $t->index('city');
-            $t->fullText('name');
+
+            // sqlite (اتصال تست) پشتیبانی fullText ندارد؛ فقط روی mysql/mariadb واقعی ساخته می‌شود.
+            if (Schema::getConnection()->getDriverName() !== 'sqlite') {
+                $t->fullText('name');
+            }
         });
     }
 

@@ -1,3 +1,3 @@
 <x-layouts.donor title="داشبورد" active="dashboard">
-    <x-partials.soon title="داشبورد خیر" />
+    <livewire:donor.dashboard />
 </x-layouts.donor>

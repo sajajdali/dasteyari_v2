@@ -14,6 +14,18 @@ class CaseRequest extends Model
 
     protected $table = 'requests';
 
+    /**
+     * تا فاز ۱۱ هیچ کد واقعی (غیر از Factory/تینکر) مستقیم CaseRequest::create() صدا نمی‌زد — به همین
+     * دلیل نبودِ fillable/guarded دیده نشده بود (Factory این چک را دور می‌زند). ⚡request-help.blade.php
+     * اولین مسیر واقعی ثبت درخواست از طریق فرم عمومی است؛ بدون fillable با
+     * MassAssignmentException می‌شکست.
+     */
+    protected $fillable = [
+        'needy_id', 'need_group_id', 'title', 'plan', 'period_days',
+        'amount', 'amount_funded', 'requested_at', 'deadline_at',
+        'status', 'published_at', 'priority', 'slot', 'meta',
+    ];
+
     protected $casts = [
         'meta'         => 'array',
         'requested_at' => 'datetime',
@@ -26,8 +38,13 @@ class CaseRequest extends Model
     public function supports()       { return $this->hasMany(Support::class, 'request_id'); }
     public function activeSupports() { return $this->supports()->where('status', 'active'); }
     public function docs()           { return $this->hasMany(RequestDoc::class, 'request_id'); }
+    public function docRequests()    { return $this->hasMany(DocRequest::class, 'request_id'); }
+    public function pledges()        { return $this->hasMany(Pledge::class, 'request_id'); }
+    public function transactions()   { return $this->hasMany(Transaction::class, 'request_id'); }
     public function events()         { return $this->morphMany(CaseEvent::class, 'subject'); }
     public function keepers()        { return $this->morphMany(Keeper::class, 'subject'); }
+    public function visits()         { return $this->hasMany(Visit::class, 'request_id'); }
+    public function costItems()      { return $this->hasMany(RequestCostItem::class, 'request_id')->orderBy('order'); }
 
     public static function morphName(): string { return 'request'; }
 
@@ -68,5 +85,31 @@ class CaseRequest extends Model
                 ->where('name', 'like', "%$term%")
                 ->orWhere('code', 'like', "%$term%")
                 ->orWhere('city', 'like', "%$term%")));
+    }
+
+    /** پرونده‌های «در انتظار کمک» سایت عمومی — بخش ۹.۴/۱۲ پلن؛ منتشرشده ولی هنوز تکمیل نشده. */
+    public function scopePublicOpen(Builder $q): Builder
+    {
+        return $q->whereIn('status', ['published', 'funding']);
+    }
+
+    /** برچسب فوریت سایت عمومی — تفسیر من از روی مهلت باقی‌مانده (طرح تعریف عددی نداشت، بخش ۹.۴). */
+    public function getPublicUrgencyAttribute(): array
+    {
+        if ($this->plan === 'monthly') {
+            return ['label' => 'ماهانه', 'kind' => 'ok'];
+        }
+
+        if (! $this->deadline_at) {
+            return ['label' => 'بدون مهلت مشخص', 'kind' => 'ok'];
+        }
+
+        $days = (int) now()->diffInDays($this->deadline_at, false);
+
+        return match (true) {
+            $days <= 10 => ['label' => 'فوری', 'kind' => 'late'],
+            $days <= 30 => ['label' => 'در جریان', 'kind' => 'soon'],
+            default     => ['label' => 'زمان کافی', 'kind' => 'ok'],
+        };
     }
 }

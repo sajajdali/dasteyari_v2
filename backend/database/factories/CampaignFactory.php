@@ -20,7 +20,7 @@ class CampaignFactory extends Factory
         return [
             'code' => 'CP-'.str_pad((string) static::$seq, 4, '0', STR_PAD_LEFT),
             'title' => $title,
-            'slug' => Str::slug($title).'-'.static::$seq,
+            'slug' => Str::slug($title, '-', null).'-'.static::$seq,
             'category_id' => null,
             'state' => 'running',
             'goal' => $goal,

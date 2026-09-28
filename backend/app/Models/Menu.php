@@ -9,6 +9,16 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Menu extends Model
 {
+    /**
+     * تا فاز ۱۳ هیچ کد واقعی (غیر از Seeder) مستقیم Menu::update()/updateOrCreate() صدا نمی‌زد —
+     * Artisan's SeedCommand کل اجرای seederها را با Model::unguarded() دور می‌زند (بخش داخلی
+     * فریم‌ورک)، پس نبودِ fillable هیچ‌وقت در MenuSeeder دیده نمی‌شد؛ اولین مصرف‌کنندهٔ واقعی
+     * (کارت «منوها» در تنظیمات) با MassAssignmentException می‌شکست. همان الگوی کشف‌شدهٔ
+     * CaseRequest (فاز ۱۱) و Donor (فاز ۱۰) — نکته‌اش این‌جا مستند شد که فقط به «هیچ‌جا صدا زده
+     * نشده» فکر نکنیم، «هیچ‌جا خارج از Seeder صدا زده نشده» را هم چک کنیم.
+     */
+    protected $fillable = ['panel', 'parent_id', 'label', 'icon', 'route', 'link', 'permission', 'badge_key', 'order', 'active'];
+
     protected $casts = [
         'active' => 'boolean',
     ];

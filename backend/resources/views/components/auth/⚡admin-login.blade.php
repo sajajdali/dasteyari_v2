@@ -42,6 +42,30 @@ new class extends Component
 
         $this->redirect(route('admin.desk'), navigate: true);
     }
+
+    /**
+     * ورود آزمایشی — فقط local/staging (همان گارد `App\Services\OtpService::isMasterCode()` برای کد
+     * OTP اصلی)؛ در production این متد هم چک محیط دارد هم دکمهٔ نمایشی زیر مخفی است، تا مسیر URL
+     * به‌تنهایی هم (نه فقط مخفی‌کردن دکمه) قابل دورزدن نباشد.
+     */
+    public function loginAsTestAdmin(): void
+    {
+        abort_unless(app()->environment(['local', 'staging']), 404);
+
+        $user = User::where('kind', 'staff')->where('phone', '09122978167')->first();
+
+        if (! $user || ! $user->active) {
+            $this->formError = 'کاربر آزمایشی یافت نشد.';
+
+            return;
+        }
+
+        Auth::guard('admin')->login($user);
+        session()->regenerate();
+        $user->forceFill(['last_login_at' => now()])->save();
+
+        $this->redirect(route('admin.desk'), navigate: true);
+    }
 };
 ?>
 
@@ -82,6 +106,9 @@ new class extends Component
                 <div style="font-size:13px;font-weight:700;color:#C43034;background:#FDECEC;padding:12px 16px;border-radius:12px">{{ $formError }}</div>
             @endif
             <button type="submit" style="height:54px;border:0;border-radius:14px;background:#F4511E;color:#fff;font-size:16px;font-weight:700;cursor:pointer;box-shadow:0 10px 22px -12px rgba(244,81,30,.85)" wire:loading.attr="disabled">ورود به پنل</button>
+            @if (app()->environment(['local', 'staging']))
+                <button type="button" wire:click="loginAsTestAdmin" style="height:46px;border:1.5px dashed #BFE3D0;border-radius:14px;background:#F7FBF9;color:#0F6B4C;font-size:13.5px;font-weight:700;cursor:pointer" wire:loading.attr="disabled">⚡ ورود آزمایشی (فقط محیط تست)</button>
+            @endif
             <div style="font-size:12.5px;color:#9AA0A8;line-height:2">دسترسی این پنل محدود به مدیران تایید‌شده است. هر ورود ثبت و بازرسی می‌شود.</div>
         </form>
     </div>

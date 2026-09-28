@@ -24,4 +24,14 @@ enum SupportStatus: string
     {
         return $this === self::Transferred;
     }
+
+    /** گذارهای مجاز — بخش ۴.۲ پلن. انتقال (Transferred) برگشت‌ناپذیر است. */
+    public function allowed(): array
+    {
+        return match ($this) {
+            self::Active => [self::Paused, self::Ended, self::Transferred],
+            self::Paused => [self::Active, self::Ended, self::Transferred],
+            self::Ended, self::Transferred => [],
+        };
+    }
 }

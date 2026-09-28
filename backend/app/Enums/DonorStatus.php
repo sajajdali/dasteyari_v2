@@ -17,6 +17,16 @@ enum DonorStatus: string
         };
     }
 
+    /** رنگ برچسب — همان توکن‌های RequestStatus/CampaignState، هیچ if رنگی در ویو نوشته نشود. */
+    public function colors(): array
+    {
+        return match ($this) {
+            self::Active => ['bg' => '#EAF7F1', 'fg' => '#12805A', 'bd' => '#C9E9DA'],
+            self::Suspended => ['bg' => '#FFF8EA', 'fg' => '#8A5200', 'bd' => '#F0D49A'],
+            self::Blocked => ['bg' => '#FFF3F3', 'fg' => '#C43034', 'bd' => '#F5C9C9'],
+        };
+    }
+
     /** گذارهای مجاز — بخش ۴.۴ پلن. */
     public function allowed(): array
     {

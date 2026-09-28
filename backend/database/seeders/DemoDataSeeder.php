@@ -32,9 +32,25 @@ class DemoDataSeeder extends Seeder
 
         $staff = User::where('kind', 'staff')->first() ?? User::factory()->create(['kind' => 'staff']);
 
-        // ۲۰ نیازمند، هرکدام با یک پرونده (درخواست)
+        // نیازمند نمونهٔ ثابت (۰۹۱۲۰۰۰۰۰۰۳) — ردیف Needy متناظرش تا فاز ۱۱ ساخته نشده بود (نکتهٔ فنی
+        // UserSeeder)؛ چون این‌جا (نه UserSeeder) اجرا می‌شود، جلوتر از چک Needy::count() بالا رد
+        // نمی‌شود و ۲۰ نیازمند نمایشی زیر را هم دوباره seed نمی‌کند.
+        $demoNeedyUser = User::where('phone', '09120000003')->first();
+        if ($demoNeedyUser) {
+            Needy::updateOrCreate(
+                ['user_id' => $demoNeedyUser->id],
+                ['name' => $demoNeedyUser->name, 'code' => 'BN-000003', 'city' => 'تهران', 'province' => 'تهران']
+            );
+        }
+
+        // ۲۰ نیازمند، هرکدام با یک پرونده (درخواست).
+        // کشف فاز ۱۴‑ب: بدون `need_group_id` صریح این‌جا، هر ۲۰ پرونده با پیش‌فرض null فکتوری
+        // (`CaseRequestFactory`) ساخته می‌شدند — یعنی فیلتر «گروه نیاز» در `⚡requests-table` و هر
+        // شمارندهٔ گروه‌محور دیگر (مثل `⚡desk`) همیشه صفر برمی‌گرداند، با اینکه خودِ نیازمندها گروه
+        // واقعی داشتند (`NeedyFactory`). این‌جا گروه پرونده از گروه نیازمندش به ارث می‌رسد — دقیقاً
+        // رفتار واقعی مورد انتظار (نوع نیاز پرونده معمولاً همان گروه ثبت‌شدهٔ نیازمند است).
         $requests = Needy::factory()->count(20)->create()->map(
-            fn (Needy $needy) => CaseRequest::factory()->for($needy)->create()
+            fn (Needy $needy) => CaseRequest::factory()->for($needy)->create(['need_group_id' => $needy->need_group_id])
         );
 
         // ۱۵ خیر

@@ -2,10 +2,13 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
+use Illuminate\Database\Eloquent\Relations\MorphMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Needy extends Model
@@ -45,6 +48,25 @@ class Needy extends Model
     public function payouts(): HasMany
     {
         return $this->hasMany(Payout::class);
+    }
+
+    /** آخرین پرونده — سطر «فهرست نیازمندان» یک پرونده نماینده در هر ردیف نشان می‌دهد (بخش ۹.۱ پلن). */
+    public function latestRequest(): HasOne
+    {
+        return $this->requests()->one()->latestOfMany('requested_at');
+    }
+
+    public function notes(): MorphMany
+    {
+        return $this->morphMany(Note::class, 'subject');
+    }
+
+    public function scopeSearch(Builder $q, string $term): Builder
+    {
+        return $q->where(fn ($x) => $x
+            ->where('name', 'like', "%$term%")
+            ->orWhere('code', 'like', "%$term%")
+            ->orWhere('city', 'like', "%$term%"));
     }
 
     /** بدون حامی فعال — بخش ۳.۹ پلن، هرگز ستون دستی نمی‌شود. */

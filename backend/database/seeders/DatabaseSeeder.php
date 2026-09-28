@@ -20,6 +20,9 @@ class DatabaseSeeder extends Seeder
             MenuSeeder::class,
             NeedGroupSeeder::class,
             ReasonSeeder::class,
+            SmsTemplateSeeder::class,
+            PageSeeder::class,
+            PostSeeder::class,
             DemoDataSeeder::class,
         ]);
     }

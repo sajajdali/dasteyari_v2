@@ -35,3 +35,18 @@ input:focus{outline:none}
 @media (max-width:560px){
   .om-sh-cta > a{padding:0 14px !important;font-size:13px !important}
 }
+
+/* از پروندهها.dc.html — سایدبار فیلتر دسکتاپ در برابر پنل جمع‌شوندهٔ موبایل */
+.om-cs-side{display:flex}
+.om-cs-mfilter{display:none}
+@media (max-width:900px){
+  .om-cs-side{display:none}
+  .om-cs-side.om-cs-open{display:flex !important;position:static !important}
+  .om-cs-mfilter{display:flex !important;width:100%}
+}
+
+/* از درباره ما.dc.html — بدنهٔ HTML آزاد جدول pages (فاز ۱۲‑ج) */
+.om-about-body h2{font-size:19px;font-weight:800;letter-spacing:-.4px;margin:8px 0 0}
+.om-about-body p{margin:0 0 4px}
+.om-about-body ul{margin:0;padding-inline-start:20px;display:flex;flex-direction:column;gap:8px}
+.om-about-body li{line-height:2.1}

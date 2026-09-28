@@ -6,6 +6,7 @@ use App\Enums\CampaignState;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\MorphMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Campaign extends Model
@@ -51,6 +52,11 @@ class Campaign extends Model
     public function statusEnum(): CampaignState
     {
         return CampaignState::from($this->state);
+    }
+
+    public function events(): MorphMany
+    {
+        return $this->morphMany(CaseEvent::class, 'subject');
     }
 
     /** درصد تامین — بخش ۳.۹ پلن. */

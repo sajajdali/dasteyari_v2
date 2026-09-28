@@ -1,0 +1,17 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "dasteyari-backend",
+      "runtimeExecutable": "/opt/homebrew/opt/php@8.5/bin/php",
+      "runtimeArgs": ["backend/artisan", "serve", "--port=8033"],
+      "port": 8033
+    },
+    {
+      "name": "dasteyari-backend-2",
+      "runtimeExecutable": "/opt/homebrew/opt/php@8.5/bin/php",
+      "runtimeArgs": ["backend/artisan", "serve", "--port=8044"],
+      "port": 8044
+    }
+  ]
+}
